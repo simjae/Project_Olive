@@ -25,6 +25,13 @@
 	</repositories>
 
 	<dependencies>
+	<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- MySql Driver 의존성 -->
 		<dependency>
 			<groupId>mysql</groupId>
