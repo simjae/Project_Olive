@@ -1,0 +1,21 @@
+희승,채연,재형이 만든 페이지가 로그인 성공 후 WEB-INF폴더에
+들어가게 되면 사라질 파일입니다.
+
+/webapp/resources/css/
+- caheyeon.css : 
+	채연이가 sb-admin-2.css 파일 수정하면서 작업했음. 채연이 페이지에만 chaeyeon.css 가 들어갈 예정
+	
+/webapp/resources/js/
+- openweatherAPIuser.js :
+	openweather가 제공하는 날씨 API를 사용하기 위한 js파일
+	
+/webapp/index.jsp
+: 로그인 시 나오는 메인 대쉬보드 페이지입니다. 아직 이 파일은 디렉토리 미분류됨.
+
+/webapp/Login.jsp
+: 선우형이 시큐리티 시험용으로 만들어 놓은 파일.
+
+/webapp/mainLogin.jsp
+: 채연이가 만든 메인 로그인 페이지.
+
+

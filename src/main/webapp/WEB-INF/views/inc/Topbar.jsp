@@ -1,9 +1,15 @@
+<%-- 
+    파일명: Topbar.jsp
+    설명: 사원 로그인 시 프로필사진, 알람 노출 모듈화 페이지
+    작성일: 2020-12-26
+    작성자: 백희승
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <!-- Topbar -->
 <nav
-	class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+	class="navbar navbar-expand navbar-light bg-white topbar topbar-cst mb-4 static-top shadow">
 
 	<!-- Sidebar Toggle (Topbar) -->
 	<button id="sidebarToggleTop"
@@ -113,7 +119,7 @@
 				<a class="dropdown-item d-flex align-items-center" href="#">
 					<div class="dropdown-list-image mr-3">
 						<img class="rounded-circle"
-							src="resources/img/undraw_profile_1.svg" alt="">
+							src="/resources/img/undraw_profile_1.svg" alt="">
 						<div class="status-indicator bg-success"></div>
 					</div>
 					<div class="font-weight-bold">
@@ -124,7 +130,7 @@
 				</a> <a class="dropdown-item d-flex align-items-center" href="#">
 					<div class="dropdown-list-image mr-3">
 						<img class="rounded-circle"
-							src="resources/img/undraw_profile_2.svg" alt="">
+							src="/resources/img/undraw_profile_2.svg" alt="">
 						<div class="status-indicator"></div>
 					</div>
 					<div>
@@ -135,7 +141,7 @@
 				</a> <a class="dropdown-item d-flex align-items-center" href="#">
 					<div class="dropdown-list-image mr-3">
 						<img class="rounded-circle"
-							src="resources/img/undraw_profile_3.svg" alt="">
+							src="/resources/img/undraw_profile_3.svg" alt="">
 						<div class="status-indicator bg-warning"></div>
 					</div>
 					<div>
@@ -168,7 +174,7 @@
 			aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas
 					McGee</span> <img class="img-profile rounded-circle"
-				src="resources/img/undraw_profile.svg">
+				src="/resources/img/undraw_profile.svg">
 		</a> <!-- Dropdown - User Information -->
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
