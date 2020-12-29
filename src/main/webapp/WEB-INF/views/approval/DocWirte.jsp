@@ -50,67 +50,219 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">기안하기</h1>
-
-					<div class="col-md-12 mx-auto border">
-						<div class="row">
-							<div class="col-md-4 my-2 ml-4">
-								<div class="col-md-12 border">
-									<div class="row">
-										<div class=" text-lg my-2 mx-auto">문서 종류</div>
-										<div class="my-auto mx-auto">
-											<select class="px-4" id="selector">
-												<option selected>선택하세요</option>
-												<option>연차신청서</option>
-												<option>출장 신청서</option>
-											</select>
-
-										</div>
-									</div>
-								</div>
-							</div>
-							<%-- <div class="col-md-3 my-2 mx-auto border">
-								<div class="row">
-								<sec:authentication property="name" var="LoginUser" />
-								<sec:authorize access="isAuthenticated()">
-									<div class="text-lg my-2 mx-auto">
-										작성자 : ${LoginUser}
-									</div>
-								</sec:authorize>
-								</div>
-							
-							</div>
-							<c:set var="time" value="${requestScope.time }"/>
-							<div class="col-md-3 my-2 mx-auto border">
-							
-							<div class="text-lg my-2 mx-auto">
-							기안 일자 : ${time} 
-							</div>
-							
-							
-							</div> --%>
-							<div class="position-relative">
-								<div class="position-absolute top-50 end-0">
-
+					<div class="row">
+						<div class="col-md-2 h3 my-auto text-gray-800">기안하기</div>
+						<div class="col-md-10">
+							<div class="d-flex flex-row-reverse mr-0">
+								<div class="p-2">
 									<button href="#"
-										class="btn btn-success btn-icon-split">
-										<span class="icon text-white-50"> <i
-											class="fas fa-check"></i>
-										</span> <span class="text">기안 하기</span>
-									</button>
-
-								</div>
-								<div class="position-absolute top-50 end-0">
-
-									<button href="#"
-										class="btn btn-danger btn-icon-split my-auto mx-2">
+										class="btn btn-danger btn-icon-split my-auto mr-0">
 										<span class="icon text-white-50"> <i
 											class="fas fa-trash"></i>
 										</span> <span class="text">취소 하기</span>
 									</button>
 								</div>
+								<div class="p-2">
+									<button href="#" class="btn btn-success btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-check"></i>
+										</span> <span class="text">기안 하기</span>
+									</button>
+								</div>
+								<div class="p-2">
+									<button href="#" class="btn btn-primary btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-check"></i>
+										</span> <span class="text">미리 보기</span>
+									</button>
+								</div>
 							</div>
 						</div>
+
+					</div>
+
+
+					<div class="col-md-12 border py-2" style="background: white;">
+						<div class="row">
+							<div class="card mb-4 py-0 border-left-primary mx-auto col-lg-2">
+								<div class="card-body py-2">
+									<div class="text-center text-primary">문서종류</div>
+									<div class="mx-auto w-100">
+										<select class="px-3 mx-auto w-100" id="selector">
+											<option value="0">선택하세요</option>
+											<option value="1">연차신청서</option>
+											<option value="2">출장신청서</option>
+										</select>
+
+									</div>
+								</div>
+							</div>
+							<div class="card mb-4 py-0 border-left-primary mx-auto col-lg-2">
+								<div class="card-body py-2">
+									<div class="text-center text-primary">사번</div>
+									<sec:authentication property="name" var="LoginUser" />
+									<sec:authorize access="isAuthenticated()">
+										<div class="text-md mt-1 text-center">${LoginUser}</div>
+									</sec:authorize>
+								</div>
+							</div>
+							<div class="card mb-4 py-0 border-left-primary mx-auto col-lg-3">
+								<div class="card-body py-2">
+									<div class="text-center text-primary">작성일자</div>
+									<c:set var="time" value="${requestScope.time}" />
+									<div class="text-md mt-1 text-center">${time}</div>
+
+								</div>
+							</div>
+							<div class="col-12 col-xl-4 mx-auto px-0">
+								<div class="border">
+									<div class="d-flex flex-row-reverse mr-0">
+										<div class="mx-0 my-0">
+											<table class="table-bordered">
+												<thead>
+													<tr>
+														<th>결재자1</th>
+														<th>결재자2</th>
+														<th>결재자3</th>
+														<th>결재자4</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>asdfasdf</td>
+														<td>asdfasdf</td>
+														<td>asdfasdf</td>
+														<td>asdfasdf</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<%-- <div class="col-md-7 my-auto">
+
+								<div class="row">
+									<div
+										class="card border-left-primary shadow py-0 my-auto px-4 mx-auto col-md-3">
+										<div class="card-body my-0 ">
+											<div class="row no-gutters align-items-center">
+												<div class="col mx-auto">
+													<div
+														class=" text-center font-weight-bold text-primary text-uppercase mb-1">
+														문서종류</div>
+													<div class="mx-auto mb-0 font-weight-bold text-gray-800">
+														<select class="px-4 mx-auto" id="selector">
+															<option value="0">선택하세요</option>
+															<option value="1">연차신청서</option>
+															<option value="2">출장 신청서</option>
+														</select>
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div
+										class="card border-left-primary shadow py-0 my-auto px-4 mx-auto col-md-2">
+										<div class="card-body my-0">
+											<div class="row no-gutters align-items-center">
+												<div class="col mx-auto">
+													<div
+														class=" text-center font-weight-bold text-primary text-uppercase mb-1">
+														사번</div>
+													<div class="mx-auto mb-0 font-weight-bold text-gray-800">
+														<sec:authentication property="name" var="LoginUser" />
+														<sec:authorize access="isAuthenticated()">
+															<div class="text-md mt-1 text-center">${LoginUser}</div>
+														</sec:authorize>
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div
+										class="card border-left-primary shadow py-0 my-auto px-4 mx-auto col-md-4">
+										<div class="card-body my-0">
+											<div class="row no-gutters align-items-center">
+												<div class="col mx-auto">
+													<div
+														class=" text-center font-weight-bold text-primary text-uppercase mb-1">
+														작성 일자</div>
+													<div class="mx-auto mb-0 font-weight-bold text-gray-800">
+														<c:set var="time" value="${requestScope.time }" />
+														<div class="text-md mt-1 text-center">${time}</div>
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									
+									
+								</div>
+
+							</div> --%>
+
+							<!-- <div class="col-md-3 px-auto mx-auto">
+								<div class="card shadow ">
+									<div class="card-header px-0 py-0">
+										<div class="text-md-center mx-auto my-auto">결재자</div>
+									</div>
+									<div class="card-body px-1 py-1">
+										<table class="table table-bordered dataTable my-0"
+											id="dataTable" width="100%" cellspacing="0" role="grid"
+											aria-describedby="dataTable_info" style="width: 100%;">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc text-center" tabindex="0"
+														aria-controls="dataTable" rowspan="1" colspan="1"
+														aria-sort="ascending"
+														aria-label="Name: activate to sort column descending"
+														style="width: 25%;">결재자 1</th>
+													<th class="sorting text-center" tabindex="0"
+														aria-controls="dataTable" rowspan="1" colspan="1"
+														aria-label="Position: activate to sort column ascending"
+														style="width: 25%;">결재자 2</th>
+													<th class="sorting text-center" tabindex="0"
+														aria-controls="dataTable" rowspan="1" colspan="1"
+														aria-label="Office: activate to sort column ascending"
+														style="width: 25%;">결재자 3</th>
+													<th class="sorting text-center" tabindex="0"
+														aria-controls="dataTable" rowspan="1" colspan="1"
+														aria-label="Age: activate to sort column ascending"
+														style="width: 25%;">결재자 4</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="border text-center">hwijoefa</td>
+													<td class="border text-center">siojfi</td>
+													<td class="border text-center">asdfsa</td>
+													<td class="border text-center">asfasd</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div> -->
+
+						</div>
+						<div class="col-md-12" id="duration"></div>
+
+						<div class="col-md-12">
+							<div class="" style="width: 100%">
+								<span style="width: 20%">제목 :</span><input class="mx-4"
+									type="text" name="name" id="name" style="width: 80%">
+							</div>
+
+						</div>
+
 
 					</div>
 
@@ -167,6 +319,28 @@
 #selector {
 	border-radius: 20px;
 }
-</style>
 
+
+</style>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$('.datepicker').datepicker();
+
+		$('#selector').on("change",()=>{
+			$('#duration').empty();
+			if($('#selector').val()=='2'|| $('#selector').val()=='1'){
+				let html = '<div class="card border-left-primary shadow h-100 py-0 my-2 px-4 mx-auto"><div class="card-body my-0">'+
+				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
+				'기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker" id="starttime" name="starttime" width="276">'+
+				'<span class="mx-2">~</span><input type="text" class="datepicker" name="endtime" width="276"></div></div></div></div></div></div>';
+				$('#duration').append(html);
+				console.log($('#selector').val());
+			}
+		});
+	});
+</script>
 </html>
