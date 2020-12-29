@@ -10,6 +10,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+
 <!DOCTYPE html>
 
 <head>
@@ -53,32 +54,22 @@
 
 					<div class="col-md-12 mx-auto border">
 						<div class="row">
-							<div class="col-md-4 my-2 ml-2">
+							<div class="col-md-4 my-2 ml-4">
 								<div class="col-md-12 border">
 									<div class="row">
 										<div class=" text-lg my-2 mx-auto">문서 종류</div>
-										<!-- <div class="mx-auto my-auto dropdown">
-											<button class="btn btn-primary dropdown-toggle" type="button"
-												id="dropdownMenuButton" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false">선택하기</button>
-											<div class="dropdown-menu animated--fade-in"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">연차 신청서</a> <a
-													class="dropdown-item" href="#">출장 계획서</a>
-											</div>
-										</div> -->
-										<select class="my-auto mx-auto px-4" id="selector">
-											<option selected>선택하세요
-											</option>
-											<option>연차신청서
-											</option>
-											<option>출장 신청서
-											</option>
-										</select>
+										<div class="my-auto mx-auto">
+											<select class="px-4" id="selector">
+												<option selected>선택하세요</option>
+												<option>연차신청서</option>
+												<option>출장 신청서</option>
+											</select>
+
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-3 my-2 mx-auto border">
+							<%-- <div class="col-md-3 my-2 mx-auto border">
 								<div class="row">
 								<sec:authentication property="name" var="LoginUser" />
 								<sec:authorize access="isAuthenticated()">
@@ -89,7 +80,36 @@
 								</div>
 							
 							</div>
-							<div class="col-md-3 my-2 mx-auto border"></div>
+							<c:set var="time" value="${requestScope.time }"/>
+							<div class="col-md-3 my-2 mx-auto border">
+							
+							<div class="text-lg my-2 mx-auto">
+							기안 일자 : ${time} 
+							</div>
+							
+							
+							</div> --%>
+							<div class="position-relative">
+								<div class="position-absolute top-50 end-0">
+
+									<button href="#"
+										class="btn btn-success btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-check"></i>
+										</span> <span class="text">기안 하기</span>
+									</button>
+
+								</div>
+								<div class="position-absolute top-50 end-0">
+
+									<button href="#"
+										class="btn btn-danger btn-icon-split my-auto mx-2">
+										<span class="icon text-white-50"> <i
+											class="fas fa-trash"></i>
+										</span> <span class="text">취소 하기</span>
+									</button>
+								</div>
+							</div>
 						</div>
 
 					</div>
@@ -141,14 +161,12 @@
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
-
 </body>
 
-	<style>
-		#selector{
-			border-radius:20px;
-		}
-	
-	</style>
+<style>
+#selector {
+	border-radius: 20px;
+}
+</style>
 
 </html>
