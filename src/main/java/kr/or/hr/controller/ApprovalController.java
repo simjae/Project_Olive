@@ -17,4 +17,10 @@ public class ApprovalController {
 		
 		return "approval/approvalHome";
 	}
+	
+	@RequestMapping(value = "DocWrite.do", method = RequestMethod.GET)
+	public String DocWrite() {
+
+		return "approval/DocWirte";
+	}
 }

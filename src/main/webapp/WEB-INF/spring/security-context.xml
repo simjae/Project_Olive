@@ -17,13 +17,13 @@
 <security:http auto-config="true" use-expressions="true">
 		<security:csrf disabled="true"/> 
 		<security:form-login 
-			default-target-url="/.do" 
-			login-page="/Login.jsp"
+			default-target-url="/Login.do" 
+			login-page="/mainLogin.jsp"
 			authentication-failure-url=""
 			username-parameter="empno" 
 			password-parameter="pwd"/>
 			
-		<security:logout logout-success-url="/home.jsp" />
+		<security:logout logout-success-url="/mainLogin.jsp" />
 		<!-- <security:intercept-url
 			pattern="/EmpManagement.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')" />
 		<security:intercept-url
@@ -47,8 +47,11 @@
 														           WHERE m.id=?" />
 		<security:password-encoder ref="bCryptPasswordEncoder"/> -->
 	 <security:user-service>
-			<security:user name="admin" password="1004" authorities="ROLE_USER,ROLE_ADMIN"/>
-			<security:user name="hong"  password="1004" authorities="ROLE_USER" />
+	 		<security:user name="1001" password="1004" authorities="ROLE_USER,ROLE_HR,ROLE_MANAGER,ROLE_GENERAL,ROLE_ADMIN"/>
+			<security:user name="1002" password="1004" authorities="ROLE_USER,ROLE_HR,ROLE_MANAGER,ROLE_GENERAL"/>
+			<security:user name="1003"  password="1004" authorities="ROLE_USER,ROLE_GENERAL,ROLE_MANAGER" />
+			<security:user name="1004" password="1004" authorities="ROLE_USER,ROLE_GENERAL"/>
+			<security:user name="1005" password="1004" authorities="ROLE_USER"/>
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
