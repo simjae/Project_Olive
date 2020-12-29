@@ -33,10 +33,11 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="resources/css/chaeyeon.css" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-loginpage">
 
     <div class="container">
 
@@ -79,7 +80,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-login btn-user btn-block">
                                             Login
                                         </button>
                                     </form>
