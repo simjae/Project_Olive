@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
  * Copyright 2013-2020 Start Bootstrap
@@ -41,10 +42,84 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+/* 내가 !!!!!  */
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+.NanumGothic{
+  font-family: 'Nanum Gothic', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+.NanumGothicB{
+  font-family: 'Nanum Gothic', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+.NanumGothicUB{
+  font-family: 'Nanum Gothic', sans-serif;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.styled-table {
+  
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  min-width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #86A8E7;
+  color: #ffffff;
+
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #7F7FD5;
+}
+
+.button {
+  width:100px;
+  background-color: #7F7FD5;
+  border: none;
+  color:#fff;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius:10px;
+
+  
+}
+
+
+
+
+/* 내가 !!!!!  */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 html {
@@ -62,7 +137,7 @@ body {
   margin: 0;
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
-  font-weight: 400;
+  /* font-weight: 400; */
   line-height: 1.5;
   color: #858796;
   text-align: left;
@@ -82,11 +157,16 @@ hr {
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+
+
+
 }
 
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+
+
 }
 
 abbr[title],
@@ -118,6 +198,7 @@ ul ul,
 ol ul,
 ul ol {
   margin-bottom: 0;
+  
 }
 
 dt {
@@ -363,7 +444,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  /* font-weight: 400; */
   line-height: 1.2;
 }
 
@@ -1831,11 +1912,11 @@ pre code {
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: 400;
   line-height: 1.5;
   color: #6e707e;
-  background-color: #fff;
+  background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid #d1d3e2;
   border-radius: 0.35rem;
@@ -1981,7 +2062,11 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  
+  
 }
 
 .form-text {
@@ -2348,14 +2433,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color:#7F7FD5;;
+  border-color: #7F7FD5;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
+  background-color: #86A8E7;
+  border-color: #86A8E7;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -3558,7 +3643,7 @@ input[type="button"].btn-block {
 
 .custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
-  border-color: #4e73df;
+  border-color: #7F7FD5;
   background-color: #4e73df;
 }
 
@@ -9555,11 +9640,11 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #4e73df !important;
+  color: #4c4cb9 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #224abe !important;
+  color: #4c4cb9 !important;
 }
 
 .text-secondary {
@@ -9863,8 +9948,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-  background-color: #4e73df;
-  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  background-color: #7F7FD5;
+  background-image: linear-gradient(to right, #7F7FD5 10%, #86A8E7 100%);
   background-size: cover;
 }
 
@@ -10097,6 +10182,7 @@ a:focus {
 .topbar .nav-item.dropdown .dropdown-toggle::after {
   width: 1rem;
   text-align: center;
+  float: right;
   vertical-align: 0;
   border: 0;
   font-weight: 900;
@@ -10848,6 +10934,7 @@ form.user .form-control-user {
   font-size: 0.8rem;
   border-radius: 10rem;
   padding: 1.5rem 1rem;
+  margin-top:15px;
 }
 
 form.user .btn-user {
