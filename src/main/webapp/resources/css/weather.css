@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.weather-content-left {
+	width: 100%;
+	display: inline-block;
+}
+
+.weather-icon {
+	width: 100%;
+}
+
+.weather-comment {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+}
+
+.weather-description {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.weather-item {
+	max-width: 120px;
+	min-height: 50px;
+	padding: 1.1rem 1.1rem;
+	padding-bottom: 0;
+}
+
+.temp-desc {
+	text-align: center;
+	font-size: 0.8rem;
+}
+
+.temp {
+	font-weight: bold;
+	color: black;
+	font-size: 1.2rem;
+}
