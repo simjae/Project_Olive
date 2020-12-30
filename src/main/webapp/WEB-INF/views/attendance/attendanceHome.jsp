@@ -49,7 +49,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
+						<h1 class="h3 mb-0 text-gray-800">근태현황 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -68,9 +68,10 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
+											<div
+												class="h5 font-weight-bold text-uppercase mb-1">
 												입사일부터 지금까지</div>
-											<div class="text mb-0 font-weight-bold text-gray-800">0</div>
+											<div class="text-xs mb-0 font-weight-bold text-gray-800">0</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -86,8 +87,11 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-success text-uppercase mb-1"> 이번달</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:</div>
+											<div
+												class="h5 font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:
+											</div>
 											<div class="text-xs mb-0 font-weight-bold text-gray-800">지각:</div>
 										</div>
 										<div class="col-auto">
@@ -99,24 +103,31 @@
 						</div>
 
 						<!-- Tasks Card Example -->
-							<div class="col-xl col-md-6 mb-4">
-							<div class="card border-left-primary shadow h-100 py-2">
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
-												일수</div>
-											<div class="text mb-0 font-weight-bold tex-primary-800">근무중 </div>
+											<div
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">일수
+											</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">근무중</div>
+												</div>
+
+											</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						</div>
 					</div>
+			
+
 
 					<!-- End of Main Content -->
 					<div class="card shadow mb-4">
@@ -127,7 +138,7 @@
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align="center" class="table-primary">
+									<thead>
 										<tr>
 											<th>종류</th>
 											<th>발생일</th>
@@ -136,38 +147,56 @@
 											<th>추가연차</th>
 											<th>남은연차</th>
 										</tr>
+										<%-- <c:forEach var="row" items="${list}">
+											<tr>
+												<td>${row.bno}</td>
+												<td><a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a></td>
+												<td>${row.writer}</td>
+												<td>
+													<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 --> 
+													<fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
+												</td>
+												<td>${row.viewcnt}</td>
+											</tr>
+										</c:forEach> --%>
+										   <tr>
+                                            <td>여름휴가</td>
+                                            <td>2020-07-12</td>
+                                            <td>2020-07-16</td>
+                                            <td>4일</td>
+                                            <td></td>
+                                            <td>13일 </td>
+                                        	</tr>
+                                        	   <tr>
+                                            <td>여름휴가</td>
+                                            <td>2020-07-12</td>
+                                            <td>2020-07-16</td>
+                                            <td>4일</td>
+                                            <td></td>
+                                            <td>13일 </td>
+                                        	</tr>
+                                        	   <tr>
+                                            <td>여름휴가</td>
+                                            <td>2020-07-12</td>
+                                            <td>2020-07-16</td>
+                                            <td>4일</td>
+                                            <td></td>
+                                            <td>13일 </td>
+                                        	</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-									</tbody>
+
 								</table>
 							</div>
 						</div>
 					</div>
+
 				</div>
+				
+
+
+
+
+
 			</div>
 			<!-- End of Main Content -->
 
