@@ -11,7 +11,7 @@
 jQuery(document).ready(function($) {
 	const cityName = "Seoul";
 	const cityId = "1835848";	// 서울 코드
-	const myAPIKey = "553443488ecc7e0c8a291ed1bfe91121";	// API Key
+	const myAPIKey = $('#weatherkey').val();	// API Key
 	let weatherURL, lat, long;	// API 요청주소, 위도, 경도
 	
 	
