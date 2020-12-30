@@ -82,11 +82,11 @@
 					</div>
 
 
-					<div class="col-md-12 border border-left-primary py-2"
+					<div class="col-md-12 border border-primary  py-2"
 						style="background: white;">
 						<div class="row">
 							<div
-								class="card mb-0 mt-2 py-0 border-left-primary mx-auto col-xl-3">
+								class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">문서종류</div>
 									<div class="mx-auto w-100">
@@ -100,7 +100,7 @@
 								</div>
 							</div>
 							<div
-								class="card mb-0 mt-2 py-0 border-left-primary mx-auto col-xl-2">
+								class="card mb-0 mt-2 py-0   mx-auto col-xl-2">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">사번</div>
 									<sec:authentication property="name" var="LoginUser" />
@@ -110,7 +110,7 @@
 								</div>
 							</div>
 							<div
-								class="card mb-0 mt-2 py-0 border-left-primary mx-auto col-xl-3">
+								class="card mb-0 mt-2 py-0   mx-auto col-xl-3">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">작성일자</div>
 									<c:set var="time" value="${requestScope.time}" />
@@ -118,7 +118,7 @@
 
 								</div>
 							</div>
-							<div class="card my-2 py-0 border-left-primary mx-auto col-xl-2">
+							<div class="card my-2 py-0   mx-auto col-xl-2">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">생년월일</div>
 									<div class="text-md mt-1 text-center">930306</div>
@@ -132,14 +132,14 @@
 						</div>
 						<div class="row">
 							<div
-								class="card mt-0 mb-2 py-0 border-left-primary mx-auto col-xl-3">
+								class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">현주소</div>
 									<div class="text-md mt-1 text-center">서울 특별시 봉천동 673-3</div>
 								</div>
 							</div>
 							<div
-								class="card mt-0 mb-2 py-0 border-left-primary mx-auto col-xl-2">
+								class="card mt-0 mb-2 py-0   mx-auto col-xl-2">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">성명</div>
 									<div class="text-md mt-1 text-center">박선우</div>
@@ -147,7 +147,7 @@
 								</div>
 							</div>
 							<div
-								class="card mt-0 mb-2 py-0 border-left-primary mx-auto col-xl-3">
+								class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
 								<div class="card-body py-2 px-0">
 									<div class="text-center text-primary">전화번호</div>
 									<div class="text-md mt-1 text-center">010-2994-3513</div>
@@ -166,7 +166,7 @@
 
 						<div class="row">
 							<div
-								class="card my-2 py-0 border-left-primary mr-auto mx-auto col-xl-11">
+								class="card my-2 py-0   mr-auto mx-auto col-xl-11">
 								<div class="card-body py-auto">
 									<div class="row">
 										<div class="table-responsive py-auto">
@@ -227,7 +227,7 @@
 						<div class="row">
 
 							<div
-								class="card my-2 py-2 border-left-primary mr-auto mx-auto col-xl-11">
+								class="card my-2 py-2   mr-auto mx-auto col-xl-11">
 								<div style="width: 100%;">
 									<span class="text-lg" style="width: 20%;">제목 :</span><input
 										class="mx-4 inputbox" type="text" name="name" id="name"
@@ -239,7 +239,7 @@
 						<div class="row">
 
 							<div
-								class="card my-2 py-2 border-left-primary mr-auto mx-auto col-xl-11"
+								class="card my-2 py-2   mr-auto mx-auto col-xl-11"
 								id="drop">
 								<div class="col-md-12 mx-auto mt-3" id="file_add">
 									<p class="mt-4" style="text-align: center;">Drag file Or
@@ -254,7 +254,7 @@
 						</div>
 						<div class="row">
 							<div
-								class="card my-2 py-2 border-left-primary mr-auto mx-auto col-xl-11">
+								class="card my-2 py-2   mr-auto mx-auto col-xl-11">
 								<textarea class="col-md-10" id="summernote" name="context"></textarea>
 							</div>
 						</div>
@@ -349,7 +349,7 @@
 			let html='';
 			if($('#selector').val()!='0' ){
 				
-				html = '<div class="card my-2 py-0 border-left-primary mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
+				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
 				$('#selector').val()+' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276">'+
 				'<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="endtime" width="276"></div></div></div></div></div></div>';
