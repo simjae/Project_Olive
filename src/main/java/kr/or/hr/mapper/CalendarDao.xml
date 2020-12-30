@@ -13,15 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 -->
 	
-	 <!-- 
-	 public int insert(Notice n)
-	  -->
-	<!-- 
-		 <insert id="insert" parameterType="vo.Notice">
-	 		INSERT INTO NOTICES(SEQ, TITLE, CONTENT, WRITER, REGDATE, HIT, FILESRC , FILESRC2) 
-	 		VALUES( (SELECT MAX(TO_NUMBER(SEQ))+1 FROM NOTICES), #{title}, #{content}, 'bituser', SYSDATE, 0, #{fileSrc},#{fileSrc2})
-	 	</insert> 
-	-->
+	
 	 <insert id="insert" parameterType="kr.or.hr.dto.Calendar">
 	 
 	 	INSERT INTO NOTICES(STARTDATE, ENDDATE, CONTEXT) 

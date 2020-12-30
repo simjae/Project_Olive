@@ -61,16 +61,18 @@
 
 
 					<!-- xl3 md6 카드들 row -->
+					
 					<div class="row">
-						<!-- Earnings (Monthly) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
-												입사일부터 지금까지</div>
-											<div class="text mb-0 font-weight-bold text-gray-800">0</div>
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												<h6>입사일부터 지금까지 </h6>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">0명</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -79,34 +81,19 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- Earnings (Annual) Card Example -->
+						<!--  -->
+						
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-success text-uppercase mb-1"> 이번달</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">지각:</div>
-										</div>
-										<div class="col-auto">
-											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Tasks Card Example -->
-							<div class="col-xl col-md-6 mb-4">
-							<div class="card border-left-primary shadow h-100 py-2">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
-												일수</div>
-											<div class="text mb-0 font-weight-bold tex-primary-800">근무중 </div>
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												<h6>이번달</h6>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">출근: </div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">지각: </div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -115,9 +102,25 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-warning shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												<h6>일수</h6>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">근무중  </div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-
 					<!-- End of Main Content -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
