@@ -1,8 +1,7 @@
 package kr.or.hr.controller;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,11 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "DocWrite.do", method = RequestMethod.GET)
-	public String DocWrite() {
-
+	public String DocWrite(Model model) {
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		model.addAttribute("time", sf.format(nowTime));
+		
 		return "approval/DocWirte";
 	}
 }
