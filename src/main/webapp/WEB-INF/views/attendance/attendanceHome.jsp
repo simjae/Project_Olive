@@ -1,6 +1,6 @@
 <!-- 
 	파일명:Attendance.jsp
-	설명: 근태현황 홈페이지 
+	설명: 근태현황
 	작성일 : 2020-12-28
 	작성자 : 심재형 
  -->
@@ -61,8 +61,11 @@
 
 
 					<!-- xl3 md6 카드들 row -->
-					
-					<div class="row">
+
+
+						<!-- Earnings (Annual) Card Example -->
+								<div class="row">
+						<!-- Earnings (Monthly) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
@@ -70,9 +73,8 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												<h6>입사일부터 지금까지 </h6>
-											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">0명</div>
+												입사일로부터 지금까지</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -81,105 +83,113 @@
 								</div>
 							</div>
 						</div>
-						<!--  -->
-						
+
+						<!-- Earnings (Annual) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												<h6>이번달</h6>
-											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">출근: </div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">지각: </div>
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">출근:
+												8일</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">지각:
+												8일</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						
+
+						<!-- Tasks Card Example -->
 						<div class="col-xl col-md-6 mb-4">
-							<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card border-left-info shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												<h6>일수</h6>
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">
+												오늘</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일 근무중 
+													</div>
+												</div>
+
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">근무중  </div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					<!-- End of Main Content -->
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">연차이력</h6>
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead align="center" class="table-primary">
-										<tr>
-											<th>종류</th>
-											<th>발생일</th>
-											<th>종료일</th>
-											<th>사용연차</th>
-											<th>추가연차</th>
-											<th>남은연차</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+					</div>
+				<!-- End of Main Content -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">연차이력</h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead align="center" class="table-primary">
+									<tr>
+										<th>종류</th>
+										<th>발생일</th>
+										<th>종료일</th>
+										<th>사용연차</th>
+										<th>추가연차</th>
+										<th>남은연차</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>여름휴가</td>
+										<td>2020-07-12</td>
+										<td>2020-07-16</td>
+										<td>4일</td>
+										<td></td>
+										<td>13일</td>
+									</tr>
+									<tr>
+										<td>여름휴가</td>
+										<td>2020-07-12</td>
+										<td>2020-07-16</td>
+										<td>4일</td>
+										<td></td>
+										<td>13일</td>
+									</tr>
+									<tr>
+										<td>여름휴가</td>
+										<td>2020-07-12</td>
+										<td>2020-07-16</td>
+										<td>4일</td>
+										<td></td>
+										<td>13일</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer 모듈화 -->
-			<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
-			<!-- End of Footer 모듈화 -->
-
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Main Content -->
+
+		<!-- Footer 모듈화 -->
+		<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+		<!-- End of Footer 모듈화 -->
+
+	</div>
+	<!-- End of Content Wrapper -->
 
 	</div>
 	<!-- End of Page Wrapper -->

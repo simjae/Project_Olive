@@ -59,9 +59,7 @@
 
 
 
-
-					<!-- xl3 md6 카드들 row -->
-					<div class="row">
+			<div class="row">
 						<!-- Earnings (Monthly) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
@@ -69,9 +67,9 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="h5 font-weight-bold text-uppercase mb-1">
-												입사일부터 지금까지</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">0</div>
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												총 연차</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">13일</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -88,11 +86,10 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="h5 font-weight-bold text-success text-uppercase mb-1">
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:
-											</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">지각:</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">사용연차:
+												8일</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -109,11 +106,12 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">일수
-											</div>
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">남은
+												연차</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">근무중</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0일
+													</div>
 												</div>
 
 											</div>
@@ -126,7 +124,6 @@
 							</div>
 						</div>
 					</div>
-			
 
 
 					<!-- End of Main Content -->
