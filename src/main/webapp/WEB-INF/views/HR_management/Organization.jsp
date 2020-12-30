@@ -182,15 +182,14 @@
 							<div class="card shadow mb-4">
 								<!-- Card Header -->
 								<div
-									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
 									<div class="dropdown no-arrow">
-										<form
-											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
+										 <form class="mr-auto ml-md-0 my-0 my-md-0 mw-0 navbar-search">
 											<div class="input-group">
-												<input type="text" class="form-control bg-light border-1"
-													placeholder="Search for..." aria-label="Search"
-													aria-describedby="basic-addon2">
+												<input type="text"
+													class="form-control bg-light border-1 small"
+													placeholder="Search for..." aria-label="Search">
 												<div class="input-group-append">
 													<button class="btn btn-primary" type="button">
 														<i class="fas fa-search fa-sm"></i>
@@ -198,7 +197,6 @@
 												</div>
 											</div>
 										</form>
-
 										<!-- 
 										<a class="" role="button" data-toggle="modal"
 											data-target="#myModal"> <i
@@ -217,12 +215,12 @@
 									</div>
 								</div>
 
-								<!-- <div class="modal fade modal-center" id="myModal" tabindex="-1"
+								<div class="modal fade modal-center" id="myModal" tabindex="-1"
 									role="dialog" aria-labelledby="myCenterModalLabel">
 									<div class="modal-dialog modal-center" role="document">
 										<div class="modal-content">
 											<div class="modal-body">
-												Topbar Search
+												<!-- Topbar Search -->
 												<form
 													class="mr-auto ml-md-3 my-2 my-md-0 mw-3 navbar-search">
 													<div class="input-group">
@@ -247,7 +245,7 @@
 											</div>
 										</div>
 									</div>
-								</div> -->
+								</div>
 
 
 
@@ -276,23 +274,171 @@
 
 					<!-- 긴 카드 -->
 					<div class="row">
+
 						<!-- Content Column -->
-						<div class="col-lg-12 mb-4">
+						<div class="col-lg-6 mb-4">
+
 							<!-- Project Card Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">조직 구성도</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Projects</h6>
 								</div>
-								<div class="card-body" id="org-chart">
-									<figure class="highcharts-figure">
-										<div id="container"></div>
-										<p class="highcharts-description">
+								<div class="card-body">
+									<h4 class="small font-weight-bold">
+										Server Migration <span class="float-right">20%</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-danger" role="progressbar"
+											style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										Sales Tracking <span class="float-right">40%</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										Customer Database <span class="float-right">60%</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar" role="progressbar"
+											style="width: 60%" aria-valuenow="60" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										Payout Details <span class="float-right">80%</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-info" role="progressbar"
+											style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										Account Setup <span class="float-right">Complete!</span>
+									</h4>
+									<div class="progress">
+										<div class="progress-bar bg-success" role="progressbar"
+											style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Color System -->
+							<div class="row">
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-primary text-white shadow">
+										<div class="card-body">
+											Primary
+											<div class="text-white-50 small">#4e73df</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-success text-white shadow">
+										<div class="card-body">
+											Success
+											<div class="text-white-50 small">#1cc88a</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-info text-white shadow">
+										<div class="card-body">
+											Info
+											<div class="text-white-50 small">#36b9cc</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-warning text-white shadow">
+										<div class="card-body">
+											Warning
+											<div class="text-white-50 small">#f6c23e</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-danger text-white shadow">
+										<div class="card-body">
+											Danger
+											<div class="text-white-50 small">#e74a3b</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-secondary text-white shadow">
+										<div class="card-body">
+											Secondary
+											<div class="text-white-50 small">#858796</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-light text-black shadow">
+										<div class="card-body">
+											Light
+											<div class="text-black-50 small">#f8f9fc</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 mb-4">
+									<div class="card bg-dark text-white shadow">
+										<div class="card-body">
+											Dark
+											<div class="text-white-50 small">#5a5c69</div>
+										</div>
+									</div>
 								</div>
 							</div>
 
 						</div>
 
+						<div class="col-lg-6 mb-4">
 
+							<!-- Illustrations -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;"
+											src="resources/img/undraw_posting_photo.svg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+									<a target="_blank" rel="nofollow" href="https://undraw.co/">Browse
+										Illustrations on unDraw &rarr;</a>
+								</div>
+							</div>
+
+							<!-- Approach -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Development
+										Approach</h6>
+								</div>
+								<div class="card-body">
+									<p>SB Admin 2 makes extensive use of Bootstrap 4 utility
+										classes in order to reduce CSS bloat and poor page
+										performance. Custom CSS classes are used to create custom
+										components and custom utility classes.</p>
+									<p class="mb-0">Before working with this theme, you should
+										become familiar with the Bootstrap framework, especially the
+										utility classes.</p>
+								</div>
+							</div>
+
+						</div>
 					</div>
 
 				</div>
@@ -315,6 +461,29 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
@@ -434,225 +603,8 @@
 		})
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/sankey.js"></script>
-	<script src="https://code.highcharts.com/modules/organization.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </body>
 <style>
-.highcharts-figure, .highcharts-data-table table {
-	min-width: 360px;
-	max-width: 800px;
-	margin: 1em auto;
-}
-
-.highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-
-.highcharts-data-table caption {
-	padding: 1em 0;
-	font-size: 1.2em;
-	color: #555;
-}
-
-.highcharts-data-table th {
-	font-weight: 600;
-	padding: 0.5em;
-}
-
-.highcharts-data-table td, .highcharts-data-table th,
-	.highcharts-data-table caption {
-	padding: 0.5em;
-}
-
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
-	{
-	background: #f8f8f8;
-}
-
-.highcharts-data-table tr:hover {
-	background: #f1f7ff;
-}
-
-#container h4 {
-	text-transform: none;
-	font-size: 14px;
-	font-weight: normal;
-}
-
-#container p {
-	font-size: 13px;
-	line-height: 16px;
-}
-
-@media screen and (max-width: 600px) {
-	#container h4 {
-		font-size: 2.3vw;
-		line-height: 3vw;
-	}
-	#container p {
-		font-size: 2.3vw;
-		line-height: 3vw;
-	}
-}
-</style>
-
-<script>
-	Highcharts.chart('container',{
-						chart : {
-							height : 600,
-							inverted : true
-						},
-						title : {
-							text : 'Olive'
-						},
-						accessibility : {
-							point : {
-								descriptionFormatter : function(point) {
-									var nodeName = 
-										point.toNode.name, 
-										nodeId = point.toNode.id, 
-										nodeDesc = nodeName === nodeId ? nodeName
-											: nodeName + ', ' + nodeId, 
-										parentDesc = point.fromNode.id;
-									return point.index + '. ' + nodeDesc
-											+ ', reports to ' + parentDesc
-											+ '.';
-								}
-							}
-						},
-						series : [ {
-							type : 'organization',
-							name : 'Olive',
-							keys : [ 'from', 'to' ],
-							data : [ [ '올리브', '경영지원본부' ], [ '올리브', '전략본부' ],[ '올리브', '개발본부' ], 
-									 [ '경영지원본부', '인사팀' ], [ '경영지원본부', '회계팀' ],
-									 [ '전략본부', '사업팀' ], [ '전략본부', '운영팀' ],
-									 [ '개발본부', '개발팀' ], [ '개발본부', '마케팅팀' ],
-							 	   ],
-							levels : [  {
-								level : 1,
-								color : '#980104'
-							}, {
-								level : 2,
-								color : '#359154'
-							} ],
-							nodes : [
-									{
-										id : '올리브',
-										title : '올리브',
-										name : 'Grethe',
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/12132317/Grethe.jpg'
-									},
-									{
-										id : '경영지원본부',
-										title : '경영지원본부',
-										name : '',
-										column : 1,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/12140620/Christer.jpg',
-										layout : 'hanging'
-									},
-									{
-										id : '전략본부',
-										title : '전략본부',
-										name : '',
-										column : 1,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/12132313/Anita.jpg',
-										layout : 'hanging'
-									},
-									{
-										id : '개발본부',
-										title : '개발본부',
-										name : 'Vidar Brekke',
-										column : 1,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '인사팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '회계팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '운영팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '사업팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '개발팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									},{
-										id : '마케팅팀',
-										title : '인사팀',
-										name : 'Vidar Brekke',
-										column : 2,
-										image : 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2018/11/13105551/Vidar.jpg',
-										layout : 'hanging'
-									}, {
-										id : 'Product',
-										name : 'Product developers'
-									}, {
-										id : 'Web',
-										name : 'Web devs, sys admin'
-									}, {
-										id : 'Sales',
-										name : 'Sales team'
-									}, {
-										id : 'Market',
-										name : 'Marketing team'
-									} ],
-							colorByPoint : false,
-							color : '#007ad0',
-							dataLabels : {
-								color : 'white'
-							},
-							borderColor : 'white',
-							nodeWidth : 65
-						} ],
-						tooltip : {
-							outside : true
-						},
-						exporting : {
-							allowHTML : true,
-							sourceWidth : 800,
-							sourceHeight : 600
-						}
-
-					});
-</script>
-
-<!-- <style>
 @media screen and (min-width: 768px) {
 	.modal.modal-center:before {
 		display: inline-block;
@@ -671,5 +623,5 @@
 .modal.modal-center {
 	text-align: center;
 }
-</style> -->
+</style>
 </html>

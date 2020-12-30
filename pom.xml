@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.or</groupId>
-	<artifactId>hr</artifactId>
-	<name>Project_HR</name>
+	<artifactId>bit</artifactId>
+	<name>Format</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -25,7 +25,7 @@
 	</repositories>
 
 	<dependencies>
-		<!-- lombok -->
+	<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -229,8 +229,8 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
-		<!-- jackson lib 비동기부분 -->
+		
+			<!-- jackson lib 비동기부분 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>

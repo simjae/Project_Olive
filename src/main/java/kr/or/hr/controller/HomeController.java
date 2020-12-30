@@ -20,6 +20,7 @@ public class HomeController {
 	@RequestMapping(value = "/Login.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
+		
 		return "index";
 	}
 	

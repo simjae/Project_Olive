@@ -21,7 +21,7 @@
 
    <!-- 스타일시트, CDN 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
-<link href="/resources/css/chaeyeon.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
