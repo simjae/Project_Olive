@@ -105,8 +105,8 @@
 										<div class="text-center text-primary">사번</div>
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
-											<div class="text-md mt-1">
-												<input type="text" class="inputbox text-center"
+											<div class="text-md mt-1 text-center">
+												<input type="text" class="inputbox text-center w-100"
 													value="${LoginUser}" id="empno" readonly>
 											</div>
 										</sec:authorize>
@@ -117,7 +117,7 @@
 										<div class="text-center text-primary">작성일자</div>
 										<c:set var="time" value="${requestScope.time}" />
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center"
+											<input type="text" class="inputbox text-center w-100"
 												value="${time}" id="writedate" readonly>
 										</div>
 
@@ -127,7 +127,7 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">생년월일</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center"
+											<input type="text" class="inputbox text-center w-100"
 												value="930306" id="birth" readonly>
 										</div>
 
@@ -143,7 +143,7 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">현주소</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center"
+											<input type="text" class="inputbox text-center w-100"
 												value="서울특별시 봉천동 673-3" id="addr" readonly>
 										</div>
 									</div>
@@ -152,8 +152,8 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">성명</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center" value="박선우"
-												id="ename" readonly>
+											<input type="text" class="inputbox text-center w-100"
+												value="박선우" id="ename" readonly>
 										</div>
 
 									</div>
@@ -162,7 +162,7 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">전화번호</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center"
+											<input type="text" class="inputbox text-center w-100"
 												value="010-2994-3513" id="emptel" readonly>
 										</div>
 									</div>
@@ -325,26 +325,26 @@
 				</div>
 				<div class="modal-body" id="approver-modal-body">
 					<div class="horizontalTree mb-4" style="height: 500px;">
-						<div class="col-lg-6 border border-secondary h-100">
-							<ul class="px-0">
-								<ul>
-									<li class="headquters py-auto">경영지원 본부</li>
-									<ul>
-										<li>회계팀</li>
-										<li>경제</li>
-									</ul>
-									<li class="headquters py-auto">개발 본부</li>
-									<ul>
-										<li>개발 1팀 </li>
-										<li>개발 2팀 </li>
-									</ul>
-									<li class="headquters py-auto">전략 본부</li>
-									<ul>
-										<li>미래전략 1팀 </li>
-										<li>미래전략 2팀 </li>
-									</ul>
-								</ul>
-
+						<div class="col-lg-6 border border-secondary h-50 h-100 ">
+							<ul>
+								<li class="headquters py-auto"><span><img
+										class="my-auto"
+										src="https://img.icons8.com/office/16/000000/folder-invoices--v1.png">경영지원
+										본부</span>
+									<ul style="display:block">
+										<li class="team">회계팀</li>
+										<li class="team">경제</li>
+									</ul></li>
+								<li class="headquters py-auto">개발 본부
+								<ul style="display:block">
+									<li class="team">개발 1팀</li>
+									<li class="team">개발 2팀</li>
+								</ul></li>
+								<li class="headquters py-auto">전략 본부
+								<ul style="display:block">
+									<li class="team">미래전략 1팀</li>
+									<li class="team">미래전략 2팀</li>
+								</ul></li>
 							</ul>
 						</div>
 					</div>
@@ -406,11 +406,15 @@
 .datepicker {
 	border-radius: 20px;
 }
-.headquters{
-	list-style-image:url('/resources/img/headquters.png');
+
+.headquters {
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
 }
-.headquters::marker{
-	
+
+.team {
+	list-style-image: none;
 }
 </style>
 <link
@@ -426,6 +430,12 @@
 	$(function() {
 		var $drop=$('#drop');
 		var uploadFiles=[];
+		
+		 $('.headquters').on("click",()=>{
+			$(this > "ul").toggle();
+			
+ 
+			 }); 
 		 
 		 
 
