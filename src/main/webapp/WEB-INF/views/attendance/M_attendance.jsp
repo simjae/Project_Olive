@@ -1,7 +1,7 @@
 <!-- 
-	파일명:Attendance.jsp
-	설명: 근태현황 홈페이지 
-	작성일 : 2020-12-28
+	파일명:M_Attendance.jsp
+	설명: 근태현황(매니져) 홈페이지 
+	작성일 : 2020-12-30
 	작성자 : 심재형 
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -49,7 +49,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
+						<h1 class="h3 mb-0 text-gray-800">근태현황 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -68,9 +68,10 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
+											<div
+												class="h5 font-weight-bold text-uppercase mb-1">
 												입사일부터 지금까지</div>
-											<div class="text mb-0 font-weight-bold text-gray-800">0</div>
+											<div class="text-xs mb-0 font-weight-bold text-gray-800">0</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -86,8 +87,11 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-success text-uppercase mb-1"> 이번달</div>
-											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:</div>
+											<div
+												class="h5 font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<div class="text-xs mb-0 font-weight-bold text-gray-800">출근:
+											</div>
 											<div class="text-xs mb-0 font-weight-bold text-gray-800">지각:</div>
 										</div>
 										<div class="col-auto">
@@ -99,24 +103,31 @@
 						</div>
 
 						<!-- Tasks Card Example -->
-							<div class="col-xl col-md-6 mb-4">
-							<div class="card border-left-primary shadow h-100 py-2">
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h5 font-weight-bold text-uppercase mb-1">
-												일수</div>
-											<div class="text mb-0 font-weight-bold tex-primary-800">근무중 </div>
+											<div
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">일수
+											</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">근무중</div>
+												</div>
+
+											</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						</div>
 					</div>
+			
+
 
 					<!-- End of Main Content -->
 					<div class="card shadow mb-4">
@@ -125,49 +136,48 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
+								<table class="table table-bordered " id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align="center" class="table-primary">
-										<tr>
-											<th>종류</th>
-											<th>발생일</th>
-											<th>종료일</th>
-											<th>사용연차</th>
-											<th>추가연차</th>
-											<th>남은연차</th>
+									<thead align = "center" class = "table-primary">
+										<tr >
+											<th>이름</th>
+											<th>사번</th>
+											<th>부서</th>
+											<th>출근시간 </th>
+											<th>퇴근시간</th>
+											<th>출근</th>
+											<th>퇴근</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
+									  <tr>
+                                            <td>심재형</td>
+                                            <td>1004 </td>
+                                            <td>마케팅</td>
+                                            <td>2020-07-16 09:00</td>
+                                            <td>2020-07-16 16:00</td>
+                                             <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
+                                             </td>
+                                              <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+                                             </td>
+                                        	</tr>
 									</tbody>
+									
+
 								</table>
 							</div>
 						</div>
 					</div>
+
 				</div>
+				
+
+
+
+
+
 			</div>
 			<!-- End of Main Content -->
 
