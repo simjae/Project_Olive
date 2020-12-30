@@ -50,6 +50,7 @@ jQuery(document).ready(function($) {
 		});
 	}
 	
+	// 날씨에 따라 코드가 있는데, 코드에 따라 아이콘 재보관
 	function makeItMove(id){ 
 		let iconName = "";
 		if(id >= 800){
@@ -95,17 +96,23 @@ jQuery(document).ready(function($) {
 		
 		let skycon = new Skycons({color:"black"});
 		
-		let UI = "<b>" + description + "</b>"
-				+ "<p> 기온 : " + temp + "°C</p>"
-				+ "<p> 체감 : " + feels_like + "°C</p>"
-				//+ "<p> 습도 : " + humidity + "%</p>"
-				//+ "<p> 풍속 : " + speed + " m/s </p>"
-				+ "<p> " + country + ", " + city + " 기준</p>";
+		let UI  = '<div class="today-weather">'
+				+ '<div class="weather-title">'
+				+ "<h6>" + city + ", " + country + "</h6>"
+				+ '</div>'
+				+ '<div class="weather-content">'
+				+ '<canvas id="weather-icon" class="weather-icon" witdh="80" height="80" ></canvas>'
+				+ '<p class="weather-comment mb-0">' + description + '</p>'
+				+ '</div>'
+				+ '<div class="weather-description">'
+				+ '<div class="weather-item">'
+				+ '<p class="temp-desc">오늘의 온도<br><span class="temp">' + temp.toFixed(1) + '</span>°C</p>'
+				+ '</div>'
+				+ '<div class="weather-item">'
+				+ '<p class="temp-desc">체감 온도<br><span class="temp">' + feels_like.toFixed(1) + '</span>°C</p>'
+				+ '</div></div></div>';
 		
-		//$('.weather-desc').append(UI);
-		
-		let title = "<h5>" + city + ", " + country + "</h5>";
-		$(".weather-title").append(title);
+		$(".weather-here").append(UI);
 		
 		skycon.set(document.querySelector("#weather-icon"), Skycons[makeItMove(id)]);
 		skycon.play();
