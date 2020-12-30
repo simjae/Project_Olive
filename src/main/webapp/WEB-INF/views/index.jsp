@@ -21,37 +21,9 @@
 
 	<!-- 스타일시트, CDN 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
-	<style>
-		/*
-		.card-body2 {
-			flex: 1 1 auto;
-			min-height: 1px;
-			padding: 1.25rem 0;
-			background-image: linear-gradient(to left, #7F7FD5 10%, #86A8E7 100%);
-		}
-		*/
-		/* .today-weather{
-			display: flex;
-		}
-		.weather-icon {
-			flex: 0 0 auto;
-			height:90px;
-		}
-		.weather-desc {
-			flex: 1 1 0%;
-			color: black;
-		}
-		.weather-sub {
-			font-style: italic;
-		} */
-		.weather-content-left{
-			width: 100%;
-			display:inline-block;
-		}
-		.weather-icon {
-			width: 100%;
-		}
-	</style>
+	
+	<!-- 날씨 css -->
+	<link href="/resources/css/weather.css"	rel="stylesheet" type="text/css">
 </head>
 
 <body id="page-top">
@@ -110,18 +82,8 @@
                                     </div>
                                 </div> 
                                 <!-- 날씨 컨텐츠 :  -->
-                                <div class="card-body">
-									<div class="today-weather">
-										<div class="weather-title">
-											
-										</div>
-										<div class="weather-content">
-											<canvas id='weather-icon' class="weather-icon" witdh="124" height="124" ></canvas>
-										</div>
-										<div class="weather-description">
-											
-										</div>
-									</div>
+                                <div class="card-body weather-here">
+									
                                 </div>
                             </div>
                         </div>
