@@ -150,7 +150,7 @@
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align="center" class="table-primary">
+									<thead>
 										<tr>
 											<th>종류</th>
 											<th>발생일</th>
@@ -159,8 +159,18 @@
 											<th>추가연차</th>
 											<th>남은연차</th>
 										</tr>
-										</thead>
-										<tbody>
+										<%-- <c:forEach var="row" items="${list}">
+											<tr>
+												<td>${row.bno}</td>
+												<td><a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a></td>
+												<td>${row.writer}</td>
+												<td>
+													<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 --> 
+													<fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
+												</td>
+												<td>${row.viewcnt}</td>
+											</tr>
+										</c:forEach> --%>
 										<tr>
 											<td>여름휴가</td>
 											<td>2020-07-12</td>
@@ -185,7 +195,7 @@
 											<td></td>
 											<td>13일</td>
 										</tr>
-									</tbody>
+									</thead>
 								</table>
 							</div>
 						</div>

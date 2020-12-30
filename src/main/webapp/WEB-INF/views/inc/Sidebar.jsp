@@ -13,7 +13,7 @@
 	id="accordionSidebar">
 
 	<!-- Sidebar - Brand -->
-	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/Login.do">
 		<div class="sidebar-brand-icon rotate-n-15">
 			<i class="fas fa-laugh-wink"></i>
 		</div>
@@ -39,11 +39,11 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">모든 권한:</h6>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/attendanceHome.do">근태 메인</a> 
-				<a class="collapse-item" href="${pageContext.request.contextPath }/attendance/Annual.do">휴가 현황</a>
+				<a class="collapse-item" href="#">휴가 현황</a>
 				<div class="collapse-divider"></div>
 				<h6 class="collapse-header">매니저 권한:</h6>
-				<a class="collapse-item" href="${pageContext.request.contextPath }/attendance/M_attendance.do">근태 관리</a>
-				<a class="collapse-item" href="${pageContext.request.contextPath }/attendance/M_annual.do">휴가 관리</a>
+				<a class="collapse-item" href="#">근태 관리</a>
+				<a class="collapse-item" href="#">휴가 관리</a>
 			</div>
 		</div></li>
 

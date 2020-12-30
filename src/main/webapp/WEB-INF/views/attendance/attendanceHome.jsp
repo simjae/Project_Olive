@@ -49,7 +49,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
+						<h1 class="h3 mb-0 text-gray-800">근태현황 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -72,9 +72,11 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
+
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 												입사일로부터 지금까지</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -91,12 +93,14 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
+
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">출근:
 												8일</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">지각:
 												8일</div>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -113,12 +117,14 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
+
 												class="text-xs font-weight-bold text-info text-uppercase mb-1">
 												오늘</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
 													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일 근무중 
 													</div>
+
 												</div>
 
 											</div>
@@ -131,6 +137,7 @@
 							</div>
 						</div>
 					</div>
+
 				<!-- End of Main Content -->
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
@@ -177,9 +184,17 @@
 									</tr>
 								</tbody>
 							</table>
+
 						</div>
 					</div>
+
 				</div>
+				
+
+
+
+
+
 			</div>
 		</div>
 		<!-- End of Main Content -->
