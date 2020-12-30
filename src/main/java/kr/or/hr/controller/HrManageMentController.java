@@ -11,4 +11,9 @@ public class HrManageMentController {
 	public String employeeAccount() {
 		return "HR_management/EmployeeAccount";
 	}
+	
+	@RequestMapping("Organization.do")
+	public String organization() {
+		return "HR_management/Organization";
+	}
 }
