@@ -169,10 +169,10 @@
 								</div>
 								<div class="col-xl-2 my-auto mx-auto">
 
-									<button href="#"
+									<a data-toggle="modal" data-target="#approverModal"
 										class="btn btn-secondary btn-icon-split mx-auto my-auto w-100">
 										<span class="text">결재선 추가하기</span>
-									</button>
+									</a>
 								</div>
 
 
@@ -291,6 +291,7 @@
 	</div>
 	<!-- End of Page Wrapper -->
 
+	<!-- 미리보기 모달 -->
 	<div class="modal fade" id="previewModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl overflow-auto" role="document">
@@ -310,11 +311,58 @@
 			</div>
 		</div>
 	</div>
+	<!-- 결재선 지정 모달 -->
+	<div class="modal fade" id="approverModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg overflow-auto" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ModalLabel">결재선 추가하기</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body" id="approver-modal-body">
+					<div class="horizontalTree mb-4" style="height: 500px;">
+						<div class="col-lg-6 border border-secondary h-100">
+							<ul class="px-0">
+								<ul>
+									<li class="headquters py-auto">경영지원 본부</li>
+									<ul>
+										<li>회계팀</li>
+										<li>경제</li>
+									</ul>
+									<li class="headquters py-auto">개발 본부</li>
+									<ul>
+										<li>개발 1팀 </li>
+										<li>개발 2팀 </li>
+									</ul>
+									<li class="headquters py-auto">전략 본부</li>
+									<ul>
+										<li>미래전략 1팀 </li>
+										<li>미래전략 2팀 </li>
+									</ul>
+								</ul>
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 결재선 지정 모달 -->
+		<!--  -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
 
 
 	</div>
@@ -358,6 +406,12 @@
 .datepicker {
 	border-radius: 20px;
 }
+.headquters{
+	list-style-image:url('/resources/img/headquters.png');
+}
+.headquters::marker{
+	
+}
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
@@ -372,7 +426,8 @@
 	$(function() {
 		var $drop=$('#drop');
 		var uploadFiles=[];
-		
+		 
+		 
 
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
