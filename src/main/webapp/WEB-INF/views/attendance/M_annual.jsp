@@ -41,6 +41,7 @@
 				$("#sname").val(info.dateStr);
 				$("#ename").val(info.dateStr);
 				$("#modal-body").html("");
+				
 			},
 
 			headerToolbar : {
