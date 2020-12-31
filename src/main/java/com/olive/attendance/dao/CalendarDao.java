@@ -12,4 +12,6 @@ import com.olive.dto.Calendar;
 public interface CalendarDao {
 
 	public void insert(Calendar cal);
+
+	public void selectlist(Calendar cal);
 }

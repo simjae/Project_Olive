@@ -7,6 +7,8 @@
 
 package com.olive.attendance.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +24,15 @@ public class CalendarService {
 		   public void setSqlsession(SqlSession sqlsession) {
 		      this.sqlsession = sqlsession;
 		      System.out.println(this.sqlsession);
+		      System.out.println("연결");
 		   }
 		public void insert(Calendar cal) {
 			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
 			caldao.insert(cal);
+			System.out.println("여기옴 ");
 			
 			
 		}
-		
-		
+				
 		
 }

@@ -1,10 +1,12 @@
 /*
-	파일명:CalendarController.java 
+® 	파일명:CalendarController.java 
 	설명: 캘린더 컨트롤러 
 	작성일 : 2020-12-28
 	작성자 : 심재형 
 */
 package com.olive.approval.controller;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,5 +34,12 @@ public class CalendarController {
 		
 		return "redirect:attendance/mannual.do";
 	}
-
+	@RequestMapping(value = "calendarList.do", method = RequestMethod.GET)
+	public List<Calendar> calendarList() {
+		List<Calendar> calendarList = null;
+		calendarList = CalendarService.calendarList();
+		return calendarList;
+		
+		
+	}
 }

@@ -2,27 +2,17 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.hr.dao.CalendarDao">
-	<!-- 
-		1. parameter 1개 : 생략  >> parameterType="int"
-		2. parameter DTO 객체  >> parameterType="Emp"
-		3. parameter 1개 이상 (DTO(x)) >> 만능 해결사 >> hashMap  >> parameterType="Map"
-		4. mybatis parameter 값을 read 방법 : param1 , param2 , param3
-		예) method(String field , String query) >> mapper  파일  >> param1 , param2
-		parameter 1개 >> 불가 >> param1
-	
-	 -->
-
-	
-	
-
+<mapper namespace="com.olive.attendance.dao.CalendarDao">
 	 <insert id="insert" parameterType="com.olive.dto.Calendar">	 
-	 	INSERT INTO NOTICES(STARTDATE, ENDDATE, CONTEXT) 
+	 	INSERT INTO Calendar(STARTDATE, ENDDATE, CONTEXT) 
 	 	VALUES(#{startdate}, #{enddate}, #{context})
 	 </insert>
+	 
+	 <select id="selectlist" parameterType="com.olive.dto.Calendar">
+	 SELECT * FROM Calendar  = #{startdate}, #{enddate}, #{context}
+
+	 
+	 
+	 </select>
+	 
 </mapper>
-
-
-
-
-

@@ -94,10 +94,10 @@
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">출근:
-												8일</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">지각:
-												8일</div>
+											<span class="h5 font-weight-bold text-gray-800">출근:
+												8일</span>
+											<span class="h5 font-weight-bold text-gray-800">지각:
+												8일</span>
 
 										</div>
 										<div class="col-auto">
