@@ -13,7 +13,7 @@
 	id="accordionSidebar">
 
 	<!-- Sidebar - Brand -->
-	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/Login.do">
 		<div class="sidebar-brand-icon rotate-n-15">
 			<i class="fas fa-laugh-wink"></i>
 		</div>

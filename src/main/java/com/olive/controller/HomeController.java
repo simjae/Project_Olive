@@ -1,4 +1,4 @@
-package kr.or.hr.controller;
+package com.olive.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.or.hr.utils.NewsAPI;
+import com.olive.utils.NewsAPI;
+
+
 
 
 @Controller

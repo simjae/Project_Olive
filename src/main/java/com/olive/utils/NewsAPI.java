@@ -1,4 +1,4 @@
-package kr.or.hr.utils;
+package com.olive.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
