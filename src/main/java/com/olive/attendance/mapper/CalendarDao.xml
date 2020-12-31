@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->
 	
 	
-	 <insert id="insert" parameterType="kr.or.hr.dto.Calendar">
+	 <insert id="insert" parameterType="com.olive.dto.Calendar">
 	 
 	 	INSERT INTO NOTICES(STARTDATE, ENDDATE, CONTEXT) 
 	 	VALUES(#{startdate}, #{enddate}, #{context})
