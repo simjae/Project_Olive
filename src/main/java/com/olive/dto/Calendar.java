@@ -4,7 +4,7 @@
 	작성일 : 2020-12-28
 	작성자 : 심재형 
 */
-package kr.or.hr.dto;
+package com.olive.dto;
 
 import lombok.Data;
 

@@ -5,7 +5,7 @@
 	작성자 : 심재형 
 */
 
-package kr.or.hr.service;
+package com.olive.attendance.service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package kr.or.hr.controller;
+package com.olive.approval.controller;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

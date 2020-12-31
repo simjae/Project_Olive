@@ -6,7 +6,7 @@
 */
 
 
-package kr.or.hr.dao;
+package com.olive.attendance.dao;
 
 public class CalendarDao {
 	

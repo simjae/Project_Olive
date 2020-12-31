@@ -4,15 +4,15 @@
 	작성일 : 2020-12-28
 	작성자 : 심재형 
 */
-package kr.or.hr.controller;
+package com.olive.approval.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.or.hr.dto.Calendar;
-import kr.or.hr.service.CalendarService;
+import com.olive.attendance.service.CalendarService;
+import com.olive.dto.Calendar;
 
 @Controller
 public class CalendarController {

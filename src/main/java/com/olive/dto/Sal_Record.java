@@ -1,4 +1,4 @@
-package kr.or.hr.dto;
+package com.olive.dto;
 
 import java.util.Date;
 
