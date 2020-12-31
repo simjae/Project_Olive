@@ -96,7 +96,7 @@
 
 						<!-- 뉴스 API -->
 						<div class="col-xl-8 col-lg-7 ">
-							<div class="card shadow mb-4">
+							<div class="card shadow mb-4 height-fix">
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -105,9 +105,8 @@
 
 								<!-- 데일리 뉴스 컨텐츠 -->
 								<div class="card-body">
-
-									<div id="myCarousel" class="carousel slide h-100 w-auto">
-										<!-- The slideshow -->
+									<div id="myCarousel" class="carousel slide">
+										<!-- The slideshow-->
 										<div class="carousel-inner">
 											<div id="news1" class="carousel-item active"></div>
 											<div id="news2" class="carousel-item"></div>

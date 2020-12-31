@@ -1,5 +1,9 @@
 package com.olive.hr_info.dao;
 
-public interface Hr_infoDao {
+import java.util.List;
 
+import com.olive.dto.Emp;
+
+public interface Hr_infoDao {
+	public List<Emp> showEmpList();
 }

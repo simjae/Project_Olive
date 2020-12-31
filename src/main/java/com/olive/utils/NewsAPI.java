@@ -25,7 +25,7 @@ public class NewsAPI {
 
 		String text = null;
 		try {
-			text = URLEncoder.encode("속보", "UTF-8");
+			text = URLEncoder.encode("경제", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}

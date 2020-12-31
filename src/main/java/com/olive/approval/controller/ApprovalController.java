@@ -25,4 +25,16 @@ public class ApprovalController {
 		
 		return "approval/DocWirte";
 	}
+	
+	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
+	public String showPersonalDoc() {
+		
+		return "approval/PersonalDoc";
+	}
+	
+	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
+	public String showPregressDoc() {
+		
+		return "approval/ProgressDoc";
+	}
 }
