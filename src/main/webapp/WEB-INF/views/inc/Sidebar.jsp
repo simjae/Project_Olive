@@ -88,8 +88,8 @@
 				<h6 class="collapse-header">권한에 따라 나뉘는지 궁금:</h6>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/approvalHome.do">전자결재 홈</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/DocWrite.do">기안하기</a>
-				<a class="collapse-item" href="#">개인 문서함</a>
-				<a class="collapse-item" href="#">결재 진행함</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/PersonalDoc.do">개인 문서함</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/ProgressDoc.do">결재 진행함</a>
 				<div class="collapse-divider"></div>
 				<h6 class="collapse-header">다른 권한 :</h6>
 				<a class="collapse-item" href="#">양식관리</a>

@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Emp {
+public class EmpTest {
 	private int empNo;
 	private String pwd;
 	private String ename;
@@ -21,4 +21,12 @@ public class Emp {
 	private boolean enabled;
 	private int loginCount;
 	private int alarm;
+	//private int deptcode;
+	private String deptname;
+	private int headcode;
+	//private int positioncode;
+	private String positionname;
+	private int positional;
+	//private int statuscode;
+	private String statusname;
 }
