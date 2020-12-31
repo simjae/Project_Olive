@@ -6,6 +6,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -242,66 +243,20 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="list" items="${requestScope.emplist}">
 										<tr>
 											<td>
 												<img src="/resources/img/undraw_profile_1.svg" width="40">
 											</td>
-											<td>1001</td>
-											<td>정민찬</td>
-											<td>개발팀</td>
-											<td>팀장</td>
+											<td>${list.empNo}</td>
+											<td>${list.ename}</td>
+											<td>${list.deptname}</td>
+											<td>${list.positionname}</td>
 											<td>
 												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
 											</td>
 										</tr>
-										<tr>
-											<td>
-												<img src="/resources/img/undraw_profile_1.svg" width="40">
-											</td>
-											<td>1002</td>
-											<td>박채연</td>
-											<td>디자인팀</td>
-											<td>팀장</td>
-											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img src="/resources/img/undraw_profile_2.svg" width="40">
-											</td>
-											<td>1003</td>
-											<td>박선우</td>
-											<td>경영지원팀</td>
-											<td>대표</td>
-											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img src="/resources/img/undraw_profile_3.svg" width="40">
-											</td>
-											<td>1004</td>
-											<td>백희승</td>
-											<td>개발팀</td>
-											<td>부장</td>
-											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
-											</td>
-										</tr>					
-										<tr>
-											<td>
-												<img src="/resources/img/undraw_profile_2.svg" width="40">
-											</td>
-											<td>1005</td>
-											<td>심재형</td>
-											<td>디자인팀</td>
-											<td>부장</td>
-											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
-											</td>
-										</tr> 
+										</c:forEach> 
 									</tbody>
 								</table>
 								<div class="clearfix">
