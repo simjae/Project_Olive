@@ -28,7 +28,9 @@ public class CalendarController {
 		System.out.println(cal.getStartdate());
 		System.out.println(cal.getEnddate());
 		System.out.println(cal.getContext());
-		return "redirect :calendar.do";
+		calendarservice.insert(cal);
+		
+		return "redirect:attendance/mannual.do";
 	}
 
 }

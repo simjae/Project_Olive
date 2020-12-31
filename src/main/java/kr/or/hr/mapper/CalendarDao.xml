@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="CalendarDao">
+<mapper namespace="kr.or.hr.dao.CalendarDao">
 	<!-- 
 		1. parameter 1개 : 생략  >> parameterType="int"
 		2. parameter DTO 객체  >> parameterType="Emp"
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 <insert id="insert" parameterType="kr.or.hr.dto.Calendar">
 	 
-	 	INSERT INTO NOTICES(STARTDATE, ENDDATE, CONTEXT) 
+	 	INSERT INTO Calendar(STARTDATE, ENDDATE, CONTEXT) 
 	 	VALUES(#{startdate}, #{enddate}, #{context})
 	 </insert>
 </mapper>

@@ -135,7 +135,7 @@
 							<div class="table-responsive">
 								<table class="table table-bordered " id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align = "center" class = "table-primary">
+									<thead align = "center" style= "background-color : #808000">
 										<tr >
 											<th>이름</th>
 											<th>사번</th>

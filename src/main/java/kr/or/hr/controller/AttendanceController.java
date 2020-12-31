@@ -11,4 +11,16 @@ public class AttendanceController {
 	public String attendanceHome() {
 		return "attendance/attendanceHome";
 	}
+	@RequestMapping("annual.do")
+	public String annual() {
+		return "attendance/Annual";
+	}
+	@RequestMapping("mannual.do")
+	public String mannual() {
+		return "attendance/M_annual";
+	}
+	@RequestMapping("mattendance.do")
+	public String mattendance() {
+		return "attendance/M_attendance";
+	}
 }
