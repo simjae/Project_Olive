@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.olive.hr_info.dao.Hr_infoDao">
+	<!-- 
+		1. parameter 1개 : 생략  >> parameterType="int"
+		2. parameter DTO 객체  >> parameterType="Emp"
+		3. parameter 1개 이상 (DTO(x)) >> 만능 해결사 >> hashMap  >> parameterType="Map"
+		4. mybatis parameter 값을 read 방법 : param1 , param2 , param3
+		예) method(String field , String query) >> mapper  파일  >> param1 , param2
+		parameter 1개 >> 불가 >> param1
+	
+	 -->
+	 <!-- <select id="showEmpList" resultType="com.olive.dto.Emp">
+	    SELECT *
+	    FROM emp
+ 	 </select>  -->
+ 	 
+ 	 <select id="showEmpList" resultType="com.olive.dto.EmpTest">
+	    select emp.empno, emp.ename, dept.deptname, position.positionname, acc_status.statuscode
+		from emp join dept on emp.deptcode = dept.deptcode
+			 join position on emp.positioncode = position.positioncode
+	         join acc_status on emp.statuscode = acc_status.statuscode
+ 	 </select> 
+
+	 
+</mapper>
+
+
+
+
+
