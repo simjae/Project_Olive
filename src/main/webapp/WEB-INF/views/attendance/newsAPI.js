@@ -24,7 +24,7 @@
 	function news(data){	
 		let arr = [];
 		for(var i=0; i<(data.items.length/2); i++){
-			arr[i] = "<br><a href='"
+			arr[i] = "<a href='"
 					+data.items[i*2].link
 					+"'>"
 					+data.items[i*2].title
@@ -32,7 +32,7 @@
 					+data.items[i*2].pubDate.substr(0,16)
 					+"<br> &nbsp;"
 					+data.items[i*2].description
-					+"<br><br>"
+					+"<br>"
 					+"<br><a href='"
 					+data.items[i*2+1].link
 					+"'>"
