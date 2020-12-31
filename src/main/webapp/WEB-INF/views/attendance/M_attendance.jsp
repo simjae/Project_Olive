@@ -1,7 +1,7 @@
 <!-- 
-	파일명:Annual.jsp
-	설명: 연차현황 
-	작성일 : 2020-12-28
+	파일명:M_Attendance.jsp
+	설명: 근태현황(매니져) 홈페이지 
+	작성일 : 2020-12-30
 	작성자 : 심재형 
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,30 +10,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link href='../lib/main.css' rel='stylesheet' />
-<script src='../lib/main.js'></script>
 
 <title>Project_HR</title>
 
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
-<style>
 
-
-  #calendar {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -60,7 +49,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">연차관리</h1>
+						<h1 class="h3 mb-0 text-gray-800">근태현황 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -70,9 +59,7 @@
 
 
 
-
-					<!-- xl3 md6 카드들 row -->
-					<div class="row">
+			<div class="row">
 						<!-- Earnings (Monthly) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
@@ -137,8 +124,6 @@
 							</div>
 						</div>
 					</div>
-					<!--달력 -->
-					<div id='calendar'></div>
 
 
 					<!-- End of Main Content -->
@@ -148,60 +133,48 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
+								<table class="table table-bordered " id="dataTable" width="100%"
 									cellspacing="0">
-									<thead>
-										<tr>
-											<th>종류</th>
-											<th>발생일</th>
-											<th>종료일</th>
-											<th>사용연차</th>
-											<th>추가연차</th>
-											<th>남은연차</th>
-										</tr>
-										<%-- <c:forEach var="row" items="${list}">
-											<tr>
-												<td>${row.bno}</td>
-												<td><a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a></td>
-												<td>${row.writer}</td>
-												<td>
-													<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 --> 
-													<fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-												</td>
-												<td>${row.viewcnt}</td>
-											</tr>
-										</c:forEach> --%>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
+									<thead align = "center" class = "table-primary">
+										<tr >
+											<th>이름</th>
+											<th>사번</th>
+											<th>부서</th>
+											<th>출근시간 </th>
+											<th>퇴근시간</th>
+											<th>출근</th>
+											<th>퇴근</th>
 										</tr>
 									</thead>
+									<tbody>
+									  <tr>
+                                            <td>심재형</td>
+                                            <td>1004 </td>
+                                            <td>마케팅</td>
+                                            <td>2020-07-16 09:00</td>
+                                            <td>2020-07-16 16:00</td>
+                                             <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
+                                             </td>
+                                              <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+                                             </td>
+                                        	</tr>
+									</tbody>
+									
+
 								</table>
 							</div>
 						</div>
 					</div>
 
 				</div>
+				
+
+
+
+
+
 			</div>
 			<!-- End of Main Content -->
 
@@ -213,8 +186,8 @@
 		<!-- End of Content Wrapper -->
 
 	</div>
-	<!-- 달력  -->
-	<div id='calendar'></div>
+	<!-- End of Page Wrapper -->
+
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
