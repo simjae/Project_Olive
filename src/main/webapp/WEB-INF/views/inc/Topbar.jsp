@@ -4,6 +4,12 @@
     작성일: 2020-12-26
     작성자: 백희승
 --%>
+<%-- 
+    파일명: Topbar.jsp
+    수정사항: 알람페이지 추가
+    작성일: 2020-12-31
+    작성자: 정민찬
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -58,11 +64,13 @@
 				</form>
 			</div></li>
 
-		<!-- Nav Item - Alerts -->
+		<!-- 알람 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
+			aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
+			
+			<!-- Counter - Alerts -->
 				<span class="badge badge-danger badge-counter">3+</span>
 		</a> <!-- Dropdown - Alerts -->
 			<div
@@ -72,7 +80,7 @@
 				<a class="dropdown-item d-flex align-items-center" href="#">
 					<div class="mr-3">
 						<div class="icon-circle bg-primary">
-							<i class="fas fa-file-alt text-white"></i>
+							<i class="fas fa-check text-white"></i>
 						</div>
 					</div>
 					<div>
@@ -101,7 +109,7 @@
 						Spending Alert: We've noticed unusually high spending for your
 						account.
 					</div>
-				</a> <a class="dropdown-item text-center small text-gray-500" href="${pageContext.request.contextPath}/etc/Alerts.do">Show
+				</a> <a class="dropdown-item text-center small text-gray-500" href="${pageContext.request.contextPath}/Alrams.do">Show
 					All Alerts</a>
 			</div></li>
 

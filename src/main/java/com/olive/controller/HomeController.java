@@ -34,8 +34,13 @@ public class HomeController {
 		NewsAPI newsAPI = new NewsAPI();
 		JSONObject result = newsAPI.returnNewsData();
 		System.out.println(result);
-		return result;
-		
+		return result;	
 	}
+	
+	@RequestMapping(value="/Alrams.do", method = RequestMethod.GET)
+	public String Alram() {
+		return "etc/Alrams";
+	}
+	
 	
 }
