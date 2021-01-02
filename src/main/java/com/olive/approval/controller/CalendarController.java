@@ -37,7 +37,7 @@ public class CalendarController {
 	@RequestMapping(value = "calendarList.do", method = RequestMethod.GET)
 	public List<Calendar> calendarList() {
 		List<Calendar> calendarList = null;
-		calendarList = CalendarService.calendarList();
+//		calendarList = CalendarService.calendarList();
 		return calendarList;
 		
 		

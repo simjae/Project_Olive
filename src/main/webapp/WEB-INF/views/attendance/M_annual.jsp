@@ -179,105 +179,182 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">연차관리</h1>
+						<h1 class="h3 mb-0 text-gray-800">연차현황</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
 					</div>
+					<!-- xl3 md6 카드들 row -->
+					<div class="row">
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-primary shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												총 연차</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">13일</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
+						<!-- Earnings (Annual) Card Example -->
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">사용연차:
+												8일</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
+						<!-- Tasks Card Example -->
+						<div class="col-xl col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">남은
+												연차</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0일
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- nav 태그  -->
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item"><a class="nav-link active" id="home-tab"
+						<li class="nav-item">
+						<a class="nav-link active" id="home-tab"
 							data-toggle="tab" href="#home" role="tab" aria-controls="home"
-							aria-selected="true">전체 문서</a></li>
+							aria-selected="true">캘린더</a>
+						</li>
 
-						<li class="nav-item"><a class="nav-link" id="profile-tab"
+						<li class="nav-item">
+						<a class="nav-link " id="profile-tab"
 							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">휴가현황 </a></li>
+							aria-controls="profile" aria-selected="false">테이블</a>
+						</li>
+
 
 					</ul>
 					<div class="tab-content" id="myTabContent">
+					<!-- 캘린더탭  -->
 						<div class="tab-pane fade show active" id="home" role="tabpanel"
 							aria-labelledby="home-tab">
 							<!--  캘린더  -->
 							<div id='calendar'></div>
 						</div>
+					<!--연차현황탭  -->
+						
+							<div class="tab-pane fade show " id="profile" role="tabpanel"
+								aria-labelledby="profile-tab">
+								<div class="card-body">
+									<div class="table-responsive ">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead align="center" style="background-color: #808000">
+												<tr>
+													<th>이름</th>
+													<th>사번</th>
+													<th>부서</th>
+													<th>사용연차</th>
+													<th>남은연차</th>
+												</tr>
+											<tbody>
+												<tr>
+													<td>심재형</td>
+													<td>1004</td>
+													<td>마케팅</td>
+													<td>4일</td>
+													<td>13일</td>
+												</tr>
+												<tr>
+													<td>심재형</td>
+													<td>1004</td>
+													<td>마케팅</td>
+													<td>4일</td>
+													<td>13일</td>
+												</tr>
+												<tr>
+													<td>심재형</td>
+													<td>1004</td>
+													<td>마케팅</td>
+													<td>4일</td>
+													<td>13일</td>
+												</tr>
+												<tr>
+													<td>심재형</td>
+													<td>1004</td>
+													<td>마케팅</td>
+													<td>4일</td>
+													<td>13일</td>
+												</tr>
+												<tr>
+													<td>심재형</td>
+													<td>1004</td>
+													<td>마케팅</td>
+													<td>4일</td>
+													<td>13일</td>
+												</tr>
 
-						<div class="tab-pane fade show " id="profile" role="tabpanel"
-							aria-labelledby="profile-tab">
-							<div class="card-body">
-								<div class="table-responsive ">
-									<table class="table table-bordered" id="dataTable" width="100%"
-										cellspacing="0">
-										<thead align="center" style="background-color: #808000">
-											<tr>
-												<th>이름</th>
-												<th>사번</th>
-												<th>부서</th>
-												<th>사용연차</th>
-												<th>남은연차</th>
-											</tr>
-										<tbody>
-											<tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>4일</td>
-												<td>13일</td>
-											</tr>
-											<tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>4일</td>
-												<td>13일</td>
-											</tr>
-											<tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>4일</td>
-												<td>13일</td>
-											</tr>
-											<tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>4일</td>
-												<td>13일</td>
-											</tr>
-											<tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>4일</td>
-												<td>13일</td>
-											</tr>
+											</tbody>
+										</table>
 
-										</tbody>
-									</table>
-								
-									<nav aria-label="Page navigation example">
-										<ul class="pagination">
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-													<span class="sr-only">Previous</span>
-											</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-													<span class="sr-only">Next</span>
-											</a></li>
-										</ul>
-									</nav>
-									
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+														<span class="sr-only">Previous</span>
+												</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">4</a></li>
+												<li class="page-item"><a class="page-link" href="#">5</a></li>
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+														<span class="sr-only">Next</span>
+												</a></li>
+											</ul>
+										</nav>
+
+									</div>
 								</div>
 							</div>
+
 						</div>
+
+						<
 					</div>
 
 
