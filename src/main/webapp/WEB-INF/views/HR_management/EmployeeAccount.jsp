@@ -3,6 +3,10 @@
     설명: 직원 계정 CRUD (인사팀 전용)
     작성일: 2020-12-29
     작성자: 정민찬
+    
+    수정일 : 2021-01-02
+    수정자 : 백희승
+    수정내역 : 사원 등록을 위한 Modal 작성
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -186,7 +190,7 @@ p.each-label{
 							<div id="employNewEmpModal" class="modal fade">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<form>
+										<form action="" method="POST"><!-- onsubmit="return empSubmit();" -->
 											<div class="modal-header">
 												<h3 class="modal-title">사원 신규 등록</h3>
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -195,45 +199,57 @@ p.each-label{
 												<div class="row justify-content-center">
 													<div class="col-md-8 scroll">
 														<div class="p-2">
+														
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">사번</p>
-																	<input type="text" class="form-control" placeholder="사번">
+																	<input type="text" class="form-control" placeholder="사번을 입력해주세요." name="empNo">
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">이름</p>
-																	<input type="text" class="form-control" placeholder="이름">
+																	<input type="text" class="form-control" placeholder="이름을 입력해주세요." name="ename">
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
-																	<p class="each-label">비밀번호</p>
-																	<input type="password" class="form-control" placeholder="비밀번호">
-																	<input type="password" value="생년월일이 여기 들어가야함" hidden>
+																	<p class="each-label">E-Mail</p>
+																	<input type="text" class="form-control" placeholder="올바른 이메일 형식을 입력해주세요." name="email">
 																</div>
 															</div>
+															
 															<div class="row">
 																<div class="col-md-10">
-																	<p class="each-label">이메일</p>
-																	<input type="text" class="form-control" placeholder="이메일">
+																	<p class="each-label">생년월일 (=password)</p>
+																	<input type="text" class="form-control" placeholder="생년월일 6자리 = 최초비밀번호" name="pwd">
 																</div>
 															</div>
+															
 															<div class="row">
 																<div class="col-md-10">
-																	<p class="each-label">휴대폰번호</p>
-																	<input type="text" class="form-control" placeholder="휴대폰번호">
+																	<p class="each-label">부서 코드(Dept)</p>
+																	<input type="text" class="form-control" placeholder="본부 10=10,20 | 20=30,40 | 30:50,60" name="deptCode">
 																</div>
 															</div>
+															
 															<div class="row">
 																<div class="col-md-10">
-																	<p class="each-label">주소</p>
-																	<input type="text" class="form-control" placeholder="주소">
+																	<p class="each-label">포지션 코드(Position)</p>
+																	<input type="text" class="form-control" placeholder="10:팀원|20:팀장|30:본부장" name="positionCode">
 																</div>
 															</div>
+															
+															<div class="row">
+																<div class="col-md-10">
+																	<p class="each-label">직급 코드 (Class)</p>
+																	<input type="text" class="form-control" placeholder="10:사원|20:대리|30:부장|40:이사" name="classCode">
+																</div>
+															</div>
+															
+															<input type="hidden" name="statusCode" value="10">
 														</div>
 													</div>
 													
@@ -241,8 +257,8 @@ p.each-label{
 													<div class="col-md-4">
 														<div class="d-flex flex-column align-items-center text-center p-3 py-5">
 															<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-															<span class="font-weight-bold mt-3">2001</span>
-															<h3>박채연</h3>
+															<span class="font-weight-bold mt-3">사번:0000</span>
+															<h3>이름:... (미완)</h3>
 														</div>
 													</div>
 													
@@ -250,12 +266,18 @@ p.each-label{
 												
 											</div>
 											<div class="modal-footer">
-												<a href="#" class="btn btn-success btn-icon-split">
+                                    			<button type="reset" class="btn btn-danger btn-icon-split">
+                                    				<span class="icon text-white-50">
+                                    				<i class="fas fa-trash"></i>
+                                    				</span>
+                                    				<span class="text">전부 지우기</span>
+                                    			</button>
+												<button type="submit" class="btn btn-success btn-icon-split">
                                         			<span class="icon text-white-50">
                                             		<i class="fas fa-check"></i>
                                         			</span>
                                         			<span class="text">신규 사원 등록하기</span>
-                                    			</a>
+                                    			</button>
 											</div>
 										</form>
 									</div>
