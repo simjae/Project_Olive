@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.olive.approval.service.ApprovalService;
 import com.olive.dto.Doc_Type;
+import com.olive.dto.Document;
 import com.olive.dto.Emp;
 
 @Controller
@@ -51,8 +52,10 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value="DocWrite.do", method=RequestMethod.POST)
-	public void docInsert() {
+	public String docInsert(Document doc,HttpServletRequest request) {
 		
+		approvalService.writeDoc(doc,request);
+		return "redirect:/approval/approvalHome.do";
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)

@@ -30,7 +30,7 @@ public class HrManageMentController {
 	@RequestMapping(value="EmployeeAccount.do", method=RequestMethod.POST)
 	public String insertNewAccount(Emp emp) {
 		System.out.println(emp);
-		/* service.insertNewEmp(emp); */
+		service.insertNewEmp(emp); 
 		List<Emp> list = null;
 		list = service.selectAllList();
 		System.out.println("출력" + list);

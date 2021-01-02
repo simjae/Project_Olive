@@ -9,4 +9,23 @@
 	<select id="selectDocType" resultType="com.olive.dto.Doc_Type">
 	select typecode, typename from doc_type
 	</select>
+
+	<insert id="writeDocument" parameterType="com.olive.dto.Document">
+		insert
+		into 
+		document (empno,writedate,title,content,total_approval,curr_approval,filename,statuscode,typecode)
+		values 
+		(#{empno},now(),#{title},#{content},3,1,#{filename},10,#{typeCode})
+	</insert>
+
+	 <select id="getAllEmpList" resultType="com.olive.dto.Emp">
+		select * from emp
+	</select>
+	<select id="getAllDeptList" resultType="com.olive.dto.Dept">
+		select * from dept
+	</select>
+	<select id="getAllHeadList" resultType="com.olive.dto.Head">
+		select * from head
+	</select>
+ 
 </mapper>

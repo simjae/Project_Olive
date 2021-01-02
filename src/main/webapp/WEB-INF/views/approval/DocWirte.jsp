@@ -46,9 +46,7 @@
 				<jsp:include page="../inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-				<c:set var="emp" value="${requestScope.emp }"/>
-				<p>${emp.empno}</p>
-				
+					<c:set var="emp" value="${requestScope.emp }" />
 					<!-- Page Heading -->
 					<div class="row">
 						<div class="col-xl-2 h3 my-auto text-gray-800">기안하기</div>
@@ -75,8 +73,7 @@
 							</div>
 						</div>
 					</div>
-					<form action="" method="post" enctype="multipart/form-data">
-					
+					<form action="" method="post" enctype="multipart/form-data" id="form">
 						<div class="col-md-12 border border-primary  py-2" style="background: white;">
 							<div class="row">
 								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
@@ -84,10 +81,9 @@
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
 											<select class="px-4 mx-auto w-100" id="selector">
-											<c:forEach var="list" items="${requestScope.docType}">
-												<option value="${list.typeCode}">${list.typeName}</option>
-												
-											</c:forEach>	
+												<c:forEach var="list" items="${requestScope.docType}">
+													<option value="${list.typeCode}">${list.typeName}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -98,7 +94,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${emp.empno}" id="empno" readonly>
+												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -147,7 +143,7 @@
 									</div>
 								</div>
 								<div class="col-xl-2 my-auto mx-auto">
-									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split mx-auto my-auto w-100">
+									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split mx-auto my-auto w-100" id="approval">
 										<span class="text">결재선 추가하기</span>
 									</a>
 								</div>
@@ -190,9 +186,8 @@
 															</tr>
 														</tbody>
 													</table>
-													
 												</div>
-												<div id="reminder"class =" border-bottom border-secondary"> &nbsp; &nbsp; &nbsp; &nbsp; 참조 : </div>
+												<div id="reminder" class=" border-bottom border-secondary">&nbsp; &nbsp; &nbsp; &nbsp; 참조 :</div>
 											</div>
 										</div>
 									</div>
@@ -363,6 +358,7 @@
 var approverList =[];	
 var reminderList =[];
 
+
 function deletefromapp(me){
 	$(me).parents('a.jstree-anchor').remove();
 	approverList.splice(approverList.indexOf($(me).parents('a.jstree-anchor').text()),2);
@@ -372,12 +368,84 @@ function deletefromrim(me){
 	$(me).parents('a.jstree-anchor').remove();
 	reminderList.splice(reminderList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
+
+
+
+
+
 		 
 
 $(function() {
+	
+	var $drop=$('#drop');
+	var uploadFiles=[];
+	var data = [];
+	
+	function createFirstTree(){
+		
+		return new Promise((resolve,reject)=>{
+			
+		$.ajax({
+		url:"getAllEmpList.do",
+		 dataType: "json",
+		 contentType: "application/json; charset=utf-8",
+		success:function(responsedata){
+			console.log(responsedata);
+			$.each(responsedata,(index,item)=>{
+				console.log(item);
+				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename}
+					})
+				resolve();
+				}
+			});
+	
+		});
+	};
+	function createSecondTree(){
+		return new Promise((resolve,reject)=>{
+			$.ajax({
+				url:"getAllDeptList.do",
+				 dataType: "json",
+				 contentType: "application/json; charset=utf-8",
 
-		var $drop=$('#drop');
-		var uploadFiles=[];
+				success:function(responsedata){
+					console.log(responsedata);
+					$.each(responsedata,(index,item)=>{
+						console.log(item);
+						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName}
+						})
+						resolve();
+					}
+				});
+			});
+	}
+	function createFinalTree(){
+		return new Promise((resolve,reject)=>{
+			$.ajax({
+				url:"getAllHeadList.do",
+				 dataType: "json",
+				 contentType: "application/json; charset=utf-8",
+				success:function(responsedata){
+					console.log(responsedata);
+					$.each(responsedata,(index,item)=>{
+						console.log(item);
+						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName}
+						})
+						resolve();
+					}
+				});
+	
+			});
+		
+	}
+
+	createFirstTree()
+	 .then(createSecondTree)
+	 .then(createFinalTree)
+	 
+	 $('#submit').on("click",()=>{
+		$('#form').submit();
+	 })
 
 		$('#applybtn').on("click",()=>{
 				
@@ -390,34 +458,24 @@ $(function() {
 				console.log(reminderList[i]);
 				$('#reminder').append(reminderList[i]);
 				};		
-			});
+			}); 
 			
-
-	
-		let jstree = $('#jstree_div').jstree({
-			'core':{
+		 
+		$('#approval').on("click",()=>{
+			
+			console.log(data.length);
+			console.log(typeof data);
+		
+			$('#jstree_div').jstree({
+			"core":{
 			"check_callback" : true,
-			'data':[
-				{"id":"headquter1","parent":"#","text":"경영지원 본부","icon":"/resources/img/headquters.png"},
-				{"id":"headquter2","parent":"#","text":"전략 본부","icon":"/resources/img/headquters.png"},
-				{"id":"headquter3","parent":"#","text":"개발 본부","icon":"/resources/img/headquters.png"},
-				{"id":"department1","parent":"headquter1","text":"경영지원팀"},
-				{"id":"department2","parent":"headquter1","text":"회계팀"},
-				{"id":"department3","parent":"headquter2","text":"전략 1팀"},
-				{"id":"department4","parent":"headquter2","text":"전략 2팀"},
-				{"id":"department5","parent":"headquter3","text":"개발 1팀"},
-				{"id":"department6","parent":"headquter3","text":"개발 2팀"},
-				{"id":"teammate1","parent":"department1","text":"박선우"},
-				{"id":"teammate2","parent":"department2","text":"정민찬"},
-				{"id":"teammate3","parent":"department3","text":"백희승"},
-				{"id":"teammate4","parent":"department4","text":"심재형"},
-				{"id":"teammate5","parent":"department5","text":"박채연"},
-				{"id":"teammate6","parent":"department6","text":"신동연"}
-				],
-			},	
+			 "data":data
+				
+		 	},	
 			"plugins" : [ "dnd" ]
 			}
-		); 
+		)
+		});  
  
 		
 		$('#add_approver').on("click",()=>{
@@ -455,11 +513,6 @@ $(function() {
 
 		});
 			
-			
-
-		
-
-		
 	
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
