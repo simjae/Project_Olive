@@ -46,6 +46,9 @@
 				<jsp:include page="../inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+				<c:set var="emp" value="${requestScope.emp }"/>
+				<p>${emp.empno}</p>
+				
 					<!-- Page Heading -->
 					<div class="row">
 						<div class="col-xl-2 h3 my-auto text-gray-800">기안하기</div>
@@ -72,7 +75,8 @@
 							</div>
 						</div>
 					</div>
-					<form>
+					<form action="" method="post" enctype="multipart/form-data">
+					
 						<div class="col-md-12 border border-primary  py-2" style="background: white;">
 							<div class="row">
 								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
@@ -80,9 +84,10 @@
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
 											<select class="px-4 mx-auto w-100" id="selector">
-												<option value="일반 기안서">일반 기안서</option>
-												<option value="휴가 기안서">연차 신청서</option>
-												<option value="출장 기안서">출장 신청서</option>
+											<c:forEach var="list" items="${requestScope.docType}">
+												<option value="${list.typeCode}">${list.typeName}</option>
+												
+											</c:forEach>	
 											</select>
 										</div>
 									</div>
@@ -93,7 +98,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" readonly>
+												<input type="text" class="inputbox text-center w-100" value="${emp.empno}" id="empno" readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -164,16 +169,16 @@
 															</tr>
 															<tr style="height: 35px;">
 																<td rowspan="2">
-																	<input class="inputbox" id="app1" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app1" name="app1" type="text" readonly>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app2" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app2" name="app2" type="text" readonly>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app3" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app3" name="app3" type="text" readonly>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app4" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app4" name="app4" type="text" readonly>
 																</td>
 															</tr>
 															<tr style="height: 35px;"></tr>
@@ -185,7 +190,9 @@
 															</tr>
 														</tbody>
 													</table>
+													
 												</div>
+												<div id="reminder"class =" border-bottom border-secondary"> &nbsp; &nbsp; &nbsp; &nbsp; 참조 : </div>
 											</div>
 										</div>
 									</div>
@@ -265,22 +272,24 @@
 							<div class="col-md-12 mt-0 mb-2" style="height: 60%;">
 								<div class="mt-0 mb-0">결재자</div>
 								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
-								<div id ="approverList"></div>
+									<div id="approverList"></div>
 								</div>
 								<button class="btn btn-sm mt-1 btn-primary" id="add_approver">추가하기</button>
-								<button class="btn btn-sm mt-1 btn-danger" id="del_approver">제거하기</button>
 							</div>
 							<div class="col-md-12 mt-1 mb-0" style="height: 35%;">
 								<div class="mt-0 mb-0 ">참조자</div>
-								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;"></div>
+								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
+									<div id="reminderList"></div>
+								</div>
 								<button class="btn btn-sm mt-1 btn-primary" id="add_reminder">추가하기</button>
-								<button class="btn btn-sm mt-1 btn-danger" id="del_reminder">제거하기</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-circle btn-success" id="applybtn" type="button" data-dismiss="modal">
+						<i class="fas fa-check"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -319,6 +328,7 @@
 
 .inputbox {
 	border: 0px;
+	outline: none;
 }
 
 .datepicker {
@@ -337,10 +347,10 @@
 .team {
 	list-style-image: none;
 }
-.temp{
-background: hsla(0, 100%, 100%, 0);
-border:none;
 
+.temp {
+	background: hsla(0, 100%, 100%, 0);
+	border: none;
 }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -349,16 +359,41 @@ border:none;
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<link rel="stylesheet" href="/resources/css/bootstrap-jstree-theme.css" />
 <script type="text/javascript">
-function deletetemp(me){
+var approverList =[];	
+var reminderList =[];
+
+function deletefromapp(me){
 	$(me).parents('a.jstree-anchor').remove();
+	approverList.splice(approverList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
 
+function deletefromrim(me){
+	$(me).parents('a.jstree-anchor').remove();
+	reminderList.splice(reminderList.indexOf($(me).parents('a.jstree-anchor').text()),2);
+};
+		 
+
 $(function() {
+
 		var $drop=$('#drop');
 		var uploadFiles=[];
-					
+
+		$('#applybtn').on("click",()=>{
+				
+				$('#app1').val(approverList[0]);
+				$('#app2').val(approverList[2]);
+				$('#app3').val(approverList[4]);
+				$('#app4').val(approverList[6]);
+				
+				for(let i=0; i<reminderList.length; i+=2){
+				console.log(reminderList[i]);
+				$('#reminder').append(reminderList[i]);
+				};		
+			});
+			
+
+	
 		let jstree = $('#jstree_div').jstree({
 			'core':{
 			"check_callback" : true,
@@ -383,23 +418,46 @@ $(function() {
 			"plugins" : [ "dnd" ]
 			}
 		); 
-
+ 
+		
 		$('#add_approver').on("click",()=>{
-			let clicked = $('div#jstree_div a.jstree-clicked').clone();
-			console.log(clicked);
-			let button = '<button class="temp" onclick="deletetemp(this)">x</button>';
-			let approver = clicked.append(button);
-			$('#approverList').append(clicked);
-			$('#approverList a.jstree-clicked').each("click", () => {
-				$(this).toggleClass("clickclack");
-			});
+			
+			let clickedapp = $('div#jstree_div a.jstree-clicked').clone();
+			let buttonapp = '<button class="temp" onclick="deletefromapp(this)"><img class="false" src="/resources/img/false.png"></button>';
+			let approver = clickedapp.append(buttonapp);
+
+			if(!approverList.includes(clickedapp.text())){
+			approverList.push(clickedapp.text());
+			approverList.push(clickedapp);
+			};
+			$('#approverList').empty();
+			for(let i=1; i<approverList.length; i+=2){
+				$('#approverList').append(approverList[i]);
+			}
+		
 		});
 
-		$('#del_approver').on("click",()=>{
-			let target = $('#approverList a.clickclack');
+		$('#add_reminder').on("click",()=>{
+			console.log('sjidjid');
+			let clicked = $('div#jstree_div a.jstree-clicked').clone();
+			let button = '<button class="temp" onclick="deletefromrim(this)"><img class="false" src="/resources/img/false.png"></button>';
+			let reminder = clicked.append(button);
 			
 
-			});
+			if(!reminderList.includes(clicked.text())){
+			reminderList.push(clicked.text());
+			reminderList.push(clicked);
+			};
+			$('#reminderList').empty();
+			for(let i=1; i<reminderList.length; i+=2){
+				$('#reminderList').append(reminderList[i]);
+			}
+
+		});
+			
+			
+
+		
 
 		
 	
@@ -665,12 +723,15 @@ $(function() {
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
 			let html='';
-			if($('#selector').val()!='0' ){
+			if($('#selector').val()!='10' ){
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				$('#selector').val()+' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276">'+
-				'<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276"></div></div></div></div></div></div>';
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276">'+
+				'<span class="mx-2">';
+				if( $('#selector').val()!='20'){
+				html+= '~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276"></div></div></div></div></div></div>';
+				};
 
 				
 				$('#duration').append(html);
@@ -678,7 +739,7 @@ $(function() {
 				let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
 					<tbody class="text-center">\
 						<tr style="height: 400px;">\
-					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;">'+$('#selector').val().split(' ')[0]+' 사유</td>\
+					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;"> 사유</td>\
 					<td>내용</td>\
 					</tr>\
 					</tbody>\
