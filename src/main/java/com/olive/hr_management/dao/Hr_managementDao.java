@@ -1,5 +1,10 @@
 package com.olive.hr_management.dao;
 
-public interface Hr_managementDao {
+import java.util.List;
 
+import com.olive.dto.Emp;
+
+public interface Hr_managementDao {
+	public void insertNewEmp(Emp emp);
+	public List<Emp> selectAllList();
 }
