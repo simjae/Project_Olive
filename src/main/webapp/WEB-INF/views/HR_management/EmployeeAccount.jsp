@@ -6,7 +6,7 @@
     
     수정일 : 2021-01-02
     수정자 : 백희승
-    수정내역 : 사원 등록을 위한 Modal 작성
+    수정내역 : 사원 등록을 위한 Modal 추가 작성
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -21,11 +21,18 @@
 <title>인사관리 - 계정 관리</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
+<!-- datepicker 용 CDN -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 <style>
+/* 데이트 피커 */
+.datepicker, .input-radius {
+	border-radius: 20px;
+}
 
 /* 신규 등록 모달 */
 .modal .modal-dialog {
 	max-width: 70%;
+	width: auto;
 }
 
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {
@@ -59,7 +66,17 @@ p.each-label{
 	margin-bottom:0;
 	font-weight: bolder;
 }
-</style>
+
+p.each-label ~ .form-control::placeholder, p.each-label + select option {
+	font-size: 0.75rem;
+	color: gray;
+}
+
+p.each-label span {
+	font-weight: normal;
+	font-size: 0.75rem;
+}
+</style> 
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -146,8 +163,40 @@ p.each-label{
 													<td>내용</td>
 													<td>내용</td>
 												</tr>
+												<tr>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+												</tr>
+												<tr>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+												</tr>
+												<tr>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+													<td>내용</td>
+												</tr>
 											</tbody>
 										</table>
+										
+										
 										<nav aria-label="Page navigation example">
 											<ul class="pagination">
 												<li class="page-item">
@@ -179,6 +228,8 @@ p.each-label{
 												</li>
 											</ul>
 										</nav>
+										
+										
 									</div>
 									<div class="row mr-5 float-right">
 										<a href="#employNewEmpModal" class="btn btn-info" data-toggle="modal">사원 신규 등록</a>
@@ -190,9 +241,9 @@ p.each-label{
 							<div id="employNewEmpModal" class="modal fade">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<form action="" method="POST"><!-- onsubmit="return empSubmit();" -->
+										<form action="" method="POST" onsubmit="return empSubmit();">
 											<div class="modal-header">
-												<h3 class="modal-title">사원 신규 등록</h3>
+												<h3 class="modal-title">사원 등록</h3>
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
@@ -201,55 +252,73 @@ p.each-label{
 														<div class="p-2">
 														
 															<div class="row">
-																<div class="col-md-10">
-																	<p class="each-label">사번</p>
-																	<input type="text" class="form-control" placeholder="사번을 입력해주세요." name="empNo">
+																<div class="col-md-10"> 
+																	<p class="each-label">사번<span id="checkEmpNo"></span></p>
+																	<input type="text" class="form-control input-radius" placeholder="사번을 입력해주세요." name="empNo" id="empNo" required>
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">이름</p>
-																	<input type="text" class="form-control" placeholder="이름을 입력해주세요." name="ename">
+																	<input type="text" class="form-control input-radius" placeholder="이름을 입력해주세요." name="ename" required>
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">E-Mail</p>
-																	<input type="text" class="form-control" placeholder="올바른 이메일 형식을 입력해주세요." name="email">
+																	<input type="text" class="form-control input-radius" placeholder="올바른 이메일 형식을 입력해주세요." name="email" required>
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">생년월일 (=password)</p>
-																	<input type="text" class="form-control" placeholder="생년월일 6자리 = 최초비밀번호" name="pwd">
+																	<input type="text" class="form-control input-radius" placeholder="생년월일 6자리 = 최초비밀번호" name="pwd" required>
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
-																	<p class="each-label">부서 코드(Dept)</p>
-																	<input type="text" class="form-control" placeholder="본부 10=10,20 | 20=30,40 | 30:50,60" name="deptCode">
+																	<p class="each-label">입사일자</p>
+																	<input type="text" class="form-control datepicker" placeholder="입사일 입력" name="pwd" required>
 																</div>
 															</div>
 															
+															<div class="row">
+																<div class="col-md-10">
+																	<p class="each-label">본부 선택(Head)</p>
+																	<select name="headCode" id="head" class="form-control input-radius">
+																	
+																	</select>
+																</div>
+															</div>
+															
+															<div class="row">
+																<div class="col-md-10">
+																	<p class="each-label">부서 선택(Dept)</p>
+																	<select name="deptCode" id="dept" class="form-control input-radius">
+																		<option selected value="null">먼저 본부를 선택해주세요.</option>
+																	</select>
+																</div>
+															</div>
+															 
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">포지션 코드(Position)</p>
-																	<input type="text" class="form-control" placeholder="10:팀원|20:팀장|30:본부장" name="positionCode">
+																	<input type="text" class="form-control input-radius" placeholder="10:팀원|20:팀장|30:본부장" name="positionCode">
 																</div>
 															</div>
 															
 															<div class="row">
 																<div class="col-md-10">
 																	<p class="each-label">직급 코드 (Class)</p>
-																	<input type="text" class="form-control" placeholder="10:사원|20:대리|30:부장|40:이사" name="classCode">
+																	<input type="text" class="form-control input-radius" placeholder="10:사원|20:대리|30:부장|40:이사" name="classCode">
 																</div>
 															</div>
 															
-															<input type="hidden" name="statusCode" value="10">
+															<input type="hidden" name="statusCode" value="10"><!-- 사원 신규 등록 : statusCode = 10번 -->
 														</div>
 													</div>
 													
@@ -268,15 +337,15 @@ p.each-label{
 											<div class="modal-footer">
                                     			<button type="reset" class="btn btn-danger btn-icon-split">
                                     				<span class="icon text-white-50">
-                                    				<i class="fas fa-trash"></i>
+                                    				<i class="fas fa-redo"></i>
                                     				</span>
-                                    				<span class="text">전부 지우기</span>
+                                    				<span class="text">처음부터 작성</span>
                                     			</button>
 												<button type="submit" class="btn btn-success btn-icon-split">
                                         			<span class="icon text-white-50">
                                             		<i class="fas fa-check"></i>
                                         			</span>
-                                        			<span class="text">신규 사원 등록하기</span>
+                                        			<span class="text">사원으로 등록</span>
                                     			</button>
 											</div>
 										</form>
@@ -298,5 +367,8 @@ p.each-label{
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+	<!-- datepicker 용 jquery ui script -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="/resources/js/Hr_management/validationBeforeInsert.js"></script>
 </body>
 </html>

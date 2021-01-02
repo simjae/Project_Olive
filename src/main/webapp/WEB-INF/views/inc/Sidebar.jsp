@@ -18,7 +18,7 @@
 			<i class="fas fa-laugh-wink"></i>
 		</div>
 		<div class="sidebar-brand-text mx-3">
-			A-Bridge <sup>^^</sup>
+			Olive <sup>^^</sup>
 		</div>
 	</a>
 
@@ -65,8 +65,6 @@
 				<h6 class="collapse-header">모두 인사관리자 권한:</h6>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/Organization.do">조직 관리</a> 
 				<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/EmployeeAccount.do">계정 관리</a>
-				<a class="collapse-item" href="#">직위/직무 관리</a>
-				<a class="collapse-item" href="#">사용자 승인</a>
 			</div>
 		</div></li>
 		
