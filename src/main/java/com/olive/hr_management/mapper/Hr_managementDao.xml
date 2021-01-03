@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
 	
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
-		INSERT INTO emp (empno, ename, email, pwd, deptcode, positioncode, classcode, statuscode)
-		VALUES (#{empNo}, #{ename}, #{email}, #{pwd}, #{deptCode}, #{positionCode}, #{classCode}, #{statusCode})
+		INSERT INTO emp (empNo, ename, email, pwd, hireDate, deptCode, positionCode, classCode, statusCode, birth)
+		VALUES (#{empNo}, #{ename}, #{email}, #{pwd}, #{hireDate}, #{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{birth})
 	</insert>
 	
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
@@ -31,4 +31,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE headCode = #{headCode}
 	</select>
 	
+	<select id="getPositions" resultType="com.olive.dto.Position">
+		SELECT positionCode, positionName
+		FROM position
+	</select>
+	
+	<select id="getClasses" resultType="com.olive.dto.Class">
+		SELECT classCode, className
+		FROM class
+	</select>
 </mapper>
