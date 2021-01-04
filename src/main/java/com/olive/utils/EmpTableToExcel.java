@@ -102,7 +102,7 @@ public class EmpTableToExcel extends AbstractExcelView{
 			cell = row.createCell(11);
 			cell.setCellValue(emp.getLoginCount());
 			cell = row.createCell(12);
-			cell.setCellValue(emp.getAlram());
+			cell.setCellValue(emp.getAlarm());
 		}
 	
 	

@@ -46,22 +46,7 @@ public class Hr_managementService {
 		
 		return result;
 	}
-	   
-	   // 인사관리 : 사원 신규 등록
-	   public void insertNewEmp(Emp emp) {
-		   Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		   dao.insertNewEmp(emp);
-		   System.out.println("서비스단 거침스");
-	   }
-	   
-	   public List<Emp> selectAllList(){
-		   List<Emp> list = new ArrayList<Emp>();
-		   Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		   list = dao.selectAllList();
-		   return list;
-	   }
-
-
+	
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
