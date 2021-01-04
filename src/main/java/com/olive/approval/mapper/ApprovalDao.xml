@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.olive.approval.mapper.ApprovalDao">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.olive.approval.dao.ApprovalDao">
+	<select id="selectEmp" resultType="com.olive.dto.Emp">
+    SELECT *
+    FROM emp where empno = #{empno}
+ </select>
 
+	<select id="selectDocType" resultType="com.olive.dto.Doc_Type">
+	select typecode, typename from doc_type
+	</select>
+
+	<insert id="writeDocument" parameterType="com.olive.dto.Document">
+		insert
+		into 
+		document (empno,writedate,title,content,total_approval,curr_approval,filename,statuscode,typecode)
+		values 
+		(#{empno},#{writedate},#{title},#{content},#{total_Approval},0,#{filename},10,#{typeCode});
+		<if test="typeCode!=10">
+		insert into doc_add (document_docno,startdate,enddate) 
+		values
+		((select max(docno) from document d), #{starttime},#{endtime});
+		</if>
+		<if test="approvers!=null">
+			insert 
+			into 
+			approver (docno,app_order,empno)
+			values
+			<foreach collection="approvers" item="item" index="index" separator=",">
+				((select max(docno) from document d),#{index}+1,${item.empNo})
+			</foreach>
+		</if>
+		<!-- <if test="referrers!=null">
+			insert 
+			into 
+			REFERENCE (docno,empno)
+			values
+			<foreach collection="referrers" item="item" index="index" separator="," close=";">
+				((select max(docno) from document d),${item.empno})
+			</foreach>
+		</if>-->
+		
+	</insert>
+
+	 <select id="getAllEmpList" resultType="com.olive.dto.Emp">
+		select * from emp
+	</select>
+	<select id="getAllDeptList" resultType="com.olive.dto.Dept">
+		select * from dept
+	</select>
+	<select id="getAllHeadList" resultType="com.olive.dto.Head">
+		select * from head
+	</select>
+ 
 </mapper>

@@ -46,6 +46,7 @@
 				<jsp:include page="../inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+					<c:set var="emp" value="${requestScope.emp }" />
 					<!-- Page Heading -->
 					<div class="row">
 						<div class="col-xl-2 h3 my-auto text-gray-800">기안하기</div>
@@ -72,17 +73,17 @@
 							</div>
 						</div>
 					</div>
-					<form>
+					<form action="" method="post" enctype="multipart/form-data" id="form">
 						<div class="col-md-12 border border-primary  py-2" style="background: white;">
 							<div class="row">
 								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
-											<select class="px-4 mx-auto w-100" id="selector">
-												<option value="일반 기안서">일반 기안서</option>
-												<option value="휴가 기안서">연차 신청서</option>
-												<option value="출장 기안서">출장 신청서</option>
+											<select class="px-4 mx-auto w-100" id="selector" name="typeCode">
+												<c:forEach var="list" items="${requestScope.docType}">
+													<option value="${list.typeCode}">${list.typeName}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -93,7 +94,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" readonly>
+												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno"readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -103,7 +104,7 @@
 										<div class="text-center text-primary">작성일자</div>
 										<c:set var="time" value="${requestScope.time}" />
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" name="writedate" readonly>
 										</div>
 									</div>
 								</div>
@@ -142,7 +143,7 @@
 									</div>
 								</div>
 								<div class="col-xl-2 my-auto mx-auto">
-									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split mx-auto my-auto w-100">
+									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split mx-auto my-auto w-100" id="approval">
 										<span class="text">결재선 추가하기</span>
 									</a>
 								</div>
@@ -164,16 +165,20 @@
 															</tr>
 															<tr style="height: 35px;">
 																<td rowspan="2">
-																	<input class="inputbox" id="app1" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app1_id" name="app1" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app2" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app2" type="text" readonly>
+																	<input class="inputbox text-center" id="app2_id" name="app2" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app3" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app3" type="text" readonly>
+																	<input class="inputbox text-center" id="app3_id" name="app3" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox" id="app4" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app4" type="text" readonly>
+																	<input class="inputbox text-center" id="app4_id" name="app4" type="text" hidden>
 																</td>
 															</tr>
 															<tr style="height: 35px;"></tr>
@@ -186,6 +191,8 @@
 														</tbody>
 													</table>
 												</div>
+												<br>
+												<span>참조자</span> <div id="referrer" class=" border-bottom border-secondary"></div>
 											</div>
 										</div>
 									</div>
@@ -213,7 +220,7 @@
 									<textarea class="col-md-10" id="summernote" name="content"></textarea>
 								</div>
 							</div>
-							<input type="file" id="fileProfile" name="fileProfile" value="" multiple hidden>
+							<input type="file" id="file" name="file" value="" multiple hidden>
 						</div>
 					</form>
 				</div>
@@ -265,22 +272,24 @@
 							<div class="col-md-12 mt-0 mb-2" style="height: 60%;">
 								<div class="mt-0 mb-0">결재자</div>
 								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
-								<div id ="approverList"></div>
+									<div id="approverList"></div>
 								</div>
 								<button class="btn btn-sm mt-1 btn-primary" id="add_approver">추가하기</button>
-								<button class="btn btn-sm mt-1 btn-danger" id="del_approver">제거하기</button>
 							</div>
 							<div class="col-md-12 mt-1 mb-0" style="height: 35%;">
 								<div class="mt-0 mb-0 ">참조자</div>
-								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;"></div>
-								<button class="btn btn-sm mt-1 btn-primary" id="add_reminder">추가하기</button>
-								<button class="btn btn-sm mt-1 btn-danger" id="del_reminder">제거하기</button>
+								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
+									<div id="referrerList"></div>
+								</div>
+								<button class="btn btn-sm mt-1 btn-primary" id="add_referrer">추가하기</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-circle btn-success" id="applybtn" type="button" data-dismiss="modal">
+						<i class="fas fa-check"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -319,10 +328,12 @@
 
 .inputbox {
 	border: 0px;
+	outline: none;
 }
 
 .datepicker {
 	border-radius: 20px;
+	outline: none;
 }
 
 .modal-body ul {
@@ -337,10 +348,10 @@
 .team {
 	list-style-image: none;
 }
-.temp{
-background: hsla(0, 100%, 100%, 0);
-border:none;
 
+.temp {
+	background: hsla(0, 100%, 100%, 0);
+	border: none;
 }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -349,59 +360,170 @@ border:none;
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<link rel="stylesheet" href="/resources/css/bootstrap-jstree-theme.css" />
 <script type="text/javascript">
-function deletetemp(me){
+var approverList =[];	
+var referrerList =[];
+
+
+function deletefromapp(me){
 	$(me).parents('a.jstree-anchor').remove();
+	approverList.splice(approverList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
 
+function deletefromrim(me){
+	$(me).parents('a.jstree-anchor').remove();
+	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
+};
+
+
+
+
+
+		 
+
 $(function() {
-		var $drop=$('#drop');
-		var uploadFiles=[];
-					
-		let jstree = $('#jstree_div').jstree({
-			'core':{
+	
+	var $drop=$('#drop');
+	var uploadFiles=[];
+	var data = [];
+	
+	function createFirstTree(){
+		
+		return new Promise((resolve,reject)=>{
+			
+		$.ajax({
+		url:"getAllEmpList.do",
+		 dataType: "json",
+		 contentType: "application/json; charset=utf-8",
+		success:function(responsedata){
+			console.log(responsedata);
+			$.each(responsedata,(index,item)=>{
+				console.log(item);
+				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename}
+					})
+				resolve();
+				}
+			});
+	
+		});
+	};
+	function createSecondTree(){
+		return new Promise((resolve,reject)=>{
+			$.ajax({
+				url:"getAllDeptList.do",
+				 dataType: "json",
+				 contentType: "application/json; charset=utf-8",
+
+				success:function(responsedata){
+					console.log(responsedata);
+					$.each(responsedata,(index,item)=>{
+						console.log(item);
+						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName}
+						})
+						resolve();
+					}
+				});
+			});
+	}
+	function createFinalTree(){
+		return new Promise((resolve,reject)=>{
+			$.ajax({
+				url:"getAllHeadList.do",
+				 dataType: "json",
+				 contentType: "application/json; charset=utf-8",
+				success:function(responsedata){
+					console.log(responsedata);
+					$.each(responsedata,(index,item)=>{
+						console.log(item);
+						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName}
+						})
+						resolve();
+					}
+				});
+	
+			});
+		
+	}
+
+	createFirstTree()
+	 .then(createSecondTree)
+	 .then(createFinalTree)
+	 
+	 $('#submit').on("click",()=>{
+		$('#form').submit();
+	 })
+
+		$('#applybtn').on("click",()=>{
+				console.log(approverList);
+
+				for(let i=1; i<(approverList.length/2)+1; i++){
+						$('#app'+i).val(approverList[i*2-2]);
+						console.log($('#app'+i).val());
+						$('#app'+i+'_id').val(approverList[i*2-1][0].id.split('_')[0]);
+						console.log($('#app'+i+'_id').val());
+					}
+					$('#referrer').empty();
+			
+				for(let j=1; j< (referrerList.length/2)+1; j++){
+					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrer'+j+' hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
+					$('#referrer').append(html);
+				}
+			}); 
+			
+		 
+		$('#approval').on("click",()=>{
+			
+			console.log(data.length);
+			console.log(typeof data);
+		
+			$('#jstree_div').jstree({
+			"core":{
 			"check_callback" : true,
-			'data':[
-				{"id":"headquter1","parent":"#","text":"경영지원 본부","icon":"/resources/img/headquters.png"},
-				{"id":"headquter2","parent":"#","text":"전략 본부","icon":"/resources/img/headquters.png"},
-				{"id":"headquter3","parent":"#","text":"개발 본부","icon":"/resources/img/headquters.png"},
-				{"id":"department1","parent":"headquter1","text":"경영지원팀"},
-				{"id":"department2","parent":"headquter1","text":"회계팀"},
-				{"id":"department3","parent":"headquter2","text":"전략 1팀"},
-				{"id":"department4","parent":"headquter2","text":"전략 2팀"},
-				{"id":"department5","parent":"headquter3","text":"개발 1팀"},
-				{"id":"department6","parent":"headquter3","text":"개발 2팀"},
-				{"id":"teammate1","parent":"department1","text":"박선우"},
-				{"id":"teammate2","parent":"department2","text":"정민찬"},
-				{"id":"teammate3","parent":"department3","text":"백희승"},
-				{"id":"teammate4","parent":"department4","text":"심재형"},
-				{"id":"teammate5","parent":"department5","text":"박채연"},
-				{"id":"teammate6","parent":"department6","text":"신동연"}
-				],
-			},	
+			 "data":data
+				
+		 	},	
 			"plugins" : [ "dnd" ]
 			}
-		); 
-
+		)
+		});  
+ 
+		
 		$('#add_approver').on("click",()=>{
-			let clicked = $('div#jstree_div a.jstree-clicked').clone();
-			console.log(clicked);
-			let button = '<button class="temp" onclick="deletetemp(this)">x</button>';
-			let approver = clicked.append(button);
-			$('#approverList').append(clicked);
-			$('#approverList a.jstree-clicked').each("click", () => {
-				$(this).toggleClass("clickclack");
-			});
+			
+			let clickedapp = $('div#jstree_div a.jstree-clicked').clone();
+			let buttonapp = '<button class="temp" onclick="deletefromapp(this)"><img class="false" src="/resources/img/false.png"></button>';
+			let approver = clickedapp.append(buttonapp);
+
+			if(!approverList.includes(clickedapp.text())){
+			approverList.push(clickedapp.text());
+			approverList.push(clickedapp);
+			console.log(clickedapp[0].id.split('_')[0]);
+			};
+			$('#approverList').empty();
+			for(let i=1; i<approverList.length; i+=2){
+				$('#approverList').append(approverList[i]);
+			}
+		
 		});
 
-		$('#del_approver').on("click",()=>{
-			let target = $('#approverList a.clickclack');
+		$('#add_referrer').on("click",()=>{
+			console.log('sjidjid');
+			let clicked = $('div#jstree_div a.jstree-clicked').clone();
+			let button = '<button class="temp" onclick="deletefromrim(this)"><img class="false" src="/resources/img/false.png"></button>';
+			let referrer = clicked.append(button);
 			
 
-			});
+			if(!referrerList.includes(clicked.text())){
+			referrerList.push(clicked.text());
+			referrerList.push(clicked);
+			};
+			$('#referrer').empty();
+			for(let i=1; i<referrerList.length; i+=2){
+				$('#referrerList').append(referrerList[i]);
+			}
 
-		
+		});
+			
 	
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
@@ -658,19 +780,24 @@ $(function() {
 		
 		$(document).on("click",".datepicker",(e)=>{
 			e.preventDefault();
-		$('.datepicker').datepicker();
+		$('.datepicker').datepicker({
+			dateFormat:"yy-mm-dd"
+			});
 		});
 
 		$('#selector').on("change",()=>{
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
 			let html='';
-			if($('#selector').val()!='0' ){
+			if($('#selector').val()!='10' ){
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				$('#selector').val()+' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276">'+
-				'<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276"></div></div></div></div></div></div>';
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276" readonly>'+
+				'<span class="mx-2">';
+				if( $('#selector').val()!='20'){
+				html+= '~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276" readonly></div></div></div></div></div></div>';
+				};
 
 				
 				$('#duration').append(html);
@@ -678,7 +805,7 @@ $(function() {
 				let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
 					<tbody class="text-center">\
 						<tr style="height: 400px;">\
-					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;">'+$('#selector').val().split(' ')[0]+' 사유</td>\
+					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;"> 사유</td>\
 					<td>내용</td>\
 					</tr>\
 					</tbody>\
@@ -759,16 +886,16 @@ $(function() {
 
 		$('#file_add').click(function() {
 		    console.log('fileadd');
-		    $("#fileProfile").click();
+		    $("#file").click();
 		});
 
-		var input = document.querySelector('input[name="fileProfile"]');
+		var input = document.querySelector('input[name="file"]');
 	    input.addEventListener('change',(function(e){
 	    	
 	    	var file = input.files;
-	        console.log($("#fileProfile").val());
+	        console.log($("#file").val());
 	    	thumbnail(file);
-	        $("#fileProfile").val();
+	        $("#file").val();
 	    	console.log(file);
 			
 			

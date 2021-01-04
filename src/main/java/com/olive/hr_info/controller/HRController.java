@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
+
+
 
 
 
@@ -40,8 +43,9 @@ public class HRController {
 		List<Emp> emplist = empService.showEmpList();
 		model.addAttribute("emplist", emplist);
 		return "HRinfo/Emp";
-		
 	}
+	
+	
 	
 	@RequestMapping("Organization_chart.do")
 	public String showOrganization() {
