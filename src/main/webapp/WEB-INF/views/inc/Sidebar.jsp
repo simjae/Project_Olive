@@ -18,7 +18,7 @@
 			<i class="fas fa-laugh-wink"></i>
 		</div>
 		<div class="sidebar-brand-text mx-3">
-			A-Bridge <sup>^^</sup>
+			Olive <sup>^^</sup>
 		</div>
 	</a>
 
@@ -39,11 +39,11 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">모든 권한:</h6>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/attendanceHome.do">근태 메인</a> 
-				<a class="collapse-item" href="#">휴가 현황</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/annual.do">휴가 현황</a>
 				<div class="collapse-divider"></div>
 				<h6 class="collapse-header">매니저 권한:</h6>
-				<a class="collapse-item" href="#">근태 관리</a>
-				<a class="collapse-item" href="#">휴가 관리</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/mattendance.do">근태 관리</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/mannual.do">휴가 관리</a>
 			</div>
 		</div></li>
 

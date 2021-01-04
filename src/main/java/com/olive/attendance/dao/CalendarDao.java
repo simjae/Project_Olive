@@ -1,3 +1,4 @@
+package com.olive.attendance.dao;
 /*
 	파일명:CalendarDao.java 
 	설명: 캘린더 컨트롤러  
@@ -6,15 +7,15 @@
 */
 
 
-package com.olive.attendance.dao;
+import java.util.List;
 
-public class CalendarDao {
-	
-	
-	//캘린더 데이터 입력
-	
-	//캘린더 데이터 수
-	
-	//캘린더데이터 삭제 
+import com.olive.dto.Calendar;
 
+public interface CalendarDao {
+
+	public void insert(Calendar cal);
+
+
+
+	public List<Calendar> getcalendarList();
 }
