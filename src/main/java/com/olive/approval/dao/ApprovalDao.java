@@ -15,6 +15,8 @@ public interface ApprovalDao {
 	public List<Emp> getAllEmpList();
 	public List<Dept> getAllDeptList();
 	public List<Head> getAllHeadList();
+	public void insertApprover(Document doc);
+	public void insertReferrer(Document doc);
 
 	
 }

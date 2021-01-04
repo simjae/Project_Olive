@@ -67,8 +67,16 @@ public class ApprovalController {
 	
 	@RequestMapping(value="DocWrite.do", method=RequestMethod.POST)
 	public String docInsert(Document doc,BindingResult result,HttpServletRequest request) {
-		
-		approvalService.writeDoc(doc,request);
+		try {
+			approvalService.writeDoc(doc,request);
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("다 안드감");
+			// TODO: handle exception
+		}{
+			
+		}
 		return "redirect:/approval/approvalHome.do";
 	}
 	

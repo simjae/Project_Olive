@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
@@ -41,17 +42,18 @@ public class ApprovalService {
 		return approvalDao.selectDocType();
 	}
 
-	public void writeDoc(Document doc, HttpServletRequest request) {
+	@Transactional
+	public void writeDoc(Document doc, HttpServletRequest request) throws Exception {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Approver> appList = new ArrayList();
 		List<Refference> refList = new ArrayList();
-		
+
 		CommonsMultipartFile multifile = doc.getFile();
 		String filename = multifile.getOriginalFilename();
 		String path = request.getServletContext().getRealPath("/resources/upload");
 		System.out.println(path);
 		String fpath = path + "/" + filename;
-		
+
 		if (!filename.equals("")) {
 			// 실 파일 업로드
 			try {
@@ -63,7 +65,7 @@ public class ApprovalService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		doc.setFilename(filename);
 		int i = 1;
 		int j = 1;
@@ -92,7 +94,19 @@ public class ApprovalService {
 		doc.setApprovers(appList);
 		doc.setReferrers(refList);
 		System.out.println(doc);
-	   approvalDao.writeDocument(doc);
+
+		try {
+			approvalDao.writeDocument(doc);
+			approvalDao.insertApprover(doc);
+			approvalDao.insertReferrer(doc);
+			System.out.println("정상처리");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Transaction Exception :" + e.getMessage());
+			throw e;
+		}
+
 	}
 
 	public List<Emp> getAllEmpList() {

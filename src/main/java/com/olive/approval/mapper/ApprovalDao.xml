@@ -21,16 +21,16 @@
 		values
 		((select max(docno) from document d), #{starttime},#{endtime});
 		</if>
-		<if test="approvers!=null">
+		<!-- <if test="approvers!=null">
 			insert 
 			into 
 			approver (docno,app_order,empno)
 			values
-			<foreach collection="approvers" item="item" index="index" separator=",">
+			<foreach collection="approvers" item="item" index="index" separator="," close=";">
 				((select max(docno) from document d),#{index}+1,${item.empNo})
 			</foreach>
 		</if>
-		<!-- <if test="referrers!=null">
+		<if test="referrers!=null">
 			insert 
 			into 
 			REFERENCE (docno,empno)
@@ -38,11 +38,30 @@
 			<foreach collection="referrers" item="item" index="index" separator="," close=";">
 				((select max(docno) from document d),${item.empno})
 			</foreach>
-		</if>-->
-		
+		</if> --> 
+
+	</insert>
+	<insert id="insertApprover" parameterType="com.olive.dto.Document">
+		<selectKey order="BEFORE" keyProperty="docno" resultType="int">
+			SELECT IFNULL(MAX(docno),0) FROM document
+		</selectKey>
+		insert into approver (docno,app_order,empno) values
+		<foreach collection="approvers" item="item" index="index" separator=",">
+		(${docno},(#{index}+1),${item.empNo})
+		</foreach> 
+	</insert>
+	<insert id="insertReferrer" parameterType="com.olive.dto.Document">
+		<selectKey order="BEFORE" keyProperty="docno" resultType="int">
+			SELECT IFNULL(MAX(docno),0) FROM document
+		</selectKey>
+		insert into REFERENCE (docno,empno)	values
+		<foreach collection="referrers" item="item" index="index" separator=",">
+		(${docno},${item.empno})
+		</foreach>
 	</insert>
 
-	 <select id="getAllEmpList" resultType="com.olive.dto.Emp">
+
+	<select id="getAllEmpList" resultType="com.olive.dto.Emp">
 		select * from emp
 	</select>
 	<select id="getAllDeptList" resultType="com.olive.dto.Dept">
@@ -51,5 +70,5 @@
 	<select id="getAllHeadList" resultType="com.olive.dto.Head">
 		select * from head
 	</select>
- 
+
 </mapper>
