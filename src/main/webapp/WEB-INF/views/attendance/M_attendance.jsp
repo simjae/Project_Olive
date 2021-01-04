@@ -10,6 +10,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href='../resources/fullcalendar-5.5.0/lib/main.css'
+	rel='stylesheet' />
+<script src='../resources/fullcalendar-5.5.0/lib/main.js'></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -22,6 +25,129 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		//db일정 받아오기 
+		 var eventFeed = function(info, successCallback, failureCallback){
+			$.ajax({
+				type :"GET",
+				url : "calendarList.do",
+				dataType : "json",
+				success :function(data){
+				successCallback(data);
+				console.log(data);
+				
+					}
+				});
+			 } 
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			dateClick : function(info) {
+				/* alert('Date: ' + info.dateStr);
+				alert('Resource ID: ' + info.resource.id); */
+				$("#myModal").modal();
+				$("#sname").val(info.dateStr);
+				$("#ename").val(info.dateStr);
+				$("#modal-body").html("");
+			},
+			
+			headerToolbar : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+			},
+			buttonText : {
+				today : '오늘',
+				month : '월',
+				week : '주',
+				day : '일',
+				list : '주간 일정표'
+			},
+			eventRender: function (event, element, view) {
+
+			    //일정에 hover시 요약
+			    element.popover({
+			      title: $('<div />', {
+			        class: 'popoverTitleCalendar',
+			        text: event.title
+			      }).css({
+			        'background': event.backgroundColor,
+			        'color': event.textColor
+			      }),
+			      content: $('<div />', {
+			          class: 'popoverInfoCalendar'
+			        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
+			        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
+			        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
+			        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
+			      delay: {
+			        show: "800",
+			        hide: "50"
+			      },
+			      trigger: 'hover',
+			      placement: 'top',
+			      html: true,
+			      container: 'body'
+			    });
+
+			    return filtering(event);
+
+			  },
+		
+			  //일정 드래그앤드롭
+			  eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+			    $('.popover.fade.top').remove();
+
+			    //주,일 view일때 종일 <-> 시간 변경불가
+			    if (view.type === 'agendaWeek' || view.type === 'agendaDay') {
+			      if (draggedEventIsAllDay !== event.allDay) {
+			        alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
+			        location.reload();
+			        return false;
+			      }
+			    }
+
+			    // 드랍시 수정된 날짜반영
+			    var newDates = calDateWhenDragnDrop(event);
+
+			    //드롭한 일정 업데이트
+			    $.ajax({
+			      type: "get",
+			      url: "",
+			      data: {
+			        //...
+			      },
+			      success: function (response) {
+			        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+			      }
+			    });
+
+			  },
+			initialDate : '2020-09-12',
+			navLinks : true, // can click day/week names to navigate views
+			nowIndicator : true,
+			weekNumbers : true,
+			weekNumberCalculation : 'ISO',
+			editable : true,
+			selectable : true,
+			dayMaxEvents : true, // allow "more" link when too many events
+			/* events:[
+				{
+			          title: '휴가',
+			          start: '2020-09-07',
+			          end: '2020-09-10'
+			        } 
+
+				] */
+			events:eventFeed
+				
+			
+
+		});
+		calendar.render();
+		
+	});
+</script>
 
 <body id="page-top">
 
@@ -59,17 +185,17 @@
 
 
 
-			<div class="row">
-						<!-- Earnings (Monthly) Card Example -->
-						<div class="col-xl col-md-6 mb-4">
+						<div class="row">
+							<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												총 연차</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">13일</div>
+												입사일로부터 지금까지</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -88,8 +214,11 @@
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">사용연차:
-												8일</div>
+											<span class="h5 font-weight-bold text-gray-800">출근:
+												8일</span>
+											<span class="h5 font-weight-bold text-gray-800">지각:
+												8일</span>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -106,12 +235,13 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">남은
-												연차</div>
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">
+												오늘</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0일
-													</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일
+														근무중</div>
+
 												</div>
 
 											</div>
@@ -123,19 +253,20 @@
 								</div>
 							</div>
 						</div>
+					
 					</div>
 
 
 					<!-- End of Main Content -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">연차이력</h6>
+							<h6 class="m-0 font-weight-bold text-primary">근태이력</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered " id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align = "center" class = "table-primary">
+									<thead align = "center" style= "background-color : #808000">
 										<tr >
 											<th>이름</th>
 											<th>사번</th>
@@ -160,6 +291,32 @@
                                              	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
                                              </td>
                                         	</tr>
+                                        	  <tr>
+                                            <td>심재형</td>
+                                            <td>1004 </td>
+                                            <td>마케팅</td>
+                                            <td>2020-07-16 09:00</td>
+                                            <td>2020-07-16 16:00</td>
+                                             <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
+                                             </td>
+                                              <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+                                             </td>
+                                        	</tr>
+                                        	  <tr>
+                                            <td>심재형</td>
+                                            <td>1004 </td>
+                                            <td>마케팅</td>
+                                            <td>2020-07-16 09:00</td>
+                                            <td>2020-07-16 16:00</td>
+                                             <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
+                                             </td>
+                                              <td align = "center">
+                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+                                             </td>
+                                        	</tr>
 									</tbody>
 									
 
@@ -167,17 +324,44 @@
 							</div>
 						</div>
 					</div>
-
+							<div id='calendar'></div>
 				</div>
-				
-
-
-
-
-
 			</div>
-			<!-- End of Main Content -->
+			<!-- Modal -->
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
 
+							<!-- Modal content-->
+
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">일정추가</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<form action="/calendar.do">
+											<div class="sname">
+												<label for="sname">시작일 :</label><br> <input type="text"
+													id="sname" name="startdate"><br>
+											</div>
+											<div class="ename">
+												<label for="ename">종료일 :</label><br> <input type="text"
+													id="ename" name="enddate"><br>
+											</div>
+											<label for="lname">내용:</label><br> <input type="text"
+												id="lname" name="context"><br> <br> <input
+												type="submit" value="Submit"> <input type="reset">
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
 			<!-- Footer 모듈화 -->
 			<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 			<!-- End of Footer 모듈화 -->
