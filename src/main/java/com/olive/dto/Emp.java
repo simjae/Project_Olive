@@ -1,3 +1,9 @@
+/*
+	파일명: Emp.java
+    설명: 사원(Emp) DTO 객체
+    작성일: 
+    작성자: 
+*/
 package com.olive.dto;
 
 import java.util.Date;

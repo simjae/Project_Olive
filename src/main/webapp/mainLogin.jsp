@@ -53,7 +53,7 @@
                             <div class="col-lg-6 d-none d-lg-block my-auto text-center">
                                 <img src="resources/img/logo.png" width="100">
                                 <br><br>
-                                <h3>MMM HR SYSTEM</h3>
+                                <h2>Olive</h2>
                                 <p class="text-black">the utmost choice to kickstart your career</p>
                                 <img src="resources/img/6308.jpg" width="400" >
                             </div>
@@ -86,7 +86,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small text-primary" href="forgot-password.html">비밀번호 재설정</a>
+                                        <a class="small text-primary" href="forgot-password.html">비밀번호 찾기</a>
                                     </div>
                                 </div>
                             </div>

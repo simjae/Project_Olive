@@ -139,6 +139,7 @@ jQuery(document).ready(function($) {
 	
 	function empSubmit() {
 		const empNo_Regex = /^(\d(\s+)?){4,6}$/;
+		
 		const email_Regex = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/i;
 		const birth_Regex = /^(\d(\s+)?){6}$/;	
 		const hireDate_Regex = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
@@ -153,10 +154,10 @@ jQuery(document).ready(function($) {
 			
 		} else if ( $('#ename').val().trim() === "") {
 			swal("이름을 입력해주세요.", "warning");
-			
+			/*
 		} else if ( !email_Regex.test( $('#email').val()) ) {
 			swal("E-mail을 정확히 입력해주세요.", "예) employee1@gmail.com", "warning");
-			
+			*/
 		} else if ( !birth_Regex.test( $('#birth').val() )) {
 			swal("생년월일을 정확히 입력해주세요.", "예) 920203", "warning");
 			

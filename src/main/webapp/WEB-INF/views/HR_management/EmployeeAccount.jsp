@@ -270,12 +270,14 @@ p.each-label > span {
 																</div>
 															</div>
 															
+															<!--  
 															<div class="row pb-2">
 																<div class="col-md-12">
 																	<p class="each-label">E-Mail</p>
 																	<input type="text" class="form-control input-radius" placeholder="올바른 이메일 형식을 입력해주세요." name="email" id="email">
 																</div>
 															</div>
+															-->
 															
 															<div class="row pb-2">
 																<div class="col-md-12">

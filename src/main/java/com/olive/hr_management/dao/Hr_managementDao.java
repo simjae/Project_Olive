@@ -1,3 +1,9 @@
+/*
+	파일명: Hr_managementDao.java
+    설명: 인사관리 Dao
+    작성일: 2021-01-02
+    작성자: 백희승
+*/
 package com.olive.hr_management.dao;
 
 import java.util.List;

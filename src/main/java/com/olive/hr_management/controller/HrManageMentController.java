@@ -1,3 +1,9 @@
+/*
+	파일명: HrManageMentController.java
+    설명: 인사관리 Controller 
+    작성일: 2021-01-02
+    작성자: 백희승
+*/
 package com.olive.hr_management.controller;
 
 import java.sql.Date;
@@ -28,6 +34,7 @@ public class HrManageMentController {
 	@Autowired
 	private Hr_managementService service;
 
+	// 암호화 객체
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -46,7 +53,7 @@ public class HrManageMentController {
 	// 인사관리 > 계정 관리 > 사원 신규 등록
 	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.POST)
 	public String insertNewAccount(Emp emp) {
-		// 사원 등록 시 비밀번호 : 생년월일과 같은 비밀번호를 암호화.
+		// 비밀번호 암호화하여 INSERT
 		emp.setPwd(this.bCryptPasswordEncoder.encode(emp.getPwd()));
 		service.insertNewEmp(emp);
 		return "HR_management/EmployeeAccount";
