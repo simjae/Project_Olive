@@ -31,6 +31,12 @@ public class CalendarService {
 			caldao.insert(cal);
 			System.out.println("여기옴 ");
 			
+		}
+		public List<Calendar> calendarList() {
+			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
+	
+			System.out.println("캘린더리스트 서비스  ");
+		return caldao.getcalendarList();
 			
 		}
 				

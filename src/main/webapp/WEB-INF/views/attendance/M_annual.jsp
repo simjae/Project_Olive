@@ -28,6 +28,19 @@
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
+		//db일정 받아오기 
+		 var eventFeed = function(info, successCallback, failureCallback){
+			$.ajax({
+				type :"GET",
+				url : "calendarList.do",
+				dataType : "json",
+				success :function(data){
+				successCallback(data);
+				console.log(data);
+				
+					}
+				});
+			 } 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			dateClick : function(info) {
 				/* alert('Date: ' + info.dateStr);
@@ -37,6 +50,7 @@
 				$("#ename").val(info.dateStr);
 				$("#modal-body").html("");
 			},
+			
 			headerToolbar : {
 				left : 'prev,next today',
 				center : 'title',
@@ -79,29 +93,7 @@
 			    return filtering(event);
 
 			  },
-			  //일정받아오기 
-			  events: function (start, end, timezone, callback) {
-				    $.ajax({
-				      type: "get",
-				      url: "data.json",
-				      data: {
-				        // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-				        //startDate : moment(start).format('YYYY-MM-DD'),
-				        //endDate   : moment(end).format('YYYY-MM-DD')
-				      },
-				      success: function (response) {
-				        var fixedDate = response.map(function (array) {
-				          if (array.allDay && array.start !== array.end) {
-				            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-				          }
-				          return array;
-				        });
-				        callback(fixedDate);
-				      }
-				    });
-				  },
-							  
-
+			
 			  //일정 드래그앤드롭
 			  eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
 			    $('.popover.fade.top').remove();
@@ -131,6 +123,7 @@
 			    });
 
 			  },
+			themeSystem:'Sketchy',
 			initialDate : '2020-09-12',
 			navLinks : true, // can click day/week names to navigate views
 			nowIndicator : true,
@@ -139,18 +132,21 @@
 			editable : true,
 			selectable : true,
 			dayMaxEvents : true, // allow "more" link when too many events
-			events:[
+			/* events:[
 				{
 			          title: '휴가',
 			          start: '2020-09-07',
 			          end: '2020-09-10'
-			        }
+			        } 
 
-				]
+				] */
+			events:eventFeed
+				
 			
 
 		});
 		calendar.render();
+		
 	});
 </script>
 <body id="page-top">
@@ -250,7 +246,11 @@
 							</div>
 						</div>
 					</div>
-
+					<!-- End of Main Content -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">연차이력</h6>
+						</div>
 					<!-- nav 태그  -->
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
@@ -354,12 +354,12 @@
 
 						</div>
 
-						<
+						
 					</div>
 
 
 				</div>
-
+			</div>
 
 				<!-- Button trigger modal -->
 				<div class="container">

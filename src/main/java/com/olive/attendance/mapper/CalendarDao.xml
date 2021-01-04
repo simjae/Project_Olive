@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	VALUES(#{startdate}, #{enddate}, #{context})
 	 </insert>
 	 
-	 <select id="selectlist" parameterType="com.olive.dto.Calendar">
-	 SELECT * FROM Calendar  = #{startdate}, #{enddate}, #{context}
+	 <select id="getcalendarList" resultType="com.olive.dto.Calendar">
+	 SELECT title, startdate as start, enddate as end FROM Calendar
 
 	 
 	 
