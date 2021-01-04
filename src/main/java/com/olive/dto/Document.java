@@ -11,7 +11,7 @@ import lombok.Data;
 public class Document {
 	private int docno;
 	private int empno;
-	private Date writeDate;
+	private Date writedate;
 	private String content;
 	private int total_Approval;
 	private int curr_Approval;
@@ -19,6 +19,9 @@ public class Document {
 	private int statusCode;
 	private int typeCode;
 	private CommonsMultipartFile file;
-	private List approvers;
+	private List<Approver> approvers;
 	private String title;
+	private Date starttime;
+	private Date endtime;
+	private List<Refference> referrers;
 }

@@ -80,7 +80,7 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
-											<select class="px-4 mx-auto w-100" id="selector">
+											<select class="px-4 mx-auto w-100" id="selector" name="typeCode">
 												<c:forEach var="list" items="${requestScope.docType}">
 													<option value="${list.typeCode}">${list.typeName}</option>
 												</c:forEach>
@@ -94,7 +94,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" readonly>
+												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno"readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -104,7 +104,7 @@
 										<div class="text-center text-primary">작성일자</div>
 										<c:set var="time" value="${requestScope.time}" />
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" name="writedate" readonly>
 										</div>
 									</div>
 								</div>
@@ -165,16 +165,20 @@
 															</tr>
 															<tr style="height: 35px;">
 																<td rowspan="2">
-																	<input class="inputbox text-center" id="app1" name="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app1" type="text" readonly>
+																	<input class="inputbox text-center" id="app1_id" name="app1" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox text-center" id="app2" name="app2" type="text" readonly>
+																	<input class="inputbox text-center" id="app2" type="text" readonly>
+																	<input class="inputbox text-center" id="app2_id" name="app2" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox text-center" id="app3" name="app3" type="text" readonly>
+																	<input class="inputbox text-center" id="app3" type="text" readonly>
+																	<input class="inputbox text-center" id="app3_id" name="app3" type="text" hidden>
 																</td>
 																<td rowspan="2">
-																	<input class="inputbox text-center" id="app4" name="app4" type="text" readonly>
+																	<input class="inputbox text-center" id="app4" type="text" readonly>
+																	<input class="inputbox text-center" id="app4_id" name="app4" type="text" hidden>
 																</td>
 															</tr>
 															<tr style="height: 35px;"></tr>
@@ -187,7 +191,8 @@
 														</tbody>
 													</table>
 												</div>
-												<div id="reminder" class=" border-bottom border-secondary">&nbsp; &nbsp; &nbsp; &nbsp; 참조 :</div>
+												<br>
+												<span>참조자</span> <div id="referrer" class=" border-bottom border-secondary"></div>
 											</div>
 										</div>
 									</div>
@@ -215,7 +220,7 @@
 									<textarea class="col-md-10" id="summernote" name="content"></textarea>
 								</div>
 							</div>
-							<input type="file" id="fileProfile" name="fileProfile" value="" multiple hidden>
+							<input type="file" id="file" name="file" value="" multiple hidden>
 						</div>
 					</form>
 				</div>
@@ -274,9 +279,9 @@
 							<div class="col-md-12 mt-1 mb-0" style="height: 35%;">
 								<div class="mt-0 mb-0 ">참조자</div>
 								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
-									<div id="reminderList"></div>
+									<div id="referrerList"></div>
 								</div>
-								<button class="btn btn-sm mt-1 btn-primary" id="add_reminder">추가하기</button>
+								<button class="btn btn-sm mt-1 btn-primary" id="add_referrer">추가하기</button>
 							</div>
 						</div>
 					</div>
@@ -328,6 +333,7 @@
 
 .datepicker {
 	border-radius: 20px;
+	outline: none;
 }
 
 .modal-body ul {
@@ -356,7 +362,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script type="text/javascript">
 var approverList =[];	
-var reminderList =[];
+var referrerList =[];
 
 
 function deletefromapp(me){
@@ -366,7 +372,7 @@ function deletefromapp(me){
 
 function deletefromrim(me){
 	$(me).parents('a.jstree-anchor').remove();
-	reminderList.splice(reminderList.indexOf($(me).parents('a.jstree-anchor').text()),2);
+	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
 
 
@@ -448,16 +454,20 @@ $(function() {
 	 })
 
 		$('#applybtn').on("click",()=>{
-				
-				$('#app1').val(approverList[0]);
-				$('#app2').val(approverList[2]);
-				$('#app3').val(approverList[4]);
-				$('#app4').val(approverList[6]);
-				
-				for(let i=0; i<reminderList.length; i+=2){
-				console.log(reminderList[i]);
-				$('#reminder').append(reminderList[i]);
-				};		
+				console.log(approverList);
+
+				for(let i=1; i<(approverList.length/2)+1; i++){
+						$('#app'+i).val(approverList[i*2-2]);
+						console.log($('#app'+i).val());
+						$('#app'+i+'_id').val(approverList[i*2-1][0].id.split('_')[0]);
+						console.log($('#app'+i+'_id').val());
+					}
+					$('#referrer').empty();
+			
+				for(let j=1; j< (referrerList.length/2)+1; j++){
+					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrer'+j+' hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
+					$('#referrer').append(html);
+				}
 			}); 
 			
 		 
@@ -487,6 +497,7 @@ $(function() {
 			if(!approverList.includes(clickedapp.text())){
 			approverList.push(clickedapp.text());
 			approverList.push(clickedapp);
+			console.log(clickedapp[0].id.split('_')[0]);
 			};
 			$('#approverList').empty();
 			for(let i=1; i<approverList.length; i+=2){
@@ -495,20 +506,20 @@ $(function() {
 		
 		});
 
-		$('#add_reminder').on("click",()=>{
+		$('#add_referrer').on("click",()=>{
 			console.log('sjidjid');
 			let clicked = $('div#jstree_div a.jstree-clicked').clone();
 			let button = '<button class="temp" onclick="deletefromrim(this)"><img class="false" src="/resources/img/false.png"></button>';
-			let reminder = clicked.append(button);
+			let referrer = clicked.append(button);
 			
 
-			if(!reminderList.includes(clicked.text())){
-			reminderList.push(clicked.text());
-			reminderList.push(clicked);
+			if(!referrerList.includes(clicked.text())){
+			referrerList.push(clicked.text());
+			referrerList.push(clicked);
 			};
-			$('#reminderList').empty();
-			for(let i=1; i<reminderList.length; i+=2){
-				$('#reminderList').append(reminderList[i]);
+			$('#referrer').empty();
+			for(let i=1; i<referrerList.length; i+=2){
+				$('#referrerList').append(referrerList[i]);
 			}
 
 		});
@@ -769,7 +780,9 @@ $(function() {
 		
 		$(document).on("click",".datepicker",(e)=>{
 			e.preventDefault();
-		$('.datepicker').datepicker();
+		$('.datepicker').datepicker({
+			dateFormat:"yy-mm-dd"
+			});
 		});
 
 		$('#selector').on("change",()=>{
@@ -780,10 +793,10 @@ $(function() {
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276">'+
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276" readonly>'+
 				'<span class="mx-2">';
 				if( $('#selector').val()!='20'){
-				html+= '~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276"></div></div></div></div></div></div>';
+				html+= '~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276" readonly></div></div></div></div></div></div>';
 				};
 
 				
@@ -873,16 +886,16 @@ $(function() {
 
 		$('#file_add').click(function() {
 		    console.log('fileadd');
-		    $("#fileProfile").click();
+		    $("#file").click();
 		});
 
-		var input = document.querySelector('input[name="fileProfile"]');
+		var input = document.querySelector('input[name="file"]');
 	    input.addEventListener('change',(function(e){
 	    	
 	    	var file = input.files;
-	        console.log($("#fileProfile").val());
+	        console.log($("#file").val());
 	    	thumbnail(file);
-	        $("#fileProfile").val();
+	        $("#file").val();
 	    	console.log(file);
 			
 			

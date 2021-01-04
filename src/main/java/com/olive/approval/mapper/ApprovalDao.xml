@@ -15,7 +15,31 @@
 		into 
 		document (empno,writedate,title,content,total_approval,curr_approval,filename,statuscode,typecode)
 		values 
-		(#{empno},now(),#{title},#{content},3,1,#{filename},10,#{typeCode})
+		(#{empno},#{writedate},#{title},#{content},#{total_Approval},0,#{filename},10,#{typeCode});
+		<if test="typeCode!=10">
+		insert into doc_add (document_docno,startdate,enddate) 
+		values
+		((select max(docno) from document d), #{starttime},#{endtime});
+		</if>
+		<if test="approvers!=null">
+			insert 
+			into 
+			approver (docno,app_order,empno)
+			values
+			<foreach collection="approvers" item="item" index="index" separator=",">
+				((select max(docno) from document d),#{index}+1,${item.empNo})
+			</foreach>
+		</if>
+		<!-- <if test="referrers!=null">
+			insert 
+			into 
+			REFERENCE (docno,empno)
+			values
+			<foreach collection="referrers" item="item" index="index" separator="," close=";">
+				((select max(docno) from document d),${item.empno})
+			</foreach>
+		</if>-->
+		
 	</insert>
 
 	 <select id="getAllEmpList" resultType="com.olive.dto.Emp">
