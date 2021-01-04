@@ -221,18 +221,18 @@ table.table .avatar {
 						<div class="row justify-content-end mx-5">
 							<div class="form-group col-md-2">
 								<select id="inputState" class="form-control">
-									<option selected>검색조건</option>
-									<option>사번</option>
-									<option>이름</option>
-									<option>소속</option>
+									<option value="">검색조건</option>
+									<option value="empno">사번</option>
+									<option value="ename">이름</option>
+									<option value="dept">소속</option>
 								</select>
 							</div>
 							<form class="col-md-3 d-none d-sm-inline-block ">
 								<div class="input-group">
-									<input type="text" class="form-control border-0 small" placeholder="검색어를 입력해주세요" aria-label="Search"
+									<input  id="search_input" type="text" class="form-control border-0 small" placeholder="검색어를 입력해주세요" aria-label="Search"
 										aria-describedby="basic-addon2">
 									<div class="input-group-append">
-										<button class="btn btn-primary" type="button">
+										<button id="search_button" class="btn btn-primary" type="button">
 											<i class="fas fa-search fa-sm"></i>
 										</button>
 									</div>
@@ -241,7 +241,7 @@ table.table .avatar {
 						</div>
 						<div class="table-responsive">
 							<div class="table-wrapper">
-								<table class="table table-striped table-hover">
+								<table id="emptable" class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th></th>
@@ -379,8 +379,7 @@ table.table .avatar {
 										</div>		 -->
 									</div>
 									<div class="modal-footer">
-										<input type="button" class="btn btn-info" data-dismiss="modal" value="Edit">
-										<input type="submit" class="btn btn-info" value="Save">
+										
 									</div>
 								</form>
 							</div>
@@ -400,5 +399,79 @@ table.table .avatar {
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+	<script>
+		//검색 조회 ajax
+		$('#search_button').click(function(){
+			var empno = $('#search_input').val();
+			console.log(empno);
+			var select = $('#inputState').val();
+			console.log(select);
+
+			if(select=='empno'){
+				//사번으로 검색
+				$.ajax(
+						{
+							type : "post",
+							url	 : "searchByEmpno.do",
+							data : {empno:empno},
+							success : function(responseData){
+								console.log(responseData);
+								console.log(responseData[0].ename);
+								//console.log(responseData.positionname);
+								$('#emptable > tbody').empty();
+								$('#emptable').append(
+									"<tr><td>"+responseData[0].pic+
+									"</td><td>"+responseData[0].empNo+
+									"</td><td>"+responseData[0].ename+
+									"</td><td>"+responseData[0].deptname+
+									"</td><td>"+responseData[0].positionname+
+									"</td></tr>"
+								);
+							},
+							error : function(error){
+								console.log(error);
+							}
+						} 
+					); 
+			}else if(select=='ename'){
+				console.log("여기까지는 오니");
+				//이름으로 검색
+				
+			}else if(select=='dept'){
+				//부서로 검색
+				
+			}
+			
+			/* $.ajax(
+					{
+						type : "post",
+						url	 : "searchByEmpno.do",
+						data : {empno:empno},
+						success : function(responseData){
+							console.log(responseData);
+							console.log(responseData[0].ename);
+							//console.log(responseData.positionname);
+							$('#emptable > tbody').empty();
+							$('#emptable').append(
+								"<tr><td>"+responseData[0].pic+
+								"</td><td>"+responseData[0].empNo+
+								"</td><td>"+responseData[0].ename+
+								"</td><td>"+responseData[0].deptname+
+								"</td><td>"+responseData[0].positionname+
+								"</td></tr>"
+							);
+							
+							
+						},
+						error : function(error){
+							console.log(error);
+						}
+					} 
+				);  */
+			
+		});
+
+		
+	</script>
 </body>
 </html>
