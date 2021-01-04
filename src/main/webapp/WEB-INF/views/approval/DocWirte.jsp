@@ -16,6 +16,22 @@
 <meta name="author" content="">
 <title>SB Admin 2 - Write</title>
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
+<style type="text/css">
+.modal-flexbox {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.flexbox-items {
+	max-width: 120px;
+	min-height: 50px;
+	padding: 1.1rem 1.1rem;
+	padding-bottom: 0;
+}
+</style>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -193,7 +209,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="card my-2 py-2   mr-auto mx-auto col-xl-11">
+								<div class="card my-2 py-2 mr-auto mx-auto col-xl-11">
 									<textarea class="col-md-10" id="summernote" name="content"></textarea>
 								</div>
 							</div>
@@ -239,38 +255,41 @@
 					</button>
 				</div>
 				<div class="modal-body" id="approver-modal-body">
-					<div class="horizontalTree mb-4" style="height: 500px;">
-						<div class="col-lg-6 border border-secondary h-50 h-100 ">
+					<div class="horizontalTree mb-2 col-mb-12 d-flex" style="height: 500px;">
+						<div class="col-md-5 mx-auto border border-secondary h-100">
 							<ul>
-								<li><span class="headquters"><img src="https://img.icons8.com/office/16/000000/folder-invoices--v1.png">경영지원 본부</span>
-									<ul class="grpTeam" style="display: block;">
-										<li class="team">회계팀</li>
-										<li class="team">경제</li>
-									</ul></li>
-								<li><span class="headquters"><img src="https://img.icons8.com/office/16/000000/folder-invoices--v1.png">개발 본부</span>
-									<ul class="grpTeam" style="display: block">
-										<li class="team">개발 1팀</li>
-										<li class="team">개발 2팀</li>
-									</ul></li>
-								<li><span class="headquters"><img src="https://img.icons8.com/office/16/000000/folder-invoices--v1.png">전략 본부</span>
-									<ul class="grpTeam" style="display: block">
-										<li class="team">미래전략 1팀</li>
-										<li class="team">미래전략 2팀</li>
-									</ul></li>
+								<div class="mt-4" id="jstree_div"></div>
 							</ul>
 						</div>
+						<div class="col-md-5 mx-auto">
+							<div class="col-md-12 mt-0 mb-2" style="height: 60%;">
+								<div class="mt-0 mb-0">결재자</div>
+								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
+								<div id ="approverList"></div>
+								</div>
+								<button class="btn btn-sm mt-1 btn-primary" id="add_approver">추가하기</button>
+								<button class="btn btn-sm mt-1 btn-danger" id="del_approver">제거하기</button>
+							</div>
+							<div class="col-md-12 mt-1 mb-0" style="height: 35%;">
+								<div class="mt-0 mb-0 ">참조자</div>
+								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;"></div>
+								<button class="btn btn-sm mt-1 btn-primary" id="add_reminder">추가하기</button>
+								<button class="btn btn-sm mt-1 btn-danger" id="del_reminder">제거하기</button>
+							</div>
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
 		</div>
-		<!-- 결재선 지정 모달 -->
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top">
-			<i class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- 결재선 지정 모달 -->
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 	</div>
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -318,25 +337,72 @@
 .team {
 	list-style-image: none;
 }
+.temp{
+background: hsla(0, 100%, 100%, 0);
+border:none;
+
+}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap-jstree-theme.css" />
 <script type="text/javascript">
-	$(function() {
+function deletetemp(me){
+	$(me).parents('a.jstree-anchor').remove();
+};
+
+$(function() {
 		var $drop=$('#drop');
 		var uploadFiles=[];
-		
-		 $('.headquters').on("click",()=>{
-			 console.log('qwer');
-			 
-			 $(this).siblings('.grpTeam').toggle()
- 				
-			 }); 
-		 
-		 
+					
+		let jstree = $('#jstree_div').jstree({
+			'core':{
+			"check_callback" : true,
+			'data':[
+				{"id":"headquter1","parent":"#","text":"경영지원 본부","icon":"/resources/img/headquters.png"},
+				{"id":"headquter2","parent":"#","text":"전략 본부","icon":"/resources/img/headquters.png"},
+				{"id":"headquter3","parent":"#","text":"개발 본부","icon":"/resources/img/headquters.png"},
+				{"id":"department1","parent":"headquter1","text":"경영지원팀"},
+				{"id":"department2","parent":"headquter1","text":"회계팀"},
+				{"id":"department3","parent":"headquter2","text":"전략 1팀"},
+				{"id":"department4","parent":"headquter2","text":"전략 2팀"},
+				{"id":"department5","parent":"headquter3","text":"개발 1팀"},
+				{"id":"department6","parent":"headquter3","text":"개발 2팀"},
+				{"id":"teammate1","parent":"department1","text":"박선우"},
+				{"id":"teammate2","parent":"department2","text":"정민찬"},
+				{"id":"teammate3","parent":"department3","text":"백희승"},
+				{"id":"teammate4","parent":"department4","text":"심재형"},
+				{"id":"teammate5","parent":"department5","text":"박채연"},
+				{"id":"teammate6","parent":"department6","text":"신동연"}
+				],
+			},	
+			"plugins" : [ "dnd" ]
+			}
+		); 
 
+		$('#add_approver').on("click",()=>{
+			let clicked = $('div#jstree_div a.jstree-clicked').clone();
+			console.log(clicked);
+			let button = '<button class="temp" onclick="deletetemp(this)">x</button>';
+			let approver = clicked.append(button);
+			$('#approverList').append(clicked);
+			$('#approverList a.jstree-clicked').each("click", () => {
+				$(this).toggleClass("clickclack");
+			});
+		});
+
+		$('#del_approver').on("click",()=>{
+			let target = $('#approverList a.clickclack');
+			
+
+			});
+
+		
+	
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
 			let type = $('#selector').val().split(' ');
