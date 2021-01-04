@@ -9,6 +9,7 @@ public class Emp {
 	private int empNo;
 	private String pwd;
 	private String ename;
+	private String email;
 	private String pic;
 	private Date hireDate;
 	private Date leaveDate;
@@ -19,4 +20,5 @@ public class Emp {
 	private int statusCode;
 	private boolean enabled;
 	private int loginCount;
+	private int alram;
 }

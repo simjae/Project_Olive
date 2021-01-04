@@ -23,7 +23,8 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
 <body id="page-top">
-
+	
+	<c:set var="empList" value="${empList}"></c:set>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -45,11 +46,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">사용자 관리</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-							<i class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?
-						</a>
+						<h1 class="h3 mb-0 text-gray-800">사용자 계정 관리</h1>
 					</div>
 
 					<!-- 계정관리 컨텐츠 시작 -->
@@ -72,13 +69,15 @@
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
 													<input type="button" class="btn btn-info" value="다운로드">
-													&nbsp;&nbsp;&nbsp;&nbsp; <select class="select ">
+													&nbsp;&nbsp;&nbsp;&nbsp; 
+														<select class="select ">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>본부</option>
 														<option>부서</option>
-													</select> <input type="text" class=inputState> <input
-														type="button" class="btn btn-info" value="검색">
+													</select> 
+														<input type="text" class="inputState">
+														<input type="button" class="btn btn-info" value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
 												</form>
 											</div>
@@ -109,17 +108,12 @@
 													<td>내용</td>
 													<td>내용</td>
 													<td>내용</td>
-													<td><a href=#>아</a> <a href=#>이</a> <a href=#>콘</a></td>
-												</tr>
-												<tr>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
+													<td>
+														<a href=# class="btn-sm btn-info shadow-sm"><i
+							class="fas fa-check fa-sm text-white"></i></a>
+														<a href=# class="btn-sm btn-info shadow-sm"><i
+							class="fas fa-edit fa-sm text-white"></i></a>
+													</td>
 												</tr>
 											</tbody>
 										</table>

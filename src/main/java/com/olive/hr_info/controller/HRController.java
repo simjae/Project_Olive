@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HRController {
 	
 	@RequestMapping("Salary.do")
-	public String showSalary() {
-		
+	public String showSalary() {	
 		return "HRinfo/Salary";
-		
 	}
+	
+	@RequestMapping("SalaryDetail.do")
+	public String showSalaryDetail() {	
+		return "HRinfo/salaryDetail";
+	}
+	
 	
 	@RequestMapping("Emp.do")
 	public String showEmp() {
