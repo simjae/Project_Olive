@@ -5,9 +5,6 @@
 	작성자: 백희승
 */
 
-// 타 js파일과 jQuery 충돌 방지를 위해 글로벌 객체 $(jQuery)에서 지역 객체 $w 선언한다..
-// 참고 : https://yubylab.tistory.com/entry/%EB%8B%A4%EB%A5%B8-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EB%A1%9C%EB%B6%80%ED%84%B0-jQuery-%EB%B3%B4%ED%98%B8%ED%95%98%EA%B8%B0
-// fetch 사용 = get request
 jQuery(document).ready(function($) {
 	const cityName = "Seoul";
 	const cityId = "1835848";	// 서울 코드
