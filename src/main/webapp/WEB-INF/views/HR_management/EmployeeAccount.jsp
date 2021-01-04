@@ -84,6 +84,8 @@ p.each-label > span {
 </style> 
 </head>
 <body id="page-top">
+	
+	<c:set var="empList" value="${empList}"></c:set>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar 모듈화 -->
@@ -119,7 +121,8 @@ p.each-label > span {
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
 													<input type="button" class="btn btn-info" value="다운로드">
-													&nbsp;&nbsp;&nbsp;&nbsp; <select class="select ">
+													&nbsp;&nbsp;&nbsp;&nbsp; 
+														<select class="select ">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>본부</option>
@@ -156,17 +159,12 @@ p.each-label > span {
 													<td>내용</td>
 													<td>내용</td>
 													<td>내용</td>
-													<td><a href=#>아</a> <a href=#>이</a> <a href=#>콘</a></td>
-												</tr>
-												<tr>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
-													<td>내용</td>
+													<td>
+														<a href=# class="btn-sm btn-info shadow-sm"><i
+							class="fas fa-check fa-sm text-white"></i></a>
+														<a href=# class="btn-sm btn-info shadow-sm"><i
+							class="fas fa-edit fa-sm text-white"></i></a>
+													</td>
 												</tr>
 												<tr>
 													<td>내용</td>

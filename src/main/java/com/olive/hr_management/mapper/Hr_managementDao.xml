@@ -3,12 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
-	
+
+	 
+	 <select id="getEmpList" resultType="com.olive.dto.Emp">
+	 	SELECT empno FROM emp
+	 </select>
+
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo, ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode, birth)
 		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate}, #{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{birth})
 	</insert>
-	
+
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
 	    SELECT *
 	    FROM emp

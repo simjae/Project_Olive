@@ -32,12 +32,15 @@ public class HRController {
 	
 	
 	@RequestMapping("Salary.do")
-	public String showSalary() {
-		
+	public String showSalary() {	
 		return "HRinfo/Salary";
-		
 	}
 	
+	@RequestMapping("SalaryDetail.do")
+	public String showSalaryDetail() {	
+		return "HRinfo/salaryDetail";
+	}
+
 	@RequestMapping(value="Emp.do", method=RequestMethod.GET)
 	public String showEmpList(Model model) {
 		List<Emp> emplist = empService.showEmpList();

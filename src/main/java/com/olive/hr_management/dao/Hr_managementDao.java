@@ -15,6 +15,9 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 
 public interface Hr_managementDao {
+	
+	public List<Emp> getEmpList() throws Exception;
+
 	public void insertNewEmp(Emp emp);
 
 	public List<Emp> selectAllList();
