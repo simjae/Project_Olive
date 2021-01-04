@@ -402,64 +402,39 @@ table.table .avatar {
 	<script>
 		//검색 조회 ajax
 		$('#search_button').click(function(){
-			var empno = $('#search_input').val();
-			console.log(empno);
+			var search = $('#search_input').val();
+			console.log(search);
 			var select = $('#inputState').val();
 			console.log(select);
 
-			if(select=='empno'){
-				//사번으로 검색
-				$.ajax(
-						{
-							type : "post",
-							url	 : "searchByEmpno.do",
-							data : {empno:empno},
-							success : function(responseData){
-								console.log(responseData);
-								console.log(responseData[0].ename);
-								//console.log(responseData.positionname);
-								$('#emptable > tbody').empty();
-								$('#emptable').append(
-									"<tr><td>"+responseData[0].pic+
-									"</td><td>"+responseData[0].empNo+
-									"</td><td>"+responseData[0].ename+
-									"</td><td>"+responseData[0].deptname+
-									"</td><td>"+responseData[0].positionname+
-									"</td></tr>"
-								);
-							},
-							error : function(error){
-								console.log(error);
-							}
-						} 
-					); 
-			}else if(select=='ename'){
-				console.log("여기까지는 오니");
-				//이름으로 검색
-				
-			}else if(select=='dept'){
-				//부서로 검색
-				
-			}
-			
-			/* $.ajax(
+			$.ajax(
 					{
 						type : "post",
 						url	 : "searchByEmpno.do",
-						data : {empno:empno},
-						success : function(responseData){
+						data : {param1:select, param2:search},
+						success : function(responseData)	{
 							console.log(responseData);
 							console.log(responseData[0].ename);
-							//console.log(responseData.positionname);
+							console.log(responseData[0].positionname);
 							$('#emptable > tbody').empty();
-							$('#emptable').append(
+							$.each(responseData, function(index, emp){
+								$('#emptable').append(
+										"<tr><td>"+emp.pic+
+										"</td><td>"+emp.empNo+
+										"</td><td>"+emp.ename+
+										"</td><td>"+emp.deptname+
+										"</td><td>"+emp.positionname+
+										"</td></tr>"
+									);
+							});
+							/* $('#emptable').append(
 								"<tr><td>"+responseData[0].pic+
 								"</td><td>"+responseData[0].empNo+
 								"</td><td>"+responseData[0].ename+
 								"</td><td>"+responseData[0].deptname+
 								"</td><td>"+responseData[0].positionname+
 								"</td></tr>"
-							);
+							);  */
 							
 							
 						},
@@ -467,7 +442,7 @@ table.table .avatar {
 							console.log(error);
 						}
 					} 
-				);  */
+				); 
 			
 		});
 

@@ -1,6 +1,8 @@
 package com.olive.hr_info.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,29 +24,22 @@ public class HRAjaxController {
 	
 	@Autowired
 	private Hr_infoService empService;
+
 	
 	//ajax 사번으로 검색
 	@RequestMapping(value="searchByEmpno.do")
-	public List<Emp> selectEmpno(String empno){
-		List<Emp> list = empService.searchByEmpno(empno);
+	public List<Emp> searchEmp(String param1, String param2){
+		System.out.println(param1);
+		System.out.println(param2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("param1", param1);
+		map.put("param2", param2);
+		System.out.println(map);
+		List<Emp> list = empService.searchEmp(map);
 		return list;
 	}
 	
-	//ajax 이름으로 검색
-	@RequestMapping(value="searchByEname.do")
-	public List<Emp> selectEname(String ename){
-		System.out.println("ename 들고와ㅉㅑ?");
-		List<Emp> list = empService.searchByEname(ename);
-		return list;
-	}
-	
-	//ajax 부서로 검색
-	@RequestMapping(value="searchByDept.do")
-	public List<Emp> selectDept(String deptname){
-		List<Emp> list = empService.searchByDept(deptname);
-		return list;
-	}
-	
+
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.olive.hr_info.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,27 +34,16 @@ public class Hr_infoService {
 		   
 	   }
 	   
-	   //Emp 사번 검색
-	   public List<Emp> searchByEmpno(String empno) {
+	   //Emp 조건 검색
+	   public List<Emp> searchEmp(Map<String, Object> map) {
 		    Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		    List<Emp> emplist = dao.searchByEmpno(empno);
+		    List<Emp> emplist = dao.searchEmp(map);
+		    System.out.println("여기가 리스트");
+		    System.out.println(emplist);
 			return emplist;
 		}
 	   
-	   //Emp 이름 검색
-	   public List<Emp> searchByEname(String ename) {
-		    Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		    List<Emp> emplist = dao.searchByEname(ename);
-		    System.out.println("이름검색인디");
-			return emplist;
-		}
-	   
-	   //Emp 부서 검색
-	   public List<Emp> searchByDept(String deptname) {
-		    Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		    List<Emp> emplist = dao.searchByDept(deptname);
-			return emplist;
-		}
+
 	   
 	   
 	   
