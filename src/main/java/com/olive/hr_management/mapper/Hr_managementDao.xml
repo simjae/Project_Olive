@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
-		INSERT INTO emp (empNo, ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode, birth)
-		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate}, #{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{birth})
+		INSERT INTO emp (empNo, ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode, enabled, birth)
+		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate}, #{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{enabled}, #{birth})
 	</insert>
 
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
