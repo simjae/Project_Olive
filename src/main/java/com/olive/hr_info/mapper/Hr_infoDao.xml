@@ -29,12 +29,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		     </where>
  	 </select> 
  	 
- 	 <!-- 내 정보 수정 -->
-	 <update id="updateMyInfo">
+ 	 <!-- 본부 조직도 -->
+ 	 <select id="showOrg" resultType="com.olive.dto.DeptTest">
+ 	 	select dept.deptcode, dept.deptname, head.headname
+		from dept join head on dept.headcode = head.headcode
+ 	 </select>
+ 	 
+ 	 <!-- 부서별 조직도 -->
+ 	 <select id="showOrgbyDept" resultType="com.olive.dto.DeptTest">
+ 	 	select emp.ename, dept.deptname, head.headname, position.positionname
+		from emp
+			inner join dept on emp.deptcode = dept.deptcode
+		    inner join head on dept.headcode = head.headcode
+		    inner join position on emp.positioncode = position.positioncode
+		 where dept.deptname = #{param}
+ 	 </select>
+ 	 
+ 	 
+ 	 <!-- 내 정보 수정 Pic 제외 -->
+	 <!-- <update id="updateMyInfo">
 	 	update emp
-	 	set pwd = #{pwd}, email = #{email}, pic = #{pic}, address = #{pwd}, phone = #{phone}
+	 	set pwd = #{pwd}, email = #{email}, address = #{pwd}, phone = #{phone}
 	 	where empno = #{empno}
-	 </update>
+	 </update> -->
 	 
 </mapper>
 

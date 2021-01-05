@@ -264,7 +264,8 @@ table.table .avatar {
 											<td>${list.deptname}</td>
 											<td>${list.positionname}</td>
 											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
+												<a href="#" data-target="#editEmployeeModal" class="edit" data-toggle="modal" >보기</a>
+												
 											</td>
 										</tr>
 										</c:forEach> 
@@ -331,7 +332,7 @@ table.table .avatar {
 													<div class="row mt-4">
 														<div class="col-md-10">
 															<p>이름</p>
-															<input type="text" class="form-control" placeholder="이름" value="Douglas Mcgee" readonly>
+															<input type="text" class="form-control" placeholder="이름" value=name readonly>
 														</div>
 													</div>
 													<div class="row mt-4">
@@ -361,22 +362,7 @@ table.table .avatar {
 												</div>
 											</div>
 										</div>
-										<!-- <div class="form-group">
-											<label>Name</label>
-											<input type="text" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label>
-											<input type="email" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label>
-											<input type="text" class="form-control" required>
-										</div>		 -->
+										
 									</div>
 									<div class="modal-footer">
 										
@@ -446,6 +432,15 @@ table.table .avatar {
 			
 		});
 
+
+		//modal 
+		$('.edit').click(function(e){
+			var self = this;
+			var form = $(this);
+			console.log(self);
+			console.log(form);
+			
+		});
 		
 	</script>
 </body>

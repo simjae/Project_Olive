@@ -2,6 +2,8 @@ package com.olive.hr_info.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
 
@@ -41,6 +44,7 @@ public class HRController {
 		return "HRinfo/salaryDetail";
 	}
 
+	//전체 사원 목록 조회
 	@RequestMapping(value="Emp.do", method=RequestMethod.GET)
 	public String showEmpList(Model model) {
 		List<Emp> emplist = empService.showEmpList();
@@ -48,13 +52,12 @@ public class HRController {
 		return "HRinfo/Emp";
 	}
 	
-	
-	
-	@RequestMapping("Organization_chart.do")
-	public String showOrganization() {
-		
+	//조직도 본부 단위 (default)
+	@RequestMapping(value="Organization_chart.do", method=RequestMethod.GET)
+	public String showOrg(Model model) {
+		List<DeptTest> headlist = empService.showOrg();
+		model.addAttribute("head", headlist);
 		return "HRinfo/Organization_chart";
-		
 	}
 	
 	@RequestMapping("EditMyinfo.do")

@@ -6,6 +6,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,13 +57,38 @@
 
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
+                            
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                                	<div class="form-group col-md-2 mb-0">
+	                                    <select id="inputState" class="form-control">
+										  <option value="">본부</option>
+										  <optgroup label="경영지원">
+										    <option value="인사">인사</option>
+										    <option value="회계">회계</option>
+										  
+										  </optgroup>
+										  <optgroup label="전략">
+										    <option value="사업">사업</option>
+										    <option value="운영">운영</option>
+										   
+										  </optgroup>
+										  <optgroup label="R&D">
+										    <option value="마케팅">마케팅</option>
+										    <option value="개발">개발</option>
+										    
+										  </optgroup>
+										</select>
+									</div>
+                                    
                                 </div>
+                                <div class="row justify-content-end mx-5">
+								
+							
+							</div>
                                 <div class="card-body">
 
                                     <div id="chart_div"></div>
-                                    
+
                                 </div>
                             </div>
 
@@ -94,53 +120,84 @@
     <!-- 추가 script -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {packages:["orgchart"]});
-      google.charts.setOnLoadCallback(drawChart);
+	    //ajax
+	    $('#inputState').change(function(){
+	        var select = $(this).val();
+	        console.log(select);
 
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Name'); //자신
-        data.addColumn('string', 'Manager'); //상위노드
-        data.addColumn('string', 'ToolTip'); //마우스 오버 시 나오는 이름
+	        $.ajax(
+					{
+						type : "post",
+						url	 : "showOrgbyDept.do",
+						data : {param:select},
+						success : function(responseData)	{
+							console.log(responseData);
+							console.log(responseData.length);
+							console.log(responseData[0].deptName); //부서
+							console.log(responseData[0].ename); //이름
+							console.log(responseData[0].headName); //본부이름
+							console.log(responseData[0].positionName); //포지션이름
+							google.charts.load('current', {packages:["orgchart"]});
+						    google.charts.setOnLoadCallback(drawChart);
 
-        //['현재노드', '상위노드', '툴팁값']
-        // For each orgchart box, provide the name, manager, and tooltip to show.
-        data.addRows([
-/*           [{v:'이사장', f:'이사장<div style="color:blue; ">홍길동</div>'},
-           '', '연락처 : 010-1111-1111'], */
-          [{v:'Manager', f:'<img src="/resources/img/undraw_profile_1.svg"/><p>Manager</p>'}, '', '010-2222-0001'],
-          [{v:'Executive1', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive1</p>'}, 'Manager', '010-3333-0001'],
-          [{v:'Executive2', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive2</p>'}, 'Manager', '010-4444-0001'],
-          [{v:'Executive3', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive3</p>'}, 'Manager', '010-5555-0001'],
-          [{v:'Executive4', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive4</p>'}, 'Manager', '010-6666-0001'],
+						      function drawChart() {
+						        var data = new google.visualization.DataTable();
+						        data.addColumn('string', 'Name'); //자신
+						        data.addColumn('string', 'Manager'); //상위노드
+						        data.addColumn('string', 'ToolTip'); //마우스 오버 시 나오는 이름
+
+						        /* var aaa = '<c:out value="${requestScope.head}"/>';  
+						        console.log(aaa);
+								var deptcode = aaa[0].deptCode; */
+					
+						        //['현재노드', '상위노드', '툴팁값']
+						        // For each orgchart box, provide the name, manager, and tooltip to show.
+						        
+
+								for(var i=0; i<responseData.length;i++){
+									var role = responseData[i].positionName;
+									var name = responseData[i].ename;
+									var dept = responseData[i].deptName;
+									var reportsTo = null;
+									if (role=='팀원'){
+										reportsTo = '팀장';
+									}  
+									
+									data.addRows([
+										[{v:role, f: name + '<div>(<span>' + role + '</span>)</div><img src = "Pictures/' + name + '.jpg" />'}, reportsTo, dept]
+									]);
+									//console.log(responseData[i].ename);
+									//console.log(role);
+									//console.log(name);
+									//console.log(responseData[i]);
+									//console.log(reportsTo);
+								}  
+
+						       	 
+									
+								
+
+								// Create the chart.
+						        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+						        // Draw the chart, setting the allowHtml option to true for the tooltips.
+						        chart.draw(data, {'allowHtml':true, nodeClass:'organ'}); //
+						      }
+													
+
+						},
+						error : function(error){
+							console.log(error);
+						}
+					} 
+				); 
+	    });
+
+
+    
       
-          [{v:'Position1', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive1', '010-2222-0001'],
-          [{v:'Position2', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive1', '010-3333-0001'],
-          [{v:'Position3', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive1', '010-4444-0001'],
-         
-          
-          [{v:'Position6', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive2', '010-2222-0001'],
-          [{v:'Position7', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive2', '010-3333-0001'],
-          [{v:'Position8', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive2', '010-4444-0001'],
+
+
       
-
-          [{v:'Position11', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive3', '010-2222-0001'],
-          [{v:'Position12', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive3', '010-3333-0001'],
-          [{v:'Position13', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive3', '010-4444-0001'],
-      
-
-          [{v:'Position16', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive4', '010-2222-0001'],
-          [{v:'Position17', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive4', '010-3333-0001'],
-          [{v:'Position18', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive4', '010-4444-0001']
-      
-        ]);
-
-
-        // Create the chart.
-        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-        // Draw the chart, setting the allowHtml option to true for the tooltips.
-        chart.draw(data, {'allowHtml':true, nodeClass:'organ'});
-      }
    </script>
 
 </body>
