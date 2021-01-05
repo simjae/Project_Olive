@@ -25,28 +25,27 @@ public class Hr_managementService {
 
 	private SqlSession sqlsession;
 
+	@Autowired
+	public void setSqlsession(SqlSession sqlsession) {
+		this.sqlsession = sqlsession;
+		System.out.println(this.sqlsession);
+	}
 
-	   @Autowired
-	   public void setSqlsession(SqlSession sqlsession) {
-	      this.sqlsession = sqlsession;
-	      System.out.println(this.sqlsession);
-	   }
-	
-	public List<Emp> getEmpList(){
+	public List<Emp> getEmpList() {
 		System.out.println("getEmpList 서비스 진입");
 		List<Emp> result = null;
 		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
 		try {
 			result = hr_managementDao.getEmpList();
-			System.out.println("getEmpList result : "+result);
+			System.out.println("getEmpList result : " + result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("getEmpList error : "+e.getMessage());
+			System.out.println("getEmpList error : " + e.getMessage());
 		}
-		
+
 		return result;
 	}
-	
+
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
@@ -89,7 +88,7 @@ public class Hr_managementService {
 		List<Position> positionList = dao.getPositions();
 		return positionList;
 	}
-	
+
 	// 인사관리 : 사원 신규 등록 시 클래스(직급) 가져오기
 	public List<Class> getClasses() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
