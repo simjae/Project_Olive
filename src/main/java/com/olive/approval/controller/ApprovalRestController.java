@@ -1,5 +1,6 @@
 package com.olive.approval.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
 import com.olive.dto.Dept;
+import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 
@@ -60,6 +62,12 @@ public class ApprovalRestController {
 	private List<Head> getAllHeadList() {
 		
 		return approvalService.getAllHeadList();
+	}
+	
+	@RequestMapping(value="/getArrangedDocList.do")
+	private List<Document> getArrangedDocList(String statusCode,Principal principal) {
+		
+		return approvalService.getArrangedDocList(statusCode,principal);
 	}
 
 }
