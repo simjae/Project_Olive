@@ -31,7 +31,7 @@
 <link href="resources/css/chaeyeon.css" rel="stylesheet">
 <style>
 p.errorMsg {
-	font-size: 1.1rem;
+	font-size: 0.8rem;
 	color: red;
 }
 </style>
@@ -70,17 +70,17 @@ p.errorMsg {
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox small">
-												<%-- <c:if test="${not empty requestScope.loginFailMsg}">
-													<p class="errorMsg">${requestScope.loginFailMsg}</p>
-												</c:if> --%>
-												<c:if test="${param.error != null}">
-													<p class="errorMsg"><c:out value="${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}" /></p>
+												<c:if test="${requestScope.ERROR_MSG != null}">
+													<p class="errorMsg">${requestScope.ERROR_MSG}</p>
+												</c:if>
+												<%-- <c:if test="${param.error != null}"> --%>
+													<%-- <p class="errorMsg"><c:out value="${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}" /></p> --%>
 													<%-- 이 값을 읽어오는 것은 스프링 시큐리티에서 던진 예외가 세션에 담겨 온다. >> 인증 예외 시 세션에 에러 메세지가 들어온다.
 													세션에 에러메세지가 들어온다 ? >> 인증되지도 않은 사용자 인증행위 (의도적인 공격 등)가 많아지면? Full GC! >> 세션에
 													에러 메세지를 가져와 읽는 것은 독이다. >>>>>>>....
 													authentication-success-handler-ref 속성과 failure-ref 속성을 이용해 제어하고, 인증(authentication)과 권한(authorization)을
 													커스터마이징할 수 있다.--%>
-												</c:if>
+												<%-- </c:if> --%>
 												<input type="checkbox" class="custom-control-input" id="remember-me" name="remember-me">
 												<!-- Spring Security Remember-me option 아직 미구현, id&name 고정 -->
 												<label class="custom-control-label" for="customCheck">Remember Me </label>
