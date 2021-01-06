@@ -6,9 +6,10 @@ import lombok.Data;
 
 @Data
 public class Att_Record {
-	private Date today;
+	private Date date;
 	private int empNo;
-	private Date startTime;
-	private Date endTime;
-	private int AttCode;
+	private Date start;
+	private Date end;
+	private int attCode;
+	private String title;
 }

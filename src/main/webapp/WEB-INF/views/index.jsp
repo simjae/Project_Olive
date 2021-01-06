@@ -17,6 +17,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <title>Project_HR</title>
 
@@ -510,6 +511,7 @@
 	<script src="/resources/js/skycons.js"></script>
 	<script src="/resources/js/openweatherAPIuse.js"></script>
 	<script src="/resources/js/newsAPI.js"></script>
+	<script src="/resources/js/startWork.js"></script>
 </body>
 
 </html>
