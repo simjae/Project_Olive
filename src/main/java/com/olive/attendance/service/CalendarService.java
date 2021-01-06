@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.olive.attendance.dao.CalendarDao;
+import com.olive.dto.Att_Record;
 import com.olive.dto.Calendar;
 
 @Service
@@ -32,13 +33,14 @@ public class CalendarService {
 			System.out.println("여기옴 ");
 			
 		}
-		public List<Calendar> calendarList() {
+		//휴가 
+		public List<Calendar> calendarList () {
 			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
 	
 			System.out.println("캘린더리스트 서비스  ");
 		return caldao.getcalendarList();
 			
 		}
-				
+		
 		
 }

@@ -9,13 +9,14 @@ package com.olive.attendance.dao;
 
 import java.util.List;
 
+import com.olive.dto.Att_Record;
 import com.olive.dto.Calendar;
 
 public interface CalendarDao {
-
+	//인설트 
 	public void insert(Calendar cal);
-
-
-
+	//출근처리 
+	public void startwork();
+	//휴가 리스트 
 	public List<Calendar> getcalendarList();
 }
