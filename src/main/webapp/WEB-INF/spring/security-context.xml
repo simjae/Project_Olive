@@ -61,8 +61,8 @@
 	
 	<!-- 커스텀 Login Success Handler Bean : authentication-success-handler-ref="loginSuccessHandler" -->
 	<beans:bean id="loginSuccessHandler" class="com.olive.authentication.handler.LoginSuccessHandler">
-    	<beans:property name="loginEmpno" value="loginEmpno"/>
-    	<beans:property name="defaultTargetUrl" value="/goToMain.do"/>
+    	<beans:property name="empno" value="empno"/>
+    	<beans:property name="defaultTargetUrl" value="/goToMain.do"/> 
 	</beans:bean>
 	
 	<!-- 커스텀 Login Fail Handler Bean : authentication-failure-handler-ref="loginFailHandler" -->

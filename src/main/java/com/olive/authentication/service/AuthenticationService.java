@@ -36,14 +36,17 @@ public class AuthenticationService {
 	private SqlSession sqlsession;
 
 	// [LoginSuccess]
-	
-	
+	// 계정 로그인 실패 횟수 초기화
+	public void initFailCount(String empno) {
+		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
+		dao.initFailCount(empno);
+	}
 	
 	// [LoginFail] 
 	// 계정이 존재하는지 검색
-	public Emp isFound(String empno) {
+	public Emp selectEmp(String empno) {
 		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
-		return dao.isFound(empno);
+		return dao.selectEmp(empno);
 	}
 
 	// 계정의 로그인 실패 횟수 검색
@@ -63,5 +66,5 @@ public class AuthenticationService {
 		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
 		dao.disable(empno);
 	}
-
+	
 }

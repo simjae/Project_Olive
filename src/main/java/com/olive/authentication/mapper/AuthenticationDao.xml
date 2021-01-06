@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM emp where empno = #{empno}
 	</select>
 	
-	<select id="isFound" resultType="com.olive.dto.Emp">
+	<select id="selectEmp" resultType="com.olive.dto.Emp">
 		SELECT empno, statusCode
 		FROM emp
 		WHERE empno = #{empno}
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="initFailCount">
 		UPDATE emp 
-		SET statusCode = 20, enabled = 1
+		SET loginCount = 0
 		WHERE empno = #{empno}
 	</update>
 	

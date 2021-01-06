@@ -60,7 +60,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 		if (exception instanceof BadCredentialsException) {
 
 			// 존재하는 계정의 경우
-			if (service.isFound(username) != null) {
+			if (service.selectEmp(username) != null) {
 
 				// 먼저 로그인 오류 횟수 검색
 				int count = service.getFailCount(username);

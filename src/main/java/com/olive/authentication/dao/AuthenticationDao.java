@@ -9,13 +9,14 @@ package com.olive.authentication.dao;
 import com.olive.dto.Emp;
 
 public interface AuthenticationDao {
+	public void initFailCount(String empno);
+	
 	public int getFailCount(String empno);
 	
-	public Emp isFound(String empno);
+	public Emp selectEmp(String empno);
 	
 	public void addFailCount(String empno);
 	
 	public void disable(String empno);
 	
-	public void initFailCount(String empno);
 }
