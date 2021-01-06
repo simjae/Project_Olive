@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT count(*) FROM emp
 	</select>
 
-	<select id="getEmpList" resultType="hashmap" parameterType="hashmap">
+	<select id="getEmpList" resultType="hashmap"
+		parameterType="hashmap">
 	 	 <![CDATA[
         SELECT
             *
@@ -26,9 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,
 		ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode,
-		birth)
-		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate}, #{deptCode},
-		#{positionCode}, #{classCode}, #{statusCode}, #{birth})
+		enabled, birth)
+		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate},
+		#{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{enabled},
+		#{birth})
 	</insert>
 
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
