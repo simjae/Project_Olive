@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from emp join dept on emp.deptcode = dept.deptcode
 			 join position on emp.positioncode = position.positioncode
 	         join acc_status on emp.statuscode = acc_status.statuscode
- 	 </select> 
+ 	 </select>
 
 	 
 </mapper>
