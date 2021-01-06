@@ -30,4 +30,5 @@ public interface ApprovalDao {
 	public List<Approver> getArrangedAppList(String statusCode,String empno); //전자결재 내가 받은 결재 (테이블)
 	public Document viewDocument(String docno);
 	
+	
 }
