@@ -12,7 +12,7 @@ public class Approver {
 	private Date app_Date;
 	private String reply;
 	private int empNo;
-	private int total_Approval;
+	private int total_Approval; 
 	private int curr_Approval;
 	private String ename;
 	private String title;

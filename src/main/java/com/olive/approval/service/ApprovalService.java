@@ -36,10 +36,19 @@ public class ApprovalService {
 		System.out.println(this.sqlsession);
 	}
 	
-	//전자결재 메인페이지 들어올때 필요한 문서 정보 
+	
+	//전체 뽑기 
 	public List<Document> getDocument (String empno){
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Document> document = approvalDao.getDocument(empno);
+		
+		return document;
+	}
+	
+	//전자결재 메인페이지 들어올때 필요한 최근 문서 정보 
+	public List<Document> getDocument (String empno,int start, int size){
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		List<Document> document = approvalDao.getDocumentRec(empno,start,size);
 		
 		return document;
 	}
@@ -100,6 +109,10 @@ public class ApprovalService {
 	public List<Approver> getApprover(String empno){
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getApprover(empno);
+	}
+	public List<Approver> getApprover(String empno,int start, int size){
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getApproverRec(empno,start,size);
 	}
 	public List<Refference> getRefference(String empno){
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
@@ -187,12 +200,20 @@ public class ApprovalService {
 
 	}
 	
-	//전자결재 메인페이지에서 결재상태 비동기용
+	//전자결재 메인페이지에서 결재상태 비동기용 , 개인 문서함
 	public List<Document> getArrangedDocList(String statusCode, Principal principal){
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		
 		
 		return approvalDao.getArrangedDocList(statusCode,principal.getName());
+	}
+	
+	//전자결재 메인페이지에서 내가 받은  결재상태 비동기용 , 결재 문서함
+	public List<Approver> getArrangedAppList(String statusCode, Principal principal){
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		
+		
+		return approvalDao.getArrangedAppList(statusCode,principal.getName());
 	}
 
 	public List<Emp> getAllEmpList() { //결재선용
@@ -208,6 +229,12 @@ public class ApprovalService {
 	public List<Head> getAllHeadList() { //결재선용
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getAllHeadList();
+	}
+	public Document viewDocumnet(String docno) {
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		approvalDao.viewDocument(docno);
+		
+		return approvalDao.viewDocument(docno);
 	}
 
 }

@@ -8,26 +8,61 @@
 		join acc_status on emp.statuscode = acc_status.statuscode 
 		where empno = #{empno}
 	</select>
-	<!-- 문서 가지고 오는거-->
+	<!--내가 기안한 문서 가지고 오는거-->
 	<select id="getDocument" resultType="com.olive.dto.Document">
-		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename 
-		from document d join doc_add da join doc_status ds join doc_type dt 
-		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode 
-		where d.empno = #{empno}
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
+		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
+		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
+		where d.empno = #{param1}
+		
+	</select>
+	
+		<!--문서 번호로 문서 가지고 오는거-->
+	<select id="viewDocument" resultType="com.olive.dto.Document">
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
+		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
+		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
+		where d.docno = #{param1}
+		
 	</select> 
-	<!-- 메인에 결재 관련 정보 뿌려 주기 위해서-->
+	 
+	<!--내가 기안한 문서 페이징 처리 가지고 오는거-->
+	<select id="getDocumentRec" resultType="com.olive.dto.Document">
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
+		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
+		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
+		where d.empno = #{param1}
+		
+		<if test="param2 != null and param3 != null">
+			limit #{param3} offset #{param2}
+		</if>
+	</select> 
+	<!-- 메인에 결재 관련 정보 뿌려 주기-->
 	<select id="getApprover" resultType="com.olive.dto.Approver">
 		select a.docno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode
 		from approver a join document d join emp e
 		on a.docno=d.docno and e.empno=d.empno
-		where a.empno = #{empno}
+		where a.empno = #{param1}
+		
+		
 	</select>
-	<!-- 참조자 하나 만들어 놓-->
+	<!-- 메인에 결재 관련 정보 페이징 처리  뿌려 주기-->
+	<select id="getApproverRec" resultType="com.olive.dto.Approver">
+		select a.docno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode
+		from approver a join document d join emp e
+		on a.docno=d.docno and e.empno=d.empno
+		where a.empno = #{param1}
+		<if test="param2 != null and param3 != null">
+		limit  #{param3} offset #{param2}
+		</if>
+		
+	</select>
+	<!-- 참조자 하나 만들어 놓기 -->
 	<select id="getRefference" resultType="com.olive.dto.Refference">
 		select docno
 		from Refference
 		where empno = #{empno}
-	</select>
+	</select> 
 
 	<select id="selectDocType" resultType="com.olive.dto.Doc_Type">
 	select typecode, typename from doc_type
@@ -75,22 +110,41 @@
 	</select>
 	<select id="getAllDeptList" resultType="com.olive.dto.Dept">
 		select * from dept
-	</select>
+	</select> 
 	<select id="getAllHeadList" resultType="com.olive.dto.Head">
 		select * from head
 	</select>
 	
 	<select id="getArrangedDocList" resultType="com.olive.dto.Document">
-		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename 
-		from document d join doc_add da join doc_status ds join doc_type dt 
-		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode 
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename
+		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
+		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and e.empno = d.empno
 		
 		where d.empno = ${param2} 
-		<if test='#{param1} != "50"'>
+		<if test='param1 != 50'>
 		and d.statusCode=${param1} 
 		</if>
 		
 		
+	</select>
+		<select id="getArrangedAppList" resultType="com.olive.dto.Approver">
+		select a.docno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode,d.curr_Approval
+		from approver a join document d join emp e
+		on a.docno=d.docno and e.empno=d.empno
+		 
+		where a.empno = ${param2} 
+		<if test='param1 eq 10'>
+		and ifnull(a.app_check,0)= 0 and (a.app_order-d.curr_Approval)=1 
+		</if>
+		<if test="param1 eq 20">
+		and ifnull(a.app_check,0)=1 and (d.total_Approval > d.curr_Approval)
+		</if>
+		<if test="param1 eq 30">
+		and (d.total_Approval = d.curr_Approval)
+		</if>
+		<if test="param1 eq 40">
+		and d.statusCode = 40
+		</if>
 	</select>
 	
 	

@@ -40,14 +40,17 @@ public class ApprovalController {
 		System.out.println(empno);
 		//전체 내가올린 문서 
 		List<Document> document = approvalService.getDocument(empno);
+		List<Document> documentrec = approvalService.getDocument(empno,0,3);
 		//전체 내가 결재 해야할 문서
 		List<Approver> approver = approvalService.getApprover(empno);
+		List<Approver> approverrec = approvalService.getApprover(empno,0,3);
+		System.out.println( approvalService.arrangeDoc(document));
 		
 		model.addAttribute("arrangedDoc", approvalService.arrangeDoc(document));
 		model.addAttribute("arrangedAppDoc", approvalService.arrangedAppDoc(approver));
 		
-		model.addAttribute("approver", approver);
-		model.addAttribute("document", document);
+		model.addAttribute("approver", approverrec);
+		model.addAttribute("document", documentrec);
 		return "approval/approvalHome";
 	}
 	
@@ -91,7 +94,12 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
-	public String showPersonalDoc() {
+	public String showPersonalDoc(Model model, Principal principal) {
+		String empno = principal.getName();
+		List<Document> document = approvalService.getDocument(empno,0,10);
+		System.out.println(approvalService.arrangeDoc(document));
+		
+		model.addAttribute("document", document);
 		
 		return "approval/PersonalDoc";
 	}
@@ -100,5 +108,16 @@ public class ApprovalController {
 	public String showPregressDoc(Principal p) {
 		
 		return "approval/ProgressDoc";
+	}
+	
+
+	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
+	public String viewDocument(String docno,Model model,Principal principal) {
+		Document document = approvalService.viewDocumnet(docno); 
+		EmpTest emp = approvalService.selectEmp(principal.getName());
+		model.addAttribute("document", document);
+		model.addAttribute("emp",emp);
+	
+		return "papers/document";
 	}
 }

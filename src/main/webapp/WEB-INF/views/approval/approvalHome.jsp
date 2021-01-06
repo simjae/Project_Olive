@@ -4,8 +4,15 @@
     작성일: 2020-12-28
     작성자: 백희승
 --%>
+<!-- 
+	파일명: approvalHome.jsp
+    설명: 전자결재 홈 페이지 백단 작업
+	작성일 : 2021-01-04
+	작성자 : 박선우
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,7 +123,7 @@ h6.text-primary>i.fas {
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Electronic Approval Home</h1>
+						<h1 class="h3 mb-0 text-gray-800">전자결재</h1>
 						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 							<i class="fas fa-download fa-sm text-white-50"></i>&nbsp;which Button
 						</a>
@@ -129,20 +136,27 @@ h6.text-primary>i.fas {
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="font-weight-bold text-info text-uppercase mb-1">내가 올린 결재</div>
+											<div class="font-weight-bold text-info text-uppercase mb-1">내가 최근 올린 결재</div>
 											<c:set var="doclist" value="${requestScope.document }" />
 											<c:set var="arrangedList" value="${requestScope.arrangedDoc }" />
 											<div class="mb-0 font-weight-bold text-sm">
-												<ul class="list-group">
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
-													</li>
-												</ul>
+												<div class="row">
+													<div class="col-md-6 ">
+														<ul class="list-group" style="padding-top: 36px;">
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-6">
+														<canvas id="document-chart"></canvas>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-auto">
@@ -153,7 +167,7 @@ h6.text-primary>i.fas {
 							</div>
 						</div>
 						<!-- 내가 받은 결재 -->
-						<c:set var="applist" value="${reqeustScope.approver }" />
+						<c:set var="applist" value="${requestScope.approver}" />
 						<c:set var="arrangedAppList" value="${requestScope.arrangedAppDoc }" />
 						<div class="col-xl-6 col-lg-6">
 							<div class="card border-left-warning shadow mb-4">
@@ -162,16 +176,23 @@ h6.text-primary>i.fas {
 										<div class="col mr-2">
 											<div class="font-weight-bold text-warning text-uppercase mb-1">내가 받은 결재</div>
 											<div class="mb-0 font-weight-bold text-sm">
-												<ul class="list-group">
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
-													</li>
-													<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
-													</li>
-												</ul>
+												<div class="row">
+													<div class="col-md-6">
+														<ul class="list-group " style="padding-top: 36px;">
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
+															</li>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-6">
+														<canvas id="Approval-chart"></canvas>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-auto">
@@ -186,44 +207,31 @@ h6.text-primary>i.fas {
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
 							<div class="card border-left-info shadow mb-4">
-								<!-- Card Header - Dropdown -->
+								
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-info">내가 올린 결재</h6>
-									<!-- 옵션 버튼 : -->
-									<div class="dropdown no-arrow">
-										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									<!-- 바로가기 버튼 : -->
+									<div class="">
+										<a class="" href="/approval/PersonalDoc.do" role="button">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path
+													d="M19.2928932,4 L16.5,4 C16.2238576,4 16,3.77614237 16,3.5 C16,3.22385763 16.2238576,3 16.5,3 L20.5,3 C20.7761424,3 21,3.22385763 21,3.5 L21,7.5 C21,7.77614237 20.7761424,8 20.5,8 C20.2238576,8 20,7.77614237 20,7.5 L20,4.70710678 L14.8535534,9.85355339 C14.6582912,10.0488155 14.3417088,10.0488155 14.1464466,9.85355339 C13.9511845,9.65829124 13.9511845,9.34170876 14.1464466,9.14644661 L19.2928932,4 L19.2928932,4 Z M20,11.5 C20,11.2238576 20.2238576,11 20.5,11 C20.7761424,11 21,11.2238576 21,11.5 L21,18.5 C21,19.8807119 19.8807119,21 18.5,21 L5.5,21 C4.11928813,21 3,19.8807119 3,18.5 L3,5.5 C3,4.11928813 4.11928813,3 5.5,3 L12.5,3 C12.7761424,3 13,3.22385763 13,3.5 C13,3.77614237 12.7761424,4 12.5,4 L5.5,4 C4.67157288,4 4,4.67157288 4,5.5 L4,18.5 C4,19.3284271 4.67157288,20 5.5,20 L18.5,20 C19.3284271,20 20,19.3284271 20,18.5 L20,11.5 Z"
+												/>
+</svg>
 										</a>
-										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-											<div class="dropdown-header">Dropdown Header:</div>
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#">Something else here</a>
-										</div>
 									</div>
 								</div>
 								<!-- 내가 올린 결재 card-body -->
-								<div class="card-body">
-									<div class="card-for-flex mb-1">
-										<div class="card-body-tridiv search-tab">
-											<!-- 비동기로 DB다녀오는 친구들 -->
-											<select id="inputState_doc" class="form-control">
-												<option selected value="50">내가 올린 결재 : 전체</option>
-												<option value="10">내가 기안한 문서</option>
-												<option value="20">현재 결재중인 문서</option>
-												<option value="30">결재완료된 문서</option>
-												<option value="40">반려된 문서</option>
-											</select>
-											<!-- //비동기로 DB다녀오는 친구들 -->
-										</div>
+								<div class="card-body px-2 py-0 mb-2">
+									<div class="card-for-flex mb-0">
+										<div class="card-body-tridiv search-tab"></div>
 										<div class="card-body-tridiv">
 											<!-- 3분할공간차지 -->
 										</div>
-										<div class="card-body-tridiv"></div>
+										<div class="card-body-tridiv mb-1"></div>
 									</div>
 									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="styled-table text-center">
+										<table id="salary_table" class="styled-table text-center my-2">
 											<thead>
 												<tr>
 													<th>문서번호</th>
@@ -240,28 +248,15 @@ h6.text-primary>i.fas {
 														<td>${list.docno }</td>
 														<td>${list.typeName}</td>
 														<td>${list.title}</td>
-														<td>${list.empno}</td>
-														<td>${list.writedate}</td>
+														<td>${list.ename}</td>
+														<td>
+															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
+														</td>
 														<td>${list.statusName}</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item"><a class="page-link" href="#" aria-label="Previous">
-														<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
-													</a></li>
-												<li class="page-item"><a class="page-link" href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#">4</a></li>
-												<li class="page-item"><a class="page-link" href="#">5</a></li>
-												<li class="page-item"><a class="page-link" href="#" aria-label="Next">
-														<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-													</a></li>
-											</ul>
-										</nav>
 									</div>
 								</div>
 								<!-- //내가 올린 결재 card-body -->
@@ -274,33 +269,22 @@ h6.text-primary>i.fas {
 							<div class="card border-left-warning shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-warning">내가 받은 결재</h6>
+									<h6 class="m-0 font-weight-bold text-warning">내가 최근 받은 결재</h6>
 									<!-- 옵션 버튼 : -->
-									<div class="dropdown no-arrow">
-										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									<div class="">
+										<a class="" href="/approval/ProgressDoc.do" role="button">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path
+													d="M19.2928932,4 L16.5,4 C16.2238576,4 16,3.77614237 16,3.5 C16,3.22385763 16.2238576,3 16.5,3 L20.5,3 C20.7761424,3 21,3.22385763 21,3.5 L21,7.5 C21,7.77614237 20.7761424,8 20.5,8 C20.2238576,8 20,7.77614237 20,7.5 L20,4.70710678 L14.8535534,9.85355339 C14.6582912,10.0488155 14.3417088,10.0488155 14.1464466,9.85355339 C13.9511845,9.65829124 13.9511845,9.34170876 14.1464466,9.14644661 L19.2928932,4 L19.2928932,4 Z M20,11.5 C20,11.2238576 20.2238576,11 20.5,11 C20.7761424,11 21,11.2238576 21,11.5 L21,18.5 C21,19.8807119 19.8807119,21 18.5,21 L5.5,21 C4.11928813,21 3,19.8807119 3,18.5 L3,5.5 C3,4.11928813 4.11928813,3 5.5,3 L12.5,3 C12.7761424,3 13,3.22385763 13,3.5 C13,3.77614237 12.7761424,4 12.5,4 L5.5,4 C4.67157288,4 4,4.67157288 4,5.5 L4,18.5 C4,19.3284271 4.67157288,20 5.5,20 L18.5,20 C19.3284271,20 20,19.3284271 20,18.5 L20,11.5 Z"
+												/>
+</svg>
 										</a>
-										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-											<div class="dropdown-header">Dropdown Header:</div>
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#">Something else here</a>
-										</div>
 									</div>
 								</div>
 								<!-- 결재 홈 테이블 -->
-								<div class="card-body">
+								<div class="card-body px-2 py-0 mb-2">
 									<div class="card-for-flex mb-1">
 										<div class="card-body-tridiv search-tab">
-											<!-- 비동기로 DB다녀오는 친구들 -->
-											<select id="inputState_app" class="form-control">
-												<option selected value="10">내가 받은 결재 : 전체</option>
-												<option value="20">처리해야할 문서</option>
-												<option value="30">진행중인 문서</option>
-												<option value="40">결재완료된 문서</option>
-												<option value="50">반려한 문서</option>
-											</select>
 											<!-- //비동기로 DB다녀오는 친구들 -->
 										</div>
 										<div class="card-body-tridiv">
@@ -311,7 +295,7 @@ h6.text-primary>i.fas {
 										</div>
 									</div>
 									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="styled-table text-center">
+										<table id="salary_table" class="styled-table text-center my-2">
 											<thead>
 												<tr>
 													<th>문서번호</th>
@@ -323,44 +307,28 @@ h6.text-primary>i.fas {
 												</tr>
 											</thead>
 											<tbody id="inputState_appBody">
-												<c:forEach var="listmap" items="${arrangedAppList}">
-													<c:forEach var="list" items="${listmap.value}">
-														<tr>
-															<td>${list.docNo}</td>
-															<c:if test="${list.app_Check eq 1 }">
-																<td>완료</td>
-															</c:if>
-															<c:if test="${list.app_Check eq 0 }">
-																<td>대기</td>
-															</c:if>
-															<td>${list.title}</td>
-															<td>${list.ename}</td>
-															<td>${list.writedate}</td>
-															<td>
-																<div class="progress">
-																	<div class="progress-bar" role="progressbar" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax="${list.curr_Approval }">${list.curr_Approval }/${list.curr_Approval }</div>
-																</div>
-															</td>
-														</tr>
-													</c:forEach>
+												<c:forEach var="list" items="${applist}">
+													<td>${list.docNo}</td>
+													<c:if test="${list.app_Check eq 1 }">
+														<td>완료</td>
+													</c:if>
+													<c:if test="${list.app_Check eq 0 }">
+														<td>대기</td>
+													</c:if>
+													<td>${list.title}</td>
+													<td>${list.ename}</td>
+													<td>
+														<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
+													</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax="${list.total_Approval }">${list.curr_Approval }/${list.total_Approval }</div>
+														</div>
+													</td>
+													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item"><a class="page-link" href="#" aria-label="Previous">
-														<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
-													</a></li>
-												<li class="page-item"><a class="page-link" href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#">4</a></li>
-												<li class="page-item"><a class="page-link" href="#">5</a></li>
-												<li class="page-item"><a class="page-link" href="#" aria-label="Next">
-														<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-													</a></li>
-											</ul>
-										</nav>
 									</div>
 								</div>
 							</div>
@@ -406,42 +374,76 @@ h6.text-primary>i.fas {
 
 $(function(){
 	//내가 올린 문서 부분 비동기 바꾸기!
-	$('#inputState_doc').on("change",()=>{
-		let html = '';
+
 		
 	
-		$.ajax({
-			url:"getArrangedDocList.do",
-			dataType: "json",
-			mehtod:"POST", 
-			contentType: "application/json; charset=utf-8",
-			data:{
-				statusCode:$('#inputState_doc').val()
-				},
-			success:function(data){
-				$('#inputState_docBody').empty();
-				console.log(data);
-				$.each(data,(index,item)=>{
-					let html='<tr><td>'+item.docno+'</td>\
-							<td>'+item.typeName+'</td>\
-							<td>'+item.title+'</td>\
-							<td>'+item.empno+'</td>\
-							<td>'+item.writedate+'</td>\
-							<td>'+item.statusName+'</td></tr>';
-					$('#inputState_docBody').append(html);
-				});
-				
-			}
+	//파이차트 for document
+	var ctx2 = $("#document-chart");
+	var chart2 = new Chart(ctx2, {
+		type : 'doughnut',
+		data : {
+			labels : [ "기안", "결재중", "결재완료","반려" ],
+			datasets : [ {
+				data : [${arrangedList.doc_ready.size()}, ${arrangedList.doc_ing.size()}, ${arrangedList.doc_cmp.size()}, ${arrangedList.doc_rej.size()}],
+				backgroundColor : [ '#4e73df', '#1cc88a', '#36b9cc','#ff0033' ],
+				hoverBackgroundColor : [ '#2e59d9', '#17a673', '#2c9faf','#ff0033' ],
+				hoverBorderColor : "rgba(234, 236, 244, 1)",
+			} ],
+		},
+		options : {
+			maintainAspectRatio : false,
+			tooltips : {
+				backgroundColor : "rgb(255,255,255)",
+				bodyFontColor : "#858796",
+				borderColor : '#dddfeb',
+				borderWidth : 1,
+				xPadding : 15,
+				yPadding : 15,
+				displayColors : false,
+				caretPadding : 10,
+			},
+			legend : {
+				display : false
+			},
+			cutoutPercentage : 80
+		}
+	})
+
+	//파이차트 for 결재문서
+	var ctx2 = $("#Approval-chart");
+	var chart2 = new Chart(ctx2, {
+		type : 'doughnut',
+		data : {
+			labels : [ "결재대기", "결재 진행중", "결재완료","반려" ],
+			datasets : [ {
+				data : [${arrangedAppList.doc_ready.size()}, ${arrangedAppList.doc_ing.size()}, ${arrangedAppList.doc_cmp.size()}, ${arrangedAppList.doc_rej.size()}],
+				backgroundColor : [ '#A8F552', '#FFFF96', '#FFB4FF','#FF5A5A' ],
+				hoverBackgroundColor : [ '#94EB3E', '#FFE146', '#FF9BE6','#FF0000' ],
+				hoverBorderColor : "rgba(234, 236, 244, 1)",
+			} ],
+		},
+		options : {
+			maintainAspectRatio : false,
+			tooltips : {
+				backgroundColor : "rgb(255,255,255)",
+				bodyFontColor : "#858796",
+				borderColor : '#dddfeb',
+				borderWidth : 1,
+				xPadding : 15,
+				yPadding : 15,
+				displayColors : false,
+				caretPadding : 10,
+			},
+			legend : {
+				display : false
+			},
+			cutoutPercentage : 80
+		}
+	})
+
+
+	
 			
-
-			});		
-		
-		console.log(html);
-	});
-
-	
-	//결재할 문서 바뀌는 부분  
-	
 
 	
 	

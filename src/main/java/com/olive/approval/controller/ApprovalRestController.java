@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
@@ -65,9 +66,15 @@ public class ApprovalRestController {
 	}
 	
 	@RequestMapping(value="/getArrangedDocList.do")
-	private List<Document> getArrangedDocList(String statusCode,Principal principal) {
+	private List<Document> getArrangedDocList(String statusCode,String size,Principal principal) {
 		
 		return approvalService.getArrangedDocList(statusCode,principal);
 	}
+	
+	@RequestMapping(value="/getArrangedAppList.do")
+	private List<Approver> getArrangedAppList(String statusCode,Principal principal) {
+		return approvalService.getArrangedAppList(statusCode,principal);
+	}
+
 
 }
