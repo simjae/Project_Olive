@@ -10,7 +10,7 @@ public class Approver {
 	private int app_Order;
 	private int app_Check;
 	private Date app_Date;
-	private String reply;
+	private String comment;
 	private int empNo;
 	private int total_Approval; 
 	private int curr_Approval;
@@ -18,4 +18,5 @@ public class Approver {
 	private String title;
 	private Date writedate;
 	private int statusCode;
+	private String deptname;
 }

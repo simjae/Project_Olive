@@ -230,11 +230,17 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getAllHeadList();
 	}
-	public Document viewDocumnet(String docno) {
+	public Document viewDocumnet(String docno) {//문서 조회시
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.viewDocument(docno);
 		
 		return approvalDao.viewDocument(docno);
+	}
+	public List<Approver> viewApprovers(String docno) {//문서 조회시 결재자
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		approvalDao.viewApprovers(docno);
+		
+		return approvalDao.viewApprovers(docno);
 	}
 
 }

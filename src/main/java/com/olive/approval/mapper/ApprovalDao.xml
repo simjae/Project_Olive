@@ -13,16 +13,23 @@
 		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
 		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
 		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
-		where d.empno = #{param1}
+		where d.empno = #{empno}
 		
 	</select>
 	
 		<!--문서 번호로 문서 가지고 오는거-->
+	<select id="viewApprovers" resultType="com.olive.dto.Approver">
+		select a.app_Order,a.app_Check, a.app_Date,a.comment, d.total_Approval, d.curr_Approval, d.title, d.writedate ,e.ename,dep.deptname
+		from document d join approver a join emp e join dept dep 
+		on d.docno=a.docno and a.empno = e.empno and e.deptCode = dep.deptCode
+		where d.docno = #{docno}
+	</select> 
+			<!--문서 번호로 결재자 가지고 오는거-->
 	<select id="viewDocument" resultType="com.olive.dto.Document">
-		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
+		select d.docno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode , da.startdate, da.enddate, ds.statusname,dt.typename,e.ename 
 		from document d join doc_add da join doc_status ds join doc_type dt join emp e 
 		on d.docno = da.document_docno and d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
-		where d.docno = #{param1}
+		where d.docno = #{docno} 
 		
 	</select> 
 	 
@@ -42,7 +49,7 @@
 		select a.docno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode
 		from approver a join document d join emp e
 		on a.docno=d.docno and e.empno=d.empno
-		where a.empno = #{param1}
+		where a.empno = #{empno}
 		
 		
 	</select>
