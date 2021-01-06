@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link href='../resources/fullcalendar-5.5.0/lib/main.css'
 	rel='stylesheet' />
 <script src='../resources/fullcalendar-5.5.0/lib/main.js'></script>
@@ -26,127 +28,140 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-		//db일정 받아오기 
-		 var eventFeed = function(info, successCallback, failureCallback){
-			$.ajax({
-				type :"GET",
-				url : "calendarList.do",
-				dataType : "json",
-				success :function(data){
+	document
+			.addEventListener(
+					'DOMContentLoaded',
+					function() {
+
+						var calendarEl = document.getElementById('calendar');
+						//db일정 받아오기 
+						var eventFeed = function(info, successCallback,
+								failureCallback) {
+							$.ajax({
+								type : "GET",
+								url : "attList.do",
+								dataType : "json",
+								success : function(data) {
+
+									successCallback(data);
+									console.log(data);
+
+								}
+							});
+						}
+
+						var calendar = new FullCalendar.Calendar(
+								calendarEl,
+								{
+									dateClick : function(info) {
+										/* alert('Date: ' + info.dateStr);
+										alert('Resource ID: ' + info.resource.id); */
+										$("#myModal").modal();
+										$("#sname").val(info.dateStr);
+										$("#ename").val(info.dateStr);
+										$("#modal-body").html("");
+									},
+
+									headerToolbar : {
+										left : 'prev,next today',
+										center : 'title',
+										right : 'custom,dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+									},
+									//출석 버튼 생생
+									customButton : {
+										custom : {
+											text : '출석',
+											id : 'startwork',
+											click : function() {
+												$.ajax({
+															url : '/users/attendances',
+															type : 'GET',
+															dataType : "JSON",
+															success : function(
+																	data) {
+															},
+															error : function() {
+																alert('there was an error while fetching events!');
+															}
+														});
+
+											}
+										}
+
+									},
+									buttonText : {
+										today : '오늘',
+										month : '월',
+										week : '주',
+										day : '일',
+										list : '주간 일정표'
+									},
+
+									//버튼 
+									select : function(selectionInfo) {
+										alert('selected ');
+										$('#startwork').click(function() {
+
+											console.log("dasd");
+										})
+
+									},
+
+									initialDate : '2020-09-12',
+									navLinks : true, // can click day/week names to navigate views
+									nowIndicator : true,
+									weekNumbers : true,
+									weekNumberCalculation : 'ISO',
+									editable : true,
+									selectable : true,
+									dayMaxEvents : true, // allow "more" link when too many events
+									/* events:[
+										{
+											
+									          title: '휴가',
+									          start: '2020-09-07',
+									          end: '2020-09-10'
+									        } 
+
+										] */
+
+									events : eventFeed
+
+								});
+						calendar.render();
+
+					});
+	/* 	 $( document ).ready(function() {
+	 $('#startwork').click(function(){
+
+	 console.log("dasd");
+	 })
+	 });
+	 */
+
+	// 출근시간
+$(document).ready(function(){
+
+  $('#startwork').click(function(){
+	  var d = new Date();
+	  var time =d.getHours() + "시"+ d.getMinutes() + "분" + d.getSeconds()+"초";
+		$.ajax({
+			type : "GET",
+			url : "attList.do",
+			dataType : "json",
+			success : function(data) {
+
 				successCallback(data);
 				console.log(data);
-				
-					}
-				});
-			 } 
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			dateClick : function(info) {
-				/* alert('Date: ' + info.dateStr);
-				alert('Resource ID: ' + info.resource.id); */
-				$("#myModal").modal();
-				$("#sname").val(info.dateStr);
-				$("#ename").val(info.dateStr);
-				$("#modal-body").html("");
-			},
-			
-			headerToolbar : {
-				left : 'prev,next today',
-				center : 'title',
-				right : 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-			},
-			buttonText : {
-				today : '오늘',
-				month : '월',
-				week : '주',
-				day : '일',
-				list : '주간 일정표'
-			},
-			eventRender: function (event, element, view) {
 
-			    //일정에 hover시 요약
-			    element.popover({
-			      title: $('<div />', {
-			        class: 'popoverTitleCalendar',
-			        text: event.title
-			      }).css({
-			        'background': event.backgroundColor,
-			        'color': event.textColor
-			      }),
-			      content: $('<div />', {
-			          class: 'popoverInfoCalendar'
-			        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
-			        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
-			        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
-			        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
-			      delay: {
-			        show: "800",
-			        hide: "50"
-			      },
-			      trigger: 'hover',
-			      placement: 'top',
-			      html: true,
-			      container: 'body'
-			    });
-
-			    return filtering(event);
-
-			  },
-		
-			  //일정 드래그앤드롭
-			  eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-			    $('.popover.fade.top').remove();
-
-			    //주,일 view일때 종일 <-> 시간 변경불가
-			    if (view.type === 'agendaWeek' || view.type === 'agendaDay') {
-			      if (draggedEventIsAllDay !== event.allDay) {
-			        alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
-			        location.reload();
-			        return false;
-			      }
-			    }
-
-			    // 드랍시 수정된 날짜반영
-			    var newDates = calDateWhenDragnDrop(event);
-
-			    //드롭한 일정 업데이트
-			    $.ajax({
-			      type: "get",
-			      url: "",
-			      data: {
-			        //...
-			      },
-			      success: function (response) {
-			        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
-			      }
-			    });
-
-			  },
-			initialDate : '2020-09-12',
-			navLinks : true, // can click day/week names to navigate views
-			nowIndicator : true,
-			weekNumbers : true,
-			weekNumberCalculation : 'ISO',
-			editable : true,
-			selectable : true,
-			dayMaxEvents : true, // allow "more" link when too many events
-			/* events:[
-				{
-			          title: '휴가',
-			          start: '2020-09-07',
-			          end: '2020-09-10'
-			        } 
-
-				] */
-			events:eventFeed
-				
-			
-
+			}
 		});
-		calendar.render();
-		
-	});
+	  console.log(time);
+     alert(time)
+
+  });
+
+});
 </script>
 
 <body id="page-top">
@@ -175,7 +190,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황 </h1>
+						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -185,8 +200,8 @@
 
 
 
-						<div class="row">
-							<div class="col-xl col-md-6 mb-4">
+					<div class="row">
+						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -214,10 +229,8 @@
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<span class="h5 font-weight-bold text-gray-800">출근:
-												8일</span>
-											<span class="h5 font-weight-bold text-gray-800">지각:
-												8일</span>
+											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
+											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
 
 										</div>
 										<div class="col-auto">
@@ -253,7 +266,7 @@
 								</div>
 							</div>
 						</div>
-					
+
 					</div>
 
 
@@ -266,142 +279,145 @@
 							<div class="table-responsive">
 								<table class="table table-bordered " id="dataTable" width="100%"
 									cellspacing="0">
-									<thead align = "center" style= "background-color : #808000">
-										<tr >
+									<thead align="center" style="background-color: #808000">
+										<tr>
 											<th>이름</th>
 											<th>사번</th>
 											<th>부서</th>
-											<th>출근시간 </th>
+											<th>출근시간</th>
 											<th>퇴근시간</th>
 											<th>출근</th>
 											<th>퇴근</th>
 										</tr>
 									</thead>
 									<tbody>
-									  <tr>
-                                            <td>심재형</td>
-                                            <td>1004 </td>
-                                            <td>마케팅</td>
-                                            <td>2020-07-16 09:00</td>
-                                            <td>2020-07-16 16:00</td>
-                                             <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
-                                             </td>
-                                              <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-                                             </td>
-                                        	</tr>
-                                        	  <tr>
-                                            <td>심재형</td>
-                                            <td>1004 </td>
-                                            <td>마케팅</td>
-                                            <td>2020-07-16 09:00</td>
-                                            <td>2020-07-16 16:00</td>
-                                             <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
-                                             </td>
-                                              <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-                                             </td>
-                                        	</tr>
-                                        	  <tr>
-                                            <td>심재형</td>
-                                            <td>1004 </td>
-                                            <td>마케팅</td>
-                                            <td>2020-07-16 09:00</td>
-                                            <td>2020-07-16 16:00</td>
-                                             <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">출근</button>
-                                             </td>
-                                              <td align = "center">
-                                             	<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-                                             </td>
-                                        	</tr>
+										<tr>
+											<td>심재형</td>
+											<td>1004</td>
+											<td>마케팅</td>
+											<td>2020-07-16 09:00</td>
+											<td>2020-07-16 16:00</td>
+											<td align="center">
+												<button type="button" id="startwork"
+													class="btn btn-outline-primary btn-sm">출근</button>
+											</td>
+											<td align="center">
+												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+											</td>
+										</tr>
+										<tr>
+											<td>심재형</td>
+											<td>1004</td>
+											<td>마케팅</td>
+											<td>2020-07-16 09:00</td>
+											<td>2020-07-16 16:00</td>
+											<td align="center">
+												<button type="button" id="startwork" class="btn btn-outline-primary btn-sm">출근</button>
+											</td>
+											<td align="center">
+												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+											</td>
+										</tr>
+										<tr>
+											<td>심재형</td>
+											<td>1004</td>
+											<td>마케팅</td>
+											<td>2020-07-16 09:00</td>
+											<td>2020-07-16 16:00</td>
+											<td align="center">
+												<button id="startwork"
+													class="btn btn-outline-primary btn-sm">출근</button>
+											</td>
+											<td align="center">
+												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
+											</td>
+										</tr>
 									</tbody>
-									
+
 
 								</table>
 							</div>
 						</div>
 					</div>
-							<div id='calendar'></div>
+					<div id='calendar'></div>
 				</div>
 			</div>
 			<!-- Modal -->
-					<div class="modal fade" id="myModal" role="dialog">
-						<div class="modal-dialog">
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
 
-							<!-- Modal content-->
+					<!-- Modal content-->
 
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title">일정추가</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<div class="row">
-										<form action="/calendar.do">
-											<div class="sname">
-												<label for="sname">시작일 :</label><br> <input type="text"
-													id="sname" name="startdate"><br>
-											</div>
-											<div class="ename">
-												<label for="ename">종료일 :</label><br> <input type="text"
-													id="ename" name="enddate"><br>
-											</div>
-											<label for="lname">내용:</label><br> <input type="text"
-												id="lname" name="context"><br> <br> <input
-												type="submit" value="Submit"> <input type="reset">
-										</form>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">일정추가</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<form action="/calendar.do">
+									<div class="sname">
+										<label for="sname">시작일 :</label><br> <input type="text"
+											id="sname" name="startdate"><br>
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">닫기</button>
+									<div class="ename">
+										<label for="ename">종료일 :</label><br> <input type="text"
+											id="ename" name="enddate"><br>
 									</div>
-								</div>
-
+									<label for="lname">내용:</label><br> <input type="text"
+										id="lname" name="context"><br> <br> <input
+										type="submit" value="Submit"> <input type="reset">
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">닫기</button>
 							</div>
 						</div>
-			<!-- Footer 모듈화 -->
-			<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
-			<!-- End of Footer 모듈화 -->
+
+					</div>
+				</div>
+				<!-- Footer 모듈화 -->
+				<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+				<!-- End of Footer 모듈화 -->
+
+			</div>
+			<!-- End of Content Wrapper -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Page Wrapper -->
 
-	</div>
-	<!-- End of Page Wrapper -->
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- 모든 스크립트 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+		<!-- 모든 스크립트 모듈화 -->
+		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>
 
 </html>
