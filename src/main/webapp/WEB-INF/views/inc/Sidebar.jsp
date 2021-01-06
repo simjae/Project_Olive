@@ -13,7 +13,7 @@
 	id="accordionSidebar">
 
 	<!-- Sidebar - Brand -->
-	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/Login.do">
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/goToMain.do">
 		<div class="sidebar-brand-icon rotate-n-15">
 			<i class="fas fa-laugh-wink"></i>
 		</div>
@@ -62,11 +62,8 @@
 		<div id="collapseHRM" class="collapse"
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">모두 인사관리자 권한:</h6>
-				<a class="collapse-item" href="${pageContext.request.contextPath}/Hr_management/Organization.do">조직 관리</a> 
-				<a class="collapse-item" href="${pageContext.request.contextPath}/Hr_management/EmployeeAccount.do">계정 관리</a>
-				<a class="collapse-item" href="#">직위/직무 관리</a>
-				<a class="collapse-item" href="#">사용자 승인</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/Organization.do">조직 관리</a> 
+				<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/EmployeeAccount.do">계정 관리</a>
 			</div>
 		</div></li>
 		

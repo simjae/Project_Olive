@@ -325,6 +325,7 @@ p.each-label > span {
 																</div>
 															</div>
 															
+															<input type="hidden" name="enabled" value="1"><!-- enabled : true -->
 															<input type="hidden" name="statusCode" value="10"><!-- 사원 신규 등록 : statusCode = 10번 -->
 														</div>
 													</div>
