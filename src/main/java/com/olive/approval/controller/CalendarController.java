@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.attendance.service.CalendarService;
+import com.olive.dto.Att_Record;
 import com.olive.dto.Calendar;
 
 @RestController
@@ -25,22 +26,13 @@ public class CalendarController {
 		this.calendarservice = calendarservice ;
 	}
 	
-//	@RequestMapping(value = "calendar.do", method = RequestMethod.GET)
-//	public String calendarInsert(Calendar cal){
-//		System.out.println(cal.getStartdate());
-//		System.out.println(cal.getEnddate());
-//		System.out.println(cal.getTitle());
-//		calendarservice.insert(cal);
-//		
-//		return "redirect:attendance/mannual.do";
-//	}
+	//휴가 서비스 
 	@RequestMapping(value = "/attendance/calendarList.do", method = RequestMethod.GET)
 	public List<Calendar> calendarList() {
 		List<Calendar> calendarList = null;
 		calendarList = calendarservice.calendarList();
 		System.out.println(calendarList);
 		return calendarList;
-		
-		
 	}
+	
 }
