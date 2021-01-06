@@ -62,7 +62,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome !</h1>
                                     </div>
-                                    <form action="<c:url value="/Login" />"class="user"method="POST">
+                                    <form action="<c:url value="/login"/>" class="user"method="POST">
                                         <div class="form-group">
                                             <input class="form-control form-control-user"
                                                 

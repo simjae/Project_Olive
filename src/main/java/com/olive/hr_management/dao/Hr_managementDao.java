@@ -7,6 +7,7 @@
 package com.olive.hr_management.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.olive.dto.Class;
 import com.olive.dto.Dept;
@@ -14,9 +15,19 @@ import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
 
+import paging.Criteria;
+
 public interface Hr_managementDao {
 	
-	public List<Emp> getEmpList() throws Exception;
+//	public List<Emp> getEmpList() throws Exception;
+	/*
+	 * <select id="getEmpList" resultType="com.olive.dto.Emp"> SELECT empno FROM emp
+	 * </select>
+	 */
+	
+	public List<Map<String, Object>> getEmpList(Criteria cri);
+	
+	public int getListCount() throws Exception;
 
 	public void insertNewEmp(Emp emp);
 
