@@ -3,20 +3,16 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.hr_info.dao.Hr_infoDao">
-	 <!-- <select id="showEmpList" resultType="com.olive.dto.Emp">
-	    SELECT *
-	    FROM emp
- 	 </select>  -->
  	 
  	 <!-- 전체 사원 목록 조회 -->
  	 <select id="showEmpList" resultType="com.olive.dto.EmpTest">
-	    select emp.empno, emp.ename, dept.deptname, position.positionname, acc_status.statuscode
+	    select emp.empno, emp.ename, emp.phone, emp.address, emp.email, dept.deptname, position.positionname, acc_status.statuscode
 		from emp join dept on emp.deptcode = dept.deptcode
 			 join position on emp.positioncode = position.positioncode
 	         join acc_status on emp.statuscode = acc_status.statuscode
  	 </select> 
  	 
- 	 <!-- 사원 조건 조회 -->
+ 	 <!-- 사원 조건 조회 SelectBox (사번+이름+부서)-->
  	 <select id="searchEmp" parameterType="map" resultType="com.olive.dto.EmpTest">
 	    select emp.empno, emp.ename, dept.deptname, position.positionname, acc_status.statuscode
 		from emp join dept on emp.deptcode = dept.deptcode
@@ -29,7 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		     </where>
  	 </select> 
  	 
- 	 <!-- 본부 조직도 -->
+ 	 <!-- 사번으로 사원 조회  -->
+ 	 <select id="searchEmpByEmpno" resultType="com.olive.dto.Emp">
+	    SELECT *
+	    FROM emp
+	    WHERE empno = #{empno}
+ 	 </select>  
+ 	 
+ 	 <!-- 본부 조직도 (미완성) -->
  	 <select id="showOrg" resultType="com.olive.dto.DeptTest">
  	 	select dept.deptcode, dept.deptname, head.headname
 		from dept join head on dept.headcode = head.headcode
@@ -46,12 +49,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 </select>
  	 
  	 
- 	 <!-- 내 정보 수정 Pic 제외 -->
-	 <!-- <update id="updateMyInfo">
+ 	 <!-- 내 정보 수정 일단 Pic 제외 -->
+	 <update id="updateMyInfo" parameterType="map">
 	 	update emp
-	 	set pwd = #{pwd}, email = #{email}, address = #{pwd}, phone = #{phone}
-	 	where empno = #{empno}
-	 </update> -->
+	 	set pwd = #{param2}, email = #{param3}, address = #{param4}, phone = #{param5}
+	 	where empno = #{param1}
+	 </update>
 	 
 </mapper>
 

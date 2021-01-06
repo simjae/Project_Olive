@@ -32,4 +32,7 @@ public class Emp {
 	private int loginCount;
 	private int alarm;
 	private String birth;
+	private String phone;
+	private String address;
+	
 }

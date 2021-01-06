@@ -253,7 +253,7 @@ table.table .avatar {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${requestScope.emplist}">
+										<c:forEach var="list" items="${requestScope.emplist}" varStatus="vs">
 										<tr>
 
 											<td>
@@ -264,10 +264,73 @@ table.table .avatar {
 											<td>${list.deptname}</td>
 											<td>${list.positionname}</td>
 											<td>
-												<a href="#" data-target="#editEmployeeModal" class="edit" data-toggle="modal" >보기</a>
+												<a href="" data-target="#editEmployeeModal${vs.index}" data-toggle="modal" >보기</a>
+												
 												
 											</td>
-										</tr>
+												<!-- Edit Modal HTML -->
+												<div id="editEmployeeModal${vs.index}" class="modal fade">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<form>
+																<div class="modal-header">
+																	<h4 class="modal-title">사원정보</h4>
+																	<button type="button" class="close"
+																		data-dismiss="modal" aria-hidden="true">&times;</button>
+																</div>
+																<div class="modal-body">
+																	<div class="row justify-content-center">
+																		<div class="col-md-5 border-right">
+																			<div
+																				class="d-flex flex-column align-items-center text-center p-3 py-5">
+																				<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
+																				<span class="font-weight-bold mt-3">${list.empNo}</span>
+																				<span class="font-weight-bold mt-3">${list.ename}</span>
+																			</div>
+																		</div>
+																		<div class="col-md-7 scroll">
+																			<div class="p-5">
+																				<div class="row mt-3">
+																					<div class="col-md-10">
+																						<p>사번</p>
+																						<span class="font-weight-bold mt-3">${list.empNo}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>이름</p>
+																						<span class="font-weight-bold mt-3">${list.ename}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>부서</p>
+																						<span class="font-weight-bold mt-3">${list.deptname}팀 : ${list.positionname}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>이메일</p>
+																						<span class="font-weight-bold mt-3">${list.email}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>휴대폰번호</p>
+																						<span class="font-weight-bold mt-3">${list.phone}</span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+
+																</div>
+																<div class="modal-footer"></div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</tr>
 										</c:forEach> 
 
 									</tbody>
@@ -300,74 +363,6 @@ table.table .avatar {
 										</li>
 									</ul>
 								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">사원정보</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="row justify-content-center">
-											<div class="col-md-5 border-right">
-												<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-													<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-													<span class="font-weight-bold mt-3">2001</span>
-													<h3>박채연</h3>
-												</div>
-											</div>
-											<div class="col-md-7 scroll">
-												<div class="p-5">
-													<div class="row mt-3">
-														<div class="col-md-10">
-															<p>사번</p>
-															<input type="text" class="form-control" placeholder="사번" value="2001" readonly>
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>이름</p>
-															<input type="text" class="form-control" placeholder="이름" value=name readonly>
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>비밀번호</p>
-															<input type="text" class="form-control" placeholder="비밀번호" value="*****">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>이메일</p>
-															<input type="text" class="form-control" placeholder="이메일" value="john@bbb.com">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>휴대폰번호</p>
-															<input type="text" class="form-control" placeholder="휴대폰번호" value="010-8888-7777">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>주소</p>
-															<input type="text" class="form-control" placeholder="주소" value="서울특별시 뫄뫄뫄">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-									<div class="modal-footer">
-										
-									</div>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -433,14 +428,7 @@ table.table .avatar {
 		});
 
 
-		//modal 
-		$('.edit').click(function(e){
-			var self = this;
-			var form = $(this);
-			console.log(self);
-			console.log(form);
-			
-		});
+		
 		
 	</script>
 </body>

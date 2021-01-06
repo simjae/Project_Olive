@@ -131,12 +131,12 @@
 						url	 : "showOrgbyDept.do",
 						data : {param:select},
 						success : function(responseData)	{
-							console.log(responseData);
-							console.log(responseData.length);
-							console.log(responseData[0].deptName); //부서
-							console.log(responseData[0].ename); //이름
-							console.log(responseData[0].headName); //본부이름
-							console.log(responseData[0].positionName); //포지션이름
+							//console.log(responseData);
+							//console.log(responseData.length);
+							//console.log(responseData[0].deptName); //부서
+							//console.log(responseData[0].ename); //이름
+							//console.log(responseData[0].headName); //본부이름
+							//console.log(responseData[0].positionName); //포지션이름
 							google.charts.load('current', {packages:["orgchart"]});
 						    google.charts.setOnLoadCallback(drawChart);
 
@@ -146,41 +146,72 @@
 						        data.addColumn('string', 'Manager'); //상위노드
 						        data.addColumn('string', 'ToolTip'); //마우스 오버 시 나오는 이름
 
-						        /* var aaa = '<c:out value="${requestScope.head}"/>';  
-						        console.log(aaa);
-								var deptcode = aaa[0].deptCode; */
+						       
 					
 						        //['현재노드', '상위노드', '툴팁값']
 						        // For each orgchart box, provide the name, manager, and tooltip to show.
 						        
-
+								var emplist = [];
+								
+								
+								
 								for(var i=0; i<responseData.length;i++){
 									var role = responseData[i].positionName;
 									var name = responseData[i].ename;
 									var dept = responseData[i].deptName;
-									var reportsTo = null;
-									if (role=='팀원'){
+									var reportsTo = role == '팀원' ? '팀장' : null; 
+									/* if(role=='팀원'){
 										reportsTo = '팀장';
-									}  
-									
-									data.addRows([
-										[{v:role, f: name + '<div>(<span>' + role + '</span>)</div><img src = "Pictures/' + name + '.jpg" />'}, reportsTo, dept]
-									]);
-									//console.log(responseData[i].ename);
-									//console.log(role);
-									//console.log(name);
-									//console.log(responseData[i]);
-									//console.log(reportsTo);
-								}  
+									}else if(role=='팀장'){
+										reportsTo = '본부장';
+									}else{
+										reportsTo = null;
+									}
+ */
+									console.log(name);
+									console.log(role);
+									console.log(reportsTo);
 
-						       	 
+									var emprow = [];
+									emprow.push(role);
+									emprow.push(reportsTo);
+									emprow.push(name);
+									console.log(emprow);
 									
+									emplist.push(emprow);
+									
+									console.log("------------");
+								}
+
+						        console.log(emplist);
 								
 
+								
+								//////////////
+								data.addRows(eval(emplist));
+								console.log(data);
+								
+								//console.log(data.getRowProperty(0));
+								console.log(data.getNumberOfColumns());
+								console.log(data.getNumberOfRows());
+								/* console.log(data.getValue(0, 1)); //row col
+								console.log(data.getValue(1, 1)); //row col
+								console.log(data.getValue(2, 1)); //row col
+								console.log(data.getValue(3, 1)); //row col
+								console.log(data.getValue(4, 1)); //row col
+								console.log(data.getValue(5, 1)); //row col
+
+								console.log(data.getValue(0, 0)); //row col
+								console.log(data.getValue(1, 0)); //row col
+								console.log(data.getValue(2, 0)); //row col
+								console.log(data.getValue(3, 0)); //row col
+								console.log(data.getValue(4, 0)); //row col
+								console.log(data.getValue(5, 0)); //row col */
+								
 								// Create the chart.
 						        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-						        // Draw the chart, setting the allowHtml option to true for the tooltips.
-						        chart.draw(data, {'allowHtml':true, nodeClass:'organ'}); //
+							        // Draw the chart, setting the allowHtml option to true for the tooltips.
+							        chart.draw(data, {'allowHtml':true,'size': 'large'}); //, nodeClass:'organ'
 						      }
 													
 

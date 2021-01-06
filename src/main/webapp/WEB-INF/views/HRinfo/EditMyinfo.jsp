@@ -6,7 +6,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +17,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+	<style>
+		#saveBtn {
+		  display: none;
+		}
+	</style>
     <title>Emp</title>
 
  	<!-- 스타일시트, CDN 모듈화 -->
@@ -55,42 +59,49 @@
                     <div class="row justify-content-center">
     					<!-- <div class="container rounded bg-white mt-5"> -->
     					<div class="card shadow py-2 bg-white my-5" style="width: 80%;">
+    					  <c:set var="emp" value="${requestScope.emp}"/>
+    					
 						    <div class="row justify-content-center">
-						        <div class="col-md-5 border-right">
-						            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+						        <div class="col-md-5 border-right my-auto">
+						        
+						            <div class="d-flex flex-column align-items-center text-center p-3">
 							            	<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-							            	<span class="font-weight-bold mt-3">2001</span>
-							            	<span class="font-weight-bold mt-3">Douglas Mcgee</span>
-							            	<h1>aaaaaa </h1>
-							           		<div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Edit Profile</button></div> 
+							            	<span class="font-weight-bold mt-3">${emp.empNo}</span>
+							            	<span class="font-weight-bold mt-3">${emp.ename}</span>
+							            	<h1></h1>
+							           		<div class="mt-5 text-center">
+							           			<button id="editBtn" class="btn btn-primary profile-button">Edit Profile</button>
+							           			<button id="saveBtn" class="btn btn-primary profile-button" type="submit">Save Profile</button>
+							           		</div> 
 						            </div>
+						      
 						        </div>
 						        <div class="col-md-7 scroll">
 						            <div class="p-5">
 						                <div class="row mt-3">
 						                    <div class="col-md-10">
 						                    	<p>사번</p>
-						                    	<input type="text" class="form-control" placeholder="사번" value="2001" readonly>
+						                    	<input id="empno" type="text" class="form-control" placeholder="사번" value="${emp.empNo}" readonly>
 						                    </div>
 						                </div>
 						                <div class="row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>이름</p>
-						                    	<input type="text" class="form-control" placeholder="이름" value="Douglas Mcgee" readonly>
+						                    	<input id="ename" type="text" class="form-control" placeholder="이름" value="${emp.ename}" readonly >
 						                    </div>
 						       
 						                </div>
 						                <div class="row mt-4">
 						                    <div class="col-md-10">
 						                   		<p>비밀번호</p>
-						                    	<input type="text" class="form-control" placeholder="비밀번호" value="*****">
+						                    	<input id="pwd" type="text" class="form-control" placeholder="비밀번호" value="${emp.pwd}" readonly>
 											</div>
 						                 
 						                </div>
 						                <div class="row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>이메일</p>
-						                    	<input type="text" class="form-control" placeholder="이메일" value="john@bbb.com">
+						                    	<input id="email" type="text" class="form-control" placeholder="이메일" value="${emp.email}" readonly>
 						                    </div>
 						                   
 						                </div>
@@ -98,24 +109,24 @@
 				 		                <div class="row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>휴대폰번호</p>
-						                    	<input type="text" class="form-control" placeholder="휴대폰번호" value="010-8888-7777">
+						                    	<input id="phone" type="text" class="form-control" placeholder="휴대폰번호" value="${emp.phone}" readonly>
 						                    </div>
 						                </div> 
 						                
 						                <div class="row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>주소</p>
-						                    	<input type="text" class="form-control" placeholder="주소" value="서울특별시 뫄뫄뫄">
+						                    	<input id="address" type="text" class="form-control" placeholder="주소" value="${emp.address}" readonly>
 						                    </div>
 						                </div>  
 						           
-						                <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+						               
 						            </div>
 						        </div>
 						    </div>
+
+						
 						</div>
-
-
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -135,6 +146,48 @@
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+	<script>
+		var edit = false;
+		$('#editBtn').click(function(){
+			if(edit == false){
+				$(this).hide();
+				$('.form-control').attr('readonly', false);
+				$('#saveBtn').show();
+				edit = true;
+			}
+		});
+
+		$('#saveBtn').click(function(){
+			///////////////////////////
+			var empno = ${emp.empNo};
+			var pwd = $('#pwd').val();
+			var email = $('#email').val();
+			var phone = $('#phone').val();
+			var address = $('#address').val();
+			//console.log(pwd);
+			//console.log(empno);
+			$.ajax(
+				{
+					type : "post",
+					url : "updateMyInfo.do",
+					data : {param1:empno, param2:pwd, param3:email, param4:phone, param5:address},
+					success : function(data){
+							console.log(data);
+							if(edit==true){
+								$('#saveBtn').hide();
+								$('.form-control').attr('readonly', true);
+								$('#editBtn').show();
+								edit = false;
+							}
+					},
+					error : function(error){
+						console.log(error);
+					}
+				}
+			)
+		});
+
+	</script>
 
 </body>
 
