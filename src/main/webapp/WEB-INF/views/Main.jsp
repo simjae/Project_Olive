@@ -490,6 +490,7 @@
 	<script src="/resources/js/skycons.js"></script>
 	<script src="/resources/js/openweatherAPIuse.js"></script>
 	<script src="/resources/js/newsAPI.js"></script>
+	<script src="/resources/js/startWork.js"></script>
 </body>
 
 </html>

@@ -10,6 +10,14 @@
     작성일: 2020-12-31
     작성자: 정민찬
 --%>
+<!-- 
+/*
+	파일명:Topbar.jsp
+	설명: 출/퇴근 기능추가 
+	수정일 : 2020-01-07
+	작성자 : 심재형 
+*/
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
