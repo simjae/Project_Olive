@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,15 +24,23 @@ import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.EmpTest;
 
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
+
 @Controller
 @RequestMapping("/approval/")
 public class ApprovalController {
 	private ApprovalService approvalService;
+	@Autowired
+	private PagingService paging; 
 	
 	@Autowired
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
 	}
+	
+	
 	
 	//전자결재 메인페이지
 	@RequestMapping(value = "approvalHome.do", method = RequestMethod.GET)
@@ -94,12 +103,23 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
-	public String showPersonalDoc(Model model, Principal principal) {
+	public String showPersonalDoc(Criteria cri, Principal principal,Model model) {
 		String empno = principal.getName();
+		cri.setCriteria("getDoc", "docno", "asc");
+		cri.setSearchType("empno");
+		cri.setKeyword(empno);
+		int totalCount =paging.getListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		List<Map<String,Object>> pagingList = paging.getList(cri);
+		System.out.println(cri);
+		
 		List<Document> document = approvalService.getDocument(empno,0,10);
 		System.out.println(approvalService.arrangeDoc(document));
 		
-		model.addAttribute("document", document);
+		model.addAttribute("cri", cri); //이전에 조회 했던 데이터
+		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
+		model.addAttribute("pagingList", pagingList); //데이터 결과값 
 		
 		return "approval/PersonalDoc";
 	}

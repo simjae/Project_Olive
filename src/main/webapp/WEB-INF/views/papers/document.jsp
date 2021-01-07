@@ -30,17 +30,18 @@
 						<div style="margin: 0px; padding: 0px; font-family: 맑은 고딕; font-size: 16px; line-height: 1.8;">
 							<div style="text-align: right">
 								<c:if test="${user.username != doc.empno }">
-									
-									<button class="btn btn-success btn-icon-split approval" value="1">
-										<span class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">승인</span>
-									</button>
-									<button class="btn btn-danger btn-icon-split approval" value="0">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">반려</span>
-                                    </button>
+									<c:forEach var="check" items="${ apps}">
+										<c:if test="${check.empno == user.username and check.app_Order - doc.curr_Approval ==1}">
+											<button class="btn btn-success btn-icon-split approve" value="1">
+												<span class="icon text-white-50"> <i class="fas fa-check"></i>
+												</span> <span class="text">승인</span>
+											</button>
+											<button class="btn btn-danger btn-icon-split approve" value="0">
+												<span class="icon text-white-50"> <i class="fas fa-trash"></i>
+												</span> <span class="text">반려</span>
+											</button>
+										</c:if>
+									</c:forEach>
 								</c:if>
 							</div>
 							<div>
@@ -211,11 +212,31 @@
 $(function(){ 
 	
 
-	$('.approval').on("click",function(){
+	$('.approve').on("click",function(){
 		console.log($(this).val());
 		let checkApp;
+
+		
 		if($(this).val()==1){
 			checkApp=1;
+			swal( {
+				title: "승인 하시겠습니까?",
+				text : "",
+				icon:"success",
+				content:{
+					element:"input",
+					attributes:{
+						placeholder:"댓글을 적어 주세요"
+							}
+					},
+				buttons:{
+					cancel:"취소",
+					승인하기:true,
+					}
+				}).then((value)=>{
+					alert(value);
+					});
+			
 		}else{
 			checkApp=0;
 			}
@@ -226,7 +247,7 @@ $(function(){
 				empNo:${user.username},
 				app_Check:checkApp,
 				};
-		swal(app.docNo);
+		console.log(app);
 		/* $.ajax({
 			url:"approve.do",
 			type:"POST",

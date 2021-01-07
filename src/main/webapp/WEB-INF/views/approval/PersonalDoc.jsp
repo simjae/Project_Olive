@@ -16,6 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -220,7 +221,7 @@ table.table .avatar {
 												</tr>
 											</thead>
 											<tbody id="docBody">
-												<c:forEach var="list" items="${document}">
+												<c:forEach var="list" items="${pagingList}">
 													<tr>
 														<td>${list.docno }</td>
 														<td>
@@ -230,7 +231,7 @@ table.table .avatar {
 															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
 														</td>
 														<td>${list.ename}</td>
-														<td>${list.typeName}</td>
+														<td>${list.typename}</td>
 														<td>
 														<div class="row">
 															<div class="col-md-7 px-0 mx-0">
@@ -245,6 +246,33 @@ table.table .avatar {
 												</c:forEach>
 											</tbody>
 										</table>
+										<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
+											
+											<ul class="pagination" id="pagination">
+												<c:if test="${page.prev}">
+													<li class="page-item"><a class="page-link page-btn-prev" href="#"
+														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+															<span class="sr-only">Previous</span>
+													</a></li>
+												</c:if>
+
+												<c:forEach var="paging" begin="${page.startPage}"
+													end="${page.endPage}">
+													<li class="page-item">
+													<a class="page-link page-btn" href="#">${paging}</a>
+													</li>
+												</c:forEach>
+
+												<c:if test="${page.next}">
+													<li class="page-item"><a class="page-link page-btn-next" href="#"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+															<span class="sr-only">Next</span>
+													</a></li>
+												</c:if>
+											</ul>
+											
+										</nav>
 									</div>
 								</div>
 							</div>
@@ -285,6 +313,7 @@ table.table .avatar {
 	</div>
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
+	<script src="/resources/js/Approval/personalDoc.js"></script>
 	<script type="text/javascript">
 $(function(){
 	var today = new Date();
