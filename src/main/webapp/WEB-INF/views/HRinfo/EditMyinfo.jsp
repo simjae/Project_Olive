@@ -101,7 +101,7 @@
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                   		<p>비밀번호</p>
-						                    	<input name="pwd" id="pwd" type="text" class="form-control" placeholder="비밀번호" value="${emp.pwd}" readonly>
+						                    	<input name="pwd" id="pwd" type="text" class="form-control" placeholder="새 비밀번호" value="" readonly>
 											</div>
 						                 
 						                </div>

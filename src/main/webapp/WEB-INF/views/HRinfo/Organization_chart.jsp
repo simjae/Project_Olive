@@ -22,6 +22,13 @@
 
   	<!-- 스타일시트, CDN 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
+	<style>
+		.highcharts-figure, .highcharts-data-table table {
+			min-width: 360px;
+			max-width: 800px;
+			margin: 1em auto;
+		}
+	</style>
 </head>
 
 <body id="page-top">
@@ -85,10 +92,11 @@
 								
 							
 							</div>
-                                <div class="card-body">
+                                <div class="card-body" id="org-chart">
 
-                                    <div id="chart_div"></div>
-
+                                 <figure >
+										<div id="container"></div>
+								 <p class="highcharts-description">
                                 </div>
                             </div>
 
@@ -119,6 +127,19 @@
     
     <!-- 추가 script -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/sankey.js"></script>
+	<script src="https://code.highcharts.com/modules/organization.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+    
+    
     <script type="text/javascript">
 	    //ajax
 	    $('#inputState').change(function(){
@@ -137,84 +158,127 @@
 							//console.log(responseData[0].ename); //이름
 							//console.log(responseData[0].headName); //본부이름
 							//console.log(responseData[0].positionName); //포지션이름
-							google.charts.load('current', {packages:["orgchart"]});
-						    google.charts.setOnLoadCallback(drawChart);
+							
+							
+							
+							//id : role , title : name , column : node, 	
+						    //{id : '올리브', title : '올리브',name : 'Grethe'}
+	
+							
+							
+							
+							var emplist = [];
 
-						      function drawChart() {
-						        var data = new google.visualization.DataTable();
-						        data.addColumn('string', 'Name'); //자신
-						        data.addColumn('string', 'Manager'); //상위노드
-						        data.addColumn('string', 'ToolTip'); //마우스 오버 시 나오는 이름
-
-						       
-					
-						        //['현재노드', '상위노드', '툴팁값']
-						        // For each orgchart box, provide the name, manager, and tooltip to show.
-						        
-								var emplist = [];
+							for(var i=0; i<responseData.length;i++){
+								var role = responseData[i].positionName;
+								var name = responseData[i].ename;
 								
 								
-								
-								for(var i=0; i<responseData.length;i++){
-									var role = responseData[i].positionName;
-									var name = responseData[i].ename;
-									var dept = responseData[i].deptName;
-									var reportsTo = role == '팀원' ? '팀장' : null; 
-									/* if(role=='팀원'){
-										reportsTo = '팀장';
-									}else if(role=='팀장'){
-										reportsTo = '본부장';
-									}else{
-										reportsTo = null;
-									}
- */
-									console.log(name);
-									console.log(role);
-									console.log(reportsTo);
-
-									var emprow = [];
-									emprow.push(role);
-									emprow.push(reportsTo);
-									emprow.push(name);
-									console.log(emprow);
-									
-									emplist.push(emprow);
-									
-									console.log("------------");
+								//var dept = responseData[i].deptName;
+								//var reportsTo = role == '팀원' ? '팀장' : null; 
+								/* if(role=='팀원'){
+									reportsTo = '팀장';
+								}else if(role=='팀장'){
+									reportsTo = '본부장';
+								}else{
+									reportsTo = null;
 								}
-
-						        console.log(emplist);
 								
-
+								name : 박채연, id : 팀원
+								name : 어피치, id : 팀원
+								name : 프로도, id : 팀원
+								name : 앙몬드, id : 팀장 >> 박채연, 어피치, 프로도
 								
-								//////////////
-								data.addRows(eval(emplist));
-								console.log(data);
 								
-								//console.log(data.getRowProperty(0));
-								console.log(data.getNumberOfColumns());
-								console.log(data.getNumberOfRows());
-								/* console.log(data.getValue(0, 1)); //row col
-								console.log(data.getValue(1, 1)); //row col
-								console.log(data.getValue(2, 1)); //row col
-								console.log(data.getValue(3, 1)); //row col
-								console.log(data.getValue(4, 1)); //row col
-								console.log(data.getValue(5, 1)); //row col
-
-								console.log(data.getValue(0, 0)); //row col
-								console.log(data.getValue(1, 0)); //row col
-								console.log(data.getValue(2, 0)); //row col
-								console.log(data.getValue(3, 0)); //row col
-								console.log(data.getValue(4, 0)); //row col
-								console.log(data.getValue(5, 0)); //row col */
 								
-								// Create the chart.
-						        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-							        // Draw the chart, setting the allowHtml option to true for the tooltips.
-							        chart.draw(data, {'allowHtml':true,'size': 'large'}); //, nodeClass:'organ'
-						      }
-													
+								id값 기준으로
+								본부장 > 팀장
+								팀장  > 팀원
 
+								id가 팀장이면 id가 본부장인 사람 밑으로 
+								id가 팀원이면 id가 팀장인 사람 밑으로 
+								*/
+								console.log(name); //name
+								console.log(role); //id
+								//console.log(reportsTo);
+
+
+
+								var emp = {};
+								emp['id'] = role;
+								emp['name'] = name;
+								console.log(emp);
+								/* var emprow = [];
+								emprow.push(role);
+								emprow.push(reportsTo);
+								emprow.push(name);
+								console.log(emprow);
+								*/
+								emplist.push(emp);
+								
+								console.log("------------");
+							}
+
+					        console.log(emplist);
+
+
+					      //Highchart 시작  ------------ 
+							Highcharts.chart('container',{
+							chart : {
+								height : 600,
+								inverted : true
+							},
+							title : {
+								text : 'Olive'
+							},
+							accessibility : {
+								point : {
+									descriptionFormatter : function(point) {
+										var nodeName = 
+											point.toNode.name, 
+											nodeId = point.toNode.id, 
+											nodeDesc = nodeName === nodeId ? nodeName
+												: nodeName + ', ' + nodeId, 
+											parentDesc = point.fromNode.id;
+										return point.index + '. ' + nodeDesc
+												+ ', reports to ' + parentDesc
+												+ '.';
+									}
+								}
+							} ,
+							series : [ {
+								type : 'organization',
+								name : 'Olive',
+								keys : [ 'from', 'to' ],
+								data : [ [ '본부장', '팀장' ], [ '팀장', '팀원' ],
+								 	   ],
+								levels : [  {
+									level : 1,
+									color : '#980104'
+								}, {
+									level : 2,
+									color : '#359154'
+								} ],
+								nodes : emplist,
+								colorByPoint : false,
+								color : '#007ad0',
+								dataLabels : {
+									color : 'white'
+								},
+								borderColor : 'white',
+								nodeWidth : 65
+							} ],
+							tooltip : {
+								outside : true
+							},
+							exporting : {
+								allowHTML : true,
+								sourceWidth : 800,
+								sourceHeight : 600
+							}
+
+						});
+						        
 						},
 						error : function(error){
 							console.log(error);
@@ -222,10 +286,23 @@
 					} 
 				); 
 	    });
+					        
+	  	
+			
 
+							
+							
+							
+							
+							
+
+							
+							
+						
+						
 
     
-      
+
 
 
       

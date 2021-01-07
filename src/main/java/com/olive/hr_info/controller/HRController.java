@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +33,14 @@ import com.olive.hr_info.service.Hr_infoService;
 public class HRController {
 	
 	private Hr_infoService empService;
+	
 	@Autowired
 	public void setEmpService(Hr_infoService empService) {
 		this.empService = empService;
 	}
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
 	
@@ -85,6 +89,10 @@ public class HRController {
 	public String updateMyInfo(Emp emp, HttpServletRequest request) {
 		System.out.println("수정할고야");
 		System.out.println(emp);
+		
+		emp.setPwd(this.bCryptPasswordEncoder.encode(emp.getPwd()));
+		
+		
 		empService.updateMyInfo(emp, request);
 		return "HRinfo/EditMyinfo";
 			
