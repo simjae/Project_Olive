@@ -20,14 +20,11 @@ import paging.Criteria;
 public interface Hr_managementDao {
 	
 //	public List<Emp> getEmpList() throws Exception;
-	/*
-	 * <select id="getEmpList" resultType="com.olive.dto.Emp"> SELECT empno FROM emp
-	 * </select>
-	 */
+
 	
-	public List<Map<String, Object>> getEmpList(Criteria cri);
+//	public List<Map<String, Object>> getEmpList(Criteria cri);
 	
-	public int getListCount() throws Exception;
+//	public int getListCount() throws Exception;
 
 	public void insertNewEmp(Emp emp);
 
