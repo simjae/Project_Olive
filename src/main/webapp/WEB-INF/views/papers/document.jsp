@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,14 +25,28 @@
 					<c:set var="doc" value="${requestScope.document }" />
 					<c:set var="emp" value="${requestScope.emp }" />
 					<c:set var="apps" value="${requestScope.apps }" />
-					<div id="hw_dext_default_style"
-						style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;"
-					>
-						<div style="margin: 0px; padding: 0px; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8;">
-							<h1 style="text-align: center; padding: 30px 0px; font-size: 26px; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; line-height: 1.8;">${doc.typeName }</h1>
-							<p></p>
+					<sec:authentication property="principal" var="user" />
+					<div id="hw_dext_default_style" style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
+						<div style="margin: 0px; padding: 0px; font-family: 맑은 고딕; font-size: 16px; line-height: 1.8;">
+							<div style="text-align: right">
+								<c:if test="${user.username != doc.empno }">
+									<button class="btn btn-success btn-icon-split approval" value="1">
+										<span class="icon text-white-50"> <i class="fas fa-check"></i>
+										</span> <span class="text">승인</span>
+									</button>
+									<button class="btn btn-danger btn-icon-split approval" value="0">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">반려</span>
+                                    </button>
+								</c:if>
+							</div>
+							<div>
+								<h1 style="text-align: center; padding: 5px 0px 0px 5px; font-size: 26px; font-family: 맑은 고딕; line-height: 1.8;">${doc.typeName }</h1>
+							</div>
 							<div class="list"
-								style="margin: 0px; padding: 0px; float: left; font-size: 11pt; width: 272px; color: rgb(103, 103, 103); font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; amp; amp; amp; quot; , dotum , sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.4px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+								style="margin: 0px; padding: 0px; float: left; font-size: 11pt; width: 272px; color: rgb(103, 103, 103); font-family: 맑은 고딕, Malgun Gothic, dotum, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.4px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
 							>
 								<dl style="margin: 0px; padding: 0px; list-style: none;">
 									<dt style="margin: 0px; padding: 0px 0px 0.32cm; float: left; clear: both; width: 106px; font-weight: bold;">문서 번호</dt>
@@ -45,7 +60,7 @@
 								</dl>
 							</div>
 							<div class="approval"
-								style="margin: 0px; margin-right: 0px; padding: 0px; padding-left: 70px; float: right; width: 365px; color: rgb(103, 103, 103); font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; amp; amp; amp; quot; , dotum , sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.4px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+								style="margin: 0px; margin-right: 0px; padding: 0px; padding-left: 70px; float: right; width: 365px; color: rgb(103, 103, 103); font-family: 맑은 고딕, Malgun Gothic, dotum, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.4px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
 							>
 								<table style="border-collapse: collapse; width: 364px; table-layout: fixed; border-width: 1px; border-style: solid; border-color: rgb(89, 89, 89) rgb(102, 102, 102);">
 									<colgroup>
@@ -59,40 +74,38 @@
 										<tr>
 											<c:forEach var="list" items="${apps }">
 												<th scope="col"
-													style="margin: 0px; padding: 0px; font-size: 11pt; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; amp; amp; amp; quot; , dotum , sans-serif; height: 25px; font-weight: normal; border-left: 0px; border-right: 1px solid rgb(102, 102, 102); word-break: break-all;"
+													style="margin: 0px; padding: 0.08cm 0px; font-size: 11pt; font-family: 맑은 고딕, Malgun Gothic, dotum, sans-serif; height: 25px; font-weight: normal; border-left: 0px; text-align: center; border-right: 1px solid rgb(102, 102, 102); word-break: break-all;"
 												>${list.ename }</th>
 											</c:forEach>
 										</tr>
 										<tr>
 											<c:forEach var="list" items="${apps }">
 												<td class="stamp"
-													style="margin: 0px; padding: 0px; font-size: 8pt; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; amp; amp; amp; quot; , dotum , sans-serif; color: rgb(0, 0, 0); height: 49px; text-align: center; border-top: 1px solid rgb(102, 102, 102); border-left: 1px solid rgb(102, 102, 102); border-bottom: 1px solid rgb(102, 102, 102); border-right: 1px solid rgb(102, 102, 102); line-height: 10pt; word-break: break-all; vertical-align: middle;"
+													style="margin: 0px; padding: 0px; font-size: 8pt; font-family: 맑은 고딕, Malgun Gothic, dotum, sans-serif; color: rgb(0, 0, 0); height: 49px; text-align: center; border-top: 1px solid rgb(102, 102, 102); border-left: 1px solid rgb(102, 102, 102); border-bottom: 1px solid rgb(102, 102, 102); border-right: 1px solid rgb(102, 102, 102); line-height: 10pt; word-break: break-all; vertical-align: middle;"
 												>
-													<p>
-														<br>
-													</p>
+													<c:if test="${list.app_Check==1}">
+														<img src="/resources/img/approvalStamp.jpg">
+													</c:if>
 												</td>
 											</c:forEach>
 										</tr>
 										<tr>
 											<c:forEach var="list" items="${apps }">
 												<td
-													style="margin: 0px; padding: 0.08cm 0px; font-size: 8pt; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot; , &amp; amp; amp; amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; amp; amp; amp; quot; , dotum , sans-serif; color: rgb(0, 0, 0); height: 22px; text-align: center; border-top: 1px solid rgb(102, 102, 102); border-left: 1px solid rgb(102, 102, 102); border-bottom: 1px solid rgb(89, 89, 89); border-right: 1px solid rgb(102, 102, 102); line-height: 10pt; word-break: break-all;"
-												>${list.deptname }</td>
+													style="margin: 0px; padding: 0.08cm 0px; font-size: 8pt; font-family: 맑은 고딕, Malgun Gothic, dotum, sans-serif; color: rgb(0, 0, 0); height: 22px; text-align: center; border-top: 1px solid rgb(102, 102, 102); border-left: 1px solid rgb(102, 102, 102); border-bottom: 1px solid rgb(89, 89, 89); border-right: 1px solid rgb(102, 102, 102); line-height: 10pt; word-break: break-all;"
+												>${list.positionname }</td>
 											</c:forEach>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;"></p>
-							<div class="list"
-								style="margin: 0px; padding: 0px; float: left; font-size: 8pt; width: 272px; font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; line-height: 1.8;"
-							>
+							<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;"></p>
+							<div class="list" style="margin: 0px; padding: 0px; float: left; font-size: 8pt; width: 272px; font-family: 맑은 고딕; line-height: 1.8;">
 								<dl style="margin: 0px; padding: 0px; list-style: none;">
 									<br>
 								</dl>
 							</div>
-							<p style="font-family: &amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
+							<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
 								<br>
 							</p>
 							<br> <br> <br> <br>
@@ -100,82 +113,47 @@
 								<tbody>
 									<tr>
 										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">소속</p>
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">소속</p>
 										</td>
 										<td colspan="2" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 312px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${emp.deptname}</p>
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${emp.deptname}</p>
 										</td>
 										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 143px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">직위</p>
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">직위</p>
 										</td>
 										<td colspan="2" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 378px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${emp.positionname}</p>
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${emp.positionname}</p>
 										</td>
 									</tr>
 									<tr>
-										<%-- <td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">성명</p>
-										</td>
-										<td style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 133px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${emp.ename}</p>
-										</td>
-										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 156px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">생년월일</p>
-										</td>
-										<td style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 143px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
-												<br>
-											</p>
-										</td>
-										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 154px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">전화번호</p>
-										</td>
-										<td style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 219px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#tel').val()+'</p>
-										</td>
-									</tr>
-									<tr>
-										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">현주소</p>
-										</td>
-										<td colspan="5" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$("#addr").val()+'</p>
-										</td>
-									</tr> --%>
-										<c:if test="${typeCode!=10 }">
+										<c:if test="${doc.typeCode ne 10}">
 											<tr>
 												<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
-													<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">기간</p>
+													<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">기간</p>
 												</td>
 												<td colspan="5" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;">
-													<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
+													<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
 														<fmt:formatDate value="${doc.startdate}" pattern="yyyy-MM-dd" />
-														<c:if test="${typeCode eq 20 }">
+														<c:if test="${doc.typeCode eq 20}">
 												~<fmt:formatDate value="${doc.startdate}" pattern="yyyy-MM-dd" />
-												</c:if>
-														<c:if test="${typeCode != 20 }">
+														</c:if>
+														<c:if test="${doc.typeCode ne 20}">
 												~<fmt:formatDate value="${doc.enddate}" pattern="yyyy-MM-dd" />
-												</c:if>
+														</c:if>
 													</p>
 												</td>
 											</tr>
 										</c:if>
 									<tr>
-									
-												<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
-													<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">제목</p>
-												</td>
-												<td colspan="5" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;">
-													<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
-														${doc.title }
-													</p>
-												</td>
-											</tr>
-									
-									<tr>
-										<td colspan="6" style="padding:0; border: 1px solid #cdcdcd; height: 100%; vertical-align: top">
-											<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${doc.content }</p>
+										<td style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); text-align: center; font-weight: bold; width: 136px;">
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">제목</p>
 										</td>
+										<td colspan="5" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;">
+											<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${doc.title }</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6" style="padding: 0; border: 1px solid #cdcdcd; height: 300px; vertical-align: top">${doc.content }</td>
 									</tr>
 									<tr>
 										<td colspan="6" style="padding: 10px 0; border: 0;">
@@ -183,29 +161,30 @@
 												<tbody>
 													<tr>
 														<td colspan="3" style="padding: 10px; text-align: center; border: 0;">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">상기
-																명 본인은 위와 같은 사유로 제출합니다.</p>
+															<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">상기 명 본인은 위와 같은 사유로 제출합니다.</p>
 														</td>
 													</tr>
 													<tr>
 														<td colspan="3" style="padding: 80px 0 40px; text-align: center; border: 0;">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#writedate').val()+'</p>
+															<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
+																<fmt:formatDate value="${doc.writedate}" pattern="yyyy-MM-dd" />
+															</p>
 														</td>
 													</tr>
 													<tr>
 														<td style="padding: 10px; border: 0px; text-align: right; width: 632px;">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">신청인:</p>
+															<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">신청인:</p>
 														</td>
 														<td style="padding: 10px; border: 0px; width: 78px;">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#ename').val()+'</p>
+															<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">${doc.ename }</p>
 														</td>
 														<td style="padding: 10px; border: 0px; width: 67px;">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">(인)</p>
+															<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">(인)</p>
 														</td>
 													</tr>
 													<tr>
 														<td colspan="3" style="padding: 80px 0 10px; border: 0; font-weight: bold; font-size: 20px; text-align: center">
-															<p style="font-family: &amp; amp; amp; amp; amp; amp; amp; quot; 맑은 고딕&amp;amp; amp; amp; amp; amp; amp; quot;; font-size: 20px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">OLIVE</p>
+															<p style="font-family: 맑은 고딕; font-size: 20px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">OLIVE</p>
 														</td>
 													</tr>
 												</tbody>
@@ -226,4 +205,45 @@
 </body>
 <!-- 모든 스크립트 모듈화 -->
 <jsp:include page="../inc/BottomLink.jsp"></jsp:include>
+<script type="text/javascript">
+$(function(){ 
+	
+
+	$('.approval').on("click",function(){
+		console.log($(this).val());
+		let checkApp='';
+		if($(this).val()==1){
+			}
+		let app={
+				docNo:${doc.docno},
+				empNo:${user.username},
+				app_Check:checkApp
+				};
+		
+		/* $.ajax({
+			url:"approve.do",
+			type:"POST",
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(app),
+			success:function(data){
+
+			alert(data);
+					
+				},
+				
+			}); */
+	});
+		
+
+
+
+
+
+
+
+	
+});
+
+	
+</script>
 </html>

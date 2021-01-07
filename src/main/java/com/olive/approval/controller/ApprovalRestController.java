@@ -7,7 +7,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
@@ -47,7 +49,7 @@ public class ApprovalRestController {
 		}
 		return obj;
 	}
-
+	
 	@RequestMapping(value = "/getAllEmpList.do")
 	private List<Emp> getAllEmpList() {
 		
@@ -74,6 +76,14 @@ public class ApprovalRestController {
 	@RequestMapping(value="/getArrangedAppList.do")
 	private List<Approver> getArrangedAppList(String statusCode,Principal principal) {
 		return approvalService.getArrangedAppList(statusCode,principal);
+	}
+	
+	
+	@RequestMapping(value="/approve.do", method=RequestMethod.POST)
+	private String approve(@RequestBody Approver app) {
+		System.out.println(app); 
+		//approvalService.approve(app);
+		return "aaa";
 	}
 
 

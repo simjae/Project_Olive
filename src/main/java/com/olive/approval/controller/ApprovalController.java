@@ -105,15 +105,19 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
-	public String showPregressDoc(Principal p) {
+	public String showPregressDoc(Model model, Principal principal) {
+		String empno = principal.getName();
+		List<Approver> approverDoc = approvalService.getApprover(empno);
+		model.addAttribute("appdoc", approverDoc);
 		
 		return "approval/ProgressDoc";
 	}
 	
 
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
-	public String viewDocument(String docno,Model model,Principal principal) {
-		Document document = approvalService.viewDocumnet(docno); 
+	public String viewDocument(String docno,String typeCode,Model model,Principal principal) {
+		System.out.println(typeCode);
+		Document document = approvalService.viewDocumnet(docno,typeCode); 
 		EmpTest emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);

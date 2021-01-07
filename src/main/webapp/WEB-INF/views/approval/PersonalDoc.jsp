@@ -75,11 +75,19 @@ table.table tr th, table.table tr td {
 }
 
 table.table tr th:first-child {
-	width: 60px;
+	width: 100px;
 }
 
 table.table tr th:last-child {
-	width: 100px;
+	width: 150px;
+}
+
+table.table td {
+	text-align: center;
+}
+
+table.table th {
+	text-align: center;
 }
 
 table.table-striped tbody tr:nth-of-type(odd) {
@@ -160,8 +168,13 @@ table.table .avatar {
 	margin-top: 10px;
 	font-size: 13px;
 }
-.nav-link :active{
-	border:2px;
+
+.nav-link :active {
+	border: 2px;
+}
+
+.card {
+	height: 500px;
 }
 </style>
 </head>
@@ -180,21 +193,15 @@ table.table .avatar {
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<h1 class="h3 text-gray-800">개인문서함</h1>
-					<div class="card shadow py-4 bg-white my-5">
+					<div class="card shadow py-4 bg-white my-5 ">
 						<c:set var="document" value="${requestScope.document }" />
 						<c:set var="arrangedDoc" value="${requestScope.arrangedDoc }" />
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
-							<li class="nav-item"><button class="nav-link active" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체
-									문서</button></li>
-							<li class="nav-item"><button class="nav-link" value="10" id="doc_ready" data-toggle="tab"  role="tab" aria-controls="profile"
-									aria-selected="false"
-								>기안 문서</button></li>
-							<li class="nav-item"><button class="nav-link" value="20" id="doc_ing" data-toggle="tab"  role="tab" aria-controls="contact" aria-selected="false">결재
-									진행</button></li>
-							<li class="nav-item"><button class="nav-link" value="30" id="doc_cmp" data-toggle="tab"  role="tab" aria-controls="contact" aria-selected="false">반려
-									문서</button></li>
-							<li class="nav-item"><button class="nav-link" value="40" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재
-									완료</button></li>
+							<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="10" id="doc_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">기안 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="20" id="doc_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="30" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="40" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="total" role="tabpanel" aria-labelledby="home-tab">
@@ -213,18 +220,29 @@ table.table .avatar {
 												</tr>
 											</thead>
 											<tbody id="docBody">
-													<c:forEach var="list" items="${document}">
-														<tr>
-															<td>${list.docno }</td>
-															<td>
-																<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
-															</td>
-															<td><a href="viewDocument.do?docno=${list.docno}" name="document">${list.title}</a></td>
-															<td>${list.ename}</td>
-															<td>${list.typeName}</td>
-															<td>${list.statusName}</td>
-														</tr>
-													</c:forEach>
+												<c:forEach var="list" items="${document}">
+													<tr>
+														<td>${list.docno }</td>
+														<td>
+															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
+														</td>
+														<td>
+															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
+														</td>
+														<td>${list.ename}</td>
+														<td>${list.typeName}</td>
+														<td>
+														<div class="row">
+															<div class="col-md-7 px-0 mx-0">
+																<div class="progress">
+																	<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
+																</div>
+															</div>
+															<div class="col-md-5 px-0 mx-0">${list.statusName}</div>
+															</div>
+														</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
@@ -274,14 +292,14 @@ $(function(){
 	console.log(today);
 
 
-	$('.nav-link').on("click",function(){
+	$('.doc').on("click",function(){
 	let html = '';
 	console.log($(this).val());
 		 
 	$.ajax({
 		url:"getArrangedDocList.do",
 		dataType: "json",
-		mehtod:"POST", 
+		mehtod:"get", 
 		contentType: "application/json; charset=utf-8",
 		data:{
 			statusCode:$(this).val(),
@@ -289,14 +307,24 @@ $(function(){
 		success:function(data){
 			$('#docBody').empty();
 			console.log(data);
-			$.each(data,(index,item)=>{
+			$.each(data,(index,item)=>{ 
 				let time = new Date(item.writedate);
 				let html='<tr><td>'+item.docno+'</td>\
 						<td>'+item.typeName+'</td>\
-						<td><a href=viewDocument.do?="'+item.docno+'">'+item.title+'</a></td>\
+						<td><a href=viewDocument.do?docno='+item.docno+'&typeCode='+item.typeCode+'>'+item.title+'</a></td>\
 						<td>'+item.ename+'</td>\
 						<td>'+time.getFullYear() + '-' +('0' + (time.getMonth()+1)).slice(-2)+ '-' +  ('0' + time.getDate()).slice(-2) +'</td>\
-						<td>'+item.statusName+'</td></tr>';
+						<td><div class="row">\
+						<div class="col-md-7 px-0 mx-0">\
+							<div class="progress">\
+								<div class="progress-bar" role="progressbar" style="width:'+(100*item.curr_Approval/item.total_Approval)+'%;" \
+									aria-valuenow="'+item.curr_Approval+'" aria-valuemin="0">'+item.curr_Approval+'/'+item.total_Approval+'</div>\
+							</div>\
+						</div>\
+						<div class="col-md-5 px-0 mx-0">'+item.statusName+'</div>\
+						</div></td></tr>';
+
+						
 				$('#docBody').append(html);
 			});
 		
@@ -309,50 +337,7 @@ $(function(){
 });
 
 
-//결재할 문서 바뀌는 부분  
-$('#inputState_app').on("change",()=>{
-	let html = '';
-	$.ajax({
-		url:"getArrangedAppList.do",
-		dataType: "json",
-		mehtod:"POST", 
-		contentType: "application/json; charset=utf-8",
-		data:{
-			statusCode:$('#inputState_app').val()
-			},
-		success:function(data){
-			$('#inputState_appBody').empty();
-			console.log(data);
-			$.each(data,(index,item)=>{
-				let time = new Date(item.writedate);
-				let html='<tr><td>'+item.docNo+'</td>';
-				
-				
-					if(item.app_Check == '1') {
-						html+='<td>완료</td>';
-					}else if(item.app_Check=='0'){
-						html+='<td>대기</td>';
-						}
-				
-				html+='<td>'+item.title+'</td>\
-					<td>'+item.ename+'</td>\
-					<td>'+time.getFullYear() + '-' +('0' + (time.getMonth()+1)).slice(-2)+ '-' +  ('0' + time.getDate()).slice(-2) +'</td>\
-					<td>\
-					<div class="progress">\
-					<div class="progress-bar" role="progressbar" aria-valuenow="'+item.curr_Approval +'" aria-valuemin="0" aria-valuemax="'+item.total_Approval +'">'+item.curr_Approval/item.total_Approval+'</div>\
-					</div>\
-					</td>\
-					</tr>';
-				$('#inputState_appBody').append(html);
-			});
-			
-		}
-		
 
-		});		
-	
-	console.log(html);
-});
 
 $('a[name=document]').on("click",function(){
 	console.log($(this).innerText);

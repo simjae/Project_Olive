@@ -29,7 +29,8 @@ public class Document {
 	private String title;
 	private Date startdate;
 	private Date enddate;
-	//
-	private List<Approver> approvers;
-	private List<Refference> referrers;
+	
+	
+	private List<String> approvers;
+	private List<String> referrers;
 }

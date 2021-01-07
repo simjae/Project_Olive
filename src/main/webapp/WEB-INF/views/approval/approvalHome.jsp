@@ -308,7 +308,7 @@ h6.text-primary>i.fas {
 											</thead>
 											<tbody id="inputState_appBody">
 												<c:forEach var="list" items="${applist}">
-													<td>${list.docNo}</td>
+													<td>${list.docno}</td>
 													<c:if test="${list.app_Check eq 1 }">
 														<td>완료</td>
 													</c:if>
@@ -322,7 +322,7 @@ h6.text-primary>i.fas {
 													</td>
 													<td>
 														<div class="progress">
-															<div class="progress-bar" role="progressbar" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax="${list.total_Approval }">${list.curr_Approval }/${list.total_Approval }</div>
+															<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax=>${list.curr_Approval }/${list.total_Approval }</div>
 														</div>
 													</td>
 													</tr>

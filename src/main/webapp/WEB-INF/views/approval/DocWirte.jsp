@@ -80,9 +80,9 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
-											<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last:center">
+											<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last: center">
 												<c:forEach var="list" items="${requestScope.docType}">
-													<option  value="${list.typeCode}">${list.typeName}</option>
+													<option value="${list.typeCode}">${list.typeName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -94,7 +94,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno"readonly>
+												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -166,19 +166,19 @@
 															<tr style="height: 35px;">
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app1" type="text" readonly>
-																	<input class="inputbox text-center" id="app1_id" name="app1" type="text" hidden>
+																	<input class="inputbox text-center" id="app1_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app2" type="text" readonly>
-																	<input class="inputbox text-center" id="app2_id" name="app2" type="text" hidden>
+																	<input class="inputbox text-center" id="app2_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app3" type="text" readonly>
-																	<input class="inputbox text-center" id="app3_id" name="app3" type="text" hidden>
+																	<input class="inputbox text-center" id="app3_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app4" type="text" readonly>
-																	<input class="inputbox text-center" id="app4_id" name="app4" type="text" hidden>
+																	<input class="inputbox text-center" id="app4_id" name="approvers" type="text" hidden>
 																</td>
 															</tr>
 															<tr style="height: 35px;"></tr>
@@ -191,8 +191,10 @@
 														</tbody>
 													</table>
 												</div>
-												<br>
-												<span>참조자</span> <div id="referrer" class=" border-bottom border-secondary"></div>
+												<br> <span>참조자</span>
+												<div id="referrer" class=" border-bottom border-secondary">
+													
+												</div>
 											</div>
 										</div>
 									</div>
@@ -449,7 +451,9 @@ $(function() {
 	 .then(createSecondTree)
 	 .then(createFinalTree)
 	 
+	 
 	 $('#submit').on("click",()=>{
+		
 		$('#form').submit();
 	 })
 
@@ -465,8 +469,9 @@ $(function() {
 					$('#referrer').empty();
 			
 				for(let j=1; j< (referrerList.length/2)+1; j++){
-					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrer'+j+' hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
+					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrers hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
 					$('#referrer').append(html);
+					console.log(referrerList[j*2-1][0].id.split('_')[0]);
 				}
 			}); 
 			
@@ -519,6 +524,7 @@ $(function() {
 			};
 			$('#referrer').empty();
 			for(let i=1; i<referrerList.length; i+=2){
+				console.log(referrerList[i]);
 				$('#referrerList').append(referrerList[i]);
 			}
 
