@@ -16,6 +16,8 @@
    <!-- Root Context: defines shared resources visible to all other web components -->
    
    <context:property-placeholder location="/config/*.properties"/>
+   
+   <bean id="pagingService" class="paging.PagingService"></bean>
       
    <!-- 공통 DB작업 -->
    <bean id="driverManagerDataSource" 

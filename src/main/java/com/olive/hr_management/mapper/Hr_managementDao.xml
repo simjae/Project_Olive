@@ -5,25 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
 
 
-
-
-	<select id="getListCount">
-		SELECT count(*) FROM emp
-	</select>
-
-	<select id="getEmpList" resultType="hashmap"
-		parameterType="hashmap">
-	 	 <![CDATA[
-        SELECT
-            *
-        FROM
-            emp
-        ORDER BY EMPNO ASC
-        LIMIT #{rowStart}, #{perPageNum}
-   		 ]]>
-	</select>
-
-
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,
 		ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode,
