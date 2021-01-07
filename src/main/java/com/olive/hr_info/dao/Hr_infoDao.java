@@ -13,5 +13,5 @@ public interface Hr_infoDao {
 	public Emp searchEmpByEmpno(String emono);
 	public List<DeptTest> showOrg();
 	public List<DeptTest> showOrgbyDept(String param);
-	public int updateMyInfo(Map<String, String> map);
+	public int updateMyInfo(Emp emp);
 }

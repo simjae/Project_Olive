@@ -1,11 +1,15 @@
 package com.olive.hr_info.service;
 
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
@@ -71,13 +75,29 @@ public class Hr_infoService {
 	   }
 	   
 	   //마이페이지 수정
-	   public Emp updateMyInfo(Map<String, String> map) {
+	   public void updateMyInfo(Emp emp, HttpServletRequest request) {
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		   String empno = map.get("param1"); // 수정할 사원의empno
-		   int result = dao.updateMyInfo(map);
+		   
+		   CommonsMultipartFile multifile =emp.getFile();
+		   String filename = multifile.getOriginalFilename();
+			String path = request.getServletContext().getRealPath("/resources/upload");
+			System.out.println(path);
+			String fpath = path + "/" + filename;
+			if (!filename.equals("")) {
+				// 실 파일 업로드
+				try {
+					FileOutputStream fs = new FileOutputStream(fpath);
+					fs.write(multifile.getBytes());
+					fs.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();			}
+			}
+			
+			emp.setPic(filename);
+			dao.updateMyInfo(emp);
 		   System.out.println("Update 완료");
-		   Emp emp = dao.searchEmpByEmpno(empno);
-		   return emp;
+		   
 	   }
 	   
 	   

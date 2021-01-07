@@ -1,6 +1,8 @@
 package com.olive.hr_info.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -76,6 +78,16 @@ public class HRController {
 		model.addAttribute("emp", emp);
 		return "HRinfo/EditMyinfo";
 		
+	}
+	
+	//마이페이지 수정하기
+	@RequestMapping(value="updateMyInfo.do", method=RequestMethod.POST)
+	public String updateMyInfo(Emp emp, HttpServletRequest request) {
+		System.out.println("수정할고야");
+		System.out.println(emp);
+		empService.updateMyInfo(emp, request);
+		return "HRinfo/EditMyinfo";
+			
 	}
 	
 	

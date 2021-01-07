@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 
  	 
  	 <!-- 내 정보 수정 일단 Pic 제외 -->
-	 <update id="updateMyInfo" parameterType="map">
+	 <update id="updateMyInfo">
 	 	update emp
-	 	set pwd = #{param2}, email = #{param3}, address = #{param4}, phone = #{param5}
-	 	where empno = #{param1}
+	 	set pwd = #{pwd}, email = #{email}, phone = #{phone}, address = #{address}, pic = #{pic}
+	 	where empno = #{empNo}
 	 </update>
 	 
 </mapper>

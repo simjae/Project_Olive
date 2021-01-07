@@ -9,6 +9,7 @@ package com.olive.dto;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import lombok.Data;
 
@@ -34,5 +35,6 @@ public class Emp {
 	private String birth;
 	private String phone;
 	private String address;
+	private CommonsMultipartFile file;
 	
 }
