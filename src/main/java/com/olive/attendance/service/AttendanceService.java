@@ -1,13 +1,14 @@
 /*
-	파일명:CalendarService.java 
-	설명: 캘린더 서비
-	작성일 : 2020-12-28
+	파일명:AttendanceService.java 
+	설명: 근태관리 서비스
+	작성일 : 2020-12-28 
+	수정일 : 2020-01-07
 	작성자 : 심재형 
 */
 
 package com.olive.attendance.service;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,53 +18,113 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.olive.attendance.dao.AttendanceDao;
-import com.olive.attendance.dao.CalendarDao;
 import com.olive.dto.Att_Record;
-import com.olive.dto.Calendar;
 
 @Service
 public class AttendanceService {
 		private SqlSession sqlsession;
-		
+	
 		@Autowired
 		   public void setSqlsession(SqlSession sqlsession) {
 		      this.sqlsession = sqlsession;
 		      System.out.println(this.sqlsession);
 		      System.out.println("연결");
 		   }
+		
+//=================== 캘린더insert ===================// 
+	
+		
+		/*//사용안함 insert
 		public void insert(Calendar cal) {
 			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
 			caldao.insert(cal);
 			System.out.println("여기옴 ");
 			
-		}
+		}*/
 	
-		//출근 update
-		public void startwork() throws ParseException {
+//=================== 출근 버튼 update ===================// 
+		public void startwork(int id) {
 			AttendanceDao attdao = sqlsession.getMapper(AttendanceDao.class);
+		
 			int attcode = 0;
-			String tardyDateStr = "09:00:00";// 지정한시간
+			Date tardyDate = new Date();//지각 기준시간 
+			Date curDate = new Date();//현재시간 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");//string 날짜형식 정의 
+			SimpleDateFormat tardyFormat = new SimpleDateFormat("YYYY-MM-DD 09:00:00");//string 날짜형식 정의 
+			String curDatestr = dateFormat.format(curDate);
+			String tardyDatestr = dateFormat.format(tardyDate);
+	
+			
+		
+
+			try {
+				
+				Date tardyDateFormat = dateFormat.parse(tardyDatestr);
+				Date curDateFormat = dateFormat.parse(curDatestr);
+				if (curDateFormat.getTime() < tardyDateFormat.getTime() ) {
+					System.out.println("출근");
+					attcode = 10;
+					
+				} else {
+					System.out.println("지각");
+					attcode = 20;
+				}
+				Att_Record att = new Att_Record();
+				att.setAttCode(attcode);
+				att.setEmpNo(id);
+				System.out.println(attcode);
+				attdao.startwork(att);
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("찍음");
+			}
+			
+		}
+		
+		
+		
+//=================== 퇴근 버튼 update ===================// 
+		
+		
+		public void endwork(int id) {
+			AttendanceDao attdao = sqlsession.getMapper(AttendanceDao.class);
+			int attcode = 70;// 퇴근 근태코드 
 			Date curDate = new Date();//현재시간 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");//string 날짜형식 정의 
 			String curDatestr = dateFormat.format(curDate);
+		   try {
+			   	Att_Record att = new Att_Record();
+			   	System.out.println("혹시 여기탔니???");
+			   	att.setAttCode(attcode);
+				att.setEmpNo(id);
+				System.out.println(attcode);
+				attdao.endwork(att);
+				System.out.println("dao endwork에 객체가지고감 ");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}	
+		
+//=================== 근태 출/퇴근 테이블 select ===================// 
+		
+		
+		public  List<Att_Record> tableList() {
+			AttendanceDao tabledao = sqlsession.getMapper(AttendanceDao.class);
+			System.out.println("출퇴근 리스트 뽑기(서비스)");
+			
+			return tabledao.gettableList();
+		}
 		
 
-			Date tardyDate = dateFormat.parse(tardyDateStr);//시간으로 변경
-			Date curDateFormat = dateFormat.parse(curDatestr);
+//=================== 근태 캘린더 select ===================// 
 			
-			if (curDateFormat.getTime() < tardyDate.getTime() ) {
-				System.out.println("출근완료");
-				attcode = 10;
-				
-			} else {
-				System.out.println("지각");
-				attcode = 20;
-			}
-			System.out.println(attcode);
-			attdao.startwork(attcode);
-		}
-		//퇴근 
-		public void endwork() {
+		public List<Att_Record> calendarList () {
+			AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
+			System.out.println(caldao);
+			System.out.println("캘린더리스트 서비스  ");
+			return caldao.gettableList();			
 		}
 				
 		

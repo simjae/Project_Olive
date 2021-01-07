@@ -10,4 +10,14 @@ jQuery(document).ready(function($) {
 			}
 		});
 	})
+	$('#endWork').click(function() {
+		alert("퇴근하기 ");
+		$.ajax({
+			type: "GET"
+			, url: "/attendance/endwork.do"
+			, success: function(data) {
+				alert("집에가");
+			}
+		});
+	})
 });
