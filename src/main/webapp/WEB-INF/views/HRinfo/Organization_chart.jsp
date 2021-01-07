@@ -6,6 +6,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,13 @@
 
   	<!-- 스타일시트, CDN 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
+	<style>
+		.highcharts-figure, .highcharts-data-table table {
+			min-width: 360px;
+			max-width: 800px;
+			margin: 1em auto;
+		}
+	</style>
 </head>
 
 <body id="page-top">
@@ -56,13 +64,39 @@
 
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
+                            
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                                </div>
-                                <div class="card-body">
-
-                                    <div id="chart_div"></div>
+                                	<div class="form-group col-md-2 mb-0">
+	                                    <select id="inputState" class="form-control">
+										  <option value="">본부</option>
+										  <optgroup label="경영지원">
+										    <option value="인사">인사</option>
+										    <option value="회계">회계</option>
+										  
+										  </optgroup>
+										  <optgroup label="전략">
+										    <option value="사업">사업</option>
+										    <option value="운영">운영</option>
+										   
+										  </optgroup>
+										  <optgroup label="R&D">
+										    <option value="마케팅">마케팅</option>
+										    <option value="개발">개발</option>
+										    
+										  </optgroup>
+										</select>
+									</div>
                                     
+                                </div>
+                                <div class="row justify-content-end mx-5">
+								
+							
+							</div>
+                                <div class="card-body" id="org-chart">
+
+                                 <figure >
+										<div id="container"></div>
+								 <p class="highcharts-description">
                                 </div>
                             </div>
 
@@ -93,54 +127,185 @@
     
     <!-- 추가 script -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/sankey.js"></script>
+	<script src="https://code.highcharts.com/modules/organization.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+    
+    
     <script type="text/javascript">
-      google.charts.load('current', {packages:["orgchart"]});
-      google.charts.setOnLoadCallback(drawChart);
+	    //ajax
+	    $('#inputState').change(function(){
+	        var select = $(this).val();
+	        console.log(select);
 
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Name'); //자신
-        data.addColumn('string', 'Manager'); //상위노드
-        data.addColumn('string', 'ToolTip'); //마우스 오버 시 나오는 이름
+	        $.ajax(
+					{
+						type : "post",
+						url	 : "showOrgbyDept.do",
+						data : {param:select},
+						success : function(responseData)	{
+							//console.log(responseData);
+							//console.log(responseData.length);
+							//console.log(responseData[0].deptName); //부서
+							//console.log(responseData[0].ename); //이름
+							//console.log(responseData[0].headName); //본부이름
+							//console.log(responseData[0].positionName); //포지션이름
+							
+							
+							
+							//id : role , title : name , column : node, 	
+						    //{id : '올리브', title : '올리브',name : 'Grethe'}
+	
+							
+							
+							
+							var emplist = [];
 
-        //['현재노드', '상위노드', '툴팁값']
-        // For each orgchart box, provide the name, manager, and tooltip to show.
-        data.addRows([
-/*           [{v:'이사장', f:'이사장<div style="color:blue; ">홍길동</div>'},
-           '', '연락처 : 010-1111-1111'], */
-          [{v:'Manager', f:'<img src="/resources/img/undraw_profile_1.svg"/><p>Manager</p>'}, '', '010-2222-0001'],
-          [{v:'Executive1', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive1</p>'}, 'Manager', '010-3333-0001'],
-          [{v:'Executive2', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive2</p>'}, 'Manager', '010-4444-0001'],
-          [{v:'Executive3', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive3</p>'}, 'Manager', '010-5555-0001'],
-          [{v:'Executive4', f:'<img src="/resources/img/undraw_profile_2.svg"/><p>Executive4</p>'}, 'Manager', '010-6666-0001'],
+							for(var i=0; i<responseData.length;i++){
+								var role = responseData[i].positionName;
+								var name = responseData[i].ename;
+								
+								
+								//var dept = responseData[i].deptName;
+								//var reportsTo = role == '팀원' ? '팀장' : null; 
+								/* if(role=='팀원'){
+									reportsTo = '팀장';
+								}else if(role=='팀장'){
+									reportsTo = '본부장';
+								}else{
+									reportsTo = null;
+								}
+								
+								name : 박채연, id : 팀원
+								name : 어피치, id : 팀원
+								name : 프로도, id : 팀원
+								name : 앙몬드, id : 팀장 >> 박채연, 어피치, 프로도
+								
+								
+								
+								id값 기준으로
+								본부장 > 팀장
+								팀장  > 팀원
+
+								id가 팀장이면 id가 본부장인 사람 밑으로 
+								id가 팀원이면 id가 팀장인 사람 밑으로 
+								*/
+								console.log(name); //name
+								console.log(role); //id
+								//console.log(reportsTo);
+
+
+
+								var emp = {};
+								emp['id'] = role;
+								emp['name'] = name;
+								console.log(emp);
+								/* var emprow = [];
+								emprow.push(role);
+								emprow.push(reportsTo);
+								emprow.push(name);
+								console.log(emprow);
+								*/
+								emplist.push(emp);
+								
+								console.log("------------");
+							}
+
+					        console.log(emplist);
+
+
+					      //Highchart 시작  ------------ 
+							Highcharts.chart('container',{
+							chart : {
+								height : 600,
+								inverted : true
+							},
+							title : {
+								text : 'Olive'
+							},
+							accessibility : {
+								point : {
+									descriptionFormatter : function(point) {
+										var nodeName = 
+											point.toNode.name, 
+											nodeId = point.toNode.id, 
+											nodeDesc = nodeName === nodeId ? nodeName
+												: nodeName + ', ' + nodeId, 
+											parentDesc = point.fromNode.id;
+										return point.index + '. ' + nodeDesc
+												+ ', reports to ' + parentDesc
+												+ '.';
+									}
+								}
+							} ,
+							series : [ {
+								type : 'organization',
+								name : 'Olive',
+								keys : [ 'from', 'to' ],
+								data : [ [ '본부장', '팀장' ], [ '팀장', '팀원' ],
+								 	   ],
+								levels : [  {
+									level : 1,
+									color : '#980104'
+								}, {
+									level : 2,
+									color : '#359154'
+								} ],
+								nodes : emplist,
+								colorByPoint : false,
+								color : '#007ad0',
+								dataLabels : {
+									color : 'white'
+								},
+								borderColor : 'white',
+								nodeWidth : 65
+							} ],
+							tooltip : {
+								outside : true
+							},
+							exporting : {
+								allowHTML : true,
+								sourceWidth : 800,
+								sourceHeight : 600
+							}
+
+						});
+						        
+						},
+						error : function(error){
+							console.log(error);
+						}
+					} 
+				); 
+	    });
+					        
+	  	
+			
+
+							
+							
+							
+							
+							
+
+							
+							
+						
+						
+
+    
+
+
+
       
-          [{v:'Position1', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive1', '010-2222-0001'],
-          [{v:'Position2', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive1', '010-3333-0001'],
-          [{v:'Position3', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive1', '010-4444-0001'],
-         
-          
-          [{v:'Position6', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive2', '010-2222-0001'],
-          [{v:'Position7', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive2', '010-3333-0001'],
-          [{v:'Position8', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive2', '010-4444-0001'],
-      
-
-          [{v:'Position11', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive3', '010-2222-0001'],
-          [{v:'Position12', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive3', '010-3333-0001'],
-          [{v:'Position13', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive3', '010-4444-0001'],
-      
-
-          [{v:'Position16', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position1</p>'}, 'Executive4', '010-2222-0001'],
-          [{v:'Position17', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position2</p>'}, 'Executive4', '010-3333-0001'],
-          [{v:'Position18', f:'<img src="/resources/img/undraw_profile_3.svg"/><p>Position3</p>'}, 'Executive4', '010-4444-0001']
-      
-        ]);
-
-
-        // Create the chart.
-        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-        // Draw the chart, setting the allowHtml option to true for the tooltips.
-        chart.draw(data, {'allowHtml':true, nodeClass:'organ'});
-      }
    </script>
 
 </body>

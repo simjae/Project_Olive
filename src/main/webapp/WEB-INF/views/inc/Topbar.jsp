@@ -13,37 +13,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <!-- Topbar -->
+
+<!-- Topbar -->
 <nav
 	class="navbar navbar-expand navbar-light bg-white topbar topbar-cst mb-4 static-top shadow">
 
-	<!-- Sidebar Toggle (Topbar) -->
+	
+	<!--  Sidebar Toggle (Topbar)-->
 	<button id="sidebarToggleTop"
 		class="btn btn-link d-md-none rounded-circle mr-3">
 		<i class="fa fa-bars"></i>
-	</button>
+	</button> 
 
-	<!-- Topbar Search -->
-	<form
-		class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-		<div class="input-group">
-			<input type="text" class="form-control bg-light border-0 small"
-				placeholder="Search for..." aria-label="Search"
-				aria-describedby="basic-addon2">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button">
-					<i class="fas fa-search fa-sm"></i>
-				</button>
-			</div>
-		</div>
-	</form>
-
-	<!-- Topbar Navbar -->
+	<!-- Topbar Navbar -->   
 	<ul class="navbar-nav ml-auto">
+		<!--  출퇴근 버튼  -->
+	<!-- 	<li class="nav-item"><a
+			class="nav-link waves-effect waves-dark" id="work"
+			style="color: gray;" href="" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false"> <i
+				class="fas fa-fingerprint" style="size: 9x"></i>
+				<div class="dropdown-menu">
+				<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
+				<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
+		</a> -->
+		<li class="nav-item dropdown no-arrow " ><a
+			class="nav-link dropdown-toggle" href="#" id="work" role="button"
+			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+				class="fas fa-fingerprint" style="size: 9x"></i> </a>
+
+			<div
+				class="dropdown-menu dropdown-menu-right  shadow animated--grow-in"
+				aria-labelledby="sear=Dropdown" >
+
+				<div class="input-group">
+
+					<div class="input-group-append" >
+							<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
+							<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
+						</button>
+					</div>
+				</div>
+
+			</div></li>
 
 		<!-- Nav Item - Search Dropdown (Visible Only XS) -->
 		<li class="nav-item dropdown no-arrow d-sm-none"><a
 			class="nav-link dropdown-toggle" href="#" id="searchDropdown"
+			
 			role="button" data-toggle="dropdown" aria-haspopup="true"
 			aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
 		</a> <!-- Dropdown - Messages -->
@@ -63,14 +80,13 @@
 					</div>
 				</form>
 			</div></li>
+				</button>
 
 		<!-- 알람 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
-			
-			<!-- Counter - Alerts -->
+			aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
 				<span class="badge badge-danger badge-counter">3+</span>
 		</a> <!-- Dropdown - Alerts -->
 			<div
@@ -109,8 +125,9 @@
 						Spending Alert: We've noticed unusually high spending for your
 						account.
 					</div>
-				</a> <a class="dropdown-item text-center small text-gray-500" href="${pageContext.request.contextPath}/Alrams.do">Show
-					All Alerts</a>
+				</a> <a class="dropdown-item text-center small text-gray-500"
+					href="${pageContext.request.contextPath}/Alrams.do">Show All
+					Alerts</a>
 			</div></li>
 
 		<!-- Nav Item - Messages -->
