@@ -61,10 +61,10 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
 			// 존재하는 계정의 경우
 			if (service.selectEmp(username) != null) {
-
+				System.out.println("==========" + username);
 				// 먼저 로그인 오류 횟수 검색
 				int count = service.getFailCount(username);
-
+				System.out.println("==========" + count);
 				if (count >= 4) {
 					service.disable(username);
 					errormsg = "해당 계정은 로그인 시도 횟수 초과로 인해 계정이 <br>비활성화되었습니다. 계정을 복구하시려면 <br>부서 관리자에게 문의바랍니다.";

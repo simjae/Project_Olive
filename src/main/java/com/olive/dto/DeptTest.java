@@ -1,20 +1,18 @@
-/*
-	파일명: Emp.java
-    설명: 사원(Emp) DTO 객체
-    작성일: 
-    작성자: 
-*/
 package com.olive.dto;
 
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import lombok.Data;
 
 @Data
-public class Emp {
+public class DeptTest {
+	private int deptCode;
+	private String deptName;
+	private int headCode;
+	//private int headCode;
+	private String headName;
 	private int empNo;
 	private String pwd;
 	private String ename;
@@ -27,14 +25,13 @@ public class Emp {
 	private int annaul;
 	private int classCode;
 	private int positionCode;
-	private int deptCode;
+	//private int deptCode;
 	private int statusCode;
 	private boolean enabled;
 	private int loginCount;
 	private int alarm;
 	private String birth;
-	private String phone;
-	private String address;
-	private CommonsMultipartFile file;
-	
+	//private int positionCode;
+	private String positionName;
+	private int positionSal;
 }
