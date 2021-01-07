@@ -30,6 +30,7 @@
 						<div style="margin: 0px; padding: 0px; font-family: 맑은 고딕; font-size: 16px; line-height: 1.8;">
 							<div style="text-align: right">
 								<c:if test="${user.username != doc.empno }">
+									
 									<button class="btn btn-success btn-icon-split approval" value="1">
 										<span class="icon text-white-50"> <i class="fas fa-check"></i>
 										</span> <span class="text">승인</span>
@@ -205,21 +206,27 @@
 </body>
 <!-- 모든 스크립트 모듈화 -->
 <jsp:include page="../inc/BottomLink.jsp"></jsp:include>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(function(){ 
 	
 
 	$('.approval').on("click",function(){
 		console.log($(this).val());
-		let checkApp='';
+		let checkApp;
 		if($(this).val()==1){
+			checkApp=1;
+		}else{
+			checkApp=0;
 			}
+		
+		
 		let app={
 				docNo:${doc.docno},
 				empNo:${user.username},
-				app_Check:checkApp
+				app_Check:checkApp,
 				};
-		
+		swal(app.docNo);
 		/* $.ajax({
 			url:"approve.do",
 			type:"POST",

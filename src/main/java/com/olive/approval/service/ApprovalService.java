@@ -87,7 +87,7 @@ public class ApprovalService {
 		List<Approver> doc_cmp = new ArrayList();
 		List<Approver> doc_rej = new ArrayList();
 		for (Approver doc : approver) {
-			if (doc.getCurr_Approval() == 0) {
+			if (doc.getCurr_Approval() == 0 && doc.getApp_Order()==1) {
 				doc_ready.add(doc);
 			} else if (doc.getCurr_Approval() > 0 && doc.getTotal_Approval() > doc.getCurr_Approval()) {
 				doc_ing.add(doc);
