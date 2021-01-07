@@ -164,7 +164,7 @@
 	</select>
 	
 	<update id="approve" parameterType="com.olive.dto.Approver">
-		update approver set app_date=now(),comment=#{comment}, app_check =1 where docno =#{docno} and empno =#{empno};
+		update approver set app_date=now(),comment=#{comment}, app_check =#{app_Check} where docno =#{docno} and empno =#{empno};
 		
 	</update>
 	
