@@ -29,4 +29,6 @@ public class EmpTest {
 	private int positional;
 	//private int statuscode;
 	private String statusname;
+	private String phone;
+	private String address;
 }
