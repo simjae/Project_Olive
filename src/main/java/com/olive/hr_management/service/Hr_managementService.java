@@ -8,6 +8,7 @@ package com.olive.hr_management.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.hr_management.dao.Hr_managementDao;
 
+import paging.Criteria;
+
 @Service
 public class Hr_managementService {
 
@@ -31,20 +34,52 @@ public class Hr_managementService {
 		System.out.println(this.sqlsession);
 	}
 
-	public List<Emp> getEmpList() {
-		System.out.println("getEmpList 서비스 진입");
-		List<Emp> result = null;
+//	public List<Emp> getEmpList() {
+//		System.out.println("getEmpList 서비스 진입");
+//		List<Emp> result = null;
+//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
+//		try {
+//			result = hr_managementDao.getEmpList();
+//			System.out.println("getEmpList result : " + result);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("getEmpList error : " + e.getMessage());
+//		}
+//
+//		return result;
+//	}
+
+	public List<Map<String, Object>> getEmpList(Criteria cri) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		return dao.getEmpList(cri);
+	}
+
+	public int getListCount() {
+		System.out.println("getListCount 서비스 시작");
+		int result = 0;
 		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
 		try {
-			result = hr_managementDao.getEmpList();
-			System.out.println("getEmpList result : " + result);
+			result = hr_managementDao.getListCount();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("getEmpList error : " + e.getMessage());
 		}
-
 		return result;
 	}
+
+//	public List<Emp> getEmpList() {
+//		System.out.println("getEmpList 서비스 진입");
+//		List<Emp> result = null;
+//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
+//		try {
+//			result = hr_managementDao.getEmpList();
+//			System.out.println("getEmpList result : " + result);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println("getEmpList error : " + e.getMessage());
+//		return result;
+//	}
 
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
@@ -95,4 +130,5 @@ public class Hr_managementService {
 		List<Class> classList = dao.getClasses();
 		return classList;
 	}
+
 }
