@@ -49,22 +49,22 @@ public class Hr_managementService {
 //		return result;
 //	}
 
-	public List<Map<String, Object>> getEmpList(Criteria cri) {
-		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		return dao.getEmpList(cri);
-	}
-
-	public int getListCount() {
-		System.out.println("getListCount 서비스 시작");
-		int result = 0;
-		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-		try {
-			result = hr_managementDao.getListCount();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+//	public List<Map<String, Object>> getEmpList(Criteria cri) {
+//		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+//		return dao.getEmpList(cri);
+//	}
+//
+//	public int getListCount() {
+//		System.out.println("getListCount 서비스 시작");
+//		int result = 0;
+//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
+//		try {
+//			result = hr_managementDao.getListCount();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
 
 //	public List<Emp> getEmpList() {
 //		System.out.println("getEmpList 서비스 진입");

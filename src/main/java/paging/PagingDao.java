@@ -1,9 +1,9 @@
 package paging;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PagingDao {
-	
-	public int getListCnt(String Tbl, String searchType, String keyword) throws Exception;
-	public List<Object> getList(Pagination pagination) throws Exception;
+	public int getListCount(Criteria cri);
+	public List<Map<String, Object>> getList(Criteria cri);
 }

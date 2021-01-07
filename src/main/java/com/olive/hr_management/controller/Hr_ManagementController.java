@@ -10,6 +10,7 @@
 */
 package com.olive.hr_management.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +31,7 @@ import com.olive.hr_management.service.Hr_managementService;
 
 import paging.Criteria;
 import paging.Pagination;
+import paging.PagingService;
 
 @Controller
 @RequestMapping("/HR_management/")
@@ -37,6 +40,9 @@ public class Hr_ManagementController {
    @Autowired
    private Hr_managementService service;
    
+   @Autowired
+   private PagingService pagingService;
+   
    // 암호화 객체
    @Autowired
    private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -44,35 +50,29 @@ public class Hr_ManagementController {
    // 인사관리 > 계정 관리 페이지
    @RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.GET)
    public String employeeAccount(Model model, Criteria cri) {
-      System.out.println("management 컨트롤러 진입");
+      System.out.println("cri 값 초기화 전"+cri);
+	  cri.setCriteria("empinfo", "empno", "desc");
+	  System.out.println("cri 값 초기화 후"+cri);
+	  
+      int totalCount = pagingService.getListCount(cri);
+      Pagination pagination = new Pagination(cri, totalCount);
       
-      Pagination pagination = new Pagination();
-      pagination.setCri(cri);
-      pagination.setTotalCount(service.getListCount());
-      List <Map<String, Object>> empList = service.getEmpList(cri);	  
-      System.out.println("Controller result: "+empList);
-      model.addAttribute("empList", empList);      
+      List<Map<String, Object>> result = pagingService.getList(cri);
+      System.out.println("[result] : "+result);
+      
+      model.addAttribute("list", result);
+      model.addAttribute("pagination", pagination);
+      model.addAttribute("criteria", cri);
+      
       return "HR_management/EmployeeAccount";
-   }
+   }   
 
-   // 인사관리 > 조직 관리 페이지
+
+// 인사관리 > 조직 관리 페이지
    @RequestMapping("Organization.do")
    public String organization() {
       return "HR_management/Organization";
    }
-
-
-	// 인사관리 > 계정 관리
-//	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.GET)
-//	public String employeeAccount(Model model) {
-//		System.out.println("management 컨트롤러 진입");
-//		List<Emp> empList = service.getEmpList();
-//		System.out.println("Controller result: " + empList);
-//		model.addAttribute("empList", empList);
-//
-//		return "HR_management/EmployeeAccount";
-//	}
-
 
 	// 인사관리 > 계정 관리 > 사원 신규 등록
 	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.POST)
