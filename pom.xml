@@ -129,7 +129,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
+ 
       <!-- @Inject -->
       <dependency>
          <groupId>javax.inject</groupId>
@@ -335,6 +335,26 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- email  -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<!-- Spring framework -->
+        <!-- spring-context-support를 마이그레이션 하지 않으면 java class단에서 import가 안됨 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.2.5.RELEASE</version>
+        </dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>

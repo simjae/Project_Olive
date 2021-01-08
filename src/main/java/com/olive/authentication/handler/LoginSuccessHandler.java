@@ -69,12 +69,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		clearAuthenticationAttributes(request);
 
 		
-		// 신입 사원일 경우 email 인증 페이지로 redirect
-		if ((service.selectEmp(username).getStatusCode() == 10 && authList.size() == 1)) {
-			
-			// 이메일 인증페이지로 redirect
-			redirectStratgy.sendRedirect(request, response, defaultTargetUrl);
-			
+		// 신입 사원일 경우 email 인증 페이지로 redirect (상태코드가 10[신입]이던지, ROLE이 하나[ROLE_USER]일 경우)
+		if ( (service.selectEmp(username).getStatusCode() == 10 || authList.size() == 1)) {
+			redirectStratgy.sendRedirect(request, response, "/registEmail.do");
 			return;
 		}
 

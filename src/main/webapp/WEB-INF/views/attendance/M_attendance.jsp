@@ -2,6 +2,7 @@
 	파일명:M_Attendance.jsp
 	설명: 근태현황(매니져) 홈페이지 
 	작성일 : 2020-12-30
+	수정일 : 2020-01-07
 	작성자 : 심재형 
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -28,10 +29,7 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
 <script>
-	document
-			.addEventListener(
-					'DOMContentLoaded',
-					function() {
+	document.addEventListener('DOMContentLoaded',function() {
 
 						var calendarEl = document.getElementById('calendar');
 						//db일정 받아오기 
@@ -39,14 +37,16 @@
 								failureCallback) {
 							$.ajax({
 								type : "GET",
-								url : "attList.do",
+								url : "/attendance/calendarList.do",
 								dataType : "json",
 								success : function(data) {
-
+									console.log('ajsijsidj');
 									successCallback(data);
 									console.log(data);
-
-								}
+								},
+								 error : function(xhr) {
+									console.log(xhr.status)
+								} 
 							});
 						}
 
@@ -73,7 +73,8 @@
 											text : '출석',
 											id : 'startwork',
 											click : function() {
-												$.ajax({
+												$
+														.ajax({
 															url : '/users/attendances',
 															type : 'GET',
 															dataType : "JSON",
@@ -115,15 +116,15 @@
 									editable : true,
 									selectable : true,
 									dayMaxEvents : true, // allow "more" link when too many events
-									/* events:[
+									/*events:[
 										{
 											
 									          title: '휴가',
-									          start: '2020-09-07',
-									          end: '2020-09-10'
+									          start: '2021-01-07',
+									          end: '2021-01-10'
 									        } 
 
-										] */
+										]*/
 
 									events : eventFeed
 
@@ -131,37 +132,9 @@
 						calendar.render();
 
 					});
-	/* 	 $( document ).ready(function() {
-	 $('#startwork').click(function(){
+//-----------------------------------------캘린더끝-----------------------------------------
 
-	 console.log("dasd");
-	 })
-	 });
-	 */
 
-	// 출근시간
-$(document).ready(function(){
-
-  $('#startwork').click(function(){
-	  var d = new Date();
-	  var time =d.getHours() + "시"+ d.getMinutes() + "분" + d.getSeconds()+"초";
-		$.ajax({
-			type : "GET",
-			url : "attList.do",
-			dataType : "json",
-			success : function(data) {
-
-				successCallback(data);
-				console.log(data);
-
-			}
-		});
-	  console.log(time);
-     alert(time)
-
-  });
-
-});
 </script>
 
 <body id="page-top">
@@ -277,65 +250,51 @@ $(document).ready(function(){
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered " id="dataTable" width="100%"
-									cellspacing="0">
-									<thead align="center" style="background-color: #808000">
-										<tr>
-											<th>이름</th>
-											<th>사번</th>
-											<th>부서</th>
-											<th>출근시간</th>
-											<th>퇴근시간</th>
-											<th>출근</th>
-											<th>퇴근</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>심재형</td>
-											<td>1004</td>
-											<td>마케팅</td>
-											<td>2020-07-16 09:00</td>
-											<td>2020-07-16 16:00</td>
-											<td align="center">
-												<button type="button" id="startwork"
-													class="btn btn-outline-primary btn-sm">출근</button>
-											</td>
-											<td align="center">
-												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-											</td>
-										</tr>
-										<tr>
-											<td>심재형</td>
-											<td>1004</td>
-											<td>마케팅</td>
-											<td>2020-07-16 09:00</td>
-											<td>2020-07-16 16:00</td>
-											<td align="center">
-												<button type="button" id="startwork" class="btn btn-outline-primary btn-sm">출근</button>
-											</td>
-											<td align="center">
-												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-											</td>
-										</tr>
-										<tr>
-											<td>심재형</td>
-											<td>1004</td>
-											<td>마케팅</td>
-											<td>2020-07-16 09:00</td>
-											<td>2020-07-16 16:00</td>
-											<td align="center">
-												<button id="startwork"
-													class="btn btn-outline-primary btn-sm">출근</button>
-											</td>
-											<td align="center">
-												<button type="button" class="btn btn-outline-primary btn-sm">퇴근</button>
-											</td>
-										</tr>
-									</tbody>
-
-
-								</table>
+								<form action="" id = "selectForm">
+									<table class="table table-bordered " id="dataTable"
+										width="100%" cellspacing="0">
+										<thead align="center" style="background-color: #808000">
+											<tr>
+												<th>  </th>
+												<th>이름</th>
+												<th>사번</th>
+												<th>부서</th>
+												<th>출근시간</th>
+												<th>퇴근시간</th>
+												<th>출근</th>
+												<th>퇴근</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- <tr>
+												<td>심재형</td>
+												<td>1004</td>
+												<td>마케팅</td>
+												<td>2020-07-16 09:00</td>
+												<td>2020-07-16 16:00</td>
+												<td align="center">
+													<button type="button" id="startwork"
+														class="btn btn-outline-primary btn-sm">출근</button>
+												</td>
+												<td align="center">
+													<button type="button"
+														class="btn btn-outline-primary btn-sm">퇴근</button>
+												</td>
+											</tr> -->
+											<c:forEach items= "${tableList}" var = "att">
+												<tr>
+													<td>${att.empno}</td>
+													<td>${att.ename}</td>
+													<td>${att.deptname}</td>
+													<td>${att.starttime}</td>
+													<td>${att.endtime}</td>
+													
+												</tr>
+											</c:forEach>
+											
+										</tbody>
+									</table>
+								</form>
 							</div>
 						</div>
 					</div>

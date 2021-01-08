@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
-import com.olive.dto.Emp;
+import com.olive.dto.EmpTest;
 
 @Controller
 @RequestMapping("/approval/")
@@ -34,10 +33,24 @@ public class ApprovalController {
 		this.approvalService=approvalService;
 	}
 	
-	
+	//전자결재 메인페이지
 	@RequestMapping(value = "approvalHome.do", method = RequestMethod.GET)
-	public String approvalHome() {
+	public String approvalHome(Model model,Principal principal) {
+		String empno = principal.getName();
+		System.out.println(empno);
+		//전체 내가올린 문서 
+		List<Document> document = approvalService.getDocument(empno);
+		List<Document> documentrec = approvalService.getDocument(empno,0,3);
+		//전체 내가 결재 해야할 문서
+		List<Approver> approver = approvalService.getApprover(empno);
+		List<Approver> approverrec = approvalService.getApprover(empno,0,3);
+		System.out.println( approvalService.arrangeDoc(document));
 		
+		model.addAttribute("arrangedDoc", approvalService.arrangeDoc(document));
+		model.addAttribute("arrangedAppDoc", approvalService.arrangedAppDoc(approver));
+		
+		model.addAttribute("approver", approverrec);
+		model.addAttribute("document", documentrec);
 		return "approval/approvalHome";
 	}
 	
@@ -48,7 +61,7 @@ public class ApprovalController {
 		model.addAttribute("time", sf.format(nowTime));
 		String empno = request.getUserPrincipal().getName();
 		System.out.println(empno);
-		Emp emp = approvalService.selectEmp(empno);
+		EmpTest emp = approvalService.selectEmp(empno);
 		List<Doc_Type> docType = approvalService.selectDocType();
 		
 		model.addAttribute("docType", docType);
@@ -67,20 +80,52 @@ public class ApprovalController {
 	
 	@RequestMapping(value="DocWrite.do", method=RequestMethod.POST)
 	public String docInsert(Document doc,BindingResult result,HttpServletRequest request) {
-		
-		approvalService.writeDoc(doc,request);
+		try {
+			approvalService.writeDoc(doc,request);
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("다 안드감");
+			// TODO: handle exception
+		}{
+			
+		}
 		return "redirect:/approval/approvalHome.do";
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
-	public String showPersonalDoc() {
+	public String showPersonalDoc(Model model, Principal principal) {
+		String empno = principal.getName();
+		List<Document> document = approvalService.getDocument(empno,0,10);
+		System.out.println(approvalService.arrangeDoc(document));
+		
+		model.addAttribute("document", document);
 		
 		return "approval/PersonalDoc";
 	}
 	
 	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
-	public String showPregressDoc(Principal p) {
+	public String showPregressDoc(Model model, Principal principal) {
+		String empno = principal.getName();
+		List<Approver> approverDoc = approvalService.getApprover(empno);
+		model.addAttribute("appdoc", approverDoc);
 		
 		return "approval/ProgressDoc";
 	}
+	
+
+	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
+	public String viewDocument(String docno,String typeCode,Model model,Principal principal) {
+		System.out.println(typeCode);
+		Document document = approvalService.viewDocumnet(docno,typeCode); 
+		EmpTest emp = approvalService.selectEmp(principal.getName());
+		List<Approver> apps = approvalService.viewApprovers(docno);
+		model.addAttribute("document", document);
+		model.addAttribute("emp",emp);
+		model.addAttribute("apps",apps);
+	
+		return "papers/document";
+	}
+	
+	
 }

@@ -1,3 +1,10 @@
+/*
+	파일명:AttendanceRestController.java 
+	설명: 근태관리 컨트롤러
+	작성일 : 2020-12-28   
+	수정일 : 2020-01-07
+	작성자 : 심재형 
+ */
 package com.olive.attendance.controller;
 
 import java.text.ParseException;
@@ -7,25 +14,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.cj.Session;
 import com.olive.attendance.service.AttendanceService;
-import com.olive.attendance.service.CalendarService;
 import com.olive.dto.Att_Record;
+import com.olive.dto.Emp;
 
 
 @RestController
 @RequestMapping("/attendance/")
 public class AttendanceRestController {
 	 
-	private AttendanceService attendanceservice;
+	private AttendanceService service;
 	@Autowired
 	public void setAttendanceService(AttendanceService attendanceservice) {
-		this.attendanceservice = attendanceservice ;
+		this.service = attendanceservice ;
 	}
 	
 	@InitBinder
@@ -34,35 +45,58 @@ public class AttendanceRestController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
-	//출근 
+//=================== 출근버튼 ===================// 
+	
+	
 	@RequestMapping(value = "startwork.do", method = RequestMethod.GET)	 
 	public void startWork(){
 		System.out.println("탐 ");
-		try {
-			
-			attendanceservice.startwork();
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			int id = Integer.parseInt(auth.getName());
+			System.out.println(id);
+			service.startwork(id);
 			System.out.println("서비스들어가기전 ");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+	
+	
+//=================== 퇴근버튼 ===================// 
+	
+	@RequestMapping(value = "endwork.do", method = RequestMethod.GET)	 
+	public void endWork(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		int id = Integer.parseInt(auth.getName());
+		System.out.println("퇴근하기 컨트롤러1");
+		service.endwork(id);
+		System.err.println("컨트롤러에서 서비스로 id들고감 ");
 	}
+
 	
+//=================== 근태 출/퇴근 테이블 select ===================// 
+
 	
-			
-	//1. ㅊㅜㄹ근 버튼 누른다.
-	//1-1 . 정해놓은 시간과 현재 시간을 비교해서 ㅈ출근이지 지각인지 구분한다.
-	//2. 컨트롤러 타고 현재시간 업데이트 한다.
-		//컨트롤러에서는 서비스로 보내기만 하고 , 서비스에서 하는거임 시간비교는
-	
-			
-	//3. 지각 여부 업데이트 한다.
-	//UPDATE ACC_RECORED SET STRATTIME =NOW(), ATTCODE=${PARAM1} WHERE EMPNO = ${PARAM2} 
-	//1. 세션 2. 화면에 어디 있는거 들고오기 , 3. PRINCIPAL 객체 파라미터로 받아서 PRINCIAPL.GETNAME() 하기
-		
-		//서비스에서 시간 비교 해서 IF (현재시간>정해놓은 시간 )=> ATTCODE =10 ELSEIF( 반대) ==> ATOOCODE =20
-		//DAO(ATTCODE,EMPNO)
+	@RequestMapping(value = "attTableList.do", method = RequestMethod.GET)	 
+	public List<Att_Record> attTableList() {
+		List<Att_Record > tableList = null ;
+		tableList  = service.tableList();
+		System.out.println("서비스에서가져옴 ");
+		return  tableList;	
 	}
+
+//=================== 근태 캘린더 select ===================// 
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "calendarList.do", method = RequestMethod.GET)
+	public List<Att_Record> calendarList() {
+		List<Att_Record> calendarList = null;
+		System.out.println("1");
+		calendarList = service.calendarList();
+		System.out.println("야"+calendarList);
+		return calendarList;
+	}		
+	
+
+}
 	
 
 

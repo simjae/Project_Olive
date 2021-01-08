@@ -16,12 +16,21 @@ public class Document {
 	private int total_Approval;
 	private int curr_Approval;
 	private String filename;
+	// emp에서 직접 가져오기위해서
+	private String ename;
+	//상태 관련 코드
 	private int statusCode;
+	private String statusName;
+	//문서 종류 관련 코드 
 	private int typeCode;
+	private String typeName;
 	private CommonsMultipartFile file;
-	private List<Approver> approvers;
+	//추가 문서관련
 	private String title;
-	private Date starttime;
-	private Date endtime;
-	private List<Refference> referrers;
+	private Date startdate;
+	private Date enddate;
+	
+	
+	private List<String> approvers;
+	private List<String> referrers;
 }
