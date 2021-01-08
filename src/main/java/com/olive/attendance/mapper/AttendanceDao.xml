@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update> 
 <!-- 출/퇴근 select -->
 	<select id="getcalendarList" resultType="com.olive.dto.Att_Record">
-	select e.ename, e.empno, d.deptname, r.starttime, r.endtime 
+	select e.ename, e.empno as empNo, d.deptname, r.starttime, r.endtime 
 	from emp as e join att_record as r on e.empno = r.empno 
 	join dept as d on e.deptCode = d.deptCode
 	where e.empno = #{empno};
