@@ -22,6 +22,10 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.hr_info.service.Hr_infoService;
 
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
+
 
 
 
@@ -42,7 +46,8 @@ public class HRController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	
+	@Autowired
+	private PagingService pagingService;
 	
 	@RequestMapping("Salary.do")
 	public String showSalary() {	
@@ -56,9 +61,31 @@ public class HRController {
 
 	//전체 사원 목록 조회
 	@RequestMapping(value="Emp.do", method=RequestMethod.GET)
-	public String showEmpList(Model model) {
-		List<EmpTest> emplist = empService.showEmpList();
-		model.addAttribute("emplist", emplist);
+	public String showEmpList(Model model, Criteria cri) {
+		System.out.println("cri 받아오기");
+		//empinfo 뷰 사용
+		cri.setCriteria("empinfo", "empno", "asc");
+		System.out.println("cri 값 초기화 후"+cri);
+		
+		int totalCount = pagingService.getListCount(cri); //이거 게시물개수 뽑으려고 쓰는거야 왜 cri쓰는지는 아직 의문
+		System.out.println(totalCount);
+	    Pagination pagination = new Pagination(cri, totalCount);
+	      
+	    cri.setPerPageNum(3);
+	    
+	    ///////////////
+	    List<Map<String, Object>> result = pagingService.getList(cri);
+
+	    System.out.println(result);
+	    System.out.println(pagination);
+	    System.out.println(cri);
+	    
+	    model.addAttribute("emplist", result);
+	    model.addAttribute("pagination", pagination);
+	    model.addAttribute("criteria", cri);
+	      
+		//List<EmpTest> emplist = empService.showEmpList();
+		//model.addAttribute("emplist", emplist);
 		return "HRinfo/Emp";
 	}
 	
