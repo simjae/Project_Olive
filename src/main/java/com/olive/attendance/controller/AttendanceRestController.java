@@ -11,11 +11,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,10 @@ import com.mysql.cj.Session;
 import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
 import com.olive.dto.Emp;
+
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
 
 
 @RestController
@@ -44,6 +51,8 @@ public class AttendanceRestController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
+	@Autowired
+	private PagingService pagingService;
 	
 //=================== 출근버튼 ===================// 
 	
@@ -94,6 +103,27 @@ public class AttendanceRestController {
 		System.out.println("야"+calendarList);
 		return calendarList;
 	}		
+	
+//=================== 근태 테이블테스트  ===================// 
+@RequestMapping(value = "attPage.do", method = RequestMethod.POST)
+public JSONObject attPage(Criteria cri) {
+		
+		cri.setCriteria("rectable", "empno", "desc");
+		int totalCount = pagingService.getListCount(cri);
+		Pagination pagination = new Pagination(cri, totalCount);
+		List<Map<String, Object>> result = pagingService.getList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", result);
+		jsonObject.put("pagination", pagination);
+		jsonObject.put("criteria", cri);
+	
+	
+	
+	return jsonObject;
+	
+}
+	
 	
 
 }
