@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.olive.attendance.dao.AttendanceDao;
@@ -113,18 +115,19 @@ public class AttendanceService {
 		public  List<Att_Record> tableList() {
 			AttendanceDao tabledao = sqlsession.getMapper(AttendanceDao.class);
 			System.out.println("출퇴근 리스트 뽑기(서비스)");
-			
-			return tabledao.gettableList();
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			return tabledao.gettableList(auth.getName());
 		}
 		
 
 //=================== 근태 캘린더 select ===================// 
 			
 		public List<Att_Record> calendarList () {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
 			System.out.println(caldao);
 			System.out.println("캘린더리스트 서비스  ");
-			return caldao.gettableList();			
+			return caldao.gettableList(auth.getName());			
 		}
 //=================== 근태 테이블 페이징 테스트  ===================// 	
 		
