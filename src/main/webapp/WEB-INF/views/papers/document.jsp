@@ -209,67 +209,67 @@
 <jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
-$(function(){ 
-	
+function approve(app) {
+    $.ajax({
+        url: "approve.do",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(app),
+        success: function(data) {
+            location.href=data;
+        }
+    })
+}
+$(function() {
+    $('.approve').on("click", function() {
+        console.log($(this).val());
+        let checkApp;
+        let app = {
+            docno: ${doc.docno},
+            empno: ${user.username},
+            app_Check: 0,
+        };
+        if ($(this).val() == 1) {
+            app.app_Check = 1;
+            swal({
+                title: "승인 하시겠습니까?",
+                text: "",
+                icon: "success",
+                buttons: {0:"취소",1:"승인"}
+            }).then((result) => {
+                if (result == 1) approve(app);
+                
+            });
+        } else {
+            swal({
+                title: "반려 하시겠습니까?",
+                text: "",
+                icon: "warning",
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "사유를 적어 주세요"
+                    }
+                },
+                buttons: ["취소하기", "반려하기"],
+                dangerMode: true,
+            }).then((value) => {
+                if(value!='' && value != null){
+                app["comment"] = value;
+                console.log(app);
+                approve(app);
 
-	$('.approve').on("click",function(){
-		console.log($(this).val());
-		let checkApp;
-
-		
-		if($(this).val()==1){
-			checkApp=1;
-			swal( {
-				title: "승인 하시겠습니까?",
-				text : "",
-				icon:"success",
-				content:{
-					element:"input",
-					attributes:{
-						placeholder:"댓글을 적어 주세요"
-							}
-					},
-				buttons:{
-					cancel:"취소",
-					승인하기:true,
-					}
-				}).then((value)=>{
-					alert(value);
-					});
-			
-		}else{
-			checkApp=0;
-			}
-		
-		
-		let app={
-				docNo:${doc.docno},
-				empNo:${user.username},
-				app_Check:checkApp,
-				};
-		console.log(app);
-		/* $.ajax({
-			url:"approve.do",
-			type:"POST",
-			contentType: "application/json; charset=utf-8",
-			data:JSON.stringify(app),
-			success:function(data){
-
-			alert(data);
-					
-				},
-				
-			}); */
-	});
-		
-
-
-
-
-
-
-
-	
+                }else if(value ==''){
+					swal({title:'사유를 작성해 주세요.',icon:"warning"}); 
+                 }else{
+                	 swal({title:'취소 되었습니다.',icon:"warning"});
+                     }
+            });
+        }
+       
+        console.log(app);
+   
+    });
 });
 
 	

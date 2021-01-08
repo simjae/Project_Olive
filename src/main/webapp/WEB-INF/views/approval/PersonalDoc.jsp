@@ -314,69 +314,6 @@ table.table .avatar {
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 	<script src="/resources/js/Approval/personalDoc.js"></script>
-	<script type="text/javascript">
-$(function(){
-	var today = new Date();
 	
-	console.log(today);
-
-
-	$('.doc').on("click",function(){
-	let html = '';
-	console.log($(this).val());
-		 
-	$.ajax({
-		url:"getArrangedDocList.do",
-		dataType: "json",
-		mehtod:"get", 
-		contentType: "application/json; charset=utf-8",
-		data:{
-			statusCode:$(this).val(),
-			},
-		success:function(data){
-			$('#docBody').empty();
-			console.log(data);
-			$.each(data,(index,item)=>{ 
-				let time = new Date(item.writedate);
-				let html='<tr><td>'+item.docno+'</td>\
-						<td>'+item.typeName+'</td>\
-						<td><a href=viewDocument.do?docno='+item.docno+'&typeCode='+item.typeCode+'>'+item.title+'</a></td>\
-						<td>'+item.ename+'</td>\
-						<td>'+time.getFullYear() + '-' +('0' + (time.getMonth()+1)).slice(-2)+ '-' +  ('0' + time.getDate()).slice(-2) +'</td>\
-						<td><div class="row">\
-						<div class="col-md-7 px-0 mx-0">\
-							<div class="progress">\
-								<div class="progress-bar" role="progressbar" style="width:'+(100*item.curr_Approval/item.total_Approval)+'%;" \
-									aria-valuenow="'+item.curr_Approval+'" aria-valuemin="0">'+item.curr_Approval+'/'+item.total_Approval+'</div>\
-							</div>\
-						</div>\
-						<div class="col-md-5 px-0 mx-0">'+item.statusName+'</div>\
-						</div></td></tr>';
-
-						
-				$('#docBody').append(html);
-			});
-		
-		}
-		
-
-		});		
-	 
-	console.log(html); 
-});
-
-
-
-
-$('a[name=document]').on("click",function(){
-	console.log($(this).innerText);
-});
-
-
-
-})
-		
-		
-	</script>
 </body>
 </html>

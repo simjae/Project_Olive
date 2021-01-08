@@ -43,7 +43,7 @@ public class ApprovalController {
 	
 	
 	//전자결재 메인페이지
-	@RequestMapping(value = "approvalHome.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ApprovalHome.do", method = RequestMethod.GET)
 	public String approvalHome(Model model,Principal principal) {
 		String empno = principal.getName();
 		System.out.println(empno);
@@ -60,7 +60,7 @@ public class ApprovalController {
 		
 		model.addAttribute("approver", approverrec);
 		model.addAttribute("document", documentrec);
-		return "approval/approvalHome";
+		return "approval/ApprovalHome";
 	}
 	
 	@RequestMapping(value = "DocWrite.do", method = RequestMethod.GET)
@@ -99,7 +99,7 @@ public class ApprovalController {
 		}{
 			
 		}
-		return "redirect:/approval/approvalHome.do";
+		return "redirect:/approval/ApprovalHome.do";
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
@@ -125,8 +125,26 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
-	public String showPregressDoc(Model model, Principal principal) {
+	public String showPregressDoc(Criteria cri,Model model, Principal principal) {
 		String empno = principal.getName();
+		cri.setCriteria("getApproverDoc", "docno", "asc");
+		cri.setSearchType("empno");
+		cri.setKeyword(empno);
+		
+		int totalCount =paging.getListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		List<Map<String,Object>> pagingList = paging.getList(cri);
+		System.out.println(cri);
+		
+		List<Document> document = approvalService.getDocument(empno,0,10);
+		System.out.println(approvalService.arrangeDoc(document));
+		
+		model.addAttribute("cri", cri); //이전에 조회 했던 데이터
+		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
+		model.addAttribute("pagingList", pagingList); //데이터 결과값 
+		
+		
 		List<Approver> approverDoc = approvalService.getApprover(empno);
 		model.addAttribute("appdoc", approverDoc);
 		

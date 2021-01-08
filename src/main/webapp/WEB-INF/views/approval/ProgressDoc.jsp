@@ -205,7 +205,7 @@ table.table .avatar {
 												</tr>
 											</thead>
 											<tbody id="appBody">
-											<c:forEach var="list" items="${appdoc}">
+											<c:forEach var="list" items="${pagingList}">
 												<tr>
 													<td>${list.docno}</td>
 													<c:if test="${list.app_Check == '1'}">
