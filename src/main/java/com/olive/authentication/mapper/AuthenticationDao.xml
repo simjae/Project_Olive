@@ -33,4 +33,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE empno = #{empno}
 	</update>
 	
+	<update id="updateEmail">
+		UPDATE emp
+		SET email = #{email}
+		WHERE empno = #{empNo}
+	</update>
+	
+	<insert id="setGeneralRole">
+		INSERT INTO role (empno, role_name)
+		SELECT #{empno}, 'ROLE_GENERAL' 
+		FROM DUAL 
+		WHERE NOT EXISTS ( 	SELECT empno, role_name 
+							FROM role 
+							WHERE empno= #{empno} AND role_name = 'ROLE_GENERAL'
+						 )
+	</insert>
+	
+	<update id="setActivate">
+		UPDATE emp
+		SET statusCode = 20
+		WHERE empno = #{empno}
+	</update>
 </mapper>

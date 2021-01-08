@@ -1,18 +1,29 @@
-package com.olive.attendance.dao;
 /*
-	파일명:CalendarDao.java 
-	설명: 캘린더 컨트롤러  
-	작성일 : 2020-12-28
+	파일명:AttendanceDao.java 
+	설명: 근태관리 dao  
+	작성일 : 2020-12-28 
+	수정일 : 2020-01-07
 	작성자 : 심재형 
-*/
+ */
+package com.olive.attendance.dao;
 
 
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+import com.olive.dto.Att_Record;
+
 
 public interface AttendanceDao {
 	//출근처리 
-	public void startwork(@Param("attcode") int attcode);
+	public void startwork(Att_Record attrecord);
 	//퇴근처리 
-	public void endwork();
+	public void endwork(Att_Record attrecord);
+	//연차 데이터 
+	public List<Att_Record> getcalendarList();
+	//근태관리 테이블 select
+	public List<Att_Record> gettableList();
+		
+	}
 	
-}
+
