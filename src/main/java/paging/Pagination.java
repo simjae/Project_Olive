@@ -6,6 +6,7 @@ import lombok.ToString;
 
 //게시판 페이징 전용 클래스
 @Getter
+@Setter
 @ToString
 public class Pagination {
 	
