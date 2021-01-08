@@ -7,8 +7,10 @@
 package com.olive.authentication.dao;
 
 import com.olive.dto.Emp;
+import com.olive.dto.Role;
 
 public interface AuthenticationDao {
+	
 	public void initFailCount(String empno);
 	
 	public int getFailCount(String empno);
@@ -18,5 +20,11 @@ public interface AuthenticationDao {
 	public void addFailCount(String empno);
 	
 	public void disable(String empno);
+	
+	public void updateEmail(Emp emp);
+	
+	public void setGeneralRole(String empno);
+	
+	public void setActivate(String empno);
 	
 }
