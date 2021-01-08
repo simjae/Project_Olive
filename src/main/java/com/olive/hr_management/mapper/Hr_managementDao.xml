@@ -3,7 +3,13 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
-
+	
+	
+	<select id="getSalaryDetail" parameterType="Hashmap" resultType="com.olive.dto.SalaryInfo">
+		SELECT * 
+			FROM salaryInfo
+			WHERE sal_date=#{sal_date} and empno=#{empno}
+	</select>
 
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,

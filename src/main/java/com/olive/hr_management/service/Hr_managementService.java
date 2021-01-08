@@ -7,6 +7,7 @@
 package com.olive.hr_management.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
+import com.olive.dto.SalaryInfo;
 import com.olive.hr_management.dao.Hr_managementDao;
 
 import paging.Criteria;
@@ -129,6 +131,15 @@ public class Hr_managementService {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Class> classList = dao.getClasses();
 		return classList;
+	}
+
+	public SalaryInfo getSalaryDetail(String date, int empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		Map parameter = new HashMap<String, Object>();
+		parameter.put("sal_date", date);
+		parameter.put("empno", empno);
+		return dao.getSalaryDetail(parameter);
+		
 	}
 
 }
