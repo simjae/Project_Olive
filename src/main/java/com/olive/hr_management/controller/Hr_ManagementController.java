@@ -1,9 +1,6 @@
 /*
-<<<<<<< HEAD
-   파일명: HrManageMentController.java
-=======
-	파일명: HrManageMentController.java
->>>>>>> 98f335c7e2d7d107294976f041b602412e210196
+
+    파일명: HrManageMentController.java
     설명: 인사관리 Controller 
     작성일: 2021-01-02
     작성자: 백희승
@@ -56,10 +53,10 @@ public class Hr_ManagementController {
 	  
       int totalCount = pagingService.getListCount(cri);
       Pagination pagination = new Pagination(cri, totalCount);
-      
+
       List<Map<String, Object>> result = pagingService.getList(cri);
       System.out.println("[result] : "+result);
-      
+
       model.addAttribute("list", result);
       model.addAttribute("pagination", pagination);
       model.addAttribute("criteria", cri);
