@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html xmlns:o="urn:schemas-microsoft-com:office:office"
 	xmlns:x="urn:schemas-microsoft-com:office:excel"
@@ -1392,7 +1393,7 @@ rt {
 				style='mso-height-source: userset; height: 26.1pt'>
 				<td colspan=4 height=34 class=xl1078672 style='height: 26.1pt'>기본급여</td>
 				<td colspan=6 class=xl998672 style='border-left: none'>2000</td>
-				<td colspan=4 class=xl998672 style='border-left: none'>갑 근 세</td>
+				<td colspan=4 class=xl998672 style='border-left: none'>소 득 세</td>
 				<td colspan=6 class=xl998672
 					style='border-right: 1.0pt solid black; border-left: none'>2000</td>
 			</tr>
@@ -1401,7 +1402,7 @@ rt {
 				<td colspan=4 height=34 class=xl1078672 style='height: 26.1pt'>시간외
 					수당</td>
 				<td colspan=6 class=xl998672 style='border-left: none'>2000</td>
-				<td colspan=4 class=xl998672 style='border-left: none'>주 민 세</td>
+				<td colspan=4 class=xl998672 style='border-left: none'>지방소득세</td>
 				<td colspan=6 class=xl998672
 					style='border-right: 1.0pt solid black; border-left: none'>2000</td>
 			</tr>
@@ -1426,7 +1427,7 @@ rt {
 				style='mso-height-source: userset; height: 26.1pt'>
 				<td colspan=4 height=34 class=xl1078672 style='height: 26.1pt'>특별수당</td>
 				<td colspan=6 class=xl998672 style='border-left: none'>2000</td>
-				<td colspan=4 class=xl998672 style='border-left: none'>국민연금</td>
+				<td colspan=4 class=xl998672 style='border-left: none'>요양보험</td>
 				<td colspan=6 class=xl998672
 					style='border-right: 1.0pt solid black; border-left: none'>2000</td>
 			</tr>
@@ -1434,8 +1435,8 @@ rt {
 				style='mso-height-source: userset; height: 26.1pt'>
 				<td colspan=4 height=34 class=xl1078672 style='height: 26.1pt'>차량유지</td>
 				<td colspan=6 class=xl998672 style='border-left: none'>2000</td>
-				<td colspan=4 class=xl998672 style='border-left: none'>기<span
-					style='mso-spacerun: yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>타
+				<td colspan=4 class=xl998672 style='border-left: none'><span
+					style='mso-spacerun: yes'>고용보험</span>
 				</td>
 				<td colspan=6 class=xl998672
 					style='border-right: 1.0pt solid black; border-left: none'>2000</td>
@@ -1444,7 +1445,7 @@ rt {
 				style='mso-height-source: userset; height: 26.1pt'>
 				<td colspan=4 height=34 class=xl1078672 style='height: 26.1pt'>교육지원</td>
 				<td colspan=6 class=xl998672 style='border-left: none'>2000</td>
-				<td colspan=4 class=xl998672 style='border-left: none'></td>
+				<td colspan=4 class=xl998672 style='border-left: none'>국민연금</td>
 				<td colspan=6 class=xl998672
 					style='border-right: 1.0pt solid black; border-left: none'></td>
 			</tr>
