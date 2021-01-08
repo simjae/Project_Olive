@@ -24,13 +24,13 @@ public class Criteria {
 	private int rowStart;
 	
 	public Criteria() {
-		this.page = 1;
-		this.perPageNum = 3;
-		this.searchType = "1";
-		this.keyword = this.searchType;
+		this.page = 1; //현재 페이지 
+		this.perPageNum = 3; //보여주는 페이지갯수 
+		this.searchType = "1"; // 검색할 nav바 
+		this.keyword = this.searchType; //검색어 
 	}
 	
-	public void setPage(int page) {
+	public void setPage(int page) { //현재 페이지 
 		this.page = (page <= 0) ? 1 : page;
 	}
 	
@@ -47,7 +47,7 @@ public class Criteria {
 	}
 	
 	
-	private int setRowStart() {
+	private int setRowStart() { //게시글 글 번호 
 		return ((page - 1) * perPageNum);
 	}
 
