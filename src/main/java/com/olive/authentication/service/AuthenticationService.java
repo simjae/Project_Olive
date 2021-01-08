@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import com.olive.authentication.dao.AuthenticationDao;
 import com.olive.dto.Emp;
+import com.olive.dto.Role;
 
 @Service
 public class AuthenticationService {
@@ -35,14 +36,12 @@ public class AuthenticationService {
 	@Autowired
 	private SqlSession sqlsession;
 
-	// [LoginSuccess]
 	// 계정 로그인 실패 횟수 초기화
 	public void initFailCount(String empno) {
 		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
 		dao.initFailCount(empno);
 	}
 	
-	// [LoginFail] 
 	// 계정이 존재하는지 검색
 	public Emp selectEmp(String empno) {
 		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
@@ -67,4 +66,25 @@ public class AuthenticationService {
 		dao.disable(empno);
 	}
 	
+	// 이메일 업데이트
+	public void updateEmail(String empno, String email) {
+		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
+		Emp emp = new Emp();
+		emp.setEmpNo(Integer.parseInt(empno));
+		emp.setEmail(email);
+		dao.updateEmail(emp);
+	}
+	
+	// General 인서트
+	public void setGeneralRole(String empno) {
+		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
+		dao.setGeneralRole(empno);
+		
+	}
+	
+	// 계정 신입 -> 활성화
+	public void setActivate(String empno) {
+		AuthenticationDao dao = sqlsession.getMapper(AuthenticationDao.class);
+		dao.setActivate(empno);
+	}
 }
