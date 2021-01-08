@@ -1,23 +1,24 @@
 /*
+<<<<<<< HEAD
+   파일명: HrManageMentController.java
+=======
 	파일명: HrManageMentController.java
+>>>>>>> 98f335c7e2d7d107294976f041b602412e210196
     설명: 인사관리 Controller 
     작성일: 2021-01-02
     작성자: 백희승
 */
 package com.olive.hr_management.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,33 +29,50 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.hr_management.service.Hr_managementService;
 
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
+
 @Controller
 @RequestMapping("/HR_management/")
 public class Hr_ManagementController {
 
-	@Autowired
-	private Hr_managementService service;
+   @Autowired
+   private Hr_managementService service;
+   
+   @Autowired
+   private PagingService pagingService;
+   
+   // 암호화 객체
+   @Autowired
+   private BCryptPasswordEncoder bCryptPasswordEncoder;
+   
+   // 인사관리 > 계정 관리 페이지
+   @RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.GET)
+   public String employeeAccount(Model model, Criteria cri) {
+      System.out.println("cri 값 초기화 전"+cri);
+	  cri.setCriteria("empinfo", "empno", "desc");
+	  System.out.println("cri 값 초기화 후"+cri);
+	  
+      int totalCount = pagingService.getListCount(cri);
+      Pagination pagination = new Pagination(cri, totalCount);
+      
+      List<Map<String, Object>> result = pagingService.getList(cri);
+      System.out.println("[result] : "+result);
+      
+      model.addAttribute("list", result);
+      model.addAttribute("pagination", pagination);
+      model.addAttribute("criteria", cri);
+      
+      return "HR_management/EmployeeAccount";
+   }   
 
-	// 암호화 객체
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	// 인사관리 > 계정 관리
-	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.GET)
-	public String employeeAccount(Model model) {
-		System.out.println("management 컨트롤러 진입");
-		List<Emp> empList = service.getEmpList();
-		System.out.println("Controller result: " + empList);
-		model.addAttribute("empList", empList);
-
-		return "HR_management/EmployeeAccount";
-	}
-
-	// 인사관리 > 조직 관리
-	@RequestMapping("Organization.do")
-	public String organization() {
-		return "HR_management/Organization";
-	}
+// 인사관리 > 조직 관리 페이지
+   @RequestMapping("Organization.do")
+   public String organization() {
+      return "HR_management/Organization";
+   }
 
 	// 인사관리 > 계정 관리 > 사원 신규 등록
 	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.POST)

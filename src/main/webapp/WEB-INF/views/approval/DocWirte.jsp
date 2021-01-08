@@ -80,7 +80,7 @@
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
-											<select class="px-4 mx-auto w-100" id="selector" name="typeCode">
+											<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last: center">
 												<c:forEach var="list" items="${requestScope.docType}">
 													<option value="${list.typeCode}">${list.typeName}</option>
 												</c:forEach>
@@ -94,7 +94,7 @@
 										<sec:authentication property="name" var="LoginUser" />
 										<sec:authorize access="isAuthenticated()">
 											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno"readonly>
+												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
 											</div>
 										</sec:authorize>
 									</div>
@@ -108,37 +108,37 @@
 										</div>
 									</div>
 								</div>
-								<div class="card my-2 py-0   mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">생년월일</div>
+								<div class=" my-2 py-0   mx-auto col-xl-2">
+									<%-- <div class="card-body py-2 px-0">
+										<div class="text-center text-primary">부서</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="930306" id="birth" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${emp.deptname}" id="dept" readonly>
 										</div>
-									</div>
+									</div> --%>
 								</div>
 							</div>
 							<div class="row">
 								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
 									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">현주소</div>
+										<div class="text-center text-primary">직책</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="서울특별시 봉천동 673-3" id="addr" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
 										</div>
 									</div>
 								</div>
 								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-2">
 									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">성명</div>
+										<div class="text-center text-primary">부서</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="박선우" id="ename" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${emp.deptname }" id="deptname" readonly>
 										</div>
 									</div>
 								</div>
 								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
 									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">전화번호</div>
+										<div class="text-center text-primary">이름</div>
 										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="010-2994-3513" id="emptel" readonly>
+											<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
 										</div>
 									</div>
 								</div>
@@ -166,19 +166,19 @@
 															<tr style="height: 35px;">
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app1" type="text" readonly>
-																	<input class="inputbox text-center" id="app1_id" name="app1" type="text" hidden>
+																	<input class="inputbox text-center" id="app1_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app2" type="text" readonly>
-																	<input class="inputbox text-center" id="app2_id" name="app2" type="text" hidden>
+																	<input class="inputbox text-center" id="app2_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app3" type="text" readonly>
-																	<input class="inputbox text-center" id="app3_id" name="app3" type="text" hidden>
+																	<input class="inputbox text-center" id="app3_id" name="approvers" type="text" hidden>
 																</td>
 																<td rowspan="2">
 																	<input class="inputbox text-center" id="app4" type="text" readonly>
-																	<input class="inputbox text-center" id="app4_id" name="app4" type="text" hidden>
+																	<input class="inputbox text-center" id="app4_id" name="approvers" type="text" hidden>
 																</td>
 															</tr>
 															<tr style="height: 35px;"></tr>
@@ -191,8 +191,10 @@
 														</tbody>
 													</table>
 												</div>
-												<br>
-												<span>참조자</span> <div id="referrer" class=" border-bottom border-secondary"></div>
+												<br> <span>참조자</span>
+												<div id="referrer" class=" border-bottom border-secondary">
+													
+												</div>
 											</div>
 										</div>
 									</div>
@@ -449,7 +451,9 @@ $(function() {
 	 .then(createSecondTree)
 	 .then(createFinalTree)
 	 
+	 
 	 $('#submit').on("click",()=>{
+		
 		$('#form').submit();
 	 })
 
@@ -465,8 +469,9 @@ $(function() {
 					$('#referrer').empty();
 			
 				for(let j=1; j< (referrerList.length/2)+1; j++){
-					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrer'+j+' hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
+					let html = '<input type=text value="'+referrerList[j*2-1][0].id.split('_')[0]+'" id=referrer'+j+' name=referrers hidden ><span>'+referrerList[j*2-2]+'<span>&nbsp &nbsp';
 					$('#referrer').append(html);
+					console.log(referrerList[j*2-1][0].id.split('_')[0]);
 				}
 			}); 
 			
@@ -519,6 +524,7 @@ $(function() {
 			};
 			$('#referrer').empty();
 			for(let i=1; i<referrerList.length; i+=2){
+				console.log(referrerList[i]);
 				$('#referrerList').append(referrerList[i]);
 			}
 
@@ -712,8 +718,8 @@ $(function() {
 							</td>\
 							<td colspan="5"\
 								style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;"><p\
-									style="font-family: &amp; quot; 맑은 고딕&amp;quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#starttime').val()+'\
-									 ~ '+$('#endtime').val()+'</p></td>\
+									style="font-family: &amp; quot; 맑은 고딕&amp;quot;; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#startdate').val()+'\
+									 ~ '+$('#enddate').val()+'</p></td>\
 						</tr>';
 						};
 					
@@ -793,10 +799,10 @@ $(function() {
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="starttime" name="starttime" width="276" readonly>'+
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="startdtae" name="startdate" width="276" readonly>'+
 				'<span class="mx-2">';
 				if( $('#selector').val()!='20'){
-				html+= '~</span><input type="text" class="datepicker text-center" name="endtime" id="endtime" width="276" readonly></div></div></div></div></div></div>';
+				html+= '~</span><input type="text" class="datepicker text-center" name="enddate" id="enddate" width="276" readonly></div></div></div></div></div></div>';
 				};
 
 				

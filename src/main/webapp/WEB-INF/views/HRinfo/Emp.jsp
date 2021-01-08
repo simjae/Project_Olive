@@ -253,7 +253,7 @@ table.table .avatar {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${requestScope.emplist}">
+										<c:forEach var="list" items="${requestScope.emplist}" varStatus="vs">
 										<tr>
 
 											<td>
@@ -264,9 +264,73 @@ table.table .avatar {
 											<td>${list.deptname}</td>
 											<td>${list.positionname}</td>
 											<td>
-												<a href="#editEmployeeModal" class="edit" data-toggle="modal">보기</a>
+												<a href="" data-target="#editEmployeeModal${vs.index}" data-toggle="modal" >보기</a>
+												
+												
 											</td>
-										</tr>
+												<!-- Edit Modal HTML -->
+												<div id="editEmployeeModal${vs.index}" class="modal fade">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<form>
+																<div class="modal-header">
+																	<h4 class="modal-title">사원정보</h4>
+																	<button type="button" class="close"
+																		data-dismiss="modal" aria-hidden="true">&times;</button>
+																</div>
+																<div class="modal-body">
+																	<div class="row justify-content-center">
+																		<div class="col-md-5 border-right">
+																			<div
+																				class="d-flex flex-column align-items-center text-center p-3 py-5">
+																				<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
+																				<span class="font-weight-bold mt-3">${list.empNo}</span>
+																				<span class="font-weight-bold mt-3">${list.ename}</span>
+																			</div>
+																		</div>
+																		<div class="col-md-7 scroll">
+																			<div class="p-5">
+																				<div class="row mt-3">
+																					<div class="col-md-10">
+																						<p>사번</p>
+																						<span class="font-weight-bold mt-3">${list.empNo}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>이름</p>
+																						<span class="font-weight-bold mt-3">${list.ename}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>부서</p>
+																						<span class="font-weight-bold mt-3">${list.deptname}팀 : ${list.positionname}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>이메일</p>
+																						<span class="font-weight-bold mt-3">${list.email}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>휴대폰번호</p>
+																						<span class="font-weight-bold mt-3">${list.phone}</span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+
+																</div>
+																<div class="modal-footer"></div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</tr>
 										</c:forEach> 
 
 									</tbody>
@@ -302,89 +366,6 @@ table.table .avatar {
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">사원정보</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="row justify-content-center">
-											<div class="col-md-5 border-right">
-												<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-													<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-													<span class="font-weight-bold mt-3">2001</span>
-													<h3>박채연</h3>
-												</div>
-											</div>
-											<div class="col-md-7 scroll">
-												<div class="p-5">
-													<div class="row mt-3">
-														<div class="col-md-10">
-															<p>사번</p>
-															<input type="text" class="form-control" placeholder="사번" value="2001" readonly>
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>이름</p>
-															<input type="text" class="form-control" placeholder="이름" value="Douglas Mcgee" readonly>
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>비밀번호</p>
-															<input type="text" class="form-control" placeholder="비밀번호" value="*****">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>이메일</p>
-															<input type="text" class="form-control" placeholder="이메일" value="john@bbb.com">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>휴대폰번호</p>
-															<input type="text" class="form-control" placeholder="휴대폰번호" value="010-8888-7777">
-														</div>
-													</div>
-													<div class="row mt-4">
-														<div class="col-md-10">
-															<p>주소</p>
-															<input type="text" class="form-control" placeholder="주소" value="서울특별시 뫄뫄뫄">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- <div class="form-group">
-											<label>Name</label>
-											<input type="text" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label>
-											<input type="email" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label>
-											<input type="text" class="form-control" required>
-										</div>		 -->
-									</div>
-									<div class="modal-footer">
-										
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<!-- /.container-fluid -->
@@ -402,64 +383,39 @@ table.table .avatar {
 	<script>
 		//검색 조회 ajax
 		$('#search_button').click(function(){
-			var empno = $('#search_input').val();
-			console.log(empno);
+			var search = $('#search_input').val();
+			console.log(search);
 			var select = $('#inputState').val();
 			console.log(select);
 
-			if(select=='empno'){
-				//사번으로 검색
-				$.ajax(
-						{
-							type : "post",
-							url	 : "searchByEmpno.do",
-							data : {empno:empno},
-							success : function(responseData){
-								console.log(responseData);
-								console.log(responseData[0].ename);
-								//console.log(responseData.positionname);
-								$('#emptable > tbody').empty();
-								$('#emptable').append(
-									"<tr><td>"+responseData[0].pic+
-									"</td><td>"+responseData[0].empNo+
-									"</td><td>"+responseData[0].ename+
-									"</td><td>"+responseData[0].deptname+
-									"</td><td>"+responseData[0].positionname+
-									"</td></tr>"
-								);
-							},
-							error : function(error){
-								console.log(error);
-							}
-						} 
-					); 
-			}else if(select=='ename'){
-				console.log("여기까지는 오니");
-				//이름으로 검색
-				
-			}else if(select=='dept'){
-				//부서로 검색
-				
-			}
-			
-			/* $.ajax(
+			$.ajax(
 					{
 						type : "post",
 						url	 : "searchByEmpno.do",
-						data : {empno:empno},
-						success : function(responseData){
+						data : {param1:select, param2:search},
+						success : function(responseData)	{
 							console.log(responseData);
 							console.log(responseData[0].ename);
-							//console.log(responseData.positionname);
+							console.log(responseData[0].positionname);
 							$('#emptable > tbody').empty();
-							$('#emptable').append(
+							$.each(responseData, function(index, emp){
+								$('#emptable').append(
+										"<tr><td>"+emp.pic+
+										"</td><td>"+emp.empNo+
+										"</td><td>"+emp.ename+
+										"</td><td>"+emp.deptname+
+										"</td><td>"+emp.positionname+
+										"</td></tr>"
+									);
+							});
+							/* $('#emptable').append(
 								"<tr><td>"+responseData[0].pic+
 								"</td><td>"+responseData[0].empNo+
 								"</td><td>"+responseData[0].ename+
 								"</td><td>"+responseData[0].deptname+
 								"</td><td>"+responseData[0].positionname+
 								"</td></tr>"
-							);
+							);  */
 							
 							
 						},
@@ -467,10 +423,12 @@ table.table .avatar {
 							console.log(error);
 						}
 					} 
-				);  */
+				); 
 			
 		});
 
+
+		
 		
 	</script>
 </body>

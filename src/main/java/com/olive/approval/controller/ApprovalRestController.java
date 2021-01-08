@@ -1,16 +1,21 @@
 package com.olive.approval.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.dto.Approver;
 import com.olive.dto.Dept;
+import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 
@@ -44,7 +49,7 @@ public class ApprovalRestController {
 		}
 		return obj;
 	}
-
+	
 	@RequestMapping(value = "/getAllEmpList.do")
 	private List<Emp> getAllEmpList() {
 		
@@ -61,5 +66,25 @@ public class ApprovalRestController {
 		
 		return approvalService.getAllHeadList();
 	}
+	
+	@RequestMapping(value="/getArrangedDocList.do")
+	private List<Document> getArrangedDocList(String statusCode,String size,Principal principal) {
+		
+		return approvalService.getArrangedDocList(statusCode,principal);
+	}
+	
+	@RequestMapping(value="/getArrangedAppList.do")
+	private List<Approver> getArrangedAppList(String statusCode,Principal principal) {
+		return approvalService.getArrangedAppList(statusCode,principal);
+	}
+	
+	
+	@RequestMapping(value="/approve.do", method=RequestMethod.POST)
+	private String approve(@RequestBody Approver app) {
+		System.out.println(app); 
+		//approvalService.approve(app);
+		return "aaa";
+	}
+
 
 }
