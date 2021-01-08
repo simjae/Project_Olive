@@ -28,7 +28,7 @@
 	</beans:bean>
 
 	<!-- for BeanNameViewResolver -->
-	<beans:bean id="empTableTOExcel"	class="com.olive.utils.EmpTableToExcel" />
+	<beans:bean id="empTableToExcel"	class="com.olive.utils.EmpTableToExcel" />
 
 	<!-- ViewResolver -->
 	<beans:bean

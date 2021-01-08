@@ -63,21 +63,7 @@
          class="org.springframework.core.io.FileSystemResource"> <constructor-arg 
          value="c:/temp/"/> </bean> -->
    </bean>
-   
-   <!-- viewResolver -->
-   <bean id="internalResourceViewResolver"
-      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      <property name="prefix">
-         <value>/WEB-INF/views/</value>
-      </property>
-      <property name="suffix">
-         <value>.jsp</value>
-      </property>
-   </bean>
-
-
-
-
+ 
    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
       <!-- <constructor-arg name="strength" value="20"></constructor-arg> -->
    </bean>

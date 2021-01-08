@@ -23,21 +23,18 @@ public class EmpTableToExcel extends AbstractExcelView{
 		response.setHeader("Content-Disposition", "attachment; filename=\"EmpList.xls\";");
 		HSSFSheet sheet = createFirstSheet(workbook);
 		createColumnLabel(sheet);
-		List<Emp> emplist = (List<Emp>)model.get("empList");
+		List<Map<String, Object>> list = (List<Map<String, Object>>)model.get("list");
+		
 		int rowNum = 1;
-		System.out.println("ExcelView : "+emplist);
-		for(Emp emp : emplist) {
-			System.out.println(rowNum);
+		
+		for(Map<String, Object> emp : list) {
 			createColumnData(sheet, emp, rowNum);
 			rowNum++;
 		}
 	}
-
-	
-
 	private HSSFSheet createFirstSheet(HSSFWorkbook workbook) {
 		HSSFSheet sheet = workbook.createSheet();
-		workbook.setSheetName(0, "EMP테이블");
+		workbook.setSheetName(0, "사원정보");
 		sheet.setDefaultColumnWidth(15);
 		return sheet;
 	}
@@ -47,62 +44,54 @@ public class EmpTableToExcel extends AbstractExcelView{
 			HSSFRow	row = sheet.createRow(0); //1행
 			HSSFCell cell;
 			cell = row.createCell(0);
-			cell.setCellValue("empno");
+			cell.setCellValue("EMPNO");
 			cell = row.createCell(1);
-			cell.setCellValue("pwd");
+			cell.setCellValue("ENAME");
 			cell = row.createCell(2);
-			cell.setCellValue("ename");
+			cell.setCellValue("EMAIL");
 			cell = row.createCell(3);
-			cell.setCellValue("email");
+			cell.setCellValue("HIREDATE");
 			cell = row.createCell(4);
-			cell.setCellValue("hiredate");
+			cell.setCellValue("LEAVEDATE");
 			cell = row.createCell(5);
-			cell.setCellValue("leavedate");
+			cell.setCellValue("ANNUAL");
 			cell = row.createCell(6);
-			cell.setCellValue("annual");
+			cell.setCellValue("CLASSNAME");
 			cell = row.createCell(7);
-			cell.setCellValue("classcode");
+			cell.setCellValue("POSITIONNAME");
 			cell = row.createCell(8);
-			cell.setCellValue("positioncode");
+			cell.setCellValue("DEPTNAME");
 			cell = row.createCell(9);
-			cell.setCellValue("deptcode");
+			cell.setCellValue("HEADNAME");
 			cell = row.createCell(10);
-			cell.setCellValue("statuscode");
-			cell = row.createCell(11);
-			cell.setCellValue("logincount");
-			cell = row.createCell(12);
-			cell.setCellValue("alram");			
+			cell.setCellValue("STATUSNAME");
 		}
 		
-		private void createColumnData(HSSFSheet sheet, Emp emp, int rowNum) {
+		private void createColumnData(HSSFSheet sheet, Map<String, Object> emp, int rowNum) {
 			HSSFRow row = sheet.createRow(rowNum);
 			HSSFCell cell;
 			cell = row.createCell(0);
-			cell.setCellValue(emp.getEmpNo());
+			cell.setCellValue(String.valueOf(emp.get("EMPNO")));
 			cell = row.createCell(1);
-			cell.setCellValue(emp.getPwd());
+			cell.setCellValue(String.valueOf(emp.get("ENAME")));
 			cell = row.createCell(2);
-			cell.setCellValue(emp.getEname());
+			cell.setCellValue(String.valueOf(emp.get("EMAIL")));
 			cell = row.createCell(3);
-			cell.setCellValue(emp.getEmail());
+			cell.setCellValue(String.valueOf(emp.get("HIREDATE")));
 			cell = row.createCell(4);
-			cell.setCellValue(emp.getHireDate());
+			cell.setCellValue(String.valueOf(emp.get("LEAVEDATE")));
 			cell = row.createCell(5);
-			cell.setCellValue(emp.getLeaveDate());
+			cell.setCellValue(String.valueOf(emp.get("ANNUAL")));
 			cell = row.createCell(6);
-			cell.setCellValue(emp.getAnnaul());
+			cell.setCellValue(String.valueOf(emp.get("CLASSNAME")));
 			cell = row.createCell(7);
-			cell.setCellValue(emp.getClassCode());
+			cell.setCellValue(String.valueOf(emp.get("POSITIONNAME")));
 			cell = row.createCell(8);
-			cell.setCellValue(emp.getPositionCode());
+			cell.setCellValue(String.valueOf(emp.get("DEPTNAME")));
 			cell = row.createCell(9);
-			cell.setCellValue(emp.getDeptCode());
+			cell.setCellValue(String.valueOf(emp.get("HEADNAME")));
 			cell = row.createCell(10);
-			cell.setCellValue(emp.getStatusCode());
-			cell = row.createCell(11);
-			cell.setCellValue(emp.getLoginCount());
-			cell = row.createCell(12);
-			cell.setCellValue(emp.getAlarm());
+			cell.setCellValue(String.valueOf(emp.get("STATUSNAME")));
 		}
 	
 	
