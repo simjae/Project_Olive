@@ -113,45 +113,7 @@ table.table .avatar {
 	margin-right: 10px;
 }
 
-.pagination {
-	float: right;
-	margin: 0 0 5px;
-}
-
-.pagination li a {
-	border: none;
-	font-size: 13px;
-	min-width: 30px;
-	min-height: 30px;
-	color: #999;
-	margin: 0 2px;
-	line-height: 30px;
-	border-radius: 2px !important;
-	text-align: center;
-	padding: 0 6px;
-}
-
-.pagination li a:hover {
-	color: #666;
-}
-
-.pagination li.active a, .pagination li.active a.page-link {
-	background: #03A9F4;
-}
-
-.pagination li.active a:hover {
-	background: #0397d6;
-}
-
-.pagination li.disabled i {
-	color: #ccc;
-}
-
-.pagination li i {
-	font-size: 16px;
-	padding-top: 6px
-}
-
+/
 .hint-text {
 	float: left;
 	margin-top: 10px;
@@ -224,7 +186,8 @@ table.table .avatar {
 									<option value="">검색조건</option>
 									<option value="empno">사번</option>
 									<option value="ename">이름</option>
-									<option value="dept">소속</option>
+									<option value="head">본부</option>
+									<option value="dept">부서</option>
 								</select>
 							</div>
 							<form class="col-md-3 d-none d-sm-inline-block ">
@@ -253,21 +216,21 @@ table.table .avatar {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${requestScope.emplist}" varStatus="vs">
+										<c:forEach var="list" items="${emplist}" varStatus="vs">
 										<tr>
 
 											<td>
 												<img src="/resources/img/undraw_profile_1.svg" width="40">
 											</td>
-											<td>${list.empNo}</td>
-											<td>${list.ename}</td>
-											<td>${list.deptname}</td>
-											<td>${list.positionname}</td>
+											<td>${list.EMPNO}</td>
+											<td>${list.ENAME}</td>
+											<td>${list.DEPTNAME}</td>
+											<td>${list.POSITIONNAME}</td>
 											<td>
 												<a href="" data-target="#editEmployeeModal${vs.index}" data-toggle="modal" >보기</a>
-												
-												
 											</td>
+											
+											
 												<!-- Edit Modal HTML -->
 												<div id="editEmployeeModal${vs.index}" class="modal fade">
 													<div class="modal-dialog">
@@ -284,8 +247,8 @@ table.table .avatar {
 																			<div
 																				class="d-flex flex-column align-items-center text-center p-3 py-5">
 																				<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-																				<span class="font-weight-bold mt-3">${list.empNo}</span>
-																				<span class="font-weight-bold mt-3">${list.ename}</span>
+																				<span class="font-weight-bold mt-3">${list.EMPNO}</span>
+																				<span class="font-weight-bold mt-3">${list.ENAME}</span>
 																			</div>
 																		</div>
 																		<div class="col-md-7 scroll">
@@ -293,31 +256,37 @@ table.table .avatar {
 																				<div class="row mt-3">
 																					<div class="col-md-10">
 																						<p>사번</p>
-																						<span class="font-weight-bold mt-3">${list.empNo}</span>
+																						<span class="font-weight-bold mt-3">${list.EMPNO}</span>
 																					</div>
 																				</div>
 																				<div class="row mt-4">
 																					<div class="col-md-10">
 																						<p>이름</p>
-																						<span class="font-weight-bold mt-3">${list.ename}</span>
+																						<span class="font-weight-bold mt-3">${list.ENAME}</span>
+																					</div>
+																				</div>
+																				<div class="row mt-4">
+																					<div class="col-md-10">
+																						<p>본부</p>
+																						<span class="font-weight-bold mt-3">${list.HEADNAME}</span>
 																					</div>
 																				</div>
 																				<div class="row mt-4">
 																					<div class="col-md-10">
 																						<p>부서</p>
-																						<span class="font-weight-bold mt-3">${list.deptname}팀 : ${list.positionname}</span>
+																						<span class="font-weight-bold mt-3">${list.DEPTNAME}팀 : ${list.POSITIONNAME}</span>
 																					</div>
 																				</div>
 																				<div class="row mt-4">
 																					<div class="col-md-10">
 																						<p>이메일</p>
-																						<span class="font-weight-bold mt-3">${list.email}</span>
+																						<span class="font-weight-bold mt-3">${list.EMAIL}</span>
 																					</div>
 																				</div>
 																				<div class="row mt-4">
 																					<div class="col-md-10">
 																						<p>휴대폰번호</p>
-																						<span class="font-weight-bold mt-3">${list.phone}</span>
+																						<span class="font-weight-bold mt-3">${list.PHONE}</span>
 																					</div>
 																				</div>
 																			</div>
@@ -336,32 +305,38 @@ table.table .avatar {
 									</tbody>
 								</table>
 								<div class="clearfix">
-									<div class="hint-text">
-										Showing <b>5</b> out of <b>25</b> entries
-									</div>
-									<ul class="pagination">
-										<li class="page-item disabled">
-											<a href="#">Previous</a>
-										</li>
-										<li class="page-item">
-											<a href="#" class="page-link">1</a>
-										</li>
-										<li class="page-item">
-											<a href="#" class="page-link">2</a>
-										</li>
-										<li class="page-item active">
-											<a href="#" class="page-link">3</a>
-										</li>
-										<li class="page-item">
-											<a href="#" class="page-link">4</a>
-										</li>
-										<li class="page-item">
-											<a href="#" class="page-link">5</a>
-										</li>
-										<li class="page-item">
-											<a href="#" class="page-link">Next</a>
-										</li>
-									</ul>
+									
+								<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
+										  <ul class="pagination" id="pagination">
+										  <c:if test="${page.prev}"> <!-- prev가 true라면 prev 버튼 보여주기 -->
+										    <li class="page-item">
+										      <a class="page-link" href="#" aria-label="Previous">
+										        <span aria-hidden="true">&laquo;</span>
+										        <span class="sr-only">Previous</span>
+										      </a>
+										    </li>
+										    </c:if>
+										    <c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+										    <li class="page-item"><a class="page-link page-btn" href="#">${paging}</a></li>
+										    </c:forEach>
+										    <c:if test="${page.next}">
+										    <li class="page-item">
+										      <a class="page-link" href="#" aria-label="Next">
+										        <span aria-hidden="true">&raquo;</span>
+										        <span class="sr-only">Next</span>
+										      </a>
+										    </li>
+										    </c:if>
+										  </ul>
+										</nav>								
+								<c:set var="criteria" value="${criteria}" />
+								<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+								<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+								<input type="text" value="${criteria.page}" id="oldPage" hidden>
+								<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden> 
+								
+								
 								</div>
 							</div>
 						</div>
@@ -381,7 +356,180 @@ table.table .avatar {
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<script>
-		//검색 조회 ajax
+
+
+
+
+    $('#search_button').click(function() {
+
+		console.log($('#search_input').val());
+		console.log($('#inputState').val());
+
+		var searchType = "";
+		var keyword = $('#search_input').val();
+		if ($('#inputState').val() == 'empno') {
+			searchType = "EMPNO"
+		} else if ($('#inputState').val() == 'head') {
+			searchType = "HEADNAME"
+		} else if ($('#inputState').val() == 'dept') {
+			searchType = "DEPTNAME"
+		} else if ($('#inputState').val() == 'ename') {
+			searchType = "ENAME"
+		}
+
+
+
+		console.log(searchType);
+		console.log(keyword);
+
+		
+		$.ajax({
+			url: "/HRinfo/Emp.do",
+			type: "POST",
+			dataType:  "JSON",
+			data: {
+				searchType: searchType,
+				keyword: keyword
+			},
+			success: (data) => {
+				console.log(data);
+				insertDatabyAjax(data);
+			},error : function(error){
+				console.log(error);
+			}
+		});
+		$('#search_input').val("");
+	}) 
+	
+	$(document).on("click", ".page-btn",function(){
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let perPageNum = $('#oldPerPageNum').val();
+		let page = $(this)[0].text;
+		console.log(page);
+		$.ajax({
+			url: "/HRinfo/Emp.do",
+			type: "POST",
+			dataType:  "JSON",
+			data: {
+				searchType : searchType,
+				keyword : keyword,
+				perPageNum : perPageNum,
+				page : page
+			},
+			success: (data) => {
+				console.log(data);
+				insertDatabyAjax(data);
+			},error : function(error){
+				console.log(error);
+			}
+		})
+	});
+	
+	$(document).on("click", ".page-btn-prev",function(){
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let perPageNum = $('#oldPerPageNum').val();
+		let page = parseInt($('#oldPage').val())-1;
+		console.log(page);
+		$.ajax({
+			url: "/HRinfo/Emp.do",
+			type: "POST",
+			dataType:  "JSON",
+			data: {
+				searchType : searchType,
+				keyword : keyword,
+				perPageNum : perPageNum,
+				page : page
+			},
+			success: (data) => {
+				insertDatabyAjax(data);
+			}
+		})
+	});
+	
+	$(document).on("click", ".page-btn-next",function(){
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let perPageNum = $('#oldPerPageNum').val();
+		let page = parseInt($('#oldPage').val())+1;
+		console.log(page);
+		$.ajax({
+			url: "/HRinfo/Emp.do",
+			type: "POST",
+			dataType:  "JSON",
+			data: {
+				searchType : searchType,
+				keyword : keyword,
+				perPageNum : perPageNum,
+				page : page
+			},
+			success: (data) => {
+				insertDatabyAjax(data);
+			},error : function(error){
+				console.log(error);
+			}
+		})
+	});
+	
+	
+	
+	
+	function insertDatabyAjax(data){
+			console.log(data.criteria);
+			console.log(data.emplist);
+			console.log(data.pagination);
+
+			$('#emptable > tbody').empty();
+			$.each(data.emplist, function(index, emp){
+				$('#emptable').append(
+						"<tr><td><img width='40' src='/resources/img/undraw_profile_1.svg'/></td><td>"+emp.EMPNO+
+						"</td><td>"+emp.ENAME+
+						"</td><td>"+emp.DEPTNAME+
+						"</td><td>"+emp.POSITIONNAME+
+						"</td><td><a href='' data-target='#editEmployeeModal' data-toggle='modal'>보기</a>"+
+						"</td></tr>"
+					);
+			});
+
+			//수정
+			$('#pagination').empty();
+			let inputPaginationData = "";
+			if(data.pagination.prev = "true"){
+				inputPaginationData += "<li class='page-item'>"
+									  +"<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
+									  +"<span aria-hidden='true'>&laquo;</span>"
+									  +"<span class='sr-only'>Previous</span>"
+									  +"</a></li>"
+			}
+			for(let i=data.pagination.startPage; i<=data.pagination.endPage; i++){
+				console.log(i);
+				inputPaginationData += "<li class='page-item'>"
+									 + "<a class='page-link page-btn' href='#'>"
+									 + i
+									 +"</a></li>"
+			}
+			if(data.pagination.next = "true"){
+				inputPaginationData += "<li class='page-item'>"
+									  +"<a class='page-link page-btn-next' href='#' aria-label='Next'>"
+									  +"<span aria-hidden='true'>&laquo;</span>"
+									  +"<span class='sr-only'>Next</span>"
+									  +"</a></li>"
+			}
+			$('#pagination').html(inputPaginationData);
+			
+			
+			$('#oldSearchType').val(data.criteria.searchType);
+			$('#oldKeyword').val(data.criteria.keyword);
+			$('#oldperPageNum').val(data.criteria.perPageNum);
+			$('#oldPage').val(data.criteria.page);	  
+	}
+
+
+
+
+	
+/* 		//검색 조회 ajax
 		$('#search_button').click(function(){
 			var search = $('#search_input').val();
 			console.log(search);
@@ -408,16 +556,7 @@ table.table .avatar {
 										"</td></tr>"
 									);
 							});
-							/* $('#emptable').append(
-								"<tr><td>"+responseData[0].pic+
-								"</td><td>"+responseData[0].empNo+
-								"</td><td>"+responseData[0].ename+
-								"</td><td>"+responseData[0].deptname+
-								"</td><td>"+responseData[0].positionname+
-								"</td></tr>"
-							);  */
-							
-							
+
 						},
 						error : function(error){
 							console.log(error);
@@ -425,10 +564,9 @@ table.table .avatar {
 					} 
 				); 
 			
-		});
+		}); */
 
 
-		
 		
 	</script>
 </body>
