@@ -309,10 +309,10 @@ h6.text-primary>i.fas {
 											<tbody id="inputState_appBody">
 												<c:forEach var="list" items="${applist}">
 													<td>${list.docno}</td>
-													<c:if test="${list.app_Check eq 1 }">
+													<c:if test="${list.app_Check eq 1 || list.app_Check eq 2}">
 														<td>완료</td>
 													</c:if>
-													<c:if test="${list.app_Check eq 0 }">
+													<c:if test="${list.app_Check eq 0 || list.app_Check == null}">
 														<td>대기</td>
 													</c:if>
 													<td>${list.title}</td>

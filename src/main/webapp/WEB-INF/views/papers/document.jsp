@@ -88,6 +88,9 @@
 													<c:if test="${list.app_Check==1}">
 														<img src="/resources/img/approvalStamp.jpg">
 													</c:if>
+													<c:if test="${list.app_Check==2}">
+														<img src="/resources/img/rejected.png">
+													</c:if>
 												</td>
 											</c:forEach>
 										</tr>
@@ -227,7 +230,7 @@ $(function() {
         let app = {
             docno: ${doc.docno},
             empno: ${user.username},
-            app_Check: 0,
+            app_Check: 2,
         };
         if ($(this).val() == 1) {
             app.app_Check = 1;

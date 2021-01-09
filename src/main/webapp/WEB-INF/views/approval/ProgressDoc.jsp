@@ -84,11 +84,13 @@ table.table-striped tbody tr:nth-of-type(odd) {
 table.table-striped.table-hover tbody tr:hover {
 	background: #f5f5f5;
 }
+
 table.table td {
-	text-align:center;
+	text-align: center;
 }
+
 table.table th {
-	text-align:center;
+	text-align: center;
 }
 
 table.table td a {
@@ -181,7 +183,7 @@ table.table .avatar {
 					<div class="card shadow py-4 bg-white my-5">
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>
-							<li class="nav-item"><button class="nav-link doc" value="10" id="app_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">기안 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="10" id="app_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">대기 문서</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="20" id="app_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="30" id="app_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="40" id="app_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
@@ -205,41 +207,66 @@ table.table .avatar {
 												</tr>
 											</thead>
 											<tbody id="appBody">
-											<c:forEach var="list" items="${pagingList}">
-												<tr>
-													<td>${list.docno}</td>
-													<c:if test="${list.app_Check == '1'}">
-														<td>완료</td>
-													</c:if>
-													<c:if test="${list.app_Check=='0'}">
-														<td>대기</td>
-													</c:if>
-													<td>
-														<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
-													</td>
-													<td>${list.ename }</td>
-													<td>${list.typeName}</td>
-													<td>
-														<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
-													</td>
-													<td>
-													<fmt:formatDate value="${list.app_Date}" pattern="yyyy-MM-dd" />
-													</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax=>${list.curr_Approval }/${list.total_Approval }</div>
-														</div>
-													</td>
-												</tr>
+												<c:forEach var="list" items="${pagingList}">
+													<tr>
+														<td>${list.docno}</td>
+														<c:if test="${list.app_check =='1'||list.app_check=='2'}">
+															<td>완료</td>
+														</c:if>
+														<c:if test="${list.app_check=='0'||list.app_check == null}">
+															<td>대기</td>
+														</c:if>
+														<td>
+															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
+														</td>
+														<td>${list.ename }</td>
+														<td>${list.typename}</td>
+														<td>
+															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
+														</td>
+														<td>
+															<fmt:formatDate value="${list.app_date}" pattern="yyyy-MM-dd" />
+														</td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax=>${list.curr_Approval }/${list.total_Approval }</div>
+															</div>
+														</td>
+													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
+										<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
+											<ul class="pagination" id="pagination">
+												<c:if test="${page.prev}">
+													<li class="page-item"><a class="page-link page-btn-prev" href="#" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+														</a></li>
+												</c:if>
+												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+													<li class="page-item"><a class="page-link page-btn" href="#">${paging}</a></li>
+												</c:forEach>
+												<c:if test="${page.next}">
+													<li class="page-item"><a class="page-link page-btn-next" href="#" aria-label="Next">
+															<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+														</a></li>
+												</c:if>
+											</ul>
+										</nav>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<c:set var="criteria" value="${criteria}" />
+				<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+				<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+				<input type="text" value="${criteria.searchType2}" id="oldSearchType2" hidden>
+				<input type="text" value="${criteria.keyword2}" id="oldKeyword2" hidden>
+				<input type="text" value="${criteria.page}" id="oldPage" hidden>
+				<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
@@ -255,70 +282,11 @@ table.table .avatar {
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
-	<script type="text/javascript">
-	//결재할 문서 바뀌는 부분  
-	$('.doc').on("change",function(){
-		let html = '';
-		$.ajax({
-			url:"getArrangedAppList.do",
-			dataType: "json",
-			mehtod:"POST", 
-			contentType: "application/json; charset=utf-8",
-			data:{
-				statusCode:$(this).val()
-				},
-			success:function(data){
-				$('#appBody').empty();
-				console.log(data);
-				$.each(data,(index,item)=>{
-					let time = new Date(item.writedate);
-					let html='<tr><td>'+item.docNo+'</td>';
-					
-					
-						if(item.app_Check == '1') {
-							html+='<td>완료</td>';
-						}else if(item.app_Check=='0'){
-							html+='<td>대기</td>';
-							}
-					
-					html+='<td>'+item.title+'</td>\
-						<td>'+item.ename+'</td>\
-						<td>'+time.getFullYear() + '-' +('0' + (time.getMonth()+1)).slice(-2)+ '-' +  ('0' + time.getDate()).slice(-2) +'</td>\
-						<td>\
-						<div class="progress">\
-						<div class="progress-bar" role="progressbar" aria-valuenow="'+item.curr_Approval +'" aria-valuemin="0" aria-valuemax="'+item.total_Approval +'">'+item.curr_Approval/item.total_Approval+'</div>\
-						</div>\
-						</td>\
-						</tr>';
-					$('#appBody').append(html);
-				});
-				
-			}
-			
-
-			});		
-		
-		console.log(html);
-	});
+	<script src="/resources/js/Approval/progressDoc.js">
+	
 	</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.olive.approval.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
@@ -11,6 +12,7 @@ import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Refference;
 
+import paging.Criteria;
 import paging.PagingDao;
 
 public interface ApprovalDao extends PagingDao{
@@ -32,5 +34,8 @@ public interface ApprovalDao extends PagingDao{
 	public Document viewDocument(String docno,String typeCode);
 	public List<Approver> viewApprovers(String docno);
 	public void approve(Approver app);//승인
-	
+	public List<Map<String, Object>> getList(Criteria cri);
+	public int getAppListCount(Criteria cri);
+	public List<Map<String, Object>> getAppList(Criteria cri);
+
 }

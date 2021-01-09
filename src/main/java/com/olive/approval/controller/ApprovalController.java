@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
@@ -103,21 +104,21 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
-	public String showPersonalDoc(Criteria cri, Principal principal,Model model) {
+	public String showPersonalDoc(ApprovalCriteria cri, Principal principal,Model model) {
 		String empno = principal.getName();
-		cri.setCriteria("getDoc", "docno", "asc");
+		cri.setCriteria("getDoc", "docno", "desc");
 		cri.setSearchType("empno");
 		cri.setKeyword(empno);
-		int totalCount =paging.getListCount(cri);
+		int totalCount =approvalService.getListCount(cri);
 		System.out.println(totalCount);
 		Pagination pagenation = new Pagination(cri,totalCount);
-		List<Map<String,Object>> pagingList = paging.getList(cri);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
 		System.out.println(cri);
-		
+		 
 		List<Document> document = approvalService.getDocument(empno,0,10);
 		System.out.println(approvalService.arrangeDoc(document));
 		
-		model.addAttribute("cri", cri); //이전에 조회 했던 데이터
+		model.addAttribute("criteria", cri); //이전에 조회 했던 데이터
 		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
 		model.addAttribute("pagingList", pagingList); //데이터 결과값 
 		
@@ -125,13 +126,13 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
-	public String showPregressDoc(Criteria cri,Model model, Principal principal) {
+	public String showPregressDoc(ApprovalCriteria cri,Model model, Principal principal) {
 		String empno = principal.getName();
-		cri.setCriteria("getApproverDoc", "docno", "asc");
+		cri.setCriteria("getApproverDoc", "docno", "desc");
 		cri.setSearchType("empno");
 		cri.setKeyword(empno);
 		
-		int totalCount =paging.getListCount(cri);
+		int totalCount =approvalService.getAppListCount(cri);
 		System.out.println(totalCount);
 		Pagination pagenation = new Pagination(cri,totalCount);
 		List<Map<String,Object>> pagingList = paging.getList(cri);
@@ -140,7 +141,7 @@ public class ApprovalController {
 		List<Document> document = approvalService.getDocument(empno,0,10);
 		System.out.println(approvalService.arrangeDoc(document));
 		
-		model.addAttribute("cri", cri); //이전에 조회 했던 데이터
+		model.addAttribute("criteria", cri); //이전에 조회 했던 데이터
 		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
 		model.addAttribute("pagingList", pagingList); //데이터 결과값 
 		

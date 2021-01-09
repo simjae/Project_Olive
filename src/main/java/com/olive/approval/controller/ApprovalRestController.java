@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class ApprovalRestController {
 	
 	@RequestMapping(value="/getArrangedDocList.do")
 	private Map<String,Object> getArrangedDocList(String statusCode,String size,Principal principal,ApprovalCriteria cri) {
-		cri.setCriteria("getArrangedDoc", "docno", "asc");
+		cri.setCriteria("getDoc", "docno", "desc");
 		cri.setSearchType("empno");
 		cri.setKeyword(principal.getName());
 		cri.setSearchType2("statusCode");
@@ -68,19 +69,73 @@ public class ApprovalRestController {
 		List<Map<String,Object>> pagingList = approvalService.getList(cri);
 		
 		Map<String,Object>  list = new HashMap<String,Object>();
-		list.put("cri", cri);
+		list.put("criteria", cri);
 		list.put("pagination",pagenation);
 		list.put("pagingList", pagingList);
 		
 		return list;
 	}
 	
+	@RequestMapping(value="/getArrangedDocListAjax.do")
+	private JSONObject getArrangedDocList(ApprovalCriteria cri) {
+		cri.setCriteria("getDoc", "docno", "desc");
+		
+		int totalCount =approvalService.getListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagenation);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pagingList", pagingList);
+		jsonObject.put("pagination", pagenation);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;
+	}
+	
 	@RequestMapping(value="/getArrangedAppList.do")
-	private List<Approver> getArrangedAppList(String statusCode,Principal principal) {
+	private Map<String,Object> getArrangedAppList(String statusCode,Principal principal, ApprovalCriteria cri) {
+		cri.setCriteria("getApproverDoc", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(principal.getName());
+		cri.setSearchType2("statusCode");
+		cri.setKeyword2(statusCode);
+		System.out.println("getArrangedAppList");
 		
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagination = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagination);
+		List<Map<String,Object>> pagingList = approvalService.getAppList(cri);
 		
+		Map<String,Object>  list = new HashMap<String,Object>();
+		list.put("criteria", cri);
+		list.put("pagination",pagination);
+		list.put("pagingList", pagingList);
 		
-		return approvalService.getArrangedAppList(statusCode,principal);
+		return list;
+	}
+	@RequestMapping(value="/getArrangedAppListAjax.do", method = RequestMethod.POST)
+	private JSONObject getArrangedAppList(ApprovalCriteria cri) {
+		cri.setCriteria("getApproverDoc", "docno", "desc");
+		System.out.println("getArrangedAppListAjax");
+		
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagenation);
+		List<Map<String,Object>> pagingList= approvalService.getAppList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pagingList", pagingList);
+		jsonObject.put("pagination", pagenation);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;
 	}
 	
 	
@@ -90,6 +145,8 @@ public class ApprovalRestController {
 		approvalService.approve(app);
 		return "/approval/ProgressDoc.do";
 	}
+	
+
 
 
 }

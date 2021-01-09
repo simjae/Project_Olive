@@ -54,7 +54,7 @@ public class ApprovalService {
 		List<Document> document = approvalDao.getDocumentRec(empno, start, size);
 
 		return document;
-	}
+	} 
 
 	// 내가 기안한 문서 분류하기 (카운트용)
 	public Map arrangeDoc(List<Document> document) {
@@ -81,7 +81,7 @@ public class ApprovalService {
 
 		return arrangedDoc;
 	}
-
+ 
 	// 내가 결재자인 문서 분류
 	public Map arrangedAppDoc(List<Approver> approver) {
 		Map<String, List<Approver>> arrangedAppDoc = new HashMap();
@@ -246,10 +246,21 @@ public class ApprovalService {
 		return approvalDao.getListCount(cri);
 	}	
 	
+	public int getAppListCount(Criteria cri) {
+		System.out.println("getListCount 서비스 시작");
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getAppListCount(cri);
+	}	
+	
 	public List<Map<String, Object>> getList(Criteria cri) {
 		System.out.println("getList 서비스 시작");
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getList(cri);
+	}
+	public List<Map<String, Object>> getAppList(Criteria cri) {
+		System.out.println("getAppList 서비스 시작");
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getAppList(cri);
 	}
 	
 }
