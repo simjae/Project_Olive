@@ -122,7 +122,7 @@
 		<sec:authentication property="name" var="LoginUser" />
 		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<span class="mr-2 d-none d-lg-inline text-gray-600 small" id="empinfo"> ${LoginUser } </span>
+				<span class="mr-2 d-none d-lg-inline text-gray-600 small" id="empinfo"> </span>
 				<img class="img-profile rounded-circle" src="/resources/img/undraw_profile.svg">
 			</a> <!-- Dropdown - User Information -->
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -145,25 +145,53 @@
 <!-- End of Topbar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
- $.noConflict();
- var jb= jQuery;
-jb(document).ready(function() {
-	let empno = ${LoginUser};
-	console.log(empno);
-jb.ajax({
-	url:"/HRinfo/searchByEmpno.do",
-	type:"POST",
-	dataType:"JSON",
-	contentType: "application/json; charset=utf-8",
-	data:{
-		empno:empno
-		},
-	success:function(data){
-		console.log(data)
+function connect(){
+	websocket = new WebSocket('ws://localhost:8090/alarm.do');
+	websocket.onopen =(evt) =>{
 		
-		}
+	};
+
+	websocket.onclose =(evt) =>{
+	}; 
 	
-})
+	websocket.onmessage=(evt)=>{
+		writeMsg(evt);
+	}
+	
+}
+function writeMsg(evt){
+	let html = evt.data;
+	console.log(html);
+}
+
+function disconnect(){
+	websocket.close();
+}
+
+$.noConflict();
+var jb= jQuery;
+jb(document).ready(function() {
+	var empno = ${LoginUser}+"";
+	console.log(empno);
+	jb.ajax({
+		url:"/HRinfo/searchByEmpno.do",
+		type:"POST",
+		data:{empno:empno},
+		success:function(data){
+			console.log(data);
+			html=data.ENAME+' ('+data.DEPTNAME+') '+data.POSITIONNAME;
+			jb('#empinfo').append(html);
+			
+			}
+		
+	});
+
+	connect();
+	
+
+
+
+
 	
 })
 	
