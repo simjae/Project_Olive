@@ -88,8 +88,6 @@ p.each-label>span {
 </style>
 </head>
 <body id="page-top">
-
-
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar 모듈화 -->
@@ -128,8 +126,9 @@ p.each-label>span {
 											<div class="mb-3">
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
-													<input type="button" class="btn btn-info" value="다운로드">
-													&nbsp;&nbsp;&nbsp;&nbsp; <select class="select"
+													<input type="button" class="btn btn-info" id="excelBtn" value="다운로드">
+													&nbsp;&nbsp;&nbsp;&nbsp; 
+													<select class="select"
 														id="newSearchType">
 														<option selected>사번</option>
 														<option>이름</option>
@@ -364,10 +363,9 @@ p.each-label>span {
 	<script src="/resources/js/Hr_management/validationBeforeInsert.js"></script>
 	<!-- SearchAndPaging -->
 	<script src="/resources/js/Hr_management/searchAndPaging.js"></script>
+	<!-- downloadToExcel -->
+	<script src="/resources/js/Hr_management/downloadToExcel.js"></script>
 	<!-- SweetAlert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script>
-	
-	</script>
 </body>
 </html>

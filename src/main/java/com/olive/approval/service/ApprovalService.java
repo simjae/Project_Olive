@@ -13,10 +13,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
+import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
@@ -25,6 +25,9 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Refference;
+
+import paging.Criteria;
+import paging.PagingDao;
 
 @Service
 public class ApprovalService {
@@ -158,10 +161,15 @@ public class ApprovalService {
 		}
 
 		doc.setFilename(filename);
-		
+		int i=0;
 		// 결재자 추가
-
-		System.out.println(doc.getApprovers());
+		for(String app : doc.getApprovers()) {
+			if(!app.equals("")) {
+				i++;
+			}
+		}
+		doc.setTotal_Approval(i);
+		System.out.println(doc.getTotal_Approval());
 		System.out.println(doc.getReferrers());
 		
 		
@@ -189,7 +197,8 @@ public class ApprovalService {
 	// 전자결재 메인페이지에서 결재상태 비동기용 , 개인 문서함
 	public List<Document> getArrangedDocList(String statusCode, Principal principal) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
-
+	
+		
 		return approvalDao.getArrangedDocList(statusCode, principal.getName());
 	}
 
@@ -230,5 +239,17 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
 	}
-
+	
+	public int getListCount(Criteria cri) {
+		System.out.println("getListCount 서비스 시작");
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getListCount(cri);
+	}	
+	
+	public List<Map<String, Object>> getList(Criteria cri) {
+		System.out.println("getList 서비스 시작");
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getList(cri);
+	}
+	
 }

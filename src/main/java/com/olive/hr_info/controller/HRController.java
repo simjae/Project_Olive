@@ -89,7 +89,6 @@ public class HRController {
 		return "HRinfo/Emp";
 	}
 	
-	////////////////////////////////
 	//조직도 본부 단위 (default) //미완성
 	@RequestMapping(value="Organization_chart.do", method=RequestMethod.GET)
 	public String showOrg(Model model) {
