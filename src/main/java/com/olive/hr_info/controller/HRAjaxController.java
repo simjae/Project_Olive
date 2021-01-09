@@ -61,18 +61,14 @@ public class HRAjaxController {
 		return jsonObject;		
 	}
 	
-	
-	//사원 조건 조회
-	@RequestMapping(value="searchByEmpno.do")
-	public Emp searchEmp(String empno){
-		empService.searchEmpByEmpno(empno);
+
+	//사원 사번 조회 //일단 모달창 전용으로 
+	@RequestMapping(value="searchByEmpno.do", method = RequestMethod.POST)
+	public Map<String, Object> searchEmpByEmpno(String empno){
 		System.out.println(empno);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("param1", param1);
-//		map.put("param2", param2);
-//		System.out.println(map);
-//		List<EmpTest> list = empService.searchEmp(map);
-		return empService.searchEmpByEmpno(empno);
+		Map<String, Object> emp = empService.searchEmpByEmpno(empno);
+		System.out.println("얘 뽑은거임"+emp);
+		return emp;
 	}
 	
 	//조직도 부서별 조회
