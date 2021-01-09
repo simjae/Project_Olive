@@ -54,7 +54,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
+						<h1 class="h3 mb-0 text-gray-800">사용자 이름 들어감 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -72,8 +72,8 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												입사일로부터 지금까지</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+												이번달 </div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">근무가 52기준으로 출근 시간   %보여주기</div>
 
 										</div>
 										<div class="col-auto">
@@ -94,7 +94,6 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
 											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
-											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
 
 										</div>
 										<div class="col-auto">
@@ -111,13 +110,13 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">
-												오늘</div>
+										<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<span class="h5 font-weight-bold text-gray-800">지각:8일</span>
+											
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일
-														근무중</div>
 
 												</div>
 
