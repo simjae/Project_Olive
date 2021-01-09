@@ -11,7 +11,7 @@
 	</select>
 	<!--내가 기안한 문서 가지고 오는거-->
 	<select id="getDocument" resultType="com.olive.dto.Document">
-		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , ds.statusname,dt.typename,e.ename,d.empno
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , ds.statusname,dt.typename,e.ename,d.empno,d.filename
 		from document d join doc_status ds join doc_type dt join emp e 
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
 		where d.empno = #{empno}
@@ -27,13 +27,13 @@
 			<!--문서 번호로 문서 가지고 오는거-->
 	<select id="viewDocument" resultType="com.olive.dto.Document">
 		<if test='param2 eq "10"'> 
-		select d.docno, d.writedate,d.empno, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename
+		select d.docno, d.writedate,d.empno, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,d.filename
 		from document d join doc_status ds join doc_type dt join emp e 
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno 
 		where d.docno = ${param1}
 		</if>
 		<if test='param2 != "10"'>
-		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,da.startdate,da.enddate 
+		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,da.startdate,da.enddate,d.filename 
 		from document d join doc_status ds join doc_type dt join emp e join doc_add da
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno and da.document_docno=d.docno
 		where d.docno = ${param1}

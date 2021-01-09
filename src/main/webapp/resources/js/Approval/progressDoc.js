@@ -1,5 +1,5 @@
 /**
-  파일명: searchAndPaging.js
+  파일명: progressDoc.js
   설명: 문서 결재 함  
   작성일: 2021-01-08    
   작성자: 박선우 
@@ -20,7 +20,7 @@ $(function(){
 							}else{
 								html+='<td>완료</td>';
 								}
-					html+='<td><a href="viewDocument.do?docno='+item.docno+'&typecode='+item.typeCode+' name="document">'+item.title+'</a>\
+					html+='<td><a href="viewDocument.do?docno='+item.docno+'&typeCode='+item.typeCode+'" name="document">'+item.title+'</a>\
 					</td>\
 						<td>'+item.ename+'</td>\
 						<td>'+item.typename+'</td>\

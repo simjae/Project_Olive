@@ -23,7 +23,7 @@
 <meta name="author" content="">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
-<jsp:include page="../inc/HeadLink.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
 
 /* 채연 */
@@ -112,13 +112,13 @@ h6.text-primary>i.fas {
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar 모듈화 -->
-		<jsp:include page="../inc/Sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/inc/Sidebar.jsp"></jsp:include>
 		<!-- End Of Sidebar 모듈화 -->
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
 			<div id="content">
-				<jsp:include page="../inc/Topbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->

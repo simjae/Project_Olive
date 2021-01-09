@@ -1,13 +1,18 @@
 package com.olive.approval.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
-import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
@@ -27,7 +31,6 @@ import com.olive.dto.Head;
 import com.olive.dto.Refference;
 
 import paging.Criteria;
-import paging.PagingDao;
 
 @Service
 public class ApprovalService {
@@ -262,5 +265,7 @@ public class ApprovalService {
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getAppList(cri);
 	}
+	
+	
 	
 }

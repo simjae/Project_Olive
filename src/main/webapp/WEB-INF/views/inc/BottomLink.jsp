@@ -25,3 +25,5 @@
 
 <!-- Activate anchor links on each page's Sidebar -->
 <script src="/resources/js/activateanchor.js"></script>
+<script src="/resources/js/startWork.js"></script>
+<script src="/resources/js/alarm.js"></script>

@@ -1,15 +1,23 @@
 package com.olive.approval.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
@@ -146,6 +154,56 @@ public class ApprovalRestController {
 		return "/approval/ProgressDoc.do";
 	}
 	
+	@RequestMapping(value="/download.do")
+	private void download(@RequestParam String filename,HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(filename+"은 파일이름 ㅓ냐얼냐ㅐ어랴");
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		
+	    //물리적 경로 얻기
+	    String downloadpath = request.getServletContext().getRealPath("/resources/upload");
+	    String FilePath = downloadpath + "/" + filename;
+	    //IO작업 하기
+	    File file = new File(FilePath);
+	    System.out.println(FilePath);
+	    //파일을 읽어서 출력
+	    byte[] b = new byte[10000000]; //4kb  //요기는 필요에 따라 조정 가능
+	    FileInputStream in;
+	    ServletOutputStream out2;
+		try {
+			in = new FileInputStream(file);
+			String sMimeType = request.getServletContext().getMimeType(FilePath); //파일의 타입 정보
+			System.out.println(sMimeType);
+			if(sMimeType == null){
+				sMimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(sMimeType);
+			
+			response.setHeader("Content-Disposition", 
+					"attachment;filename="+new String(filename.getBytes(),"ISO8859_1"));   //filename.getBytes(),"ISO8859_1")
+			out2 = response.getOutputStream();
+			int numread;
+			
+			while((numread = in.read(b,0,b.length)) != -1){
+				out2.write(b,0,numread);
+			}
+			
+			out2.flush();
+			out2.close();
+			in.close(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+	}
 
 
 

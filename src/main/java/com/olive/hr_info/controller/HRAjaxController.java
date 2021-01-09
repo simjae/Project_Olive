@@ -61,19 +61,19 @@ public class HRAjaxController {
 		return jsonObject;		
 	}
 	
-//	
-//	//사원 조건 조회
-//	@RequestMapping(value="searchByEmpno.do")
-//	public List<EmpTest> searchEmp(String param1, String param2){
-//		System.out.println(param1);
-//		System.out.println(param2);
+	
+	//사원 조건 조회
+	@RequestMapping(value="searchByEmpno.do")
+	public Emp searchEmp(String empno){
+		empService.searchEmpByEmpno(empno);
+		System.out.println(empno);
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		map.put("param1", param1);
 //		map.put("param2", param2);
 //		System.out.println(map);
 //		List<EmpTest> list = empService.searchEmp(map);
-//		return list;
-//	}
+		return empService.searchEmpByEmpno(empno);
+	}
 	
 	//조직도 부서별 조회
 	@RequestMapping(value="showOrgbyDept.do")
