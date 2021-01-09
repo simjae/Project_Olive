@@ -98,13 +98,13 @@ public class HRController {
 		return "HRinfo/Organization_chart";
 	}
 	
-	//마이페이지
+	//마이페이지 처음 보여줄 때
 	@RequestMapping(value="EditMyinfo.do", method=RequestMethod.GET)
 	public String editMyinfo(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		System.out.println(username);
-		Emp emp = empService.searchEmpByEmpno(username);
+		Map<String, Object> emp = empService.searchEmpByEmpno(username);
 		System.out.println(emp);
 		model.addAttribute("emp", emp);
 		return "HRinfo/EditMyinfo";
@@ -116,12 +116,10 @@ public class HRController {
 	public String updateMyInfo(Emp emp, HttpServletRequest request) {
 		System.out.println("수정할고야");
 		System.out.println(emp);
-		
 		emp.setPwd(this.bCryptPasswordEncoder.encode(emp.getPwd()));
 		
-		
 		empService.updateMyInfo(emp, request);
-		return "HRinfo/EditMyinfo";
+		return "redirect:/HRinfo/EditMyinfo.do";
 			
 	}
 	

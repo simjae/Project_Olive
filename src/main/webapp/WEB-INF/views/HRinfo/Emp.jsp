@@ -6,7 +6,7 @@
  -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -15,7 +15,8 @@
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Emp</title>
@@ -192,17 +193,19 @@ table.table .avatar {
 							</div>
 							<form class="col-md-3 d-none d-sm-inline-block ">
 								<div class="input-group">
-									<input  id="search_input" type="text" class="form-control border-0 small" placeholder="검색어를 입력해주세요" aria-label="Search"
-										aria-describedby="basic-addon2">
+									<input id="search_input" type="text"
+										class="form-control border-0 small" placeholder="검색어를 입력해주세요"
+										aria-label="Search" aria-describedby="basic-addon2">
 									<div class="input-group-append">
-										<button id="search_button" class="btn btn-primary" type="button">
+										<button id="search_button" class="btn btn-primary"
+											type="button">
 											<i class="fas fa-search fa-sm"></i>
 										</button>
 									</div>
 								</div>
 							</form>
 						</div>
-						<div class="table-responsive">
+						<div class="table-responsive text-center">
 							<div class="table-wrapper">
 								<table id="emptable" class="table table-striped table-hover">
 									<thead>
@@ -216,127 +219,126 @@ table.table .avatar {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${emplist}" varStatus="vs">
-										<tr>
+										<c:forEach var="list" items="${emplist}">
+											<tr>
 
-											<td>
-												<img src="/resources/img/undraw_profile_1.svg" width="40">
-											</td>
-											<td>${list.EMPNO}</td>
-											<td>${list.ENAME}</td>
-											<td>${list.DEPTNAME}</td>
-											<td>${list.POSITIONNAME}</td>
-											<td>
-												<a href="" data-target="#editEmployeeModal${vs.index}" data-toggle="modal" >보기</a>
-											</td>
-											
-											
-												<!-- Edit Modal HTML -->
-												<div id="editEmployeeModal${vs.index}" class="modal fade">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<form>
-																<div class="modal-header">
-																	<h4 class="modal-title">사원정보</h4>
-																	<button type="button" class="close"
-																		data-dismiss="modal" aria-hidden="true">&times;</button>
-																</div>
-																<div class="modal-body">
-																	<div class="row justify-content-center">
-																		<div class="col-md-5 border-right">
-																			<div
-																				class="d-flex flex-column align-items-center text-center p-3 py-5">
-																				<img class="mt-5" src="/resources/img/undraw_profile.svg" width="90">
-																				<span class="font-weight-bold mt-3">${list.EMPNO}</span>
-																				<span class="font-weight-bold mt-3">${list.ENAME}</span>
-																			</div>
-																		</div>
-																		<div class="col-md-7 scroll">
-																			<div class="p-5">
-																				<div class="row mt-3">
-																					<div class="col-md-10">
-																						<p>사번</p>
-																						<span class="font-weight-bold mt-3">${list.EMPNO}</span>
-																					</div>
-																				</div>
-																				<div class="row mt-4">
-																					<div class="col-md-10">
-																						<p>이름</p>
-																						<span class="font-weight-bold mt-3">${list.ENAME}</span>
-																					</div>
-																				</div>
-																				<div class="row mt-4">
-																					<div class="col-md-10">
-																						<p>본부</p>
-																						<span class="font-weight-bold mt-3">${list.HEADNAME}</span>
-																					</div>
-																				</div>
-																				<div class="row mt-4">
-																					<div class="col-md-10">
-																						<p>부서</p>
-																						<span class="font-weight-bold mt-3">${list.DEPTNAME}팀 : ${list.POSITIONNAME}</span>
-																					</div>
-																				</div>
-																				<div class="row mt-4">
-																					<div class="col-md-10">
-																						<p>이메일</p>
-																						<span class="font-weight-bold mt-3">${list.EMAIL}</span>
-																					</div>
-																				</div>
-																				<div class="row mt-4">
-																					<div class="col-md-10">
-																						<p>휴대폰번호</p>
-																						<span class="font-weight-bold mt-3">${list.PHONE}</span>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-
-																</div>
-																<div class="modal-footer"></div>
-															</form>
-														</div>
-													</div>
-												</div>
+												<td><img src="/resources/img/undraw_profile_1.svg"
+													width="40"></td>
+												<td>${list.EMPNO}</td>
+												<td>${list.ENAME}</td>
+												<td>${list.DEPTNAME}</td>
+												<td>${list.POSITIONNAME}</td>
+												<td><button id="openEmpModal">보기</button></td>
 											</tr>
-										</c:forEach> 
-
+										</c:forEach>
 									</tbody>
 								</table>
 								<div class="clearfix">
-									
-								<c:set var="page" value="${pagination}"></c:set>
-										<nav aria-label="Page navigation example">
-										  <ul class="pagination" id="pagination">
-										  <c:if test="${page.prev}"> <!-- prev가 true라면 prev 버튼 보여주기 -->
-										    <li class="page-item">
-										      <a class="page-link" href="#" aria-label="Previous">
-										        <span aria-hidden="true">&laquo;</span>
-										        <span class="sr-only">Previous</span>
-										      </a>
-										    </li>
-										    </c:if>
-										    <c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
-										    <li class="page-item"><a class="page-link page-btn" href="#">${paging}</a></li>
-										    </c:forEach>
-										    <c:if test="${page.next}">
-										    <li class="page-item">
-										      <a class="page-link" href="#" aria-label="Next">
-										        <span aria-hidden="true">&raquo;</span>
-										        <span class="sr-only">Next</span>
-										      </a>
-										    </li>
-										    </c:if>
-										  </ul>
-										</nav>								
-								<c:set var="criteria" value="${criteria}" />
-								<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
-								<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
-								<input type="text" value="${criteria.page}" id="oldPage" hidden>
-								<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden> 
-								
-								
+
+									<!-- Edit Modal HTML -->
+									<div id="EmpModal" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<form>
+													<div class="modal-header">
+														<h4 class="modal-title">사원정보</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														<div class="row justify-content-center">
+															<div class="col-md-5 border-right">
+																<div
+																	class="d-flex flex-column align-items-center text-center p-3 py-5">
+																	<img class="mt-5"
+																		src="/resources/img/undraw_profile.svg" width="90">
+																	<span class="font-weight-bold mt-3">${list.EMPNO}</span>
+																	<span class="font-weight-bold mt-3">${list.ENAME}</span>
+																</div>
+															</div>
+															<div class="col-md-7 scroll">
+																<div class="p-5">
+																	<div class="row mt-3">
+																		<div class="col-md-10">
+																			<p>사번</p>
+																			<span class="font-weight-bold mt-3">${list.EMPNO}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>이름</p>
+																			<span class="font-weight-bold mt-3">${list.ENAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>본부</p>
+																			<span class="font-weight-bold mt-3">${list.HEADNAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>부서</p>
+																			<span class="font-weight-bold mt-3">${list.DEPTNAME}팀
+																				: ${list.POSITIONNAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>이메일</p>
+																			<span class="font-weight-bold mt-3">${list.EMAIL}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>휴대폰번호</p>
+																			<span class="font-weight-bold mt-3">${list.PHONE}</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+													<div class="modal-footer"></div>
+												</form>
+											</div>
+										</div>
+									</div>
+
+
+									<c:set var="page" value="${pagination}"></c:set>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination" id="pagination">
+											<c:if test="${page.prev}">
+												<!-- prev가 true라면 prev 버튼 보여주기 -->
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+														<span class="sr-only">Previous</span>
+												</a></li>
+											</c:if>
+											<c:forEach var="paging" begin="${page.startPage}"
+												end="${page.endPage}">
+												<li class="page-item"><a class="page-link page-btn"
+													href="#">${paging}</a></li>
+											</c:forEach>
+											<c:if test="${page.next}">
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+														<span class="sr-only">Next</span>
+												</a></li>
+											</c:if>
+										</ul>
+									</nav>
+									<c:set var="criteria" value="${criteria}" />
+									<input type="text" value="${criteria.searchType}"
+										id="oldSearchType" hidden> <input type="text"
+										value="${criteria.keyword}" id="oldKeyword" hidden> <input
+										type="text" value="${criteria.page}" id="oldPage" hidden>
+									<input type="text" value="${criteria.perPageNum}"
+										id="oldPerPageNum" hidden>
+
+
 								</div>
 							</div>
 						</div>
@@ -357,8 +359,53 @@ table.table .avatar {
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<script>
 
+	/* 모달 */
+	$(document).ready(function(){
+		  $("#emptable tr").click(function(){
+		    $("#EmpModal").modal();
+		    var tr = $(this);
+			var td = tr.children();
 
+			var empno = td.eq(1).text();
+			console.log(empno);
+			console.log("왜 또 ...");
 
+			$.ajax(
+					{
+						type : "POST",
+						url	 : "/HRinfo/searchByEmpno.do",
+						data : {empno:empno},
+						success: (data) => {
+							console.log(data);
+							console.log(data.EMPNO);
+							console.log(data.ENAME);
+							console.log(data.HEADNAME);
+							console.log(data.DEPTNAME);
+							console.log(data.ENAME);
+							console.log(data.ENAME);
+							console.log(data.ADDRESS);
+							console.log(data.PHONE);
+							
+							/* $('#emptable > tbody').empty();
+							$.each(responseData, function(index, emp){
+								$('#emptable').append(
+										"<tr><td>"+emp.pic+
+										"</td><td>"+emp.empNo+
+										"</td><td>"+emp.ename+
+										"</td><td>"+emp.deptname+
+										"</td><td>"+emp.positionname+
+										"</td></tr>"
+									);
+							}); */
+						},
+						error : function(error){
+							console.log(error);
+						}
+					} 
+				);  
+		  });
+		});
+	
 
     $('#search_button').click(function() {
 
@@ -482,14 +529,17 @@ table.table .avatar {
 
 			$('#emptable > tbody').empty();
 			$.each(data.emplist, function(index, emp){
+				
 				$('#emptable').append(
 						"<tr><td><img width='40' src='/resources/img/undraw_profile_1.svg'/></td><td>"+emp.EMPNO+
 						"</td><td>"+emp.ENAME+
 						"</td><td>"+emp.DEPTNAME+
 						"</td><td>"+emp.POSITIONNAME+
-						"</td><td><a href='' data-target='#editEmployeeModal' data-toggle='modal'>보기</a>"+
+						"</td><td><a href='' id='openEmpModal'>보기</a>"+
 						"</td></tr>"
 					);
+		
+				
 			});
 
 			//수정
