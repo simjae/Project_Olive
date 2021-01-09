@@ -49,11 +49,13 @@ public class Hr_infoService {
 			return emplist;
 		}
 	   
-	   //Emp 사번으로 검색
-	   public Emp searchEmpByEmpno(String empno){
+	   //Emp 사번으로 검색 //Mypage에 일단 쓰는중 //modal에도 쓸거임
+	   //수정 >> empinfo로 가져올 것
+	   public Map<String, Object> searchEmpByEmpno(String empno){
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		   Emp emp = dao.searchEmpByEmpno(empno);
-		   //System.out.println(emp);
+		   Map<String, Object> emp = dao.searchEmpByEmpno(empno);
+		   System.out.println("Mypage 수정중 ...");
+		   System.out.println(emp);
 		   return emp;
 	   }
 	   
