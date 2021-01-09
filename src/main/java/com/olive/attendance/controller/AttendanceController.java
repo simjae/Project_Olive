@@ -28,20 +28,11 @@ public class AttendanceController {
 	@Autowired
 	private PagingService pagingService;
 
-	
-	@RequestMapping("attendanceHome.do")
-	public String attendanceHome() {
-		return "attendance/attendanceHome";
-	}
 	@RequestMapping("annual.do")
-	public String annual() {
+	public String mannual() {
 		return "attendance/Annual";
 	}
-	@RequestMapping("mannual.do")
-	public String mannual() {
-		return "attendance/M_annual";
-	}
-	@RequestMapping(value ="mattendance.do", method = RequestMethod.GET)
+	@RequestMapping(value ="attendance.do", method = RequestMethod.GET)
 	public String mattendance(Model model, Criteria cri) {
 		  System.out.println("cri 값 초기화 전"+cri);
 		  cri.setCriteria("rectable", "empno", "desc");
@@ -57,7 +48,7 @@ public class AttendanceController {
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("criteria", cri);
 		
-		return "attendance/M_attendance";
+		return "attendance/Attendance";
 	}
 	
 

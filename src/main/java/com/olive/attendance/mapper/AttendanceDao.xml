@@ -17,23 +17,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select> -->
 <!-- 근태관리  캘린더 테스트  -->
 	 <select id="gettableList" resultType="com.olive.dto.Att_Record">
-		select a.attname as title , ar.starttime as start, ar.endtime as end,color FROM Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE where empno = #{empno};
+		select a.attname as title , ar.starttime as start, ar.endtime as end,color FROM Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE where empno = #{empno}
+	 </select>
+<!-- 근태관리  출근 일수   -->
+	 <select id="-" resultType="com.olive.dto.Att_Record">
+		select * from ATT_RECORD where empno =#{empno} and attcode = 10;
+	 </select>
+<!-- 근태관리  지각  일수   -->
+	 <select id="-" resultType="com.olive.dto.Att_Record">
+		select * from ATT_RECORD where empno =#{empno} and attcode = 20;
 	 </select>
 	 
  <!-- 출근버튼 -->
  	<update id="startwork" parameterType ="com.olive.dto.Att_Record">	 
-		update ATT_RECORD  set attcode = #{attCode}, starttime = now() where  empno = #{empNo} 
+		update ATT_RECORD  set attcode = #{attCode}, starttime = now() where date_format(date, '%Y-%m-%d')=curdate() and empno = #{empNo} 
 	</update> 
  <!-- 퇴근버튼 -->
  	<update id="endwork" parameterType ="com.olive.dto.Att_Record">	 
-		update ATT_RECORD  set attcode = #{attCode}, endtime = now() where  empno = #{empNo} 
+		update ATT_RECORD  set attcode = #{attCode}, endtime = now() where date_format(date, '%Y-%m-%d')=curdate() and empno = #{empNo} 
 	</update> 
 <!-- 출/퇴근 select -->
 	<select id="getcalendarList" resultType="com.olive.dto.Att_Record">
-	select e.ename, e.empno, d.deptname, r.starttime, r.endtime 
+	select e.ename, e.empno as empNo, d.deptname, r.starttime, r.endtime,r.date 
 	from emp as e join att_record as r on e.empno = r.empno 
 	join dept as d on e.deptCode = d.deptCode
-	where e.empno = #{empno};
+	where e.empno = #{empno}
 	</select>
 	
 </mapper>
