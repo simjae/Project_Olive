@@ -143,19 +143,24 @@
 	</ul>
 </nav>
 <!-- End of Topbar -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
  $.noConflict();
  var jb= jQuery;
 jb(document).ready(function() {
+	let empno = ${LoginUser};
+	console.log(empno);
 jb.ajax({
 	url:"/HRinfo/searchByEmpno.do",
+	type:"POST",
+	dataType:"JSON",
+	contentType: "application/json; charset=utf-8",
 	data:{
-		empno:${LoginUser}
+		empno:empno
 		},
 	success:function(data){
-		console.log(data);
+		console.log(data)
+		
 		}
 	
 })
