@@ -46,6 +46,16 @@
 					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">급여명세서</h1>
 
 					<div class="row justify-content-end mx-5">
+						<div class="input-group col-mb-3">
+							<form id="uploadForm" method="post" enctype="multipart/form-data">
+								<input type="file" class="" id="fileInput" name="fileInput">
+								<button type="button" onclick="uploadProcess()">submit</button>
+							</form>
+						</div>
+
+						<div class=" col-md-1">
+								<input type="button" class="form-control btn btn-info" value="양식 다운">
+						</div>
 
 						<div class="form-group col-md-2">
 							<select id="inputState" class="form-control">
@@ -58,7 +68,7 @@
 							</select>
 						</div>
 					</div>
-					
+
 					<c:set var="criteria" value="${criteria}" />
 						<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
 						<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
@@ -147,6 +157,23 @@
 	        var top = Math.ceil((window.screen.height - windowH)/2);
 			window.open("${pageContext.request.contextPath}/HR_management/SalaryDetail.do?date=2020-11-10&empno=1001","_blank","top="+top+", left="+left+", height="+windowH+", width="+windowW+"resizable=no");
 		});
+	</script>
+	
+	<script>
+    function uploadProcess(){
+        var file = new FormData(document.getElementById('uploadForm'));
+        console.log(file);
+         $.ajax({
+            url: "/HR_management/uploadExcelFile.do",
+			dataTpye:"json",
+            data: file,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function(data){
+            }
+        })
+    }	
 	</script>
 </body>
 

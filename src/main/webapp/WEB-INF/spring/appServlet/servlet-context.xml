@@ -28,8 +28,6 @@
 		<beans:property name="order" value="1" />
 	</beans:bean>
 
-	<!-- for BeanNameViewResolver -->
-	<beans:bean id="empTableToExcel"	class="com.olive.utils.EmpTableToExcel" />
 
 	<!-- ViewResolver -->
 	<beans:bean
@@ -37,7 +35,9 @@
 		<beans:property name="order" value="0" />
 	</beans:bean>
 
-
+	<!-- for BeanNameViewResolver -->
+	<beans:bean id="empTableToExcel"	class="com.olive.utils.EmpTableToExcel" />
+	
 	<!-- Transaction 관련 Bean 객체생성 & Injection 작업 -->
    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<beans:property name="dataSource" ref="driverManagerDataSource" /> 

@@ -11,6 +11,7 @@
 package com.olive.hr_management.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
@@ -66,11 +69,26 @@ public class Hr_ManagementController {
 	@RequestMapping(value ="SalaryDetail.do", method = RequestMethod.GET)
 	public String getSalaryDetail(Model model, String date, int empno) {
 		SalaryInfo salaryInfo = service.getSalaryDetail(date, empno);
-//		salaryInfo.conversionFormality();
-//		System.out.println(salaryInfo);
+		salaryInfo.conversionFormality();
+		System.out.println(salaryInfo);
 		model.addAttribute("salaryInfo", salaryInfo);
 		return "HRinfo/salaryDetail";
 	}
+	
+	//Excel File convert JSON
+	 @RequestMapping(value = "uploadExcelFile.do", method = RequestMethod.POST)
+	 public String uploadExcelFile(MultipartHttpServletRequest request, Model model) {
+		 System.out.println("컨트롤러 진입");
+		 MultipartFile file = null;
+		 Iterator<String> iterator = request.getFileNames();
+		 if(iterator.hasNext()) {
+			 file = request.getFile(iterator.next());
+			 System.out.println(file);
+		 }
+//		 List<Emp> emplist = service.uploadExcelFile(file);
+//		 model.addAttribute("emplist",emplist);
+		 return "HR_management/Salary"; 
+	 }
 	
 	// 인사관리 > 조직 관리 페이지
 	@RequestMapping("Organization.do")
