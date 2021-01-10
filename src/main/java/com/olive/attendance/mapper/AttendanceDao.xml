@@ -19,14 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <select id="gettableList" resultType="com.olive.dto.Att_Record">
 		select a.attname as title , ar.starttime as start, ar.endtime as end,color FROM Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE where empno = #{empno}
 	 </select>
-<!-- 근태관리  출근 일수   -->
-	 <select id="-" resultType="com.olive.dto.Att_Record">
+	 <!-- 일단 어디에서 사용하는지 몰라서 주석처리 해놓았어요. 사용할 때 주석 풀고, id 짓고 dao에 id랑 같은 함수 만들기! -->
+<!-- 근태관리  출근 일수 -->
+	 <!--<select id="-" resultType="com.olive.dto.Att_Record">
 		select * from ATT_RECORD where empno =#{empno} and attcode = 10;
-	 </select>
+	 </select>-->
 <!-- 근태관리  지각  일수   -->
-	 <select id="-" resultType="com.olive.dto.Att_Record">
+	 <!--<select id="-" resultType="com.olive.dto.Att_Record">
 		select * from ATT_RECORD where empno =#{empno} and attcode = 20;
-	 </select>
+	 </select>-->
 	 
  <!-- 출근버튼 -->
  	<update id="startwork" parameterType ="com.olive.dto.Att_Record">	 
