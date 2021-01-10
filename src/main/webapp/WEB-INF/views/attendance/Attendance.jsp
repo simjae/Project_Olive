@@ -28,115 +28,6 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
-<script>
-	document.addEventListener('DOMContentLoaded',function() {
-
-						var calendarEl = document.getElementById('calendar');
-						//db일정 받아오기 
-						var eventFeed = function(info, successCallback,
-								failureCallback) {
-							$.ajax({
-								type : "GET",
-								url : "/attendance/calendarList.do",
-								dataType : "json",
-								success : function(data) {
-									console.log('ajsijsidj');
-									successCallback(data);
-									console.log(data);
-								},
-								 error : function(xhr) {
-									console.log(xhr.status)
-								} 
-							});
-						}
-
-						var calendar = new FullCalendar.Calendar(
-								calendarEl,
-								{
-									dateClick : function(info) {
-										/* alert('Date: ' + info.dateStr);
-										alert('Resource ID: ' + info.resource.id); */
-										$("#myModal").modal();
-										$("#sname").val(info.dateStr);
-										$("#ename").val(info.dateStr);
-										$("#modal-body").html("");
-									},
-
-									headerToolbar : {
-										left : 'prev,next today',
-										center : 'title',
-										right : 'custom,dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-									},
-									//출석 버튼 생생
-									customButton : {
-										custom : {
-											text : '출석',
-											id : 'startwork',
-											click : function() {
-												$
-														.ajax({
-															url : '/users/attendances',
-															type : 'GET',
-															dataType : "JSON",
-															success : function(
-																	data) {
-															},
-															error : function() {
-																alert('there was an error while fetching events!');
-															}
-														});
-
-											}
-										}
-
-									},
-									buttonText : {
-										today : '오늘',
-										month : '월',
-										week : '주',
-										day : '일',
-										list : '주간 일정표'
-									},
-
-									//버튼 
-									select : function(selectionInfo) {
-										alert('selected ');
-										$('#startwork').click(function() {
-
-											console.log("dasd");
-										})
-
-									},
-
-									initialDate : '2020-09-12',
-									navLinks : true, // can click day/week names to navigate views
-									nowIndicator : true,
-									weekNumbers : true,
-									weekNumberCalculation : 'ISO',
-									editable : true,
-									selectable : true,
-									dayMaxEvents : true, // allow "more" link when too many events
-									/*events:[
-										{
-											
-									          title: '휴가',
-									          start: '2021-01-07',
-									          end: '2021-01-10'
-									        } 
-
-										]*/
-
-									events : eventFeed
-
-								});
-						calendar.render();
-
-					});
-//-----------------------------------------캘린더끝-----------------------------------------
-
-
-</script>
-
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -163,7 +54,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">근태현황</h1>
+						<h1 class="h3 mb-0 text-gray-800">사용자 이름 들어감 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -181,8 +72,8 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												입사일로부터 지금까지</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+												이번달 </div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">근무가 52기준으로 출근 시간   %보여주기</div>
 
 										</div>
 										<div class="col-auto">
@@ -203,7 +94,6 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
 											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
-											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
 
 										</div>
 										<div class="col-auto">
@@ -220,13 +110,13 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">
-												오늘</div>
+										<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												이번달</div>
+											<span class="h5 font-weight-bold text-gray-800">지각:8일</span>
+											
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일
-														근무중</div>
 
 												</div>
 
@@ -244,60 +134,104 @@
 
 
 					<!-- End of Main Content -->
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">근태이력</h6>
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<form action="" id = "selectForm">
-									<table class="table table-bordered " id="dataTable"
-										width="100%" cellspacing="0">
-										<thead align="center" style="background-color: #808000">
-											<tr>
-												<th>  </th>
-												<th>이름</th>
-												<th>사번</th>
-												<th>부서</th>
-												<th>출근시간</th>
-												<th>퇴근시간</th>
-												<th>출근</th>
-												<th>퇴근</th>
-											</tr>
-										</thead>
-										<tbody>
-											<!-- <tr>
-												<td>심재형</td>
-												<td>1004</td>
-												<td>마케팅</td>
-												<td>2020-07-16 09:00</td>
-												<td>2020-07-16 16:00</td>
-												<td align="center">
-													<button type="button" id="startwork"
-														class="btn btn-outline-primary btn-sm">출근</button>
-												</td>
-												<td align="center">
-													<button type="button"
-														class="btn btn-outline-primary btn-sm">퇴근</button>
-												</td>
-											</tr> -->
-											<c:forEach items= "${tableList}" var = "att">
+					<	<!-- 계정관리 컨텐츠 시작 -->
+					<div class="row">
+						<div class="col-xl-12 col-lg-12">
+							<div class="card border-left-info shadow mb-4">
+								<!-- Card Header -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="card-for-flex mb-1">
+										<div
+											class="card-body-tridiv search-tab row justify-content-end mr-5">
+											<div class="mb-3">
+												<!-- 비동기로 DB다녀오는 친구들 -->
+												<form class="form-group">
+													<select class="select"
+														id="newSearchType">
+														<option selected>사번</option>
+														<option>이름</option>
+														<option>본부</option>
+														<option>부서</option>
+													</select> <input type="text" class=inputState id="newKeyword">
+													<input type="button" class="btn btn-info" id="searchBtn"
+														value="검색">
+													<!-- //비동기로 DB다녀오는 친구들 -->
+												</form>
+											</div>
+										</div>
+										<div class="card-body-tridiv"></div>
+									</div>
+									<div class="row justify-content-center mx-5">
+										<table id="salary_table" class="table text-center">
+											<thead>
 												<tr>
-													<td>${att.empno}</td>
-													<td>${att.ename}</td>
-													<td>${att.deptname}</td>
-													<td>${att.starttime}</td>
-													<td>${att.endtime}</td>
-													
+													<th>사번</th>
+													<th>이름</th>
+													<th>부서</th>
+													<th>출근시간</th>
+													<th>퇴근시간</th>
 												</tr>
-											</c:forEach>
+											</thead>
+											<tbody id="attListTable">
+												<c:forEach var="rectable" items="${list}">
+													<tr>
+														<td><c:out value="${rectable.empno}" /></td>
+														<td><c:out value="${rectable.ename}" /></td>
+														<td><c:out value="${rectable.deptname}" /></td>
+														<td><c:out value="${rectable.starttime}" /></td>
+														<td><c:out value="${rectable.endtime}" /></td>
+														<td><a href=# class="btn-sm btn-info shadow-sm"><i
+																class="fas fa-check fa-sm text-white"></i></a> <a href=#
+															class="btn-sm btn-info shadow-sm"><i
+																class="fas fa-edit fa-sm text-white"></i></a></td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+										<c:set var="criteria" value="${criteria}" />
+										<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+										<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+										<input type="text" value="${criteria.page}" id="oldPage" hidden>
+										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
+
+
+										<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
 											
-										</tbody>
-									</table>
-								</form>
-							</div>
-						</div>
-					</div>
+											<ul class="pagination" id="pagination">
+												<c:if test="${page.prev}">
+													<li class="page-item"><a class="page-link page-btn-prev" href="#"
+														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+															<span class="sr-only">Previous</span>
+													</a></li>
+												</c:if>
+
+												<c:forEach var="paging" begin="${page.startPage}"
+													end="${page.endPage}">
+													<li class="page-item">
+													<a class="page-link page-btn" href="#">${paging}</a>
+													</li>
+												</c:forEach>
+
+												<c:if test="${page.next}">
+													<li class="page-item"><a class="page-link page-btn-next" href="#"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+															<span class="sr-only">Next</span>
+													</a></li>
+												</c:if>
+											</ul>
+											
+										</nav>
+
+
+									</div>
+	
+								</div>
 					<div id='calendar'></div>
 				</div>
 			</div>
@@ -374,7 +308,10 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- SearchAndPaging -->
+		<script src="/resources/js/Attendance/searchAndPaging.js"></script>
+		<!-- 캘린더 모듈화  -->
+		<script src="/resources/js/Attendance/calendar.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>

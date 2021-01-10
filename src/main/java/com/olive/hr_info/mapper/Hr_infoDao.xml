@@ -26,9 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 </select> 
  	 
  	 <!-- 사번으로 사원 조회  -->
- 	 <select id="searchEmpByEmpno" resultType="com.olive.dto.Emp">
+ 	 <!-- empinfo로 가져올거임 -->
+ 	 <select id="searchEmpByEmpno" resultType="Hashmap">
 	    SELECT *
-	    FROM emp
+	    FROM empinfo
 	    WHERE empno = #{empno}
  	 </select>  
  	 

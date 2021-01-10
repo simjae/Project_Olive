@@ -1,7 +1,7 @@
 package com.olive.approval.dao;
 
-import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
@@ -12,7 +12,10 @@ import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Refference;
 
-public interface ApprovalDao {
+import paging.Criteria;
+import paging.PagingDao;
+
+public interface ApprovalDao extends PagingDao{
 	public EmpTest selectEmp(String empno); //기안문서작성페이지 개인 정보
 	public List<Doc_Type> selectDocType(); //기안 문서 작성페이지 문서 종류
 	public List<Emp> getAllEmpList(); //결재선 결정시 
@@ -31,5 +34,8 @@ public interface ApprovalDao {
 	public Document viewDocument(String docno,String typeCode);
 	public List<Approver> viewApprovers(String docno);
 	public void approve(Approver app);//승인
-	
+	public List<Map<String, Object>> getList(Criteria cri);
+	public int getAppListCount(Criteria cri);
+	public List<Map<String, Object>> getAppList(Criteria cri);
+
 }

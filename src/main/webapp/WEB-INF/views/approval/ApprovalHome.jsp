@@ -23,7 +23,7 @@
 <meta name="author" content="">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
-<jsp:include page="../inc/HeadLink.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
 
 /* 채연 */
@@ -112,13 +112,13 @@ h6.text-primary>i.fas {
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar 모듈화 -->
-		<jsp:include page="../inc/Sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/inc/Sidebar.jsp"></jsp:include>
 		<!-- End Of Sidebar 모듈화 -->
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
 			<div id="content">
-				<jsp:include page="../inc/Topbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
@@ -309,10 +309,10 @@ h6.text-primary>i.fas {
 											<tbody id="inputState_appBody">
 												<c:forEach var="list" items="${applist}">
 													<td>${list.docno}</td>
-													<c:if test="${list.app_Check eq 1 }">
+													<c:if test="${list.app_Check eq 1 || list.app_Check eq 2}">
 														<td>완료</td>
 													</c:if>
-													<c:if test="${list.app_Check eq 0 }">
+													<c:if test="${list.app_Check eq 0 || list.app_Check == null}">
 														<td>대기</td>
 													</c:if>
 													<td>${list.title}</td>
@@ -349,24 +349,9 @@ h6.text-primary>i.fas {
 	<a class="scroll-to-top rounded" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
+		<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
+	
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>

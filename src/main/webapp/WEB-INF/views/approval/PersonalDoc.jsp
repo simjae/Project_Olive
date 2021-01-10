@@ -16,6 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -200,8 +201,8 @@ table.table .avatar {
 							<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="10" id="doc_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">기안 문서</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="20" id="doc_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
-							<li class="nav-item"><button class="nav-link doc" value="30" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
-							<li class="nav-item"><button class="nav-link doc" value="40" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="40" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="30" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="total" role="tabpanel" aria-labelledby="home-tab">
@@ -220,7 +221,7 @@ table.table .avatar {
 												</tr>
 											</thead>
 											<tbody id="docBody">
-												<c:forEach var="list" items="${document}">
+												<c:forEach var="list" items="${pagingList}">
 													<tr>
 														<td>${list.docno }</td>
 														<td>
@@ -230,7 +231,7 @@ table.table .avatar {
 															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
 														</td>
 														<td>${list.ename}</td>
-														<td>${list.typeName}</td>
+														<td>${list.typename}</td>
 														<td>
 														<div class="row">
 															<div class="col-md-7 px-0 mx-0">
@@ -238,19 +239,53 @@ table.table .avatar {
 																	<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
 																</div>
 															</div>
-															<div class="col-md-5 px-0 mx-0">${list.statusName}</div>
+															<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
 															</div>
 														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
+										<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
+											
+											<ul class="pagination" id="pagination">
+												<c:if test="${page.prev}">
+													<li class="page-item"><a class="page-link page-btn-prev" href="#"
+														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+															<span class="sr-only">Previous</span>
+													</a></li>
+												</c:if>
+
+												<c:forEach var="paging" begin="${page.startPage}"
+													end="${page.endPage}">
+													<li class="page-item">
+													<a class="page-link page-btn" href="#">${paging}</a>
+													</li>
+												</c:forEach>
+
+												<c:if test="${page.next}">
+													<li class="page-item"><a class="page-link page-btn-next" href="#"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+															<span class="sr-only">Next</span>
+													</a></li>
+												</c:if>
+											</ul>
+											
+										</nav>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<c:set var="criteria" value="${criteria}" />
+				<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+				<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+				<input type="text" value="${criteria.searchType2}" id="oldSearchType2" hidden>
+				<input type="text" value="${criteria.keyword2}" id="oldKeyword2" hidden>
+				<input type="text" value="${criteria.page}" id="oldPage" hidden>
+				<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
@@ -266,88 +301,13 @@ table.table .avatar {
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
-	<script type="text/javascript">
-$(function(){
-	var today = new Date();
-	
-	console.log(today);
+	<script src="/resources/js/Approval/personalDoc.js"></script>
 
+<script>
 
-	$('.doc').on("click",function(){
-	let html = '';
-	console.log($(this).val());
-		 
-	$.ajax({
-		url:"getArrangedDocList.do",
-		dataType: "json",
-		mehtod:"get", 
-		contentType: "application/json; charset=utf-8",
-		data:{
-			statusCode:$(this).val(),
-			},
-		success:function(data){
-			$('#docBody').empty();
-			console.log(data);
-			$.each(data,(index,item)=>{ 
-				let time = new Date(item.writedate);
-				let html='<tr><td>'+item.docno+'</td>\
-						<td>'+item.typeName+'</td>\
-						<td><a href=viewDocument.do?docno='+item.docno+'&typeCode='+item.typeCode+'>'+item.title+'</a></td>\
-						<td>'+item.ename+'</td>\
-						<td>'+time.getFullYear() + '-' +('0' + (time.getMonth()+1)).slice(-2)+ '-' +  ('0' + time.getDate()).slice(-2) +'</td>\
-						<td><div class="row">\
-						<div class="col-md-7 px-0 mx-0">\
-							<div class="progress">\
-								<div class="progress-bar" role="progressbar" style="width:'+(100*item.curr_Approval/item.total_Approval)+'%;" \
-									aria-valuenow="'+item.curr_Approval+'" aria-valuemin="0">'+item.curr_Approval+'/'+item.total_Approval+'</div>\
-							</div>\
-						</div>\
-						<div class="col-md-5 px-0 mx-0">'+item.statusName+'</div>\
-						</div></td></tr>';
-
-						
-				$('#docBody').append(html);
-			});
-		
-		}
-		
-
-		});		
-	 
-	console.log(html); 
-});
-
-
-
-
-$('a[name=document]').on("click",function(){
-	console.log($(this).innerText);
-});
-
-
-
-})
-		
-		
-	</script>
+</script>
 </body>
 </html>

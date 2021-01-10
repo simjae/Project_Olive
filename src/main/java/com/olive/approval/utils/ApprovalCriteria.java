@@ -1,14 +1,13 @@
-package paging;
+package com.olive.approval.utils;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import paging.Criteria;
 
-@Getter
-@Setter
-@ToString
-public class Criteria {
+@Data
+public class ApprovalCriteria extends Criteria {
 	
+	private String searchType2; // 검색타입
+	private String keyword2; // 검색어
 	//Controller에서 직접 넣어줘야 되
 	private String table; // Table OR View 이름
 	private String column; // 정렬 컬럼
@@ -23,11 +22,14 @@ public class Criteria {
 	//자동으로 계산됨
 	private int rowStart;
 	
-	public Criteria() {
+	public ApprovalCriteria() {
 		this.page = 1; //현재 페이지 
 		this.perPageNum = 3; //보여주는 페이지갯수 
 		this.searchType = "1"; // 검색할 nav바 
 		this.keyword = this.searchType; //검색어 
+		this.searchType2= "1";
+		this.keyword2=this.searchType2;
+		
 	}
 	
 	public void setPage(int page) { //현재 페이지 
@@ -57,47 +59,8 @@ public class Criteria {
 		this.sort = sort;
 		this.rowStart = setRowStart();
 	}
-
-//	// 전체조회
-//	public Criteria(String table, String column, String sort) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.rowStart = getRowStart();
-//	}
-//
-//	// 검색조회
-//	public Criteria(String table, String column, String sort, String searchType, String keyword) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.searchType = searchType;
-//		this.keyword = keyword;
-//		this.rowStart = getRowStart();
-//	}
-//
-//	// 검색조회
-//	public Criteria(String table, String column, String sort, String searchType, String keyword, int page, int perPageNum) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.searchType = searchType;
-//		this.keyword = keyword;
-//		this.rowStart = getRowStart();
-//	}
-
-
 	
-//	public int getPage() {
-//		return page;
-//	}
-//
-//	public int getPerPageNum() {
-//		return this.perPageNum;
-//	}
+	
+	
 
-//	public int getRowEnd() {
-//		rowEnd = rowStart + perPageNum - 1;
-//		return rowEnd;
-//	}
 }

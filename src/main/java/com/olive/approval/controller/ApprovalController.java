@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,23 +19,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.EmpTest;
 
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
+
 @Controller
 @RequestMapping("/approval/")
 public class ApprovalController {
 	private ApprovalService approvalService;
+	@Autowired
+	private PagingService paging; 
 	
 	@Autowired
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
 	}
 	
+	
+	
 	//전자결재 메인페이지
-	@RequestMapping(value = "approvalHome.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ApprovalHome.do", method = RequestMethod.GET)
 	public String approvalHome(Model model,Principal principal) {
 		String empno = principal.getName();
 		System.out.println(empno);
@@ -51,7 +61,7 @@ public class ApprovalController {
 		
 		model.addAttribute("approver", approverrec);
 		model.addAttribute("document", documentrec);
-		return "approval/approvalHome";
+		return "approval/ApprovalHome";
 	}
 	
 	@RequestMapping(value = "DocWrite.do", method = RequestMethod.GET)
@@ -90,23 +100,52 @@ public class ApprovalController {
 		}{
 			
 		}
-		return "redirect:/approval/approvalHome.do";
+		return "redirect:/approval/ApprovalHome.do";
 	}
 	
 	@RequestMapping(value = "PersonalDoc.do", method = RequestMethod.GET)
-	public String showPersonalDoc(Model model, Principal principal) {
+	public String showPersonalDoc(ApprovalCriteria cri, Principal principal,Model model) {
 		String empno = principal.getName();
+		cri.setCriteria("getDoc", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(empno);
+		int totalCount =approvalService.getListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
+		System.out.println(cri);
+		 
 		List<Document> document = approvalService.getDocument(empno,0,10);
 		System.out.println(approvalService.arrangeDoc(document));
 		
-		model.addAttribute("document", document);
+		model.addAttribute("criteria", cri); //이전에 조회 했던 데이터
+		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
+		model.addAttribute("pagingList", pagingList); //데이터 결과값 
 		
 		return "approval/PersonalDoc";
 	}
 	
 	@RequestMapping(value = "ProgressDoc.do", method = RequestMethod.GET)
-	public String showPregressDoc(Model model, Principal principal) {
+	public String showPregressDoc(ApprovalCriteria cri,Model model, Principal principal) {
 		String empno = principal.getName();
+		cri.setCriteria("getApproverDoc", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(empno);
+		
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		List<Map<String,Object>> pagingList = paging.getList(cri);
+		System.out.println(cri);
+		
+		List<Document> document = approvalService.getDocument(empno,0,10);
+		System.out.println(approvalService.arrangeDoc(document));
+		
+		model.addAttribute("criteria", cri); //이전에 조회 했던 데이터
+		model.addAttribute("pagination", pagenation); //페이징 처리 위해서 몇개 있는지 알 수 있음 
+		model.addAttribute("pagingList", pagingList); //데이터 결과값 
+		
+		
 		List<Approver> approverDoc = approvalService.getApprover(empno);
 		model.addAttribute("appdoc", approverDoc);
 		

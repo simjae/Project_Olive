@@ -1,19 +1,23 @@
 package com.olive.approval.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
@@ -25,6 +29,8 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Refference;
+
+import paging.Criteria;
 
 @Service
 public class ApprovalService {
@@ -51,7 +57,7 @@ public class ApprovalService {
 		List<Document> document = approvalDao.getDocumentRec(empno, start, size);
 
 		return document;
-	}
+	} 
 
 	// 내가 기안한 문서 분류하기 (카운트용)
 	public Map arrangeDoc(List<Document> document) {
@@ -78,7 +84,7 @@ public class ApprovalService {
 
 		return arrangedDoc;
 	}
-
+ 
 	// 내가 결재자인 문서 분류
 	public Map arrangedAppDoc(List<Approver> approver) {
 		Map<String, List<Approver>> arrangedAppDoc = new HashMap();
@@ -158,10 +164,15 @@ public class ApprovalService {
 		}
 
 		doc.setFilename(filename);
-		
+		int i=0;
 		// 결재자 추가
-
-		System.out.println(doc.getApprovers());
+		for(String app : doc.getApprovers()) {
+			if(!app.equals("")) {
+				i++;
+			}
+		}
+		doc.setTotal_Approval(i);
+		System.out.println(doc.getTotal_Approval());
 		System.out.println(doc.getReferrers());
 		
 		
@@ -189,7 +200,8 @@ public class ApprovalService {
 	// 전자결재 메인페이지에서 결재상태 비동기용 , 개인 문서함
 	public List<Document> getArrangedDocList(String statusCode, Principal principal) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
-
+	
+		
 		return approvalDao.getArrangedDocList(statusCode, principal.getName());
 	}
 
@@ -230,5 +242,30 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
 	}
-
+	
+	public int getListCount(Criteria cri) {
+		System.out.println("getListCount 서비스 시작");
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getListCount(cri);
+	}	
+	
+	public int getAppListCount(Criteria cri) {
+		System.out.println("getListCount 서비스 시작");
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getAppListCount(cri);
+	}	
+	
+	public List<Map<String, Object>> getList(Criteria cri) {
+		System.out.println("getList 서비스 시작");
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getList(cri);
+	}
+	public List<Map<String, Object>> getAppList(Criteria cri) {
+		System.out.println("getAppList 서비스 시작");
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getAppList(cri);
+	}
+	
+	
+	
 }

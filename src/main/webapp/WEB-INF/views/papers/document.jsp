@@ -30,17 +30,18 @@
 						<div style="margin: 0px; padding: 0px; font-family: 맑은 고딕; font-size: 16px; line-height: 1.8;">
 							<div style="text-align: right">
 								<c:if test="${user.username != doc.empno }">
-									
-									<button class="btn btn-success btn-icon-split approval" value="1">
-										<span class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">승인</span>
-									</button>
-									<button class="btn btn-danger btn-icon-split approval" value="0">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">반려</span>
-                                    </button>
+									<c:forEach var="check" items="${ apps}">
+										<c:if test="${check.empno == user.username and check.app_Order - doc.curr_Approval ==1}">
+											<button class="btn btn-success btn-icon-split approve" value="1">
+												<span class="icon text-white-50"> <i class="fas fa-check"></i>
+												</span> <span class="text">승인</span>
+											</button>
+											<button class="btn btn-danger btn-icon-split approve" value="0">
+												<span class="icon text-white-50"> <i class="fas fa-trash"></i>
+												</span> <span class="text">반려</span>
+											</button>
+										</c:if>
+									</c:forEach>
 								</c:if>
 							</div>
 							<div>
@@ -86,6 +87,9 @@
 												>
 													<c:if test="${list.app_Check==1}">
 														<img src="/resources/img/approvalStamp.jpg">
+													</c:if>
+													<c:if test="${list.app_Check==2}">
+														<img src="/resources/img/rejected.png">
 													</c:if>
 												</td>
 											</c:forEach>
@@ -157,6 +161,12 @@
 										<td colspan="6" style="padding: 0; border: 1px solid #cdcdcd; height: 300px; vertical-align: top">${doc.content }</td>
 									</tr>
 									<tr>
+									
+										<td colspan="6" style="padding-bottom:0px; padding-left:10px; border: 1px solid #cdcdcd; height: 50px;">
+										<p class="my-auto" style="font-family: 맑은 고딕; font-size: 16px;">첨부 파일 : <a href="download.do?filename=${doc.filename}" id ="filename">${doc.filename }</a></p>
+										</td>
+									</tr>
+									<tr>
 										<td colspan="6" style="padding: 10px 0; border: 0;">
 											<table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0">
 												<tbody>
@@ -194,6 +204,25 @@
 									</tr>
 								</tbody>
 							</table>
+							<c:if test="${doc.statusCode ==40 }">
+							<div class="row">
+								<div class='col-xl-12 col-lg-12'>
+									<div class="crad border-left-danger shadow mb-4">
+										<div class="card-header py-3">
+											<h6 class= "m-0 font-weight-bold text-danger">사유</h6>
+										</div>
+										<div class="card-body px-2 py-0 mb-2">
+											<c:forEach var="check" items="${ apps}">
+												<c:if test ="${ check.comment != null}">
+												${check.ename } : ${check.comment}
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -203,54 +232,100 @@
 		</div>
 		<!-- End of Content Wrapper -->
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
 </body>
 <!-- 모든 스크립트 모듈화 -->
 <jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="/resources/js/Approval/document.js"></script>
 <script type="text/javascript">
-$(function(){ 
-	
+function approve(app) {
+    $.ajax({
+        url: "approve.do",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(app),
+        success: function(data) {
+            location.href=data;
+        }
+    })
+}
+$(function() {
+    $('.approve').on("click", function() {
+        console.log($(this).val());
+        let checkApp;
+        let app = {
+            docno: ${doc.docno},
+            empno: ${user.username},
+            app_Check: 2,
+        };
+        if ($(this).val() == 1) {
+            app.app_Check = 1;
+            swal({
+                title: "승인 하시겠습니까?",
+                text: "",
+                icon: "success",
+                buttons: {0:"취소",1:"승인"}
+            }).then((result) => {
+                if (result == 1) approve(app);
+                
+            });
+        } else {
+            swal({
+                title: "반려 하시겠습니까?",
+                text: "",
+                icon: "warning",
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "사유를 적어 주세요"
+                    }
+                },
+                buttons: ["취소하기", "반려하기"],
+                dangerMode: true,
+            }).then((value) => {
+                if(value!='' && value != null){
+                app["comment"] = value;
+                console.log(app);
+                approve(app);
 
-	$('.approval').on("click",function(){
-		console.log($(this).val());
-		let checkApp;
-		if($(this).val()==1){
-			checkApp=1;
-		}else{
-			checkApp=0;
-			}
-		
-		
-		let app={
-				docNo:${doc.docno},
-				empNo:${user.username},
-				app_Check:checkApp,
-				};
-		swal(app.docNo);
-		/* $.ajax({
-			url:"approve.do",
+                }else if(value ==''){
+					swal({title:'사유를 작성해 주세요.',icon:"warning"}); 
+                 }else{
+                	 swal({title:'취소 되었습니다.',icon:"warning"});
+                     }
+            });
+        }
+       
+        console.log(app);
+   
+    });
+
+	/* $('#filename').on("click",function(){
+		console.log($(this).text());
+		 $.ajax({
+			url:"download.do",
 			type:"POST",
-			contentType: "application/json; charset=utf-8",
-			data:JSON.stringify(app),
-			success:function(data){
-
-			alert(data);
-					
+			data:{
+				filename:$('#filename').text()
 				},
-				
-			}); */
-	});
-		
+				success:function(){
+				alert('sjsj');
+					}
+			
+
+			});
+ 
 
 
+		});		
+		 */
 
 
-
-
-
-	
+    
 });
 
-	
 </script>
 </html>

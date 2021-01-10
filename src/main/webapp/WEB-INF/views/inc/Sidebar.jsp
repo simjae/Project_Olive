@@ -37,13 +37,10 @@
 		<div id="collapseAtt" class="collapse"
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">모든 권한:</h6>
-				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/attendanceHome.do">근태 메인</a> 
-				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/annual.do">휴가 현황</a>
 				<div class="collapse-divider"></div>
 				<h6 class="collapse-header">매니저 권한:</h6>
-				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/mattendance.do">근태 관리</a>
-				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/mannual.do">휴가 관리</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/attendance.do">근태 관리</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/attendance/annual.do">휴가 관리</a>
 			</div>
 		</div></li>
 
@@ -84,7 +81,7 @@
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">권한에 따라 나뉘는지 궁금:</h6>
-				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/approvalHome.do">전자결재 홈</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/ApprovalHome.do">전자결재 홈</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/DocWrite.do">기안하기</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/PersonalDoc.do">개인 문서함</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/ProgressDoc.do">결재 진행함</a>

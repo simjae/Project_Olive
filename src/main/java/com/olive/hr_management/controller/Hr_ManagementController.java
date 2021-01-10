@@ -1,9 +1,6 @@
 /*
-<<<<<<< HEAD
-   파일명: HrManageMentController.java
-=======
-	파일명: HrManageMentController.java
->>>>>>> 98f335c7e2d7d107294976f041b602412e210196
+
+    파일명: HrManageMentController.java
     설명: 인사관리 Controller 
     작성일: 2021-01-02
     작성자: 백희승
@@ -39,6 +36,7 @@ import paging.PagingService;
 @Controller
 @RequestMapping("/HR_management/")
 public class Hr_ManagementController {
+
 
 	@Autowired
 	private Hr_managementService service;
@@ -127,6 +125,7 @@ public class Hr_ManagementController {
 		System.out.println(list);
 		return "empTableToExcel";
 	}
+
 
 	// 인사관리 > 계정 관리 > 사원 신규 등록
 	@RequestMapping(value = "EmployeeAccount.do")

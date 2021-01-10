@@ -1,7 +1,8 @@
 <!-- 
-	파일명:Annual.jsp
-	설명: 연차현황 
-	작성일 : 2020-12-28
+	파일명:M_Attendance.jsp
+	설명: 근태현황(매니져) 홈페이지 
+	작성일 : 2020-12-30
+	수정일 : 2020-01-07
 	작성자 : 심재형 
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,30 +11,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<link href='../resources/fullcalendar-5.5.0/lib/main.css'
+	rel='stylesheet' />
+<script src='../resources/fullcalendar-5.5.0/lib/main.js'></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link href='../lib/main.css' rel='stylesheet' />
-<script src='../lib/main.js'></script>
 
 <title>Project_HR</title>
 
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
-<style>
-
-
-  #calendar {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -60,7 +54,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">연차관리</h1>
+						<h1 class="h3 mb-0 text-gray-800">사용자 이름들어갈곳 </h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
@@ -70,10 +64,7 @@
 
 
 
-
-					<!-- xl3 md6 카드들 row -->
 					<div class="row">
-						<!-- Earnings (Monthly) Card Example -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
@@ -81,8 +72,9 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												총 연차</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">13일</div>
+												입사일로부터 지금까지</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -101,8 +93,9 @@
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">사용연차:
-												8일</div>
+											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
+											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
+
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -119,12 +112,13 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">남은
-												연차</div>
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">
+												오늘</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0일
-													</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일
+														근무중</div>
+
 												</div>
 
 											</div>
@@ -136,115 +130,191 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
-					<!--달력 -->
-					<div id='calendar'></div>
 
 
 					<!-- End of Main Content -->
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">연차이력</h6>
+					<	<!-- 계정관리 컨텐츠 시작 -->
+					<div class="row">
+						<div class="col-xl-12 col-lg-12">
+							<div class="card border-left-info shadow mb-4">
+								<!-- Card Header -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="card-for-flex mb-1">
+										<div
+											class="card-body-tridiv search-tab row justify-content-end mr-5">
+											<div class="mb-3">
+												<!-- 비동기로 DB다녀오는 친구들 -->
+												<form class="form-group">
+													<select class="select"
+														id="newSearchType">
+														<option selected>사번</option>
+														<option>이름</option>
+														<option>본부</option>
+														<option>부서</option>
+													</select> <input type="text" class=inputState id="newKeyword">
+													<input type="button" class="btn btn-info" id="searchBtn"
+														value="검색">
+													<!-- //비동기로 DB다녀오는 친구들 -->
+												</form>
+											</div>
+										</div>
+										<div class="card-body-tridiv"></div>
+									</div>
+									<div class="row justify-content-center mx-5">
+										<table id="salary_table" class="table text-center">
+											<thead>
+												<tr>
+													<th>사번</th>
+													<th>이름</th>
+													<th>부서</th>
+													<th>출근시간</th>
+													<th>퇴근시간</th>
+												</tr>
+											</thead>
+											<tbody id="attListTable">
+												<c:forEach var="rectable" items="${list}">
+													<tr>
+														<td><c:out value="${rectable.empno}" /></td>
+														<td><c:out value="${rectable.ename}" /></td>
+														<td><c:out value="${rectable.deptname}" /></td>
+														<td><c:out value="${rectable.starttime}" /></td>
+														<td><c:out value="${rectable.endtime}" /></td>
+														<td><a href=# class="btn-sm btn-info shadow-sm"><i
+																class="fas fa-check fa-sm text-white"></i></a> <a href=#
+															class="btn-sm btn-info shadow-sm"><i
+																class="fas fa-edit fa-sm text-white"></i></a></td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+										<c:set var="criteria" value="${criteria}" />
+										<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+										<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+										<input type="text" value="${criteria.page}" id="oldPage" hidden>
+										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
+
+
+										<c:set var="page" value="${pagination}"></c:set>
+										<nav aria-label="Page navigation example">
+											
+											<ul class="pagination" id="pagination">
+												<c:if test="${page.prev}">
+													<li class="page-item"><a class="page-link page-btn-prev" href="#"
+														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+															<span class="sr-only">Previous</span>
+													</a></li>
+												</c:if>
+
+												<c:forEach var="paging" begin="${page.startPage}"
+													end="${page.endPage}">
+													<li class="page-item">
+													<a class="page-link page-btn" href="#">${paging}</a>
+													</li>
+												</c:forEach>
+
+												<c:if test="${page.next}">
+													<li class="page-item"><a class="page-link page-btn-next" href="#"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+															<span class="sr-only">Next</span>
+													</a></li>
+												</c:if>
+											</ul>
+											
+										</nav>
+
+
+									</div>
+	
+								</div>
+					<div id='calendar'></div>
+				</div>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">일정추가</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<tr>
-											<th>종류</th>
-											<th>발생일</th>
-											<th>종료일</th>
-											<th>사용연차</th>
-											<th>추가연차</th>
-											<th>남은연차</th>
-										</tr>
-										<%-- <c:forEach var="row" items="${list}">
-											<tr>
-												<td>${row.bno}</td>
-												<td><a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a></td>
-												<td>${row.writer}</td>
-												<td>
-													<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 --> 
-													<fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-												</td>
-												<td>${row.viewcnt}</td>
-											</tr>
-										</c:forEach> --%>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-										<tr>
-											<td>여름휴가</td>
-											<td>2020-07-12</td>
-											<td>2020-07-16</td>
-											<td>4일</td>
-											<td></td>
-											<td>13일</td>
-										</tr>
-									</thead>
-								</table>
+						<div class="modal-body">
+							<div class="row">
+								<form action="/calendar.do">
+									<div class="sname">
+										<label for="sname">시작일 :</label><br> <input type="text"
+											id="sname" name="startdate"><br>
+									</div>
+									<div class="ename">
+										<label for="ename">종료일 :</label><br> <input type="text"
+											id="ename" name="enddate"><br>
+									</div>
+									<label for="lname">내용:</label><br> <input type="text"
+										id="lname" name="context"><br> <br> <input
+										type="submit" value="Submit"> <input type="reset">
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">닫기</button>
 							</div>
 						</div>
+
 					</div>
-
 				</div>
-			</div>
-			<!-- End of Main Content -->
+				<!-- Footer 모듈화 -->
+				<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+				<!-- End of Footer 모듈화 -->
 
-			<!-- Footer 모듈화 -->
-			<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
-			<!-- End of Footer 모듈화 -->
+			</div>
+			<!-- End of Content Wrapper -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Page Wrapper -->
 
-	</div>
-	<!-- 달력  -->
-	<div id='calendar'></div>
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<!-- 모든 스크립트 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+		<!-- SearchAndPaging -->
+		<script src="/resources/js/Attendance/searchAndPaging.js"></script>
+		<!-- 캘린더 모듈화  -->
+		<script src="/resources/js/Attendance/calendar.js"></script>
+		<!-- 모든 스크립트 모듈화 -->
+		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>
 
 </html>

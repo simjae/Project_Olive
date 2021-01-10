@@ -164,7 +164,7 @@
 	<script type="text/javascript">
 	    //ajax
 	    $('#inputState').change(function(){
-	        var select = $(this).val()+'팀';
+	        var select = $(this).val();
 	        console.log(select);
 
 	        $.ajax(
@@ -233,7 +233,7 @@
 										id:role+i,
 										name:name,
 										title:role
-										};
+								};
 								
 								
 								/* emp['id'] = role;

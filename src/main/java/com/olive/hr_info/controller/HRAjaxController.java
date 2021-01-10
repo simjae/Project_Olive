@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,10 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.hr_info.service.Hr_infoService;
 
+import paging.Criteria;
+import paging.Pagination;
+import paging.PagingService;
+
 
 
 
@@ -29,17 +34,41 @@ public class HRAjaxController {
 	private Hr_infoService empService;
 
 	
-	//사원 조건 조회
-	@RequestMapping(value="searchByEmpno.do")
-	public List<EmpTest> searchEmp(String param1, String param2){
-		System.out.println(param1);
-		System.out.println(param2);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("param1", param1);
-		map.put("param2", param2);
-		System.out.println(map);
-		List<EmpTest> list = empService.searchEmp(map);
-		return list;
+	@Autowired
+	private PagingService pagingService;
+	
+	//Emp 
+	@RequestMapping(value = "Emp.do", method = RequestMethod.POST)
+	public JSONObject getEmpListBykeyword(Criteria cri) {
+		
+		cri.setCriteria("empinfo", "empno", "asc");
+		int totalCount = pagingService.getListCount(cri);
+		Pagination pagination = new Pagination(cri, totalCount);
+		List<Map<String, Object>> result = pagingService.getList(cri);
+		
+		cri.setPerPageNum(3);
+	    
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("emplist", result);
+		jsonObject.put("pagination", pagination);
+		jsonObject.put("criteria", cri);
+		
+		System.out.println("ajax"+result);
+		System.out.println("ajax"+pagination);
+		System.out.println("ajax"+cri);
+		
+		return jsonObject;		
+	}
+	
+
+	//사원 사번 조회 //일단 모달창 전용으로 
+	@RequestMapping(value="searchByEmpno.do", method = RequestMethod.POST)
+	public Map<String, Object> searchEmpByEmpno(String empno){
+		System.out.println(empno);
+		Map<String, Object> emp = empService.searchEmpByEmpno(empno);
+		System.out.println("얘 뽑은거임"+emp);
+		return emp;
 	}
 	
 	//조직도 부서별 조회
