@@ -32,7 +32,7 @@
 								<c:if test="${user.username != doc.empno }">
 									<c:forEach var="check" items="${ apps}">
 										<c:if test="${check.empno == user.username and check.app_Order - doc.curr_Approval ==1}">
-											<h1>${check }</h1>
+											<!-- 현재 승인자 알기위한 input -->
 											<input type="text" id="approver" value="${check.ename}" hidden>
 											<button class="btn btn-success btn-icon-split approve" value="1">
 												<span class="icon text-white-50"> <i class="fas fa-check"></i>
@@ -42,6 +42,10 @@
 												<span class="icon text-white-50"> <i class="fas fa-trash"></i>
 												</span> <span class="text">반려</span>
 											</button>
+										</c:if>
+										<c:if test="${check.app_Order - doc.curr_Approval ==2 }">
+											<!-- 다음 승인자 알기위한 input -->
+											<input type="text" id="nextApprover" value="${check.empno}" hidden>
 										</c:if>
 									</c:forEach>
 								</c:if>
@@ -254,7 +258,6 @@ function approve(app) {
         }
     })
 }
-
 function checkAndApprove(check){
 	
 	return new Promise((resolve,reject)=>{
@@ -264,10 +267,7 @@ function checkAndApprove(check){
 	
 }
 $(function() {
-
-
     $('.approve').on("click",function() {
-
     	let color=''; //승인이면 'primary' 반려면 'danger'
         let checkApp;
         let app = {
@@ -275,6 +275,15 @@ $(function() {
             empno: ${user.username},
             app_Check: 2,
         };
+        let nextProtocol = {
+				cmd : "next",
+				docWriter:"${doc.ename }",
+				approver: $('#approver').val(),
+				docTitle:"${doc.title}",
+				nextApprover: $('#nextApprover').val(),
+				color : "success",
+				docno:"${doc.docno}",
+        		};
         if ($(this).val() == 1) {
             app.app_Check = 1;
             color="primary";
@@ -285,9 +294,9 @@ $(function() {
                 buttons: {0:"취소",1:"승인"}
             }).then((result) => {
                if (result == 1){
-
          		websocket.send(JSON.stringify(appProtocol));
-//                   approve(app)
+         		websocket.send(JSON.stringify(nextProtocol));
+                   approve(app)
                 };
                 
             });
@@ -310,8 +319,8 @@ $(function() {
                 app["comment"] = value;
                 console.log(app);
          		websocket.send(JSON.stringify(appProtocol));
-              //  approve(app);
-
+         		
+                approve(app);
                 }else if(value ==''){
 					swal({title:'사유를 작성해 주세요.',icon:"warning"}); 
                  }else{
@@ -324,21 +333,15 @@ $(function() {
 				cmd : "App",
 				docno:"${doc.docno}",
 				docWriter : "${doc.empno}",
+				docTitle :"${doc.title}",
 				approver : $('#approver').val(),
+				nextApprover : $('#nextApprover').val(),
 				color: color
 				}
-		let nextProtocol = {
-				cmd : "Doc",
-				approver: $('#approver').val(),
-				nextApprover: ,
-				color : "success",
-				docno:"${doc.docno}",
-        		}
+		
 					
-
 		
     	});
-
 	
 				
         
@@ -359,18 +362,11 @@ $(function() {
 				alert('sjsj');
 					}
 			
-
 			});
  
-
-
 		});		
 		 */
-
-
     
 });
-
-
 </script>
 </html>

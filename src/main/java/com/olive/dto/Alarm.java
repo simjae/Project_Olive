@@ -10,7 +10,7 @@ public class Alarm {
 	private int alarmno;
 	private Date alarmTime;
 	private int empno;
-	private String Content;
+	private String content;
 	private boolean alarmCheck;
 	
 	//알람을 보내기 위한 것 

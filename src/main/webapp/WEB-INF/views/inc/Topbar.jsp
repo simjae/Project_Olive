@@ -160,23 +160,26 @@
 </style>
 <!-- End of Topbar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 날짜 변환 관련 CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script type="text/javascript">
 function connect(){
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
 	websocket.onopen =(evt) =>{
 		
 	};
-
 	websocket.onclose =(evt) =>{
 	}; 
 	
 	websocket.onmessage=(evt)=>{
-		writeMsg(evt);
+		setTimeout(()=>{
+			writeMsg(evt)	},5000);
 	}
 	
 }
 function writeMsg(evt){
 	let html = JSON.parse(evt.data);
+	let alarmTime = moment(html.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
 	let content =
 		'<div class="card border-left-'+html.color+' shadow">\
 		<div class="cbody card-body">\
@@ -185,22 +188,19 @@ function writeMsg(evt){
 					<img src="/resources/img/speech-bubble.png">\
 				</div>\
 				<div class="col ml-4">\
-					<div class="text-xs font-weight-bold text-'+html.color+' text-uppercase mb-1">ALARM  &nbsp;'+html.alarmTime+'</div>\
+					<div class="text-xs font-weight-bold text-'+html.color+' text-uppercase mb-1">ALARM  &nbsp;'+alarmTime+'</div>\
 					<div class="h6 mb-0 font-weight-bold text-gray-700">'+html.content+'</div>\
 				</div>\
 			</div>\
 		</div>\
 	</div>';
-
 	$('.alarm').append(content);
 	
 	console.log(html);
 }
-
 function disconnect(){
 	websocket.close();
 }
-
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
@@ -218,16 +218,9 @@ jb(document).ready(function() {
 			}
 		
 	});
-
 	connect();
 	
-
-
-
-
 	
 })
 	
-
-
 </script>

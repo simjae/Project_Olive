@@ -24,7 +24,6 @@
 	justify-content: space-between;
 	align-items: center;
 }
-
 .flexbox-items {
 	max-width: 120px;
 	min-height: 50px;
@@ -322,30 +321,24 @@
 #selector {
 	border-radius: 20px;
 }
-
 .inputbox {
 	border: 0px;
 	outline: none;
 }
-
 .datepicker {
 	border-radius: 20px;
 	outline: none;
 }
-
 .modal-body ul {
 	list-style-type: none;
 }
-
 .modal-body ul img {
 	padding-bottom: 7px;
 	padding-right: 7px;
 }
-
 .team {
 	list-style-image: none;
 }
-
 .temp {
 	background: hsla(0, 100%, 100%, 0);
 	border: none;
@@ -360,19 +353,15 @@
 <script type="text/javascript">
 var approverList =[];	
 var referrerList =[];
-
-
 function deletefromapp(me){
 	$(me).parents('a.jstree-anchor').remove();
 	approverList.splice(approverList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 	console.log(approverList.indexOf($(me).parents('a.jstree-anchor').text()));
 };
-
 function deletefromrim(me){
 	$(me).parents('a.jstree-anchor').remove();
 	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
-
 $(function() {
 	
 	var $drop=$('#drop');
@@ -405,7 +394,6 @@ $(function() {
 				url:"getAllDeptList.do",
 				 dataType: "json",
 				 contentType: "application/json; charset=utf-8",
-
 				success:function(responsedata){
 					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
@@ -436,7 +424,6 @@ $(function() {
 			});
 		
 	}
-
 	createFirstTree()
 	 .then(createSecondTree)
 	 .then(createFinalTree)
@@ -454,20 +441,19 @@ $(function() {
 				$('#nono').append(html);
 	 		}else{	
 				let protocol = {
-						cmd : "Doc",
-						docWriter : "${LoginUser}",
+						cmd : "next",
+						docWriter : "${emp.ename }",
 						nextApprover : approverList[1][0].id.split('_')[0],
-						content : "${emp.ename }님 께서 기안을 올리셨습니다.",
-						color: "success"
+						docno:$('#docno').val(),
+						color: "success",
+						docTitle:$('#title').val()
 						}
 				
 		 		websocket.send(JSON.stringify(protocol));
-				//$('#form').submit();
-
+				$('#form').submit();
 				 }
 		
 	 })
-
 		$('#applybtn').on("click",()=>{
 				console.log(approverList);
 				$('.apps').val('');
@@ -517,7 +503,6 @@ $(function() {
 			let buttonapp = '<button class="temp" onclick="deletefromapp(this)"><img class="false" src="/resources/img/false.png"></button>';
 			let approver = clickedapp.append(buttonapp);
 			
-
 			if(!approverList.includes(clickedapp.text())){
 			approverList.push(clickedapp.text());
 			approverList.push(clickedapp);
@@ -529,14 +514,12 @@ $(function() {
 			}
 		
 		});
-
 		$('#add_referrer').on("click",()=>{
 			console.log('sjidjid');
 			let clicked = $('div#jstree_div a.jstree-clicked').clone();
 			let button = '<button class="temp" onclick="deletefromrim(this)"><img class="false" src="/resources/img/false.png"></button>';
 			let referrer = clicked.append(button);
 			
-
 			if(!referrerList.includes(clicked.text())){
 				console.log("clicked:"+clicked);
 			referrerList.push(clicked.text());
@@ -547,7 +530,6 @@ $(function() {
 				console.log(referrerList[i]);
 				$('#referrerList').append(referrerList[i]);
 			}
-
 		});
 			
 	
@@ -699,7 +681,6 @@ $(function() {
 									style="font-family:   맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">\
 									'+$("#title").val()+'</p></td></tr>';
 						if($('#selector').val()=='40' || $('#selector').val()=='30'){
-
 							
 							
 						html+='<tr>\
@@ -772,8 +753,6 @@ $(function() {
 		</div>';
 					$('#preview-modal-body').append(html);
 			});
-
-
 		
 		$(document).on("click",".datepicker",(e)=>{
 			e.preventDefault();
@@ -781,7 +760,6 @@ $(function() {
 			dateFormat:"yy-mm-dd"
 			});
 		});
-
 		$('#selector').on("change",()=>{
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
@@ -795,10 +773,8 @@ $(function() {
 				if( $('#selector').val()!='20'){
 				html+= '~</span><input type="text" class="datepicker text-center" name="enddate" id="enddate" width="276" readonly></div></div></div></div></div></div>';
 				};
-
 				
 				$('#duration').append(html);
-
 				let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
 					<tbody class="text-center">\
 						<tr style="height: 400px;">\
@@ -812,7 +788,6 @@ $(function() {
 				
 			}
 		});
-
 		$('#summernote').summernote( {
 			maxheight: 400,
 			minHeight: 300,
@@ -853,7 +828,6 @@ $(function() {
 			console.log(files);
 			
 		}
-
 		function preview(file,idx){
 			let reader = new FileReader();
 			reader.onload =(function(f,idx){
@@ -880,12 +854,10 @@ $(function() {
 			$target.parent().parent().remove();
 			
 		})
-
 		$('#file_add').click(function() {
 		    console.log('fileadd');
 		    $("#file").click();
 		});
-
 		var input = document.querySelector('input[name="file"]');
 	    input.addEventListener('change',(function(e){
 	    	
