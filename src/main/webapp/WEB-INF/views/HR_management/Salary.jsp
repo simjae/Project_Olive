@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +20,8 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 
@@ -48,13 +52,14 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
-								<input type="file" class="" id="fileInput" name="fileInput">
+								<input type="file" class="" name="excelFile" id="excelFile">
 								<button type="button" onclick="uploadProcess()">submit</button>
 							</form>
 						</div>
 
 						<div class=" col-md-1">
-								<input type="button" class="form-control btn btn-info" value="양식 다운">
+							<input type="button" class="form-control btn btn-info"
+								value="양식 다운">
 						</div>
 
 						<div class="form-group col-md-2">
@@ -69,11 +74,7 @@
 						</div>
 					</div>
 
-					<c:set var="criteria" value="${criteria}" />
-						<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
-						<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
-						<input type="text" value="${criteria.page}" id="oldPage" hidden>
-						<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
+
 					<!-- Table -->
 					<div class="row justify-content-center mx-5">
 						<table id="salary_table" class="styled-table text-center">
@@ -89,44 +90,65 @@
 									<th>급여 상세</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="salaryTbl">
 								<c:forEach var="list" items="${list}">
-								<tr>
-									<td>${list.SAL_DATE}</td>
-									<td>${list.ename}</td>
-									<td>${list.EMPNO}</td>
-									<td>${list.deptname}</td>
-									<td>${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance}</td>
-									<td>${list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension}</td>
-									<td>${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance
-										- (list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension)}</td>
-									<th><input type="text" value="급여이력번호" hidden>
-										<button class="table-button salaryDetail">보기</button></th>
-								</tr>
+									<tr>
+										<td>${fn:substring(list.SAL_DATE,0,4)}년
+											${fn:substring(list.SAL_DATE,5,7)}월
+											${fn:substring(list.SAL_DATE,8,10)}일</td>
+										<td>${list.ename}</td>
+										<td>${list.EMPNO}</td>
+										<td>${list.deptname}</td>
+										<td><fmt:formatNumber
+												value="${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance}"
+												type="number" /></td>
+										<td><fmt:formatNumber
+												value="${list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension}"
+												type="number" /></td>
+										<td><fmt:formatNumber
+												value="${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance
+										- (list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension)}"
+												type="number" /></td>
+										<td><button class="table-button salaryDetail"
+												value="${fn:substring(list.SAL_DATE,0,10)},${list.EMPNO}">보기
+
+											</button> <input type="text" class="date"
+											value="${fn:substring(list.SAL_DATE,0,10)}" hidden /> <input
+											type="text" class="empno" value="${list.EMPNO}" hidden /></td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
+
+						<c:set var="criteria" value="${criteria}" />
+						<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+						<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+						<input type="text" value="${criteria.page}" id="oldPage" hidden>
+						<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
 						
-							
+						
 						<c:set var="page" value="${pagination}"></c:set>
 						<nav aria-label="Page navigation example">
-							<ul class="pagination">
+							<ul class="pagination" id="pagination">
 								<c:if test="${page.prev}">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-								</a></li>
+									<li class="page-item"><a class="page-link page-btn-prev"
+										href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											<span class="sr-only">Previous</span>
+									</a></li>
 								</c:if>
-								<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
-								<li class="page-item"><a class="page-link" href="#">${paging}</a></li>
+								<c:forEach var="paging" begin="${page.startPage}"
+									end="${page.endPage}">
+									<li class="page-item"><a class="page-link page-btn"
+										href="#">${paging}</a></li>
 								</c:forEach>
 								<c:if test="${page.next}">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-								</a></li>
+									<li class="page-item"><a class="page-link page-btn-next"
+										href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											<span class="sr-only">Next</span>
+									</a></li>
 								</c:if>
 							</ul>
+
 						</nav>
 
 
@@ -151,30 +173,20 @@
 
 	<script>
 	$(document).on("click", ".salaryDetail", function(){
+ 			var date = $(this).val().split(',')[0]
+			var empno =  $(this).val().split(',')[1]
+			console.log(date);
+			console.log(empno);  
 			var windowW = 690;  // 창의 가로 길이
 	        var windowH = 800;  // 창의 세로 길이
 	        var left = Math.ceil((window.screen.width - windowW)/2);
 	        var top = Math.ceil((window.screen.height - windowH)/2);
-			window.open("${pageContext.request.contextPath}/HR_management/SalaryDetail.do?date=2020-11-10&empno=1001","_blank","top="+top+", left="+left+", height="+windowH+", width="+windowW+"resizable=no");
-		});
+			window.open("${pageContext.request.contextPath}/HR_management/SalaryDetail.do?date="+date+"&empno="+empno,+"_blank","top="+top+", left="+left+", height="+windowH+", width="+windowW+"resizable=no");
+	});
 	</script>
-	
-	<script>
-    function uploadProcess(){
-        var file = new FormData(document.getElementById('uploadForm'));
-        console.log(file);
-         $.ajax({
-            url: "/HR_management/uploadExcelFile.do",
-			dataTpye:"json",
-            data: file,
-            processData: false,
-            contentType: false,
-            type: "POST",
-            success: function(data){
-            }
-        })
-    }	
-	</script>
+	<script src="/resources/js/Hr_management/excelUpload.js"></script>
+	<script src="/resources/js/Hr_management/salaryPaging.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </body>
 
 </html>

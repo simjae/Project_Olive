@@ -6,9 +6,12 @@
 */
 package com.olive.hr_management.service;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,10 +23,11 @@ import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
+import com.olive.dto.Sal_Record;
 import com.olive.dto.SalaryInfo;
 import com.olive.hr_management.dao.Hr_managementDao;
-
-import paging.Criteria;
+import com.olive.utils.ExcelRead;
+import com.olive.utils.ExcelReadOption;
 
 @Service
 public class Hr_managementService {
@@ -139,7 +143,40 @@ public class Hr_managementService {
 		parameter.put("sal_date", date);
 		parameter.put("empno", empno);
 		return dao.getSalaryDetail(parameter);
-		
+
 	}
 
+	public boolean excelUpload(File destFile) {
+		boolean result = false;
+		ExcelReadOption excelReadOption = new ExcelReadOption();
+		excelReadOption.setFilePath(destFile.getAbsolutePath());
+		excelReadOption.setOutputColumns("지급일자", "사번", "기본급여", "시간외수당", "직책수당", "상여금", "차량유지", "식대", "교육지원");
+		excelReadOption.setStartRow(2);
+		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
+
+		if (!excelContent.isEmpty()) {
+			result = true;
+			List<Sal_Record> excelData = new ArrayList<>();
+			Sal_Record salRecord = null;
+			for (int i = 0; i < excelContent.size(); i++) {
+				if (excelContent.get(i).size() == 9) {
+					salRecord = new Sal_Record();
+					salRecord.setSal_date(excelContent.get(i).get("지급일자"));
+					salRecord.setEmpno(Integer.parseInt(excelContent.get(i).get("사번")));
+					salRecord.setBasic_pay(Integer.parseInt(excelContent.get(i).get("기본급여")));
+					salRecord.setOvertime_pay(Integer.parseInt(excelContent.get(i).get("시간외수당")));
+					salRecord.setPosition_pay(Integer.parseInt(excelContent.get(i).get("직책수당")));
+					salRecord.setBonus(Integer.parseInt(excelContent.get(i).get("상여금")));
+					salRecord.setMaintenance_of_vehicle(Integer.parseInt(excelContent.get(i).get("차량유지")));
+					salRecord.setMess_allowance(Integer.parseInt(excelContent.get(i).get("식대")));
+					salRecord.setEducational_supports(Integer.parseInt(excelContent.get(i).get("교육지원")));
+					salRecord.calcTax();
+					excelData.add(salRecord);
+				}
+			}
+			Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+			dao.insertSalaryTbl(excelData);
+		}
+		return result;
+	}
 }
