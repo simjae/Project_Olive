@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		failureCallback) {
 		$.ajax({
 			type: "GET",
-			url: "/attendance/calendarList.do",
+			url: "/Annual/calendarList.do",
 			dataType: "json",
 			success: function(data) {
 				successCallback(data);
@@ -22,15 +22,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	var calendar = new FullCalendar.Calendar(
 		calendarEl,
 		{
+			
 			dateClick: function(info) {
-				/* alert('Date: ' + info.dateStr);
-				alert('Resource ID: ' + info.resource.id); */
+			
 				$("#myModal").modal();
 				$("#sname").val(info.dateStr);
 				$("#ename").val(info.dateStr);
 				$("#modal-body").html("");
 			},
-
+			
 			headerToolbar: {
 				left: 'prev,next today',
 				center: 'title',
