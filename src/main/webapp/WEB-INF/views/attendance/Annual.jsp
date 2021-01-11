@@ -38,6 +38,7 @@
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+				<c:forEach var="annaul_diff" items="${list}">
 					<!-- Page Heading -->
 					<c:set var="emp" value="${emp}" />
 					<!-- Page Heading -->
@@ -51,8 +52,8 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">입사일로부터 지금까지</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+											<div class="text-xl font-weight-bold text-primary text-uppercase mb-1">이번달 총연차</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${annaul_diff.annual}일</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -67,9 +68,8 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-success text-uppercase mb-1">이번달</div>
-											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
-											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
+											<div class="text-xl font-weight-bold text-success text-uppercase mb-1">이번달 사용연차</div>
+											<span class="h5 font-weight-bold text-gray-800">${annaul_diff.COUNT}일</span>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -84,10 +84,10 @@
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-info text-uppercase mb-1">오늘</div>
+											<div class="text-xl font-weight-bold text-info text-uppercase mb-1">이번달 남은연차</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일 근무중</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${annaul_diff.diff}일</div>
 												</div>
 											</div>
 										</div>
@@ -144,7 +144,6 @@
 												</tr>
 											</thead>
 											<tbody id="annualTable">
-												<c:forEach var="annaul_diff" items="${list}">
 													<tr>
 														<td><c:out value="${annaul_diff.EMPNO}" /></td>
 														<td><c:out value="${annaul_diff.ename}" /></td>
