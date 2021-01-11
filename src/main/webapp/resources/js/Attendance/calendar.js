@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-
+	
+	$('[data-toggle="tooltip"]').tooltip();
 	var calendarEl = document.getElementById('calendar');
 	//db일정 받아오기 
 	var eventFeed = function(info, successCallback,
