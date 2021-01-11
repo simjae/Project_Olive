@@ -33,7 +33,7 @@ $('#searchBtn').click(function() {
 		searchType = "ENAME"
 	}
 	$.ajax({
-		url: "/attendance/attPage.do",
+		url: "/Annual/analPage.do",
 		type: "POST",
 		dataType:  "JSON",
 		data: {

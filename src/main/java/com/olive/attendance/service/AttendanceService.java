@@ -32,19 +32,7 @@ public class AttendanceService {
 		      System.out.println(this.sqlsession);
 		      System.out.println("연결");
 		   }
-		
-//=================== 캘린더insert ===================// 
-	
-		
-		/*//사용안함 insert
-		public void insert(Calendar cal) {
-			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
-			caldao.insert(cal);
-			System.out.println("여기옴 ");
-			
-		}*/
-	
-//=================== 출근 버튼 update ===================// 
+
 		public void startwork(int id) {
 			AttendanceDao attdao = sqlsession.getMapper(AttendanceDao.class);
 		
@@ -118,7 +106,7 @@ public class AttendanceService {
 		}
 
 
-//=================== 근태 캘린더 select ===================// 
+//=================== 근태 캘린더  ===================// 
 			
 		public List<Att_Record> calendarList () {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -126,6 +114,5 @@ public class AttendanceService {
 			System.out.println(caldao);
 			return caldao.gettableList(auth.getName());			
 		}
-//=================== 근태 테이블 페이징 테스트  ===================// 	
-		
+
 }
