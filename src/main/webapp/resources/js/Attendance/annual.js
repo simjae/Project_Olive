@@ -121,15 +121,19 @@ function insertDatabyAjax(data){
 		console.log(data.list);
 		console.log(data.pagination);
 		
-		$('#attListTable').empty();
+		$('#annualTable').empty();
 		let inputListData = "";
 		for (let i=0; i < data.list.length; i++) {
 			inputListData += "<tr>"
-						  	+"<td>"+data.list[i].empno+"</td>"
+						  	+"<td>"+data.list[i].EMPNO+"</td>"
 							+"<td>"+data.list[i].ename+"</td>"
-							+"<td>"+data.list[i].deptname+"</td>"
-							+"<td>"+Unix_timestamp(Number(data.list[i].starttime))+"</td>"
-							+"<td>"+Unix_timestamp(Number(data.list[i].endtime))+"</td>"
+							+"<td>"+data.list[i].TYPENAME+"</td>"
+							+"<td>"+data.list[i].startdate+"</td>"
+							+"<td>"+data.list[i].enddate+"</td>"
+							+"<td>"+data.list[i].COUNT+"</td>"
+							+"<td>"+data.list[i].diff+"</td>"
+							//+"<td>"+Unix_timestamp(Number(data.list[i].startdate))+"</td>"
+							//+"<td>"+Unix_timestamp(Number(data.list[i].ENDDATE))+"</td>"
 							+"<td>"
 							+"<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-check fa-sm text-white'></i></a>"
 							+"<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-edit fa-sm text-white'></i></a>"

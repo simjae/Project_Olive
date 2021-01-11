@@ -11,10 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.olive.hr_info.service.Hr_infoService;
 
 import paging.Criteria;
 import paging.Pagination;
@@ -27,29 +31,50 @@ import paging.PagingService;
 public class AttendanceController {
 	@Autowired
 	private PagingService pagingService;
+	@Autowired
+	private Hr_infoService empService;
+	
 
 	@RequestMapping("annual.do")
-	public String mannual() {
+
+		public String mannual(Model model, Criteria cri) {
+			  System.out.println("cri 값 초기화 전"+cri);
+			  cri.setCriteria("annaul_diff", "docno", "desc");
+			  System.out.println("cri 값 초기화 후"+cri);
+			  
+		    int totalCount = pagingService.getListCount(cri);
+		    Pagination pagination = new Pagination(cri, totalCount);
+		    List<Map<String, Object>> result = pagingService.getList(cri);
+		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			String username = auth.getName();
+			System.out.println("emp컨트롤러" +username);
+			Map<String, Object> emp = empService.searchEmpByEmpno(username);
+			
+			model.addAttribute("emp", emp);
+		    model.addAttribute("list", result);
+		    model.addAttribute("pagination", pagination);
+		    model.addAttribute("criteria", cri);
+		    System.out.println("휴가관리"+ result);
 		return "attendance/Annual";
 	}
 	@RequestMapping(value ="attendance.do", method = RequestMethod.GET)
 	public String mattendance(Model model, Criteria cri) {
-		  System.out.println("cri 값 초기화 전"+cri);
 		  cri.setCriteria("rectable", "empno", "desc");
-		  System.out.println("cri 값 초기화 후"+cri);
-		  
 	    int totalCount = pagingService.getListCount(cri);
 	    Pagination pagination = new Pagination(cri, totalCount);
 	    
 	    List<Map<String, Object>> result = pagingService.getList(cri);
-	    System.out.println("[result] : "+result);
-	    
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		Map<String, Object> emp = empService.searchEmpByEmpno(username);
+		model.addAttribute("emp", emp);
 	    model.addAttribute("list", result);
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("criteria", cri);
+	    System.out.println("근태관리"+ result);
 		
 		return "attendance/Attendance";
 	}
-	
 
 }
