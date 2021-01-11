@@ -258,7 +258,6 @@ function approve(app) {
         }
     })
 }
-
 function checkAndApprove(check){
 	
 	return new Promise((resolve,reject)=>{
@@ -268,10 +267,7 @@ function checkAndApprove(check){
 	
 }
 $(function() {
-
-
     $('.approve').on("click",function() {
-
     	let color=''; //승인이면 'primary' 반려면 'danger'
         let checkApp;
         let app = {
@@ -298,7 +294,6 @@ $(function() {
                 buttons: {0:"취소",1:"승인"}
             }).then((result) => {
                if (result == 1){
-
          		websocket.send(JSON.stringify(appProtocol));
          		websocket.send(JSON.stringify(nextProtocol));
                    approve(app)
@@ -326,7 +321,6 @@ $(function() {
          		websocket.send(JSON.stringify(appProtocol));
          		
                 approve(app);
-
                 }else if(value ==''){
 					swal({title:'사유를 작성해 주세요.',icon:"warning"}); 
                  }else{
@@ -346,10 +340,8 @@ $(function() {
 				}
 		
 					
-
 		
     	});
-
 	
 				
         
@@ -370,18 +362,11 @@ $(function() {
 				alert('sjsj');
 					}
 			
-
 			});
  
-
-
 		});		
 		 */
-
-
     
 });
-
-
 </script>
 </html>

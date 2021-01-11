@@ -106,13 +106,6 @@ h6.text-primary>i.fas {
 .search-tab {
 	max-width: 200px;
 }
-.list-group-item1{
-	position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    background-color: #fff;
-    border:0px;
-}
 </style>
 </head>
 <body id="page-top">
@@ -150,13 +143,13 @@ h6.text-primary>i.fas {
 												<div class="row">
 													<div class="col-md-6 ">
 														<ul class="list-group" style="padding-top: 36px;">
-															<li class="list-group-item1 p-0 d-flex justify-content-between align-items-center">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 d-flex justify-content-between align-items-center">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 d-flex justify-content-between align-items-center">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 d-flex justify-content-between align-items-center">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
 															</li>
 														</ul>
 													</div>
@@ -186,13 +179,13 @@ h6.text-primary>i.fas {
 												<div class="row">
 													<div class="col-md-6">
 														<ul class="list-group " style="padding-top: 36px;">
-															<li class="list-group-item1 p-0 border-none d-flex justify-content-between align-items-center">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 border-none d-flex justify-content-between align-items-center">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 border-none d-flex justify-content-between align-items-center">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
 															</li>
-															<li class="list-group-item1 p-0 border-none d-flex justify-content-between align-items-center">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
+															<li class="list-group-item p-0 border-none d-flex justify-content-between align-items-center">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
 															</li>
 														</ul>
 													</div>
