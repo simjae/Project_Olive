@@ -56,6 +56,6 @@
 			<beans:bean class=""></beans:bean>
 		</websocket:handshake-interceptors> -->
 		</websocket:handlers>
-	<beans:bean id="AlarmHandler" class="com.olive.utils.AlarmHandler"/>
+	<beans:bean id="AlarmHandler" class="com.olive.utils.controller.AlarmHandler"/>
 
 </beans:beans>
