@@ -24,7 +24,7 @@ public interface AttendanceDao {
 	//근태관리 테이블/캘린더 select
 	public List<Att_Record> gettableList(String empno);
 	
-	//근태관리 테이블/캘린더 select
+	//휴가관리  테이블/캘린더 select
 	public List<Document> getanaltableList(String empno);
 	
 	}

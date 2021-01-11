@@ -37,9 +37,9 @@ public class AnnualService {
 			
 		public List<Document> calendarList () {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
-			System.out.println(caldao);
-			return caldao.getanaltableList(auth.getName());			
+			AttendanceDao analcaldao = sqlsession.getMapper(AttendanceDao.class);
+			System.out.println("뭐가나옴"+analcaldao);
+			return analcaldao.getanaltableList(auth.getName());			
 		}
 
 }

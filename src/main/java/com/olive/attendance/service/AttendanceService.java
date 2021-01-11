@@ -111,7 +111,7 @@ public class AttendanceService {
 		public List<Att_Record> calendarList () {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
-			System.out.println(caldao);
+			System.out.println("넌뭔대"+caldao);
 			return caldao.gettableList(auth.getName());			
 		}
 
