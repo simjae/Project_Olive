@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.olive.utils.dao.AlarmDao">
 
 	<insert id ="insertAlarm" parameterType="com.olive.dto.Alarm">
-	insert into alarm (alarmno,alarmtime,empno,content,alarmcheck) 
-	values (1,now(),1,1,1)
+	insert into alarm (alarmtime,empno,content,alarmcheck,color)
+	values (now(),#{empno},#{content},0,#{alarm})
 	</insert>
 </mapper>
