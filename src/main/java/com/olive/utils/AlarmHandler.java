@@ -46,37 +46,20 @@ public class AlarmHandler extends TextWebSocketHandler {
 		
 		String cmd = (String)json.get("cmd");
 		String color = (String)json.get("color");
+		String title = (String)json.get("docTitle");
 		alarm.setAlarmTime(alarmTime);
+		alarm.setColor(color);
 
-		//기안 했으니 승인 해달라 1번 결재자에게 보내는거
-		if(cmd.equals("Doc")) {
-			String content = (String)json.get("content");
-			String nextApprover = (String)json.get("nextApprover");
-			
-			alarm.setColor(color);
-			alarm.setContent (content);
-			String sendjson =objMapper.writeValueAsString(alarm);
-			
-			for(Map.Entry list : socketList.entrySet()) {
-				WebSocketSession sess = (WebSocketSession) list.getValue();
-				if(list.getKey().equals(nextApprover)) {
-					System.out.println("보내는 사람은 ? (결재자)"+nextApprover);
-					sess.sendMessage(new TextMessage(sendjson));
-				}
-			}
-		//승인 또는 반려 됐다고 기안자에게 보내는 거	
-		}else if(cmd.equals("App")) {
+	//승인 또는 반려 됐다고 기안자에게 보내는 거	
+	 if(cmd.equals("App")) {
 			System.out.println(color);
 			String approver = (String)json.get("approver");
 			String docWriter = (String)json.get("docWriter");
 			String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
 			String docno = (String)json.get("docno");
-			String content = approver+"님 께서"+docno+"번 문서에 대해 "+approveOrNot;
+			String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
+			String content = approver+"님 께서 '"+title+"' 문서를 "+done+approveOrNot;
 			
-			alarm.setColor(color);
-			alarm.setApprover(approver);
-			alarm.setAlarmTime(alarmTime);
-			alarm.setDocno(docno);
 			alarm.setContent(content);
 			String sendjson =objMapper.writeValueAsString(alarm);
 			
@@ -90,6 +73,27 @@ public class AlarmHandler extends TextWebSocketHandler {
 			}
 			
 			
+			
+	//기안 했으니 승인 해달라 , 승인하면 다음 결재자에게 보내는거
+		}else if (cmd.equals("next")) {
+			System.out.println("next");
+			System.out.println(json);
+			String approver = (String) json.get("approver");
+			String nextApprover = (String)json.get("nextApprover");
+			String docno= "("+(String)json.get("docno")+"번)";
+			String docWriter = (String)json.get("docWriter");
+			String content = docWriter+"의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
+			
+			alarm.setContent (content);
+			String sendjson =objMapper.writeValueAsString(alarm);
+			
+			for(Map.Entry list : socketList.entrySet()) {
+				WebSocketSession sess = (WebSocketSession) list.getValue();
+				if(list.getKey().equals(nextApprover)) {
+					System.out.println("보내는 사람은 ? (결재자)"+nextApprover);
+					sess.sendMessage(new TextMessage(sendjson));
+				}
+			}
 			
 		}
 		

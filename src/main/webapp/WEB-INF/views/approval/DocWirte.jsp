@@ -454,15 +454,16 @@ $(function() {
 				$('#nono').append(html);
 	 		}else{	
 				let protocol = {
-						cmd : "Doc",
-						docWriter : "${LoginUser}",
+						cmd : "next",
+						docWriter : "${emp.ename }",
 						nextApprover : approverList[1][0].id.split('_')[0],
-						content : "${emp.ename }님 께서 기안을 올리셨습니다.",
-						color: "success"
+						docno:$('#docno').val(),
+						color: "success",
+						docTitle:$('#title').val()
 						}
 				
 		 		websocket.send(JSON.stringify(protocol));
-				//$('#form').submit();
+				$('#form').submit();
 
 				 }
 		
