@@ -34,11 +34,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update ATT_RECORD  set attcode = #{attCode}, endtime = now() where date_format(date, '%Y-%m-%d')=curdate() and empno = #{empNo} 
 	</update> 
 <!-- 출/퇴근 select -->
+<!--  
 	<select id="getcalendarList" resultType="com.olive.dto.Att_Record">
 	select e.ename, e.empno as empNo, d.deptname, r.starttime, r.endtime,r.date 
 	from emp as e join att_record as r on e.empno = r.empno 
 	join dept as d on e.deptCode = d.deptCode
 	where e.empno = #{empno}
-	</select>
+	</select>-->
+<!-- annual  view list  select -->
+<!-- 	<select id="getanallist" resultType="com.olive.dto.Document">
+	select d.DOCNO, d.EMPNO, d.TITLE,s.STATUSNAME,t.TYPENAME, a.startdate, a.enddate
+	from DOCUMENT as d 
+		join doc_add as a
+			on d.docno = a.document_docno
+		join DOC_STATUS as s 
+			on d.STATUSCODE = s.STATUSCODE
+		join DOC_TYPE as t
+			on d.TYPECODE = t.TYPECODE;
+	where d.empno = #{empno}
+	</select> -->
 	
+
 </mapper>

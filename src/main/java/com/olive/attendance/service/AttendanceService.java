@@ -113,6 +113,7 @@ public class AttendanceService {
 		public  List<Att_Record> tableList() {
 			AttendanceDao tabledao = sqlsession.getMapper(AttendanceDao.class);
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			System.out.println("테이블 ");
 			return tabledao.gettableList(auth.getName());
 		}
 

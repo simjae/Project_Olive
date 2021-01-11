@@ -4,7 +4,7 @@
 	작성일 : 2020-12-30
 	수정일 : 2020-01-07
 	작성자 : 심재형 
- -->
+ -->w
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -311,7 +311,7 @@
 			</div>
 		</div>
 		<!-- SearchAndPaging -->
-		<script src="/resources/js/Attendance/searchAndPaging.js"></script>
+		<script src="/resources/js/Attendance/attendance.js"></script>
 		<!-- 캘린더 모듈화  -->
 		<script src="/resources/js/Attendance/calendar.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
