@@ -24,11 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <!--<select id="-" resultType="com.olive.dto.Att_Record">
 		select * from ATT_RECORD where empno =#{empno} and attcode = 10;
 	 </select>-->
-<!-- 근태관리  지각  일수   -->
-	 <!--<select id="-" resultType="com.olive.dto.Att_Record">
-		select * from ATT_RECORD where empno =#{empno} and attcode = 20;
-	 </select>-->
-	 
+
  <!-- 출근버튼 -->
  	<update id="startwork" parameterType ="com.olive.dto.Att_Record">	 
 		update ATT_RECORD  set attcode = #{attCode}, starttime = now() where date_format(date, '%Y-%m-%d')=curdate() and empno = #{empNo} 

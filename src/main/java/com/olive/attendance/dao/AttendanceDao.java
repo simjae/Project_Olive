@@ -11,6 +11,8 @@ package com.olive.attendance.dao;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+
 import com.olive.dto.Att_Record;
 import com.olive.dto.Emp;
 
@@ -24,7 +26,7 @@ public interface AttendanceDao {
 	public List<Att_Record> getcalendarList(String empno);
 	//근태관리 테이블 select
 	public List<Att_Record> gettableList(String empno);
-		
+
 	}
 	
 

@@ -28,6 +28,7 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
+
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -50,14 +51,14 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
+				<c:set var="emp" value="${emp}"/>
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">사용자 이름 들어감 </h1>
+						<h1 class="h3 mb-0 text-gray-800">${emp.ENAME} </h1>
+						 	
 						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
+							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">${emp.ENAME}</a>
 					</div>
 
 
@@ -65,6 +66,7 @@
 
 
 					<div class="row">
+					<c:set var="tardycount" value="${tardycount}"/>
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
@@ -93,7 +95,7 @@
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
-											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
+											<span class="h5 font-weight-bold text-gray-800">출근: ${tardycount}</span>
 
 										</div>
 										<div class="col-auto">
@@ -315,5 +317,7 @@
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>
+
+
 
 </html>
