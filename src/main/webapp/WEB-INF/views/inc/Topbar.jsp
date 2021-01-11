@@ -168,7 +168,6 @@ function connect(){
 	websocket.onopen =(evt) =>{
 		
 	};
-
 	websocket.onclose =(evt) =>{
 	}; 
 	
@@ -195,16 +194,13 @@ function writeMsg(evt){
 			</div>\
 		</div>\
 	</div>';
-
 	$('.alarm').append(content);
 	
 	console.log(html);
 }
-
 function disconnect(){
 	websocket.close();
 }
-
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
@@ -222,16 +218,9 @@ jb(document).ready(function() {
 			}
 		
 	});
-
 	connect();
 	
-
-
-
-
 	
 })
 	
-
-
 </script>

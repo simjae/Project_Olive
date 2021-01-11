@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 	
 	$('[data-toggle="tooltip"]').tooltip();
+
 	var calendarEl = document.getElementById('calendar');
 	//db일정 받아오기 
 	var eventFeed = function(info, successCallback,
@@ -60,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					  start: '2021-01-07',
 					  end: '2021-01-10'
 					} 
-
 				]*/
 
 			events: eventFeed
@@ -69,5 +69,3 @@ document.addEventListener('DOMContentLoaded', function() {
 	calendar.render();
 
 });
-
-
