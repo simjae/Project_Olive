@@ -315,7 +315,7 @@
 		<!-- SearchAndPaging -->
 		<script src="/resources/js/Attendance/annual.js"></script>
 		<!-- 캘린더 모듈화  -->
-		<script src="/resources/js/Attendance/calendar.js"></script>
+		<script src="/resources/js/Attendance/calendar2.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>
