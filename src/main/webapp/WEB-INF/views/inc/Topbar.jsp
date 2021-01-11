@@ -28,7 +28,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
-
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar topbar-cst mb-4 static-top shadow">
 	<!--  Sidebar Toggle (Topbar)-->
@@ -143,21 +142,6 @@
 			</div></li>
 	</ul>
 </nav>
-<div class="alarm">
-	
-</div>
-<style>
-.cbody{
-	padding-top:5px;
-	padding-bottom:5px;
-}
-.alarm{
-	position:absolute;
-	width:300px;
-	top:30px;
-	right:2px;
-}
-</style>
 <!-- End of Topbar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -176,24 +160,7 @@ function connect(){
 	
 }
 function writeMsg(evt){
-	let html = JSON.parse(evt.data);
-	let content =
-		'<div class="card border-left-'+html.color+' shadow">\
-		<div class="cbody card-body">\
-			<div class="row no-gutters align-items-center">\
-				<div class="col-auto">\
-					<img src="/resources/img/speech-bubble.png">\
-				</div>\
-				<div class="col ml-4">\
-					<div class="text-xs font-weight-bold text-'+html.color+' text-uppercase mb-1">ALARM  &nbsp;'+html.alarmTime+'</div>\
-					<div class="h6 mb-0 font-weight-bold text-gray-700">'+html.content+'</div>\
-				</div>\
-			</div>\
-		</div>\
-	</div>';
-
-	$('.alarm').append(content);
-	
+	let html = evt.data;
 	console.log(html);
 }
 

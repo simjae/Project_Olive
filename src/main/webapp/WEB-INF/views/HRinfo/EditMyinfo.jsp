@@ -195,7 +195,7 @@
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>이메일</p>
-						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.EMAIL}" >
+						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.email}" >
 						                    </div>
 						                   
 						                </div>
@@ -203,18 +203,26 @@
 				 		                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>휴대전화</p>
-						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.PHONE}" >
+						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.phone}" >
 						                    </div>
 						                </div> 
 						                
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>주소</p>
-						                    	<input name="address" id="address" type="text" class="form-control" placeholder="주소" value="${emp.ADDRESS}" >
+						                    	<input name="address" id="address" type="text" class="form-control" placeholder="주소" value="${emp.address}" >
 						                    </div>
 						                </div>  		 
 									</form>
 								 </div>
+						
+								
+								
+									
+
+						
+						     
+						               
 						            </div>
 						        </div>
 						    </div>
@@ -257,31 +265,14 @@
 				$('#editform').show();
 				$('#saveBtn').show();
 				edit = true;
-				
-				$.ajax({
-					url: "/HRinfo/Emp.do",
-					type: "POST",
-					dataType:  "JSON",
-					data: {
-						searchType: searchType,
-						keyword: keyword
-					},
-					success: (data) => {
-						console.log(data);
-						insertDatabyAjax(data);
-					},error : function(error){
-						console.log(error);
-					}
-				});
 			}
 		}); 
 
 		$('#saveBtn').click(function(){
 			$('#editform').submit();
 			console.log("눌리긴 하니");
+			
 		}); 
-
-		
 	}); 
 		
 

@@ -176,8 +176,8 @@
 												<div class="col">
 													<div class="progress progress-sm mr-2">
 														<div class="progress-bar bg-info" role="progressbar"
-															style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-															aria-valuemax="100"></div>
+															style="width: 70%" aria-valuenow="40" aria-valuemin="0"
+															aria-valuemax="52"></div>
 													</div>
 												</div>
 											</div>
