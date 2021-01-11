@@ -38,6 +38,21 @@ public class Hr_ManagementRestController {
 		
 		return jsonObject;		
 	}
-
+	
+	@RequestMapping(value = "Salary.do", method = RequestMethod.POST)
+	public JSONObject getSalaryList(Criteria cri) {
+		cri.setCriteria("salaryinfo", "SAL_DATE", "DESC");
+		cri.setPerPageNum(5);
+		int totalCount = pagingService.getListCount(cri);
+		Pagination pagination = new Pagination(cri, totalCount);
+		List<Map<String, Object>> result = pagingService.getList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", result);
+		jsonObject.put("pagination", pagination);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;		
+	}
 
 }

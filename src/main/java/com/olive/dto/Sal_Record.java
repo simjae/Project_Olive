@@ -1,7 +1,5 @@
 package com.olive.dto;
 
-import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -9,8 +7,7 @@ import lombok.Data;
 @Data
 public class Sal_Record {
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date sal_date;
+	private String sal_date;
 	private int empno;
 	
 	private int basic_pay;
