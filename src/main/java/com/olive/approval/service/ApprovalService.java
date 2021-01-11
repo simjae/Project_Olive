@@ -1,13 +1,18 @@
 package com.olive.approval.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
-import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
@@ -24,10 +28,9 @@ import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
-import com.olive.dto.Refference;
+import com.olive.dto.Reference;
 
 import paging.Criteria;
-import paging.PagingDao;
 
 @Service
 public class ApprovalService {
@@ -54,7 +57,7 @@ public class ApprovalService {
 		List<Document> document = approvalDao.getDocumentRec(empno, start, size);
 
 		return document;
-	}
+	} 
 
 	// 내가 기안한 문서 분류하기 (카운트용)
 	public Map arrangeDoc(List<Document> document) {
@@ -81,7 +84,7 @@ public class ApprovalService {
 
 		return arrangedDoc;
 	}
-
+ 
 	// 내가 결재자인 문서 분류
 	public Map arrangedAppDoc(List<Approver> approver) {
 		Map<String, List<Approver>> arrangedAppDoc = new HashMap();
@@ -119,7 +122,8 @@ public class ApprovalService {
 		return approvalDao.getApproverRec(empno, start, size);
 	}
 
-	public List<Refference> getRefference(String empno) {
+	//내가 참조자인 문서
+	public List<Reference> getRefference(String empno) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getRefference(empno);
 	}
@@ -140,7 +144,7 @@ public class ApprovalService {
 	public void writeDoc(Document doc, HttpServletRequest request) throws Exception {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Approver> appList = new ArrayList();
-		List<Refference> refList = new ArrayList();
+		List<Reference> refList = new ArrayList();
 
 		CommonsMultipartFile multifile = doc.getFile();
 		String filename = multifile.getOriginalFilename();
@@ -246,10 +250,25 @@ public class ApprovalService {
 		return approvalDao.getListCount(cri);
 	}	
 	
+	public int getAppListCount(Criteria cri) {
+		System.out.println("getListCount 서비스 시작");
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		return approvalDao.getAppListCount(cri);
+	}	
+	
 	public List<Map<String, Object>> getList(Criteria cri) {
 		System.out.println("getList 서비스 시작");
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getList(cri);
 	}
+	public List<Map<String, Object>> getAppList(Criteria cri) {
+		System.out.println("getAppList 서비스 시작");
+		System.out.println(cri);
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getAppList(cri);
+		
+	}
+	
+	
 	
 }

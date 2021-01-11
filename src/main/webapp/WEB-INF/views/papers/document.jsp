@@ -88,6 +88,9 @@
 													<c:if test="${list.app_Check==1}">
 														<img src="/resources/img/approvalStamp.jpg">
 													</c:if>
+													<c:if test="${list.app_Check==2}">
+														<img src="/resources/img/rejected.png">
+													</c:if>
 												</td>
 											</c:forEach>
 										</tr>
@@ -158,6 +161,12 @@
 										<td colspan="6" style="padding: 0; border: 1px solid #cdcdcd; height: 300px; vertical-align: top">${doc.content }</td>
 									</tr>
 									<tr>
+									
+										<td colspan="6" style="padding-bottom:0px; padding-left:10px; border: 1px solid #cdcdcd; height: 50px;">
+										<p class="my-auto" style="font-family: 맑은 고딕; font-size: 16px;">첨부 파일 : <a href="download.do?filename=${doc.filename}" id ="filename">${doc.filename }</a></p>
+										</td>
+									</tr>
+									<tr>
 										<td colspan="6" style="padding: 10px 0; border: 0;">
 											<table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0">
 												<tbody>
@@ -195,6 +204,25 @@
 									</tr>
 								</tbody>
 							</table>
+							<c:if test="${doc.statusCode ==40 }">
+							<div class="row">
+								<div class='col-xl-12 col-lg-12'>
+									<div class="crad border-left-danger shadow mb-4">
+										<div class="card-header py-3">
+											<h6 class= "m-0 font-weight-bold text-danger">사유</h6>
+										</div>
+										<div class="card-body px-2 py-0 mb-2">
+											<c:forEach var="check" items="${ apps}">
+												<c:if test ="${ check.comment != null}">
+												${check.ename } : ${check.comment}
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -204,10 +232,14 @@
 		</div>
 		<!-- End of Content Wrapper -->
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
 </body>
 <!-- 모든 스크립트 모듈화 -->
 <jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="/resources/js/Approval/document.js"></script>
 <script type="text/javascript">
 function approve(app) {
     $.ajax({
@@ -227,7 +259,7 @@ $(function() {
         let app = {
             docno: ${doc.docno},
             empno: ${user.username},
-            app_Check: 0,
+            app_Check: 2,
         };
         if ($(this).val() == 1) {
             app.app_Check = 1;
@@ -270,8 +302,30 @@ $(function() {
         console.log(app);
    
     });
+
+	/* $('#filename').on("click",function(){
+		console.log($(this).text());
+		 $.ajax({
+			url:"download.do",
+			type:"POST",
+			data:{
+				filename:$('#filename').text()
+				},
+				success:function(){
+				alert('sjsj');
+					}
+			
+
+			});
+ 
+
+
+		});		
+		 */
+
+
+    
 });
 
-	
 </script>
 </html>

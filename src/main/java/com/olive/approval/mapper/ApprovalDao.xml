@@ -11,7 +11,7 @@
 	</select>
 	<!--내가 기안한 문서 가지고 오는거-->
 	<select id="getDocument" resultType="com.olive.dto.Document">
-		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , ds.statusname,dt.typename,e.ename,d.empno
+		select d.docno, d.writedate, d.title, d.total_Approval, d.curr_Approval, d.statusCode, d.typeCode , ds.statusname,dt.typename,e.ename,d.empno,d.filename
 		from document d join doc_status ds join doc_type dt join emp e 
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
 		where d.empno = #{empno}
@@ -26,17 +26,17 @@
 	</select> 
 			<!--문서 번호로 문서 가지고 오는거-->
 	<select id="viewDocument" resultType="com.olive.dto.Document">
-		<if test='param2 eq 10'>
-		select d.docno, d.writedate,d.empno, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,
+		<if test='param2 eq "10"'> 
+		select d.docno, d.writedate,d.empno, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,d.filename
 		from document d join doc_status ds join doc_type dt join emp e 
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno 
-		where d.docno = ${param1} 
+		where d.docno = ${param1}
 		</if>
 		<if test='param2 != "10"'>
-		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,da.startdate,da.enddate 
+		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, ds.statusname,dt.typename,e.ename,da.startdate,da.enddate,d.filename 
 		from document d join doc_status ds join doc_type dt join emp e join doc_add da
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno and da.document_docno=d.docno
-		where d.docno = ${param1} 
+		where d.docno = ${param1}
 		</if> 
 	</select> 
 	 
@@ -46,10 +46,12 @@
 		from document d join doc_status ds join doc_type dt join emp e 
 		on d.statuscode = ds.statuscode and d.typecode = dt.typecode and d.empno=e.empno
 		where d.empno = #{param1}
+		order by docno desc
 		
 		<if test="param2 != null and param3 != null">
 			limit #{param3} offset #{param2}
 		</if>
+		
 	</select> 
 	<!-- 메인에 결재 관련 정보 뿌려 주기-->
 	<select id="getApprover" resultType="com.olive.dto.Approver">
@@ -58,7 +60,7 @@
 		on a.docno=d.docno and e.empno=d.empno and d.typecode = dt.typecode
 		where a.empno = #{empno}
 		
-		
+		order by docno desc
 	</select>
 	<!-- 메인에 결재 관련 정보 페이징 처리  뿌려 주기-->
 	<select id="getApproverRec" resultType="com.olive.dto.Approver">
@@ -66,16 +68,17 @@
 		from approver a join document d join emp e
 		on a.docno=d.docno and e.empno=d.empno
 		where a.empno = #{param1}
+		order by docno desc
 		<if test="param2 != null and param3 != null">
 		limit  #{param3} offset #{param2}
 		</if>
-		
 	</select>
 	<!-- 참조자 하나 만들어 놓기 -->
-	<select id="getRefference" resultType="com.olive.dto.Refference">
-		select docno
-		from Refference
-		where empno = #{empno}
+	<select id="getRefference" resultType="com.olive.dto.Reference">
+		select a.docno , a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode,d.typeCode,d.total_Approval,d.curr_Approval,dt.typename
+		from approver a join document d join emp e join doc_type dt join reference r
+		on a.docno=d.docno and e.empno=d.empno and d.typecode = dt.typecode and d.docno=r.docno
+        where r.empno = #{empno}
 	</select> 
 
 	<select id="selectDocType" resultType="com.olive.dto.Doc_Type">
@@ -141,10 +144,10 @@
 		and d.statusCode=${param1} 
 		</if>
 		
-		
+		order by docno desc
 	</select>
 		<select id="getArrangedAppList" resultType="com.olive.dto.Approver">
-		select a.docno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode,d.curr_Approval
+		select a.docno,e.empno, a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode,d.curr_Approval
 		from approver a join document d join emp e
 		on a.docno=d.docno and e.empno=d.empno
 		 
@@ -161,6 +164,7 @@
 		<if test="param1 eq 40">
 		and d.statusCode = 40
 		</if>
+		order by docno desc
 	</select>
 	
 	<update id="approve" parameterType="com.olive.dto.Approver">
@@ -196,6 +200,53 @@
         ORDER BY ${column} ${sort}
 		LIMIT ${rowStart}, ${perPageNum}
    		 
+	</select>
+	<select id="getAppList" resultType="Hashmap" parameterType="Hashmap">
+	 	 <![CDATA[
+        SELECT
+            *
+        FROM 
+			${table}
+		WHERE ${searchType} = #{keyword}
+		]]>
+		<if test='keyword2 eq 10'>
+		and ifnull(app_check,0)= 0 and (app_order-curr_Approval)=1 
+		</if>
+		<if test="keyword2 eq 20">
+		and ifnull(app_check,0)=1 and (total_Approval > curr_Approval)
+		</if>
+		<if test="keyword2 eq 30">
+		and (total_Approval = curr_Approval)and statusCode =30
+		</if>
+		<if test="keyword2 eq 40">
+		and statusCode = 40
+		</if>
+        ORDER BY ${column} ${sort}
+		LIMIT ${rowStart}, ${perPageNum}
+	</select>
+
+	<select id="getAppListCount" resultType="Integer" parameterType="Hashmap">
+		 <![CDATA[
+		SELECT 
+			count(*) 
+		FROM 
+			${table}
+			
+		WHERE ${searchType} = ${keyword}
+		]]>
+		<if test='keyword2 eq 10'>
+		and ifnull(app_check,0)= 0 and (app_order-curr_Approval)=1 
+		</if>
+		<if test="keyword2 eq 20">
+		and ifnull(app_check,0)=1 and (total_Approval > curr_Approval)
+		</if>
+		<if test="keyword2 eq 30">
+		and (total_Approval = curr_Approval) and statusCode =30
+		</if>
+		<if test="keyword2 eq 40">
+		and statusCode = 40
+		</if>
+		
 	</select>
 	
 	

@@ -1,6 +1,7 @@
 package com.olive.approval.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
@@ -9,8 +10,9 @@ import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
-import com.olive.dto.Refference;
+import com.olive.dto.Reference;
 
+import paging.Criteria;
 import paging.PagingDao;
 
 public interface ApprovalDao extends PagingDao{
@@ -26,11 +28,14 @@ public interface ApprovalDao extends PagingDao{
 	public List<Document> getDocumentRec(String empno,int start, int size); //전자결재 메인페이지
 	public List<Approver> getApprover(String empno); //전자결재 메인페이지 내가 받은 결재 
 	public List<Approver> getApproverRec(String empno,int start, int size); //전자결재 메인페이지 페이징 내가 받은 결재 
-	public List<Refference> getRefference(String empno); //전자결재 메인페이지 참조
+	public List<Reference> getRefference(String empno); //전자결재 메인페이지 참조
 	public List<Document> getArrangedDocList(String statusCode,String empno); //전자결재 내가 올린 결재 (테이블)
 	public List<Approver> getArrangedAppList(String statusCode,String empno); //전자결재 내가 받은 결재 (테이블)
 	public Document viewDocument(String docno,String typeCode);
 	public List<Approver> viewApprovers(String docno);
 	public void approve(Approver app);//승인
-	
+	public List<Map<String, Object>> getList(Criteria cri);
+	public int getAppListCount(Criteria cri);
+	public List<Map<String, Object>> getAppList(Criteria cri);
+
 }

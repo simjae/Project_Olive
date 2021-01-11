@@ -64,7 +64,7 @@ public class AttendanceRestController {
 			int id = Integer.parseInt(auth.getName());
 			System.out.println(id);
 			service.startwork(id);
-			System.out.println("서비스들어가기전 ");
+			System.out.println("출근버튼 서비스들어가기전 ");
 		}
 	
 	
@@ -100,7 +100,7 @@ public class AttendanceRestController {
 		List<Att_Record> calendarList = null;
 		System.out.println("1");
 		calendarList = service.calendarList();
-		System.out.println("야"+calendarList);
+		System.out.println("캘린더리스트"+calendarList);
 		return calendarList;
 	}		
 	

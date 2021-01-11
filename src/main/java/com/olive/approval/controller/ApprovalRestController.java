@@ -1,14 +1,23 @@
 package com.olive.approval.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.approval.service.ApprovalService;
@@ -17,6 +26,7 @@ import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
+import com.olive.dto.Reference;
 
 import paging.Pagination;
 import paging.PagingService;
@@ -54,7 +64,7 @@ public class ApprovalRestController {
 	
 	@RequestMapping(value="/getArrangedDocList.do")
 	private Map<String,Object> getArrangedDocList(String statusCode,String size,Principal principal,ApprovalCriteria cri) {
-		cri.setCriteria("getArrangedDoc", "docno", "asc");
+		cri.setCriteria("getDoc", "docno", "desc");
 		cri.setSearchType("empno");
 		cri.setKeyword(principal.getName());
 		cri.setSearchType2("statusCode");
@@ -68,19 +78,102 @@ public class ApprovalRestController {
 		List<Map<String,Object>> pagingList = approvalService.getList(cri);
 		
 		Map<String,Object>  list = new HashMap<String,Object>();
-		list.put("cri", cri);
+		list.put("criteria", cri);
 		list.put("pagination",pagenation);
 		list.put("pagingList", pagingList);
 		
 		return list;
 	}
 	
+	@RequestMapping(value="/getArrangedDocListAjax.do")
+	private JSONObject getArrangedDocList(ApprovalCriteria cri) {
+		cri.setCriteria("getDoc", "docno", "desc");
+		
+		int totalCount =approvalService.getListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagenation);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pagingList", pagingList);
+		jsonObject.put("pagination", pagenation);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;
+	}
+	//참조하기 전용
+	@RequestMapping(value="/getArrangedAppListRef.do")
+	private Map<String,Object> getArrangedRefList(String statusCode,Principal principal, ApprovalCriteria cri) {
+		
+		cri.setCriteria("getapproverdocrec", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(principal.getName());
+		cri.setSearchType2("statusCode");
+		cri.setKeyword2(statusCode);
+	
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagination = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagination);
+		List<Map<String,Object>> pagingList = approvalService.getAppList(cri);
+		
+		Map<String,Object>  list = new HashMap<String,Object>();
+		list.put("criteria", cri);
+		list.put("pagination",pagination);
+		list.put("pagingList", pagingList); //이게 결과값이랬음
+		System.out.println("결과 : "+pagingList);
+		
+		return list;
+	}
 	@RequestMapping(value="/getArrangedAppList.do")
-	private List<Approver> getArrangedAppList(String statusCode,Principal principal) {
+	private Map<String,Object> getArrangedAppList(String statusCode,Principal principal, ApprovalCriteria cri) {
 		
+		cri.setCriteria("getApproverDoc", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(principal.getName());
+		cri.setSearchType2("statusCode");
+		cri.setKeyword2(statusCode);
+		System.out.println("getArrangedAppList");
+		System.out.println(principal.getName());
+		System.out.println(statusCode);
+	
 		
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagination = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagination);
+		List<Map<String,Object>> pagingList = approvalService.getAppList(cri);
 		
-		return approvalService.getArrangedAppList(statusCode,principal);
+		Map<String,Object>  list = new HashMap<String,Object>();
+		list.put("criteria", cri);
+		list.put("pagination",pagination);
+		list.put("pagingList", pagingList); //이게 결과값이랬음
+		System.out.println("결과 : "+pagingList);
+		
+		return list;
+	}
+	@RequestMapping(value="/getArrangedAppListAjax.do", method = RequestMethod.POST)
+	private JSONObject getArrangedAppList(ApprovalCriteria cri) {
+		cri.setCriteria("getApproverDoc", "docno", "desc");
+		System.out.println("getArrangedAppListAjax");
+		
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagenation = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagenation);
+		List<Map<String,Object>> pagingList= approvalService.getAppList(cri);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pagingList", pagingList);
+		jsonObject.put("pagination", pagenation);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;
 	}
 	
 	
@@ -90,6 +183,58 @@ public class ApprovalRestController {
 		approvalService.approve(app);
 		return "/approval/ProgressDoc.do";
 	}
+	
+	@RequestMapping(value="/download.do")
+	private void download(@RequestParam String filename,HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(filename+"은 파일이름 ㅓ냐얼냐ㅐ어랴");
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		
+	    //물리적 경로 얻기
+	    String downloadpath = request.getServletContext().getRealPath("/resources/upload");
+	    String FilePath = downloadpath + "/" + filename;
+	    //IO작업 하기
+	    File file = new File(FilePath);
+	    System.out.println(FilePath);
+	    //파일을 읽어서 출력
+	    byte[] b = new byte[10000000]; //4kb  //요기는 필요에 따라 조정 가능
+	    FileInputStream in;
+	    ServletOutputStream out2;
+		try {
+			in = new FileInputStream(file);
+			String sMimeType = request.getServletContext().getMimeType(FilePath); //파일의 타입 정보
+			System.out.println(sMimeType);
+			if(sMimeType == null){
+				sMimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(sMimeType);
+			
+			response.setHeader("Content-Disposition", 
+					"attachment;filename="+new String(filename.getBytes(),"ISO8859_1"));   //filename.getBytes(),"ISO8859_1")
+			out2 = response.getOutputStream();
+			int numread;
+			
+			while((numread = in.read(b,0,b.length)) != -1){
+				out2.write(b,0,numread);
+			}
+			
+			out2.flush();
+			out2.close();
+			in.close(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+	}
+
 
 
 }

@@ -201,8 +201,8 @@ table.table .avatar {
 							<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="10" id="doc_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">기안 문서</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="20" id="doc_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
-							<li class="nav-item"><button class="nav-link doc" value="30" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
-							<li class="nav-item"><button class="nav-link doc" value="40" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="40" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
+							<li class="nav-item"><button class="nav-link doc" value="30" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="total" role="tabpanel" aria-labelledby="home-tab">
@@ -239,7 +239,7 @@ table.table .avatar {
 																	<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
 																</div>
 															</div>
-															<div class="col-md-5 px-0 mx-0">${list.statusName}</div>
+															<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
 															</div>
 														</td>
 													</tr>
@@ -279,6 +279,13 @@ table.table .avatar {
 						</div>
 					</div>
 				</div>
+				<c:set var="criteria" value="${criteria}" />
+				<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
+				<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
+				<input type="text" value="${criteria.searchType2}" id="oldSearchType2" hidden>
+				<input type="text" value="${criteria.keyword2}" id="oldKeyword2" hidden>
+				<input type="text" value="${criteria.page}" id="oldPage" hidden>
+				<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
@@ -294,26 +301,13 @@ table.table .avatar {
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 	<script src="/resources/js/Approval/personalDoc.js"></script>
-	
+
+<script>
+
+</script>
 </body>
 </html>

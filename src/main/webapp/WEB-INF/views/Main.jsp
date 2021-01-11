@@ -21,7 +21,6 @@
 <title>Project_HR</title>
 
 <!-- 스타일시트, CDN 모듈화 -->
-<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 
 <!-- 날씨 css -->
 <link href="/resources/css/weather.css" rel="stylesheet" type="text/css">

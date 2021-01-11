@@ -61,7 +61,7 @@ public class HRAjaxController {
 		return jsonObject;		
 	}
 	
-	
+
 	//사원 사번 조회 //일단 모달창 전용으로 
 	@RequestMapping(value="searchByEmpno.do", method = RequestMethod.POST)
 	public Map<String, Object> searchEmpByEmpno(String empno){
