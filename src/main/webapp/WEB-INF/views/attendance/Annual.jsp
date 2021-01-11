@@ -52,14 +52,15 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
+				<c:set var="emp" value="${emp}"/>
+					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">사용자 이름들어갈곳 </h1>
+						<h1 class="h3 mb-0 text-gray-800">${emp.ENAME} </h1>
+						 	
 						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?</a>
+							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">${emp.ENAME}</a>
 					</div>
-
 
 
 
@@ -135,7 +136,7 @@
 
 
 					<!-- End of Main Content -->
-					<	<!-- 계정관리 컨텐츠 시작 -->
+						<!-- 계정관리 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
 							<div class="card border-left-info shadow mb-4">
@@ -171,25 +172,27 @@
 										<table id="salary_table" class="table text-center">
 											<thead>
 												<tr>
+												<h1>우리부서 </h1>
 													<th>사번</th>
 													<th>이름</th>
-													<th>부서</th>
-													<th>출근시간</th>
-													<th>퇴근시간</th>
+													<th>사용연차</th>
+													<th>발생일</th>
+													<th>종료일</th>
+													<th>사용연차</th>
+													<th>남은연차</th>
 												</tr>
 											</thead>
-											<tbody id="attListTable">
-												<c:forEach var="rectable" items="${list}">
+											<tbody id="annualTable">
+												<c:forEach var="annaul_diff" items="${list}">
 													<tr>
-														<td><c:out value="${rectable.empno}" /></td>
-														<td><c:out value="${rectable.ename}" /></td>
-														<td><c:out value="${rectable.deptname}" /></td>
-														<td><c:out value="${rectable.starttime}" /></td>
-														<td><c:out value="${rectable.endtime}" /></td>
-														<td><a href=# class="btn-sm btn-info shadow-sm"><i
-																class="fas fa-check fa-sm text-white"></i></a> <a href=#
-															class="btn-sm btn-info shadow-sm"><i
-																class="fas fa-edit fa-sm text-white"></i></a></td>
+														<td><c:out value="${annaul_diff.EMPNO}" /></td>
+														<td><c:out value="${annaul_diff.ename}" /></td>
+														<td><c:out value="${annaul_diff.TYPENAME}" /></td>
+														<td><c:out value="${annaul_diff.startdate}" /></td>
+														<td><c:out value="${annaul_diff.enddate}" /></td>
+														<td><c:out value="${annaul_diff.COUNT}일 " /></td>
+														<td><c:out value="${annaul_diff.diff}일 " /></td>
+														
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -310,7 +313,7 @@
 			</div>
 		</div>
 		<!-- SearchAndPaging -->
-		<script src="/resources/js/Attendance/searchAndPaging.js"></script>
+		<script src="/resources/js/Attendance/annual.js"></script>
 		<!-- 캘린더 모듈화  -->
 		<script src="/resources/js/Attendance/calendar.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
