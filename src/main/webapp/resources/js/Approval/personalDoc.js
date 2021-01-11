@@ -66,8 +66,9 @@ $(document).on("click", ".page-btn-prev", function() {
 	let searchType2 = $('#oldSearchType2').val();
 	let keyword2 = $('#oldKeyword2').val();
 	let perPageNum = $('#oldPerPageNum').val();
-	let page = $(this)[0].text;
-
+	let page = parseInt($('#oldPage').val())-1;
+	
+	
 	console.log(page);
 	$.ajax({
 		url: "getArrangedDocListAjax.do",
@@ -94,7 +95,7 @@ $(document).on("click", ".page-btn-next", function() {
 	let searchType2 = $('#oldSearchType2').val();
 	let keyword2 = $('#oldKeyword2').val();
 	let perPageNum = $('#oldPerPageNum').val();
-	let page = $(this)[0].text;
+	let page = parseInt($('#oldPage').val())+1;
 
 	console.log(page);
 	$.ajax({
