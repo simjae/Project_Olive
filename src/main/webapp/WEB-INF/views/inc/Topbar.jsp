@@ -28,6 +28,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
+
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar topbar-cst mb-4 static-top shadow">
 	<!--  Sidebar Toggle (Topbar)-->
@@ -142,8 +143,25 @@
 			</div></li>
 	</ul>
 </nav>
+<div class="alarm">
+	
+</div>
+<style>
+.cbody{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.alarm{
+	position:absolute;
+	width:300px;
+	top:30px;
+	right:2px;
+}
+</style>
 <!-- End of Topbar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 날짜 변환 관련 CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script type="text/javascript">
 function connect(){
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
@@ -155,12 +173,31 @@ function connect(){
 	}; 
 	
 	websocket.onmessage=(evt)=>{
-		writeMsg(evt);
+		setTimeout(()=>{
+			writeMsg(evt)	},5000);
 	}
 	
 }
 function writeMsg(evt){
-	let html = evt.data;
+	let html = JSON.parse(evt.data);
+	let alarmTime = moment(html.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
+	let content =
+		'<div class="card border-left-'+html.color+' shadow">\
+		<div class="cbody card-body">\
+			<div class="row no-gutters align-items-center">\
+				<div class="col-auto">\
+					<img src="/resources/img/speech-bubble.png">\
+				</div>\
+				<div class="col ml-4">\
+					<div class="text-xs font-weight-bold text-'+html.color+' text-uppercase mb-1">ALARM  &nbsp;'+alarmTime+'</div>\
+					<div class="h6 mb-0 font-weight-bold text-gray-700">'+html.content+'</div>\
+				</div>\
+			</div>\
+		</div>\
+	</div>';
+
+	$('.alarm').append(content);
+	
 	console.log(html);
 }
 

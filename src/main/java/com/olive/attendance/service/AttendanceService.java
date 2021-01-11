@@ -32,19 +32,7 @@ public class AttendanceService {
 		      System.out.println(this.sqlsession);
 		      System.out.println("연결");
 		   }
-		
-//=================== 캘린더insert ===================// 
-	
-		
-		/*//사용안함 insert
-		public void insert(Calendar cal) {
-			CalendarDao caldao = sqlsession.getMapper(CalendarDao.class);
-			caldao.insert(cal);
-			System.out.println("여기옴 ");
-			
-		}*/
-	
-//=================== 출근 버튼 update ===================// 
+
 		public void startwork(int id) {
 			AttendanceDao attdao = sqlsession.getMapper(AttendanceDao.class);
 		
@@ -97,12 +85,10 @@ public class AttendanceService {
 			String curDatestr = dateFormat.format(curDate);
 		   try {
 			   	Att_Record att = new Att_Record();
-			   	System.out.println("혹시 여기탔니???");
 			   	att.setAttCode(attcode);
 				att.setEmpNo(id);
 				System.out.println(attcode);
 				attdao.endwork(att);
-				System.out.println("dao endwork에 객체가지고감 ");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -114,21 +100,19 @@ public class AttendanceService {
 		
 		public  List<Att_Record> tableList() {
 			AttendanceDao tabledao = sqlsession.getMapper(AttendanceDao.class);
-			System.out.println("출퇴근 리스트 뽑기(서비스)");
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			System.out.println("테이블 ");
 			return tabledao.gettableList(auth.getName());
 		}
-		
 
-//=================== 근태 캘린더 select ===================// 
+
+//=================== 근태 캘린더  ===================// 
 			
 		public List<Att_Record> calendarList () {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
 			System.out.println(caldao);
-			System.out.println("캘린더리스트 서비스  ");
 			return caldao.gettableList(auth.getName());			
 		}
-//=================== 근태 테이블 페이징 테스트  ===================// 	
-		
+
 }

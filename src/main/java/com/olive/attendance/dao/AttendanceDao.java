@@ -12,7 +12,7 @@ package com.olive.attendance.dao;
 import java.util.List;
 
 import com.olive.dto.Att_Record;
-import com.olive.dto.Emp;
+import com.olive.dto.Document;
 
 
 public interface AttendanceDao {
@@ -20,11 +20,13 @@ public interface AttendanceDao {
 	public void startwork(Att_Record attrecord);
 	//퇴근처리 
 	public void endwork(Att_Record attrecord);
-	//연차 데이터 
-	public List<Att_Record> getcalendarList(String empno);
-	//근태관리 테이블 select
+
+	//근태관리 테이블/캘린더 select
 	public List<Att_Record> gettableList(String empno);
-		
+	
+	//근태관리 테이블/캘린더 select
+	public List<Document> getanaltableList(String empno);
+	
 	}
 	
 
