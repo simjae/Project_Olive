@@ -1,5 +1,6 @@
 package com.olive.utils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,21 +14,85 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.olive.dto.Alarm;
+
 @Component
 public class AlarmHandler extends TextWebSocketHandler {
+	//사번과 웹소켓 세션을 담는 맵 
 	private Map<String, WebSocketSession> socketList = new HashMap<String,WebSocketSession>();
-
+	ObjectMapper objMapper = new ObjectMapper();
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println(session.getPrincipal().getName()+"접속 성공");
 		
-		session.sendMessage(new TextMessage("출근 전이신가요? 출근 버튼을 누르세요"));
+		socketList.put(session.getPrincipal().getName(), session);
+		System.out.println(socketList);
+		
 		super.afterConnectionEstablished(session);
 	}
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println(message.getPayload());
+		JSONObject json = JsonToObjectParser((String)message.getPayload());
+		System.out.println("json"+json);  
+		
+		Alarm alarm = new Alarm();
+		Date alarmTime = new Date();
+		
+		String cmd = (String)json.get("cmd");
+		String color = (String)json.get("color");
+		alarm.setAlarmTime(alarmTime);
+
+		//기안 했으니 승인 해달라 1번 결재자에게 보내는거
+		if(cmd.equals("Doc")) {
+			String content = (String)json.get("content");
+			String nextApprover = (String)json.get("nextApprover");
+			
+			alarm.setColor(color);
+			alarm.setContent (content);
+			String sendjson =objMapper.writeValueAsString(alarm);
+			
+			for(Map.Entry list : socketList.entrySet()) {
+				WebSocketSession sess = (WebSocketSession) list.getValue();
+				if(list.getKey().equals(nextApprover)) {
+					System.out.println("보내는 사람은 ? (결재자)"+nextApprover);
+					sess.sendMessage(new TextMessage(sendjson));
+				}
+			}
+		//승인 또는 반려 됐다고 기안자에게 보내는 거	
+		}else if(cmd.equals("App")) {
+			System.out.println(color);
+			String approver = (String)json.get("approver");
+			String docWriter = (String)json.get("docWriter");
+			String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
+			String docno = (String)json.get("docno");
+			String content = approver+"님 께서"+docno+"번 문서에 대해 "+approveOrNot;
+			
+			alarm.setColor(color);
+			alarm.setApprover(approver);
+			alarm.setAlarmTime(alarmTime);
+			alarm.setDocno(docno);
+			alarm.setContent(content);
+			String sendjson =objMapper.writeValueAsString(alarm);
+			
+			for(Map.Entry list : socketList.entrySet()) {
+				WebSocketSession sess = (WebSocketSession) list.getValue();
+				if(list.getKey().equals(docWriter)) {
+					System.out.println("보내는 사람은 ???? (기안자_) "+docWriter);
+					sess.sendMessage(new TextMessage(sendjson));
+				}
+				
+			}
+			
+			
+			
+		}
+		
 		super.handleMessage(session, message);
 	}
 
@@ -60,5 +125,10 @@ public class AlarmHandler extends TextWebSocketHandler {
 	// => 문서 번호로 방을 만든다면 문서를 보고있는 사람만 알람이 간다는 건데... 이건 아니지 
 	
 	// 모든 사원을 한곳에다가 다몰아 넣어 놓고 문서에 해당되는 사번을 찾은다음 그 사람에게 문자를 보내야함
+	
+	// 기안을 올리면 다음 결재자(첫번째 결재자) 에게 알림이 가야함  "누가 기안을 올렸습니다"
+	// 승인을 하면 다음 결재자에게 알림이 가야함 "누가 어떤 문서 승인을 했습니다. 확인해 주세요"
+	// 최종 승인을 하면 기안자아게 다시 알람이 가야함 "어떤 문서가 최종 승인이 됐습니다"
+	// 반려가 나면 기안자에게 다시 알람이 가야함 "어떤 문서가 반려가 났습니다"
 
 }

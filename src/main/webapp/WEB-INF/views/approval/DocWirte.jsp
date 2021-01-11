@@ -31,6 +31,12 @@
 	padding: 1.1rem 1.1rem;
 	padding-bottom: 0;
 }
+#nono {
+	color:red;
+}
+.round{
+	border-radius:10px;
+}
 </style>
 </head>
 <body id="page-top">
@@ -70,7 +76,12 @@
 										</span> <span class="text">미리 보기</span>
 									</button>
 								</div>
+								<div class="p-2" >
+								<p class="mt-2" id="nono"></p>
+								</div>
+							
 							</div>
+							
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
@@ -265,22 +276,22 @@
 				</div>
 				<div class="modal-body" id="approver-modal-body">
 					<div class="horizontalTree mb-2 col-mb-12 d-flex" style="height: 500px;">
-						<div class="col-md-5 mx-auto border border-secondary h-100">
-							<ul>
+						<div class="col-md-5 mx-auto border border-secondary h-100 round">
+							<ul style="padding-left:10px;">
 								<div class="mt-4" id="jstree_div"></div>
 							</ul>
 						</div>
 						<div class="col-md-5 mx-auto">
 							<div class="col-md-12 mt-0 mb-2" style="height: 60%;">
 								<div class="mt-0 mb-0">결재자</div>
-								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
+								<div class="col-md-12 mx-auto border border-secondary round" style="height: 80%;">
 									<div id="approverList"></div>
 								</div>
 								<button class="btn btn-sm mt-1 btn-primary" id="add_approver">추가하기</button>
 							</div>
 							<div class="col-md-12 mt-1 mb-0" style="height: 35%;">
 								<div class="mt-0 mb-0 ">참조자</div>
-								<div class="col-md-12 mx-auto border border-secondary" style="height: 80%;">
+								<div class="col-md-12 mx-auto border border-secondary round" style="height: 80%;">
 									<div id="referrerList"></div>
 								</div>
 								<button class="btn btn-sm mt-1 btn-primary" id="add_referrer">추가하기</button>
@@ -362,12 +373,6 @@ function deletefromrim(me){
 	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
 
-
-
-
-
-		 
-
 $(function() {
 	
 	var $drop=$('#drop');
@@ -386,7 +391,7 @@ $(function() {
 			console.log(responsedata);
 			$.each(responsedata,(index,item)=>{
 				console.log(item);
-				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename}
+				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename,"icon":"/resources/img/user.jpg"}
 					})
 				resolve();
 				}
@@ -405,7 +410,7 @@ $(function() {
 					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
 						console.log(item);
-						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName}
+						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName, "icon":"/resources/img/dept.jpg"}
 						})
 						resolve();
 					}
@@ -422,7 +427,7 @@ $(function() {
 					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
 						console.log(item);
-						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName}
+						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName,"icon":"/resources/img/head.jpg"}
 						})
 						resolve();
 					}
@@ -438,8 +443,29 @@ $(function() {
 	 
 	 
 	 $('#submit').on("click",()=>{
+	 	$('#nono').empty();
+		 console.log($('#app1_id').val())
+		 
+		 if(approverList[0] ==null){
+				let html = '결재자를 최소 1명이상 선택해 주세요';
+				$('#nono').append(html);
+			 }else if($('#title').val() ==null ||  $('#title').val() == ''){
+				let html = '제목을 입력해 주세요';
+				$('#nono').append(html);
+	 		}else{	
+				let protocol = {
+						cmd : "Doc",
+						docWriter : "${LoginUser}",
+						nextApprover : approverList[1][0].id.split('_')[0],
+						content : "${emp.ename }님 께서 기안을 올리셨습니다.",
+						color: "success"
+						}
+				
+		 		websocket.send(JSON.stringify(protocol));
+				//$('#form').submit();
+
+				 }
 		
-		$('#form').submit();
 	 })
 
 		$('#applybtn').on("click",()=>{
@@ -450,6 +476,7 @@ $(function() {
 						$('#app'+i).val(approverList[i*2-2]);
 						console.log($('#app'+i).val());
 						$('#app'+i+'_id').val(approverList[i*2-1][0].id.split('_')[0]);
+						
 						console.log($('#app'+i+'_id').val());
 					}
 					$('#referrer').empty();
@@ -470,10 +497,15 @@ $(function() {
 			$('#jstree_div').jstree({
 			"core":{
 			"check_callback" : true,
+			"themes" : { 
+				"theme" : "default",
+				"dots":false 
+				
+				},
 			 "data":data
 				
 		 	},	
-			"plugins" : [ "dnd" ]
+			"plugins" : [ "dnd","contextmenu" ]
 			}
 		)
 		});  
@@ -484,6 +516,7 @@ $(function() {
 			let clickedapp = $('div#jstree_div a.jstree-clicked').clone();
 			let buttonapp = '<button class="temp" onclick="deletefromapp(this)"><img class="false" src="/resources/img/false.png"></button>';
 			let approver = clickedapp.append(buttonapp);
+			
 
 			if(!approverList.includes(clickedapp.text())){
 			approverList.push(clickedapp.text());
@@ -505,6 +538,7 @@ $(function() {
 			
 
 			if(!referrerList.includes(clicked.text())){
+				console.log("clicked:"+clicked);
 			referrerList.push(clicked.text());
 			referrerList.push(clicked);
 			};
