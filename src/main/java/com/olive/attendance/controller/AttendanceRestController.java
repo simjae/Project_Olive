@@ -108,7 +108,7 @@ public class AttendanceRestController {
 @RequestMapping(value = "attPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("rectable", "empno", "desc");
+		cri.setCriteria("rectable", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);

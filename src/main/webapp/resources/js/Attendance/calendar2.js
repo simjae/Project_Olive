@@ -68,5 +68,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	calendar.render();
 
 });
-
+/*
+$("#salary_table").on("click", '#namecal', function(){
+	alert("캘린더")
+	$.ajax({
+		url: "/Annual/calendarList.do",
+		type: "GET",
+		dataType:  "JSON",
+		data: {
+		},
+		success: (data) => {
+			insertDatabyAjax(data);
+		}
+	})
+});
+*/
 
