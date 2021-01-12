@@ -26,7 +26,6 @@ import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
-import com.olive.utils.service.AlarmService;
 
 import paging.Pagination;
 import paging.PagingService;
@@ -103,15 +102,43 @@ public class ApprovalRestController {
 		
 		return jsonObject;
 	}
+	//참조하기 전용
+	@RequestMapping(value="/getArrangedAppListRef.do")
+	private Map<String,Object> getArrangedRefList(String statusCode,Principal principal, ApprovalCriteria cri) {
+		
+		cri.setCriteria("getapproverdocrec", "docno", "desc");
+		cri.setSearchType("empno");
+		cri.setKeyword(principal.getName());
+		cri.setSearchType2("statusCode");
+		cri.setKeyword2(statusCode);
 	
+		int totalCount =approvalService.getAppListCount(cri);
+		System.out.println(totalCount);
+		Pagination pagination = new Pagination(cri,totalCount);
+		System.out.println(cri);
+		System.out.println(pagination);
+		List<Map<String,Object>> pagingList = approvalService.getAppList(cri);
+		
+		Map<String,Object>  list = new HashMap<String,Object>();
+		list.put("criteria", cri);
+		list.put("pagination",pagination);
+		list.put("pagingList", pagingList); //이게 결과값이랬음
+		System.out.println("결과 : "+pagingList);
+		
+		return list;
+	}
 	@RequestMapping(value="/getArrangedAppList.do")
 	private Map<String,Object> getArrangedAppList(String statusCode,Principal principal, ApprovalCriteria cri) {
+		
 		cri.setCriteria("getApproverDoc", "docno", "desc");
 		cri.setSearchType("empno");
 		cri.setKeyword(principal.getName());
 		cri.setSearchType2("statusCode");
 		cri.setKeyword2(statusCode);
 		System.out.println("getArrangedAppList");
+		System.out.println(principal.getName());
+		System.out.println(statusCode);
+	
 		
 		int totalCount =approvalService.getAppListCount(cri);
 		System.out.println(totalCount);
@@ -123,7 +150,8 @@ public class ApprovalRestController {
 		Map<String,Object>  list = new HashMap<String,Object>();
 		list.put("criteria", cri);
 		list.put("pagination",pagination);
-		list.put("pagingList", pagingList);
+		list.put("pagingList", pagingList); //이게 결과값이랬음
+		System.out.println("결과 : "+pagingList);
 		
 		return list;
 	}

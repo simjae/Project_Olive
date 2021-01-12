@@ -14,6 +14,7 @@ import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
+import com.olive.dto.Sal_Record;
 import com.olive.dto.SalaryInfo;
 
 import paging.Criteria;
@@ -41,4 +42,6 @@ public interface Hr_managementDao {
 	public List<Class> getClasses();
 
 	public SalaryInfo getSalaryDetail(Map parameter);
+	
+	public void insertSalaryTbl(List<Sal_Record> excelData); 
 }

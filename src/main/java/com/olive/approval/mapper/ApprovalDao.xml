@@ -74,10 +74,11 @@
 		</if>
 	</select>
 	<!-- 참조자 하나 만들어 놓기 -->
-	<select id="getRefference" resultType="com.olive.dto.Refference">
-		select docno
-		from Refference
-		where empno = #{empno}
+	<select id="getRefference" resultType="com.olive.dto.Reference">
+		select a.docno , a.app_order, a.app_date, a.comment, a.app_check,d.title,e.ename,d.writedate,d.statusCode,d.typeCode,d.total_Approval,d.curr_Approval,dt.typename
+		from approver a join document d join emp e join doc_type dt join reference r
+		on a.docno=d.docno and e.empno=d.empno and d.typecode = dt.typecode and d.docno=r.docno
+        where r.empno = #{empno}
 	</select> 
 
 	<select id="selectDocType" resultType="com.olive.dto.Doc_Type">
@@ -222,7 +223,6 @@
 		</if>
         ORDER BY ${column} ${sort}
 		LIMIT ${rowStart}, ${perPageNum}
-   		 
 	</select>
 
 	<select id="getAppListCount" resultType="Integer" parameterType="Hashmap">

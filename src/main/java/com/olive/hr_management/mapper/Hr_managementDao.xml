@@ -10,6 +10,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM salaryInfo
 			WHERE sal_date=#{sal_date} and empno=#{empno}
 	</select>
+	
+	<insert id="insertSalaryTbl" parameterType="java.util.List">
+		INSERT INTO Sal_record(
+			SAL_DATE,
+			EMPNO,
+			basic_pay,
+			overtime_pay,
+			position_pay,
+			bonus,
+			maintenance_of_vehicle,
+			educational_supports,
+			mess_allowance,
+			income_tax,
+			local_income_tax,
+			health_insurance,
+			care_insurance,
+			employment_insurance,
+			national_pension
+		)VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.sal_date},
+			#{item.empno},
+			#{item.basic_pay},
+			#{item.overtime_pay},
+			#{item.position_pay},
+			#{item.bonus},
+			#{item.maintenance_of_vehicle},
+			#{item.educational_supports},
+			#{item.mess_allowance},
+			#{item.income_tax},
+			#{item.local_income_tax},
+			#{item.employment_insurance},
+			#{item.health_insurance},
+			#{item.care_insurance},
+			#{item.national_pension}
+			)
+		</foreach>
+	</insert>
 
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,

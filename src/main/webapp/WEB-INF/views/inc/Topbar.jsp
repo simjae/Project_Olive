@@ -170,7 +170,6 @@ function connect(){
 	websocket.onopen =(evt) =>{
 		
 	};
-
 	websocket.onclose =(evt) =>{
 	}; 
 	
@@ -198,11 +197,15 @@ function writeMsg(evt){
 			</div>\
 		</div>\
 	</div>';
+<<<<<<< HEAD
 
 	jb('.alarm').append(content);
 	setTimeout(()=>{
 		$('.alarm').empty();
 		},5000);
+=======
+	$('.alarm').append(content);
+>>>>>>> 4f92141d39de116a0db2984a122f03f7f1df56f7
 	
 	let number = i;
 	jb('#counter').empty();
@@ -210,11 +213,9 @@ function writeMsg(evt){
 	i++
 	console.log(html);
 }
-
 function disconnect(){
 	websocket.close();
 }
-
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
@@ -232,9 +233,9 @@ jb(document).ready(function() {
 			}
 		
 	});
-
 	connect();
 	
+<<<<<<< HEAD
 
 	jb('#alertsDropdown').on("click",function(){
 		jb(this > span).empty();
@@ -245,9 +246,9 @@ jb(document).ready(function() {
 	
 
 
+=======
+>>>>>>> 4f92141d39de116a0db2984a122f03f7f1df56f7
 	
 })
 	
-
-
 </script>
