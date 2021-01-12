@@ -97,8 +97,6 @@ public class ApprovalController {
 			System.out.println(e.getMessage());
 			System.out.println("다 안드감");
 			// TODO: handle exception
-		}{
-			
 		}
 		return "redirect:/approval/ApprovalHome.do";
 	}

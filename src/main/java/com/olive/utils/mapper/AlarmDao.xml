@@ -6,6 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id ="insertAlarm" parameterType="com.olive.dto.Alarm">
 	insert into alarm (alarmtime,empno,content,alarmcheck,color)
-	values (now(),#{empno},#{content},0,#{alarm})
+	values (now(),#{empno},#{content},0,#{color})
 	</insert>
+	
+	<select id="getAlarmList">
+		select alarmTime, content, color from alarm where empno=#{param1}
+		limit #{param2},#{param3}
+	</select>
 </mapper>

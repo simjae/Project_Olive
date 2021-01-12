@@ -301,7 +301,7 @@ $(function() {
 
          		websocket.send(JSON.stringify(appProtocol));
          		websocket.send(JSON.stringify(nextProtocol));
-                   approve(app)
+                //   approve(app)
                 };
                 
             });
@@ -325,7 +325,7 @@ $(function() {
                 console.log(app);
          		websocket.send(JSON.stringify(appProtocol));
          		
-                approve(app);
+                //approve(app);
 
                 }else if(value ==''){
 					swal({title:'사유를 작성해 주세요.',icon:"warning"}); 

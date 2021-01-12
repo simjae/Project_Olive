@@ -77,10 +77,11 @@
 			</div></li>
 		</button>
 		<!-- 알람 -->
-		<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<li class="nav-item dropdown no-arrow mx-1">
+		<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-bell fa-fw"></i>
 				<!-- Counter - Alerts -->
-				<span class="badge badge-danger badge-counter">숫자</span>
+				<span class="badge badge-danger badge-counter" id="counter"></span>
 			</a> <!-- Dropdown - Alerts -->
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header">Alerts Center</h6>
@@ -163,6 +164,7 @@
 <!-- 날짜 변환 관련 CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script type="text/javascript">
+
 function connect(){
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
 	websocket.onopen =(evt) =>{
@@ -173,11 +175,12 @@ function connect(){
 	}; 
 	
 	websocket.onmessage=(evt)=>{
-		setTimeout(()=>{
-			writeMsg(evt)	},5000);
+		
+			writeMsg(evt)	
 	}
 	
 }
+let i=1;
 function writeMsg(evt){
 	let html = JSON.parse(evt.data);
 	let alarmTime = moment(html.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
@@ -196,8 +199,15 @@ function writeMsg(evt){
 		</div>\
 	</div>';
 
-	$('.alarm').append(content);
+	jb('.alarm').append(content);
+	setTimeout(()=>{
+		$('.alarm').empty();
+		},5000);
 	
+	let number = i;
+	jb('#counter').empty();
+	jb('#counter').append(number);
+	i++
 	console.log(html);
 }
 
@@ -226,7 +236,13 @@ jb(document).ready(function() {
 	connect();
 	
 
+	jb('#alertsDropdown').on("click",function(){
+		jb(this > span).empty();
 
+
+	}); 
+
+	
 
 
 	
