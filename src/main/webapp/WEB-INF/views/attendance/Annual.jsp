@@ -66,15 +66,17 @@
 
 
 					<div class="row">
+					<c:forEach var="annual" items="${list}">
+					
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												입사일로부터 지금까지</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">000시</div>
+												class="text-xl font-weight-bold text-primary text-uppercase mb-1">
+												이번달 총연차</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${annual.annual}</div>
 
 										</div>
 										<div class="col-auto">
@@ -92,10 +94,9 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-success text-uppercase mb-1">
-												이번달</div>
-											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
-											<span class="h5 font-weisght-bold text-gray-800">지각: 8일</span>
+												class="text-xl font-weight-bold text-success text-uppercase mb-1">
+												이번달 사용연차</div>
+											<span class="h5 font-weight-bold text-gray-800">${annual.COUNT}일</span>
 
 										</div>
 										<div class="col-auto">
@@ -113,12 +114,11 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">
-												오늘</div>
+												class="text-xl font-weight-bold text-info text-uppercase mb-1">
+												이번달 남은연차</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">yyyy년mm월dd일
-														근무중</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${annual.diff}</div>
 
 												</div>
 
@@ -131,7 +131,7 @@
 								</div>
 							</div>
 						</div>
-
+						</c:forEach>
 					</div>
 
 
