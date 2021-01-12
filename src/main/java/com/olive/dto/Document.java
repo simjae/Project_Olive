@@ -27,8 +27,9 @@ public class Document {
 	private CommonsMultipartFile file;
 	//추가 문서관련
 	private String title;
-	private Date startdate;
-	private Date enddate;
+	private Date start;
+	private Date end;
+	private String color;
 	
 	
 	private List<String> approvers;

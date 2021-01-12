@@ -598,7 +598,7 @@ p.inner-title{
 					<!-- Logout Modal-->
 					<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"></jsp:include>
 					<!-- SearchAndPaging -->
-					<script src="/resources/js/Attendance/searchAndPaging.js"></script>
+					<script src="/resources/js/Attendance/attendance.js"></script>
 					<!-- 캘린더 모듈화  -->
 					<script src="/resources/js/Attendance/calendar.js"></script>
 					<!-- 모든 스크립트 모듈화 -->

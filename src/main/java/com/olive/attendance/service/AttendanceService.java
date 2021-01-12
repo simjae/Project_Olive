@@ -96,6 +96,7 @@ public class AttendanceService {
 		return tabledao.gettableList(auth.getName());
 	}
 
+
 	// 재형 : 근태 캘린더
 	public List<Att_Record> calendarList() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -111,6 +112,7 @@ public class AttendanceService {
 		System.out.println("AttendanceService : +getHoursPerWeek() >> " + workHours);
 		return workHours;
 	}
+
 
 	// 희승 : 이번 주 요일별 근무시간
 	public List<Att_Record> getHoursEachDays(String empno) {

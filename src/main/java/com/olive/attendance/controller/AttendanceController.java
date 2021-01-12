@@ -65,7 +65,7 @@ public class AttendanceController {
 
 	@RequestMapping(value = "attendance.do", method = RequestMethod.GET)
 	public String mattendance(Model model, Criteria cri) {
-		cri.setCriteria("rectable", "empno", "desc");
+		cri.setCriteria("rectable", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 
@@ -75,7 +75,7 @@ public class AttendanceController {
 		Map<String, Object> emp = empService.searchEmpByEmpno(username);
 		WorkHourPerWeek workHours = attendanceService.getHoursPerWeek(username);
 		List<Att_Record> hoursEachList = attendanceService.getHoursEachDays(username);
-
+		
 		model.addAttribute("emp", emp);
 		model.addAttribute("list", result);
 		model.addAttribute("pagination", pagination);
