@@ -6,6 +6,22 @@
 */
 
 jQuery(document).ready(function($) {
+	const preloader = document.querySelector('.preloader');
+	
+	const fadeEffect = setInterval(function() {
+		
+		if (!preloader.style.opacity) {
+			preloader.style.opacity = 1;
+		}
+		
+		if (preloader.style.opacity > 0) {
+			preloader.style.opacity -= 0.05;
+		} else {
+			clearInterval(fadeEffect);
+		}
+		
+	}, 40);
+	
 	const cityName = "Seoul";
 	const cityId = "1835848";	// 서울 코드
 	const myAPIKey = $('#weatherkey').val();	// API Key
@@ -23,6 +39,7 @@ jQuery(document).ready(function($) {
 	
 	// 가져온 위도, 경도로 API 요청 주소 만들기
 	function makeURL(position){
+		fadeEffect;
 		lat = position.coords.latitude;
 		long = position.coords.longitude;
 		weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid="+ myAPIKey + "&units=metric";
@@ -93,7 +110,7 @@ jQuery(document).ready(function($) {
 		
 		let skycon = new Skycons({color:"black"});
 		
-		let UI  = '<div class="today-weather">'
+		let UI  = '<div class="today-weather card-opacity">'
 				+ '<div class="weather-title">'
 				+ "<h6>" + city + ", " + country + "</h6>"
 				+ '</div>'
@@ -113,6 +130,21 @@ jQuery(document).ready(function($) {
 		
 		skycon.set(document.querySelector("#weather-icon"), Skycons[makeItMove(id)]);
 		skycon.play();
+		
+		$('div.card-opacity').ready( function() {
+			let wd = document.querySelector('.card-opacity');
+			
+			let count = 0;
+			const fadeInWeather = setInterval( () => {
+				wd.style.opacity = count;
+				count += 0.05;
+				if(wd.style.opacity >= 1){
+					clearInterval(fadeInWeather);
+				}
+			}, 40);
+			
+			fadeInWeather;
+		});
 	}
 
 	// 실행 부분
