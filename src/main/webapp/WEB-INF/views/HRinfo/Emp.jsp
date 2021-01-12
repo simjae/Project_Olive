@@ -23,37 +23,6 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
-
-/* 모달 테이블 */
-#hr_info {
-	padding: 30px 30px;
-	margin:auto;
-	width: 80%;
-	
-}
-
-#hr_info td {
-	padding: 12px 15px;
-	vertical-align: middle;
-}
-
-#hr_info tr {
-	text-align: left;
-	font-size: 18px;
-}
-
-#hr_info tr td:first-child {
-	width: 30%;
-	color: #96a2af;
-}
-
-#hr_info tr td:last-child {
-	width: 100%;
-	border-bottom: 1px solid #ddd;
-	color: #384a5e;
-	font-weight: bold;
-}
-/* 목록 테이블 */
 .table-wrapper {
 	min-width: 1000px;
 	background: #fff;
@@ -117,6 +86,26 @@ table.table-striped tbody tr:nth-of-type(odd) {
 
 table.table-striped.table-hover tbody tr:hover {
 	background: #f5f5f5;
+}
+
+table.table td a {
+	font-weight: bold;
+	color: #566787;
+	display: inline-block;
+	text-decoration: none;
+	outline: none !important;
+}
+
+table.table td a:hover {
+	color: #2196F3;
+}
+
+table.table td a.edit {
+	color: #7F7FD5;
+}
+
+table.table td a.delete {
+	color: #F44336;
 }
 
 table.table .avatar {
@@ -226,7 +215,7 @@ table.table .avatar {
 											<th>이름</th>
 											<th>소속</th>
 											<th>직급</th>
-										
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -239,27 +228,83 @@ table.table .avatar {
 												<td>${list.ENAME}</td>
 												<td>${list.DEPTNAME}</td>
 												<td>${list.POSITIONNAME}</td>
+												<td><button id="openEmpModal">보기</button></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="clearfix">
 
-								<!-- Edit Modal HTML -->
+									<!-- Edit Modal HTML -->
 									<div id="EmpModal" class="modal fade">
 										<div class="modal-dialog">
 											<div class="modal-content">
+												<form>
 													<div class="modal-header">
 														<h4 class="modal-title">사원정보</h4>
 														<button type="button" class="close" data-dismiss="modal"
 															aria-hidden="true">&times;</button>
 													</div>
 													<div class="modal-body">
+														<div class="row justify-content-center">
+															<div class="col-md-5 border-right">
+																<div
+																	class="d-flex flex-column align-items-center text-center p-3 py-5">
+																	<img class="mt-5"
+																		src="/resources/img/undraw_profile.svg" width="90">
+																	<span class="font-weight-bold mt-3">${list.EMPNO}</span>
+																	<span class="font-weight-bold mt-3">${list.ENAME}</span>
+																</div>
+															</div>
+															<div class="col-md-7 scroll">
+																<div class="p-5">
+																	<div class="row mt-3">
+																		<div class="col-md-10">
+																			<p>사번</p>
+																			<span class="font-weight-bold mt-3">${list.EMPNO}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>이름</p>
+																			<span class="font-weight-bold mt-3">${list.ENAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>본부</p>
+																			<span class="font-weight-bold mt-3">${list.HEADNAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>부서</p>
+																			<span class="font-weight-bold mt-3">${list.DEPTNAME}팀
+																				: ${list.POSITIONNAME}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>이메일</p>
+																			<span class="font-weight-bold mt-3">${list.EMAIL}</span>
+																		</div>
+																	</div>
+																	<div class="row mt-4">
+																		<div class="col-md-10">
+																			<p>휴대폰번호</p>
+																			<span class="font-weight-bold mt-3">${list.PHONE}</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
 													</div>
 													<div class="modal-footer"></div>
+												</form>
 											</div>
 										</div>
-									</div> 
+									</div>
 
 
 									<c:set var="page" value="${pagination}"></c:set>
@@ -315,49 +360,52 @@ table.table .avatar {
 	<script>
 
 	/* 모달 */
+	$(document).ready(function(){
+		  $("#emptable tr").click(function(){
+		    $("#EmpModal").modal();
+		    var tr = $(this);
+			var td = tr.children();
+
+			var empno = td.eq(1).text();
+			console.log(empno);
+			console.log("왜 또 ...");
+
+			$.ajax(
+					{
+						type : "POST",
+						url	 : "/HRinfo/searchByEmpno.do",
+						data : {empno:empno},
+						success: (data) => {
+							console.log(data);
+							console.log(data.EMPNO);
+							console.log(data.ENAME);
+							console.log(data.HEADNAME);
+							console.log(data.DEPTNAME);
+							console.log(data.ENAME);
+							console.log(data.ENAME);
+							console.log(data.ADDRESS);
+							console.log(data.PHONE);
+							
+							/* $('#emptable > tbody').empty();
+							$.each(responseData, function(index, emp){
+								$('#emptable').append(
+										"<tr><td>"+emp.pic+
+										"</td><td>"+emp.empNo+
+										"</td><td>"+emp.ename+
+										"</td><td>"+emp.deptname+
+										"</td><td>"+emp.positionname+
+										"</td></tr>"
+									);
+							}); */
+						},
+						error : function(error){
+							console.log(error);
+						}
+					} 
+				);  
+		  });
+		});
 	
-	
-	$("#emptable").on("click", 'tr', function(){
-		var tr = $(this);
-		var td = tr.children();
-
-		var empno = td.eq(1).text();
-		console.log(empno);
-		$('.modal-content .modal-body').empty();
-
-
-		$.ajax(
-				{
-					type : "POST",
-					url	 : "/HRinfo/searchByEmpno.do",
-					data : {empno:empno},
-					success: (data) => {
-						console.log(data);
-						console.log(data.EMPNO);
-
-
-	                    var html="";
-	                    html += "<table id='hr_info'><tbody>";
-	                    html += "<tr><td>사번</td><td>"+data.EMPNO+"</td></tr>"+
-	                  			"<tr><td>이름</td><td>"+data.ENAME+"</td></tr>"+
-	                  			"<tr><td>본부</td><td>"+data.HEADNAME+"</td></tr>"+
-	                    		"<tr><td>부서</td><td>"+data.DEPTNAME+"</td></tr>"+
-	                    		"<tr><td>직위</td><td>"+data.CLASSNAME+"</td></tr>"+
-	                    		"<tr><td>이메일</td><td>"+data.EMAIL+"</td></tr>"+
-	                    		"<tr><td>휴대전화</td><td>"+data.PHONE+"</td></tr>"
-	                    html += '</tbody></table>';      
-
-						$('.modal-content .modal-body').append(html) 
-	                    $('#EmpModal').modal('show');
-					},
-					error : function(error){
-						console.log(error);
-					}
-				} 
-			);  
-	})
-	
-
 
     $('#search_button').click(function() {
 
@@ -487,8 +535,10 @@ table.table .avatar {
 						"</td><td>"+emp.ENAME+
 						"</td><td>"+emp.DEPTNAME+
 						"</td><td>"+emp.POSITIONNAME+
+						"</td><td><a href='' id='openEmpModal'>보기</a>"+
 						"</td></tr>"
 					);
+		
 				
 			});
 
