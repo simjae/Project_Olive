@@ -54,7 +54,7 @@ $(document).on("click", ".page-btn",function(){
 	let perPageNum = $('#oldPerPageNum').val();
 	let page = $(this)[0].text;
 	$.ajax({
-		url: "/attendance/attPage.do",
+		url: "/attendance/analPage.do",
 		type: "POST",
 		dataType:  "JSON",
 		data: {
@@ -76,7 +76,7 @@ $(document).on("click", ".page-btn-prev",function(){
 	let page = parseInt($('#oldPage').val())-1;
 	console.log(page);
 	$.ajax({
-		url: "/attendance/attPage.do",
+		url: "/attendance/analPage.do",
 		type: "POST",
 		dataType:  "JSON",
 		data: {
@@ -98,7 +98,7 @@ $(document).on("click", ".page-btn-next",function(){
 	let page = parseInt($('#oldPage').val())+1;
 	console.log(page);
 	$.ajax({
-		url: "/attendance/attPage.do",
+		url: "/attendance/analPage.do",
 		type: "POST",
 		dataType:  "JSON",
 		data: {
@@ -140,7 +140,7 @@ function insertDatabyAjax(data){
 							+"</td>"
 							+"</tr>"			
 		}
-		$('#attListTable').html(inputListData);
+		$('#annualTable').html(inputListData);
 		
 		
 		$('#pagination').empty();

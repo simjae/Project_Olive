@@ -66,7 +66,7 @@ public class AnnualRestController {
 @RequestMapping(value = "analPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("annaul_diff", "docno", "desc");
+		cri.setCriteria("annual_diff", "docno", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);
