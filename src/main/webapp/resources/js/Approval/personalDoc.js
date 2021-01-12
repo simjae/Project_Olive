@@ -137,6 +137,7 @@ $(function() {
 						</div>\
 						<div class="col-md-4 px-0 mx-0">'+ item.statusname + '</div>\
 						</div></td ></tr >';
+						
 			$('#docBody').append(html);
 
 			$('#pagination').empty()
