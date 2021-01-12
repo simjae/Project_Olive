@@ -73,6 +73,18 @@
 		}
 
 
+
+		/* fflkfl */
+		form i.fas {
+		    position: absolute;
+		    top: 20px;
+		    left: 20px;
+		    color: blue;
+		    font-size: 20px;
+		    z-index: 9999;
+		}
+		
+
 		
 	</style>
 </head>
@@ -212,9 +224,10 @@
 						                
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
-						                    	<p>주소</p>
-						                        <input value="주소" type="button" class="fas fa-map-marker-alt" style="border:none" onclick="sample2_execDaumPostcode()">
+						                    	<p>주소</p><span><i class="fas fa-map-marker-alt"></i></span>
+						                       <!--  <input type="button"  style="border:none" onclick="sample2_execDaumPostcode()"> -->
 						                    	<input name="address" id="address" type="text" class="form-control" placeholder="주소" value="${emp.ADDRESS}" >
+
 						                    </div>
 						                </div>  		 
 									</form>
