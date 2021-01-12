@@ -450,12 +450,10 @@ $(function() {
 						}
 				
 		 		websocket.send(JSON.stringify(protocol));
-<<<<<<< HEAD
-				//$('#form').submit();
 
-=======
 				$('#form').submit();
->>>>>>> 4f92141d39de116a0db2984a122f03f7f1df56f7
+
+
 				 }
 		
 	 })

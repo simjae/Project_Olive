@@ -238,12 +238,15 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
 		return approvalDao.viewApprovers(docno);
-	}
+	} 
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-	}
-	
+		
+		
+		System.out.println("----------------------------------------App--------------------------------"+app);
+		//approvalDao.afterApprove(app);
+	} 
 	public int getListCount(Criteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);

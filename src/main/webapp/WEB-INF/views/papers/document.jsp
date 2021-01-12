@@ -296,7 +296,7 @@ $(function() {
                if (result == 1){
          		websocket.send(JSON.stringify(appProtocol));
          		websocket.send(JSON.stringify(nextProtocol));
-                //   approve(app)
+                approve(app)
                 };
                 
             });

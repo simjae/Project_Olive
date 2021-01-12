@@ -85,12 +85,7 @@
 			</a> <!-- Dropdown - Alerts -->
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header">Alerts Center</h6>
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-primary">
-							<i class="fas fa-check text-white"></i>
-						</div>
-					</div>
+				<a class="dropdown-item d-flex align-items-center card border-left-primary" href="#">
 					<div>
 						<div class="small text-gray-500">December 12, 2019</div>
 						<span class="font-weight-bold">A new monthly report is ready to download!</span>
@@ -197,15 +192,13 @@ function writeMsg(evt){
 			</div>\
 		</div>\
 	</div>';
-<<<<<<< HEAD
+
 
 	jb('.alarm').append(content);
 	setTimeout(()=>{
 		$('.alarm').empty();
 		},5000);
-=======
-	$('.alarm').append(content);
->>>>>>> 4f92141d39de116a0db2984a122f03f7f1df56f7
+
 	
 	let number = i;
 	jb('#counter').empty();
@@ -235,20 +228,26 @@ jb(document).ready(function() {
 	});
 	connect();
 	
-<<<<<<< HEAD
 
 	jb('#alertsDropdown').on("click",function(){
-		jb(this > span).empty();
+		jb('#counter').empty();
+		jb.ajax({
+			url:"modalAlarm.do",
+			success:function(data){
 
+				}
+				
+
+			});
+			
+		
 
 	}); 
 
 	
 
 
-=======
->>>>>>> 4f92141d39de116a0db2984a122f03f7f1df56f7
-	
+
 })
 	
 </script>

@@ -37,5 +37,4 @@ public interface ApprovalDao extends PagingDao{
 	public List<Map<String, Object>> getList(Criteria cri);
 	public int getAppListCount(Criteria cri);
 	public List<Map<String, Object>> getAppList(Criteria cri);
-
 }
