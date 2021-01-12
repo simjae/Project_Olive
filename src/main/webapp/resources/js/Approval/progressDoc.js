@@ -77,7 +77,6 @@ $(function(){
 	
 	$('.doc').on("click",function(){
 		let html = '';
-		
 		$.ajax({
 			url:"getArrangedAppList.do",
 			dataType: "json",
@@ -95,6 +94,23 @@ $(function(){
 			});		
 		
 		console.log(html);
+	});
+	
+	$('#app_ref').on("click", function(){
+		console.log("상태코드"+$(this).val());
+		let html = '';
+		$.ajax({
+			url:"getArrangedAppListRef.do",
+			dataType: "json",
+			mehtod:"POST", 
+			contentType: "application/json; charset=utf-8",
+			data:{
+				statusCode:$(this).val()
+				},
+			success:function(data){
+				createTable(data)	
+			}
+		});		
 	});
 	
 	$(document).on("click", ".page-btn",function(){
