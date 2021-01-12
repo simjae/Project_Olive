@@ -24,6 +24,7 @@ import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.EmpTest;
+import com.olive.dto.Reference;
 
 import paging.Criteria;
 import paging.Pagination;
@@ -97,8 +98,6 @@ public class ApprovalController {
 			System.out.println(e.getMessage());
 			System.out.println("다 안드감");
 			// TODO: handle exception
-		}{
-			
 		}
 		return "redirect:/approval/ApprovalHome.do";
 	}
@@ -148,7 +147,8 @@ public class ApprovalController {
 		
 		List<Approver> approverDoc = approvalService.getApprover(empno);
 		model.addAttribute("appdoc", approverDoc);
-		
+		System.out.println(pagingList);
+		System.out.println(approverDoc);
 		return "approval/ProgressDoc";
 	}
 	

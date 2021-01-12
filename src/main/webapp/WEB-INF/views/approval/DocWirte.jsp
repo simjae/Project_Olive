@@ -450,7 +450,10 @@ $(function() {
 						}
 				
 		 		websocket.send(JSON.stringify(protocol));
+
 				$('#form').submit();
+
+
 				 }
 		
 	 })
