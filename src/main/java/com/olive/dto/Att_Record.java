@@ -20,4 +20,9 @@ public class Att_Record {
 	private int attCode;
 	private String title;
 	private String color ;
+	private String weekDays;
+	private int dayTotalHours;
+	private int dayTotalMinutes;
+	private int overHours;
+	private int overMinutes;
 }

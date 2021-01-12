@@ -28,7 +28,7 @@ import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
-import com.olive.dto.Refference;
+import com.olive.dto.Reference;
 
 import paging.Criteria;
 
@@ -122,7 +122,8 @@ public class ApprovalService {
 		return approvalDao.getApproverRec(empno, start, size);
 	}
 
-	public List<Refference> getRefference(String empno) {
+	//내가 참조자인 문서
+	public List<Reference> getRefference(String empno) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getRefference(empno);
 	}
@@ -143,7 +144,7 @@ public class ApprovalService {
 	public void writeDoc(Document doc, HttpServletRequest request) throws Exception {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Approver> appList = new ArrayList();
-		List<Refference> refList = new ArrayList();
+		List<Reference> refList = new ArrayList();
 
 		CommonsMultipartFile multifile = doc.getFile();
 		String filename = multifile.getOriginalFilename();
@@ -237,12 +238,15 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
 		return approvalDao.viewApprovers(docno);
-	}
+	} 
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-	}
-	
+		
+		
+		System.out.println("----------------------------------------App--------------------------------"+app);
+		//approvalDao.afterApprove(app);
+	} 
 	public int getListCount(Criteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
@@ -262,8 +266,10 @@ public class ApprovalService {
 	}
 	public List<Map<String, Object>> getAppList(Criteria cri) {
 		System.out.println("getAppList 서비스 시작");
+		System.out.println(cri);
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getAppList(cri);
+		
 	}
 	
 	

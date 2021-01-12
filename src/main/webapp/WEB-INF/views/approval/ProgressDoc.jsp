@@ -187,6 +187,7 @@ table.table .avatar {
 							<li class="nav-item"><button class="nav-link doc" value="20" id="app_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="30" id="app_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 							<li class="nav-item"><button class="nav-link doc" value="40" id="app_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
+							<li class="nav-item"><button class="nav-link" value="60" id="app_ref" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">참조  문서</button></li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">

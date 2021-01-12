@@ -100,9 +100,9 @@ public class AlarmHandler extends TextWebSocketHandler {
 			}
 			
 		}
-	 	System.out.println("------------------------넣는다 ----------------");
+	 	System.out.println("------------------------------------------------------넣는다----------------");
 	 	alarmService.insertAlarm(alarm);
-	 	System.out.println("------------------------넣었다 ----------------");
+	 	System.out.println("------------------------------------------------------넣었다----------------");
 		super.handleMessage(session, message);
 	}
 

@@ -73,6 +73,18 @@
 		}
 
 
+
+		/* fflkfl */
+		form i.fas {
+		    position: absolute;
+		    top: 20px;
+		    left: 20px;
+		    color: blue;
+		    font-size: 20px;
+		    z-index: 9999;
+		}
+		
+
 		
 	</style>
 </head>
@@ -114,7 +126,9 @@
 						        <div class="col-md-5 border-right my-auto">
 						        
 						            <div class="d-flex flex-column align-items-center text-center p-3">
-							            	<img id="preview" class="mt-5 rounded-circle" src="/resources/upload/${emp.PIC}" width="120">
+							            	<img id="preview" class="mt-5 rounded-circle" src="/resources/upload/${emp.PIC}" width="120"> 
+							            	
+
 
 											
 							            	<span class="font-weight-bold mt-3">${emp.EMPNO}</span>
@@ -181,6 +195,7 @@
  						            	<div class="form-group row">
 						                    <div class="col-md-10">
 												<input type="file" id="pic" name="file" class="file" accept="image/*"> 
+												<label for="pic">${emp.PIC}</label>
 						                    </div>
 						                </div>
 						                <input name="empNo" id="empNo" type="text" class="form-control" placeholder="사번" value="${emp.EMPNO}" hidden>
@@ -195,7 +210,7 @@
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>이메일</p>
-						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.EMAIL}" >
+						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.email}" >
 						                    </div>
 						                   
 						                </div>
@@ -203,18 +218,35 @@
 				 		                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>휴대전화</p>
-						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.PHONE}" >
+						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.phone}" >
 						                    </div>
 						                </div> 
 						                
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
-						                    	<p>주소</p>
+
+						                    	<p>주소</p><span><i class="fas fa-map-marker-alt"></i></span>
+						                       <!--  <input type="button"  style="border:none" onclick="sample2_execDaumPostcode()"> -->
 						                    	<input name="address" id="address" type="text" class="form-control" placeholder="주소" value="${emp.ADDRESS}" >
 						                    </div>
 						                </div>  		 
 									</form>
+									
+									<!-- 주소폼 -->
+									<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+									<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+									</div>
+									
+									
 								 </div>
+						
+								
+								
+									
+
+						
+						     
+						               
 						            </div>
 						        </div>
 						    </div>
@@ -240,12 +272,13 @@
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 
 
-	
 	$(document).ready(function(){
 		$('#editform').hide();
+		
 		//$('#pic').hide();
 		var edit = false;
 		$('#editBtn').click(function(){
@@ -257,7 +290,7 @@
 				$('#editform').show();
 				$('#saveBtn').show();
 				edit = true;
-				
+
 				$.ajax({
 					url: "/HRinfo/Emp.do",
 					type: "POST",
@@ -273,18 +306,75 @@
 						console.log(error);
 					}
 				});
+
 			}
 		}); 
 
 		$('#saveBtn').click(function(){
+
 			$('#editform').submit();
 			console.log("눌리긴 하니");
+			
 		}); 
-
-		
 	}); 
-		
 
+
+	/* 주소 */
+	// 우편번호 찾기 화면을 넣을 element
+    var element_layer = document.getElementById('layer');
+
+    function closeDaumPostcode() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer.style.display = 'none';
+    }
+
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+             
+                var addr = ''; // 주소 변수
+
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                document.getElementById("address").value = addr;
+       
+
+                // iframe을 넣은 element를 안보이게 한다.
+                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%',
+            maxSuggestItems : 5
+        }).embed(element_layer);
+
+        // iframe을 넣은 element를 보이게 한다.
+        element_layer.style.display = 'block';
+
+        // iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
+        initLayerPosition();
+    }
+
+    // 브라우저의 크기 변경에 따라 레이어를 가운데로 이동시키고자 하실때에는
+    // resize이벤트나, orientationchange이벤트를 이용하여 값이 변경될때마다 아래 함수를 실행 시켜 주시거나,
+    // 직접 element_layer의 top,left값을 수정해 주시면 됩니다.
+    function initLayerPosition(){
+        var width = 300; //우편번호서비스가 들어갈 element의 width
+        var height = 400; //우편번호서비스가 들어갈 element의 height
+        var borderWidth = 5; //샘플에서 사용하는 border의 두께
+
+        // 위에서 선언한 값들을 실제 element에 넣는다.
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
 
 
 

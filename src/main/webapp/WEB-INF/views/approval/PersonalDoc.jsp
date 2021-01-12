@@ -16,7 +16,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -233,13 +232,13 @@ table.table .avatar {
 														<td>${list.ename}</td>
 														<td>${list.typename}</td>
 														<td>
-														<div class="row">
-															<div class="col-md-7 px-0 mx-0">
-																<div class="progress">
-																	<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
+															<div class="row">
+																<div class="col-md-7 px-0 mx-0">
+																	<div class="progress">
+																		<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
+																	</div>
 																</div>
-															</div>
-															<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
+																<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
 															</div>
 														</td>
 													</tr>
@@ -248,30 +247,28 @@ table.table .avatar {
 										</table>
 										<c:set var="page" value="${pagination}"></c:set>
 										<nav aria-label="Page navigation example">
-											
 											<ul class="pagination" id="pagination">
 												<c:if test="${page.prev}">
-													<li class="page-item"><a class="page-link page-btn-prev" href="#"
-														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-															<span class="sr-only">Previous</span>
-													</a></li>
+													<li class="page-item"><a class="page-link page-btn-prev" href="#" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+														</a></li>
 												</c:if>
-
-												<c:forEach var="paging" begin="${page.startPage}"
-													end="${page.endPage}">
-													<li class="page-item">
-													<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
+												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+													<c:choose>
+														<c:when test="${paging eq criteria.page}">
+															<li class="page-item page-link"><b>${paging}</b></li>
+														</c:when>
+														<c:otherwise>
+															<li class="page-item"><a class="page-link page-btn" href="#">${paging}</a></li>
+														</c:otherwise>
+													</c:choose>
 												</c:forEach>
-
 												<c:if test="${page.next}">
-													<li class="page-item"><a class="page-link page-btn-next" href="#"
-														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-															<span class="sr-only">Next</span>
-													</a></li>
+													<li class="page-item"><a class="page-link page-btn-next" href="#" aria-label="Next">
+															<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+														</a></li>
 												</c:if>
 											</ul>
-											
 										</nav>
 									</div>
 								</div>
@@ -301,12 +298,11 @@ table.table .avatar {
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 	<script src="/resources/js/Approval/personalDoc.js"></script>
-
-<script>
+	<script>
 
 </script>
 </body>

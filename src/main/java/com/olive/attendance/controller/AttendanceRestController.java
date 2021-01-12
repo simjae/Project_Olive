@@ -90,7 +90,6 @@ public class AttendanceRestController {
 		System.out.println("서비스에서가져옴 ");
 		return  tableList;	
 	}
-	
 
 //=================== 근태 캘린더 select ===================// 
 	
@@ -109,7 +108,7 @@ public class AttendanceRestController {
 @RequestMapping(value = "attPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("rectable", "empno", "desc");
+		cri.setCriteria("rectable", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);
@@ -124,7 +123,6 @@ public JSONObject attPage(Criteria cri) {
 	return jsonObject;
 	
 }
-
 	
 	
 

@@ -8,9 +8,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import lombok.Data;
 
 @Data
-public class Document {
+public class Reference {
 	private int docno;
 	private int empno;
+	private int app_Order;
+	private int app_Check;
+	private Date app_Date;
+	private String comment;
+	private String deptname;
+	private String positionname;
 	private Date writedate;
 	private String content;
 	private int total_Approval;
@@ -27,11 +33,6 @@ public class Document {
 	private CommonsMultipartFile file;
 	//추가 문서관련
 	private String title;
-	private Date start;
-	private Date end;
-	private String color;
-	
-	
-	private List<String> approvers;
-	private List<String> referrers;
+	private Date startdate;
+	private Date enddate;
 }

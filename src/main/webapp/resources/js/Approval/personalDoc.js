@@ -18,8 +18,8 @@ $(function() {
 			dataType: "json",
 			mehtod: "get",
 			contentType: "application/json; charset=utf-8",
-			data:{
-			statusCode:$(this).val(),
+			data: {
+				statusCode: $(this).val(),
 			},
 			success: function(data) {
 				createTable(data);
@@ -27,109 +27,108 @@ $(function() {
 			}
 		})
 
-		});
+	});
 
 
 
 
 
-$(document).on("click", ".page-btn", function() {
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
-	let searchType2 = $('#oldSearchType2').val();
-	let keyword2 = $('#oldKeyword2').val();
-	let perPageNum = $('#oldPerPageNum').val();
-	let page = $(this)[0].text;
+	$(document).on("click", ".page-btn", function() {
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let searchType2 = $('#oldSearchType2').val();
+		let keyword2 = $('#oldKeyword2').val();
+		let perPageNum = $('#oldPerPageNum').val();
+		let page = $(this)[0].text;
 
-	$.ajax({
-		url: "getArrangedDocListAjax.do",
-		type: "POST",
-		dataType: "JSON",
-		data: {
-			searchType: searchType,
-			keyword: keyword,
-			searchType2: searchType2,
-			keyword2: keyword2,
-			perPageNum: perPageNum,
-			page: page
+		$.ajax({
+			url: "getArrangedDocListAjax.do",
+			type: "POST",
+			dataType: "JSON",
+			data: {
+				searchType: searchType,
+				keyword: keyword,
+				searchType2: searchType2,
+				keyword2: keyword2,
+				perPageNum: perPageNum,
+				page: page
 
-		},
-		success: (data) => {
-			createTable(data);
-		}
-	})
-});
+			},
+			success: (data) => {
+				createTable(data);
+			}
+		})
+	});
 
-$(document).on("click", ".page-btn-prev", function() {
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
-	let searchType2 = $('#oldSearchType2').val();
-	let keyword2 = $('#oldKeyword2').val();
-	let perPageNum = $('#oldPerPageNum').val();
-	let page = parseInt($('#oldPage').val())-1;
-	
-	
-	console.log(page);
-	$.ajax({
-		url: "getArrangedDocListAjax.do",
-		type: "POST",
-		dataType: "JSON",
-		data: {
-			searchType: searchType,
-			keyword: keyword,
-			searchType2: searchType2,
-			keyword2: keyword2,
-			perPageNum: perPageNum,
-			page: page
-		},
-		success: (data) => {
-			createTable(data);
-		}
-	})
-});
+	$(document).on("click", ".page-btn-prev", function() {
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let searchType2 = $('#oldSearchType2').val();
+		let keyword2 = $('#oldKeyword2').val();
+		let perPageNum = parseInt($('#oldPerPageNum').val()) - 1;
+		let page = $(this)[0].text;
 
-$(document).on("click", ".page-btn-next", function() {
+		console.log(page);
+		$.ajax({
+			url: "getArrangedDocListAjax.do",
+			type: "POST",
+			dataType: "JSON",
+			data: {
+				searchType: searchType,
+				keyword: keyword,
+				searchType2: searchType2,
+				keyword2: keyword2,
+				perPageNum: perPageNum,
+				page: page
+			},
+			success: (data) => {
+				createTable(data);
+			}
+		})
+	});
 
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
-	let searchType2 = $('#oldSearchType2').val();
-	let keyword2 = $('#oldKeyword2').val();
-	let perPageNum = $('#oldPerPageNum').val();
-	let page = parseInt($('#oldPage').val())+1;
+	$(document).on("click", ".page-btn-next", function() {
 
-	console.log(page);
-	$.ajax({
-		url: "getArrangedDocListAjax.do",
-		type: "POST",
-		dataType: "JSON",
-		data: {
-			searchType: searchType,
-			keyword: keyword,
-			searchType2: searchType2,
-			keyword2: keyword2,
-			perPageNum: perPageNum,
-			page: page
-		},
-		success: (data) => {
-			createTable(data);
-		}
-	})
-});
+		let searchType = $('#oldSearchType').val();
+		let keyword = $('#oldKeyword').val();
+		let searchType2 = $('#oldSearchType2').val();
+		let keyword2 = $('#oldKeyword2').val();
+		let perPageNum = parseInt($('#oldPerPageNum').val() + 1);
+		let page = $(this)[0].text;
+
+		console.log(page);
+		$.ajax({
+			url: "getArrangedDocListAjax.do",
+			type: "POST",
+			dataType: "JSON",
+			data: {
+				searchType: searchType,
+				keyword: keyword,
+				searchType2: searchType2,
+				keyword2: keyword2,
+				perPageNum: perPageNum,
+				page: page
+			},
+			success: (data) => {
+				createTable(data);
+			}
+		})
+	});
 
 
-function createTable(data) {
-				$('#docBody').empty();
-				console.log(data);
+	function createTable(data) {
+		$('#docBody').empty();
+		console.log(data);
 
-				$.each(data.pagingList, (index, item) => {
-					let time = new Date(item.writedate);
-					
-					let html = '<tr><td>' + item.docno+'</td>\
-						<td>'+ time.getFullYear() + '-'+('0' + (time.getMonth()+1)).slice(-2)+'-'+('0' + time.getDate()).slice(-2) + '</td>\
-						<td><a href=viewDocument.do?docno='+ item.docno+ '&typeCode=' + item.typeCode + '>' + item.title+'</a></td>\
-						<td>'+ item.ename + '</td>\
-						<td>'+ item.typename+ '</td>\
-						<td><div class="row">\
+		$.each(data.pagingList, (index, item) => {
+			let time = new Date(item.writedate);
+
+			let html = '<tr><td>' + item.docno + '</td>\
+						<td>'+ time.getFullYear() + '-' + ('0' + (time.getMonth(+1)).slice(-2) + '-'+('0' + time.getDate()).slice(-2) + '</td>\
+			<td><a href=viewDocument.do?docno='+ item.docno+ '&typeCode=' + item.typeCode + '>' + item.title+'</a></td>\
+			<td>'+ item.ename + '</td>\
+			<td>'+ item.typename+ '</td>\
+			<td><div class="row">\
 						<div class="col-md-7 px-0 mx-0">\
 							<div class="progress">\
 								<div class="progress-bar" role="progressbar" style="width:'+ (100 * item.curr_Approval / item.total_Approval)  + '%;" \
@@ -137,41 +136,47 @@ function createTable(data) {
 							</div>\
 						</div>\
 						<div class="col-md-4 px-0 mx-0">'+ item.statusname + '</div>\
-						</div></td></tr>';
-				$('#docBody').append(html);
-				$('#pagination').empty()
-				let inputPaginationData = "";
-				if (data.pagination.prev = "true") {
-					inputPaginationData += "<li class='page-item'>"
-						+ "<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
-						+ "<span aria-hidden='true'>&laquo;</span>"
-						+ "<span class='sr-only'>Previous</span>"
-						+  "</a></li>"
-				}
-				for (let i = data.pagination.startPage; i <= data.pagination.endPage; i++) {
-					console.log(i);
-					inputPaginationData += "<li class='page-item'>"
-						+ "<a class='page-link page-btn' href='#'>"
-						+ i
-						+ "</a></li>"
-				}
-				if (data.pagination.next = "true") {
-					inputPaginationData += "<li class='page-item'>"
-						+ "<a class='page-link page-btn-next' href='#' aria-label='Next'>"
-						+  "<span aria-hidden='true'>&laquo;</span>"
-						+ "<span class='sr-only'>Next</span>"
-						+ "</a></li>"
-				}
-				$('#pagination').html(inputPaginationData);
-				$('#oldSearchType2').val(data.criteria.searchType2);
-				$('#oldKeyword2').val(data.criteria.keyword2);
-				$('#oldSearchType').val(data.criteria.searchType);
-				$('#oldKeyword').val(data.criteria.keyword);
-				$('#oldperPageNum').val(data.criteria.perPageNum);
-				$('#oldPage').val(data.criteria.page);
-			});
+						</div></td ></tr >';
+						
+			$('#docBody').append(html);
 
-}
+			$('#pagination').empty()
+			let inputPaginationData = "";
+			if (data.pagination.prev == true) {
+				inputPaginationData += "<li class='page-item'>"
+					+ "<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
+					+ "<span aria-hidden='true'>&laquo;</span>"
+					+ "<span class='sr-only'>Previous</span>"
+					+ "</a></li>"
+			}
+			for (let i = data.pagination.startPage; i <= data.pagination.endPage; i++) {
+				if (i == data.criteria.page) {
+					inputPaginationData += "<li class='page-item page-link'>"
+						+ "<b>"
+						+ i + "</b></li>"
+				} else {
+					inputPaginationData += "<li class='page-item'>"
+						+ "<a class='page-link page-btn' href='#'>"+i
+						+ "</a></li>"
+				}
+			}
+			if (data.pagination.next == true) {
+				inputPaginationData += "<li class='page-item'>"
+					+ "<a class='page-link page-btn-next' href='#' aria-label='Next'>"
+					+ "<span aria-hidden='true'>&raquo;</span>"
+					+ "<span class='sr-only'>Next</span>"
+					+ "</a></li>"
+			}
+			$('#pagination').html(inputPaginationData);
+			$('#oldSearchType2').val(data.criteria.searchType2);
+			$('#oldKeyword2').val(data.criteria.keyword2);
+			$('#oldSearchType').val(data.criteria.searchType);
+			$('#oldKeyword').val(data.criteria.keyword);
+			$('#oldperPageNum').val(data.criteria.perPageNum);
+			$('#oldPage').val(data.criteria.page);
+		});
+
+	}
 
 
 
