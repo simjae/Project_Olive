@@ -111,10 +111,11 @@
 			</props>
 		</property>
 	</bean>
-	
 	<!-- Velocity -->
 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 		<property name="resourceLoaderPath" value="/resources/velocity/" />
 	</bean>
+	
+
 	
 </beans>

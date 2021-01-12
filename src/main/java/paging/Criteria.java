@@ -58,46 +58,4 @@ public class Criteria {
 		this.rowStart = setRowStart();
 	}
 
-//	// 전체조회
-//	public Criteria(String table, String column, String sort) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.rowStart = getRowStart();
-//	}
-//
-//	// 검색조회
-//	public Criteria(String table, String column, String sort, String searchType, String keyword) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.searchType = searchType;
-//		this.keyword = keyword;
-//		this.rowStart = getRowStart();
-//	}
-//
-//	// 검색조회
-//	public Criteria(String table, String column, String sort, String searchType, String keyword, int page, int perPageNum) {
-//		this.table = table;
-//		this.column = column;
-//		this.sort = sort;
-//		this.searchType = searchType;
-//		this.keyword = keyword;
-//		this.rowStart = getRowStart();
-//	}
-
-
-	
-//	public int getPage() {
-//		return page;
-//	}
-//
-//	public int getPerPageNum() {
-//		return this.perPageNum;
-//	}
-
-//	public int getRowEnd() {
-//		rowEnd = rowStart + perPageNum - 1;
-//		return rowEnd;
-//	}
 }

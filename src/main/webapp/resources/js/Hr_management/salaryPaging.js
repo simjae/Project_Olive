@@ -59,7 +59,7 @@
 		let searchType = $('#oldSearchType').val();
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
-		let page = parseInt($('#oldPage').val())-1;
+		let page = ($('#oldPage').val()-1);
 		$.ajax({
 			url: "/HR_managementRest/Salary.do",
 			type: "POST",
@@ -80,7 +80,7 @@
 		let searchType = $('#oldSearchType').val();
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
-		let page = parseInt($('#oldPage').val())+1;
+		let page = (parseInt($("#oldPage").val())+1);
 		$.ajax({
 			url: "/HR_managementRest/Salary.do",
 			type: "POST",
@@ -134,7 +134,7 @@
 			
 			$('#pagination').empty();
 			let inputPaginationData = "";
-			if(data.pagination.prev = "true"){
+			if(data.pagination.prev == true){
 				inputPaginationData += "<li class='page-item'>"
 									  +"<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
 									  +"<span aria-hidden='true'>&laquo;</span>"
@@ -142,16 +142,22 @@
 									  +"</a></li>"
 			}
 			for(let i=data.pagination.startPage; i<=data.pagination.endPage; i++){
-				console.log(i);
-				inputPaginationData += "<li class='page-item'>"
-									 + "<a class='page-link page-btn' href='#'>"
-									 + i
-									 +"</a></li>"
+				if(i == data.criteria.page){
+					inputPaginationData += "<li class='page-item page-link'>"
+											 + "<b>"
+											 + i
+											 +"</b></li>"				
+				}else{
+					inputPaginationData += "<li class='page-item'>"
+										 + "<a class='page-link page-btn' href='#'>"
+										 + i
+										 +"</a></li>"	
+				}
 			}
-			if(data.pagination.next = "true"){
+			if(data.pagination.next == true){
 				inputPaginationData += "<li class='page-item'>"
 									  +"<a class='page-link page-btn-next' href='#' aria-label='Next'>"
-									  +"<span aria-hidden='true'>&laquo;</span>"
+									  +"<span aria-hidden='true'>&raquo;</span>"
 									  +"<span class='sr-only'>Next</span>"
 									  +"</a></li>"
 			}

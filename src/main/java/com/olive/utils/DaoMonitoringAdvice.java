@@ -1,0 +1,39 @@
+package com.olive.utils;
+
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
+
+@Aspect
+@Component
+public class DaoMonitoringAdvice {
+	
+	private static Log log = LogFactory.getLog(DaoMonitoringAdvice.class);
+	
+	@Around("within(com.olive.*.dao.*)")
+	public Object doDAOMonitoring(ProceedingJoinPoint joinpoint) throws Throwable {
+		StopWatch clock = new StopWatch("Profiling ...");
+
+		Object result;
+		try {
+			clock.start(joinpoint.toShortString());
+			result = joinpoint.proceed();
+		} finally {
+			clock.stop();
+		}
+
+		if (clock.getTotalTimeMillis() > 500) {
+			if (log.isWarnEnabled()) {
+				log.warn("Execution Location : " + joinpoint.getTarget().getClass().getName());
+				log.warn("Execution Method : " + joinpoint.toShortString());
+				log.warn("Execution Time : " + clock.prettyPrint());
+			}
+		}
+		return result;
+	}
+}
