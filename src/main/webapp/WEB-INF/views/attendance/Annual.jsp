@@ -95,7 +95,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												이번달</div>
 											<span class="h5 font-weight-bold text-gray-800">출근: 8일</span>
-											<span class="h5 font-weight-bold text-gray-800">지각: 8일</span>
+											<span class="h5 font-weisght-bold text-gray-800">지각: 8일</span>
 
 										</div>
 										<div class="col-auto">
@@ -183,15 +183,15 @@
 												</tr>
 											</thead>
 											<tbody id="annualTable">
-												<c:forEach var="annaul_diff" items="${list}">
+												<c:forEach var="annual_diff" items="${list}">
 													<tr>
-														<td><c:out value="${annaul_diff.EMPNO}" /></td>
-														<td><c:out value="${annaul_diff.ename}" /></td>
-														<td><c:out value="${annaul_diff.TYPENAME}" /></td>
-														<td><c:out value="${annaul_diff.startdate}" /></td>
-														<td><c:out value="${annaul_diff.enddate}" /></td>
-														<td><c:out value="${annaul_diff.COUNT}일 " /></td>
-														<td><c:out value="${annaul_diff.diff}일 " /></td>
+														<td><c:out value="${annual_diff.EMPNO}" /></td>
+														<td><c:out value="${annual_diff.ename}" /></td>
+														<td><c:out value="${annual_diff.TYPENAME}" /></td>
+														<td><c:out value="${annual_diff.startdate}" /></td>
+														<td><c:out value="${annual_diff.enddate}" /></td>
+														<td><c:out value="${annual_diff.COUNT}일 " /></td>
+														<td><c:out value="${annual_diff.diff}일 " /></td>
 														
 													</tr>
 												</c:forEach>

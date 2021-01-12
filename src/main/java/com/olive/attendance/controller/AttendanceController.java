@@ -43,7 +43,7 @@ public class AttendanceController {
 
 	public String mannual(Model model, Criteria cri) {
 		System.out.println("cri 값 초기화 전" + cri);
-		cri.setCriteria("annaul_diff", "docno", "desc");
+		cri.setCriteria("annual_diff", "docno", "desc");
 		System.out.println("cri 값 초기화 후" + cri);
 
 		int totalCount = pagingService.getListCount(cri);
