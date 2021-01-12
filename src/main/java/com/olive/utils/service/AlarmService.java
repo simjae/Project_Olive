@@ -22,10 +22,14 @@ public class AlarmService {
 	public List<Alarm> getAlarmList(String empno,int index){
 		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
 		int size = 5;
-		int start = (index == 0) ? 1 : (index-1)*size;
-		int end = index*size;
+		int start = index*size;
+		int end = (index+1)*size;
 		return alarmDao.getAlarmList(empno,start,end);
 	}
 	
+	public int alarmCount(String empno){
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		return alarmDao.alarmCount(empno);
+	}
 	
 }

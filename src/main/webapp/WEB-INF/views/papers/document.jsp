@@ -321,7 +321,7 @@ $(function() {
          		websocket.send(JSON.stringify(appProtocol));
          		
 
-                //approve(app);
+                approve(app);
 
 
                 }else if(value ==''){

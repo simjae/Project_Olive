@@ -154,9 +154,8 @@ public class ApprovalController {
 	
 
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
-	public String viewDocument(String docno,String typeCode,Model model,Principal principal) {
-		System.out.println(typeCode);
-		Document document = approvalService.viewDocumnet(docno,typeCode); 
+	public String viewDocument(String docno,Model model,Principal principal) {
+		Document document = approvalService.viewDocumnet(docno); 
 		EmpTest emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);

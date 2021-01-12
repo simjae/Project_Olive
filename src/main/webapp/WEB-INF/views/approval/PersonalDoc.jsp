@@ -227,7 +227,7 @@ table.table .avatar {
 															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
 														</td>
 														<td>
-															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
+															<a href="viewDocument.do?docno=${list.docno}" name="document">${list.title}</a>
 														</td>
 														<td>${list.ename}</td>
 														<td>${list.typename}</td>
