@@ -221,9 +221,6 @@
 														<td><c:out value="${rectable.deptname}" /></td>
 														<td><c:out value="${rectable.starttime}" /></td>
 														<td><c:out value="${rectable.endtime}" /></td>
-														<td><a href=# class="btn-sm btn-info shadow-sm"><i class="fas fa-check fa-sm text-white"></i></a>
-															<a href=# class="btn-sm btn-info shadow-sm"><i class="fas fa-edit fa-sm text-white"></i></a>
-														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -244,11 +241,20 @@
 														</a>
 													</li>
 												</c:if>
-												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
-													<li class="page-item">
-														<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
-												</c:forEach>
+											<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+											    <c:choose>
+											        <c:when test="${paging eq criteria.page}">
+											            <li class="page-item page-link">
+											                <b>${paging}</b>
+											            </li>
+											        </c:when>
+											        <c:otherwise>
+											            <li class="page-item">
+											                <a class="page-link page-btn" href="#">${paging}</a>
+											            </li>
+											        </c:otherwise>
+											    </c:choose>
+											</c:forEach>
 												<c:if test="${page.next}">
 													<li class="page-item">
 														<a class="page-link page-btn-next" href="#" aria-label="Next">

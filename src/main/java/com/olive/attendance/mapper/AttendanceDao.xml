@@ -12,7 +12,7 @@
 		where empno = #{empno}
 	</select>
 
-<!-- 휴가관리  캘린더 테스트  -->
+<!-- 휴가관리  캘린더   -->
 	 <select id="getanaltableList" resultType="com.olive.dto.Document">
 		select 	r.empno as empno, 
 		d.title as title, 
@@ -25,8 +25,25 @@
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
 	where t.attcode = 50 and  r.empno =#{empno}
 	 group by docno
-	<!-- group by docno  -->
+
 	 </select> 
+	 
+<!-- 휴가관리  캘린더 userempno 테스트  -->
+	 <select id="getannualUser" resultType="com.olive.dto.Document">
+		select 	r.empno as empno, 
+		d.title as title, 
+		a.startdate as start, 
+        a.enddate as end,
+        t.color as color,r.attcode
+	FROM document d 
+	join doc_add a ON d.docno  = a.document_docno 
+	join att_record r on d.empno = r.empno 
+	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
+	where r.empno =#{empno}
+	 group by docno
+	
+	 </select> 
+	
 
 	<!-- 재형: 출근버튼 -->
 	<update id="startwork" parameterType="com.olive.dto.Att_Record">

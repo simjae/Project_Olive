@@ -1,45 +1,29 @@
 
- /* 
-1.모든 이벤트 제거
-2.이벤트 소스추가
-3.랜더링 이벤트 
-
-refetch event 모든소스의 이벤트를 다시가져와 화면에 렌더
-
-다시생성은 .fullCalendar ( 'addEventSource', events
-
-var Calendar = FullCalendar.Calendar;
-var Draggable = FullCalendarInteraction.Draggable;
-var containerEl = document.getElementById('external-events');
-var calendarEl = document.getElementById('calendar');
-*/
-
+ 
 	$(".namecal").on("click", function() {
-		
+		//console.log($(this));
 		console.log($(this).children('td[name="empno"]').text());
-		var empno = $(this).children('td[name="empno"]').text();
-		$ .ajax ({
-			url : "/Annual/annualUser.do",
-			dataType: "json",
-			data:{
-				empno:empno
-				},
-			success : function (data) {
-			let test = JSON.parse (data);
-			
-			console.log (test);
-			$ ( '# fullCalendar'). fullCalendar ( 'removeEvents',test);// 데이터 제거 
-			$ ( '# fullCalendar'). fullCalendar ( 'rerenderEvents',test);//새이벤트 업데이트 
-			$ ( '# fullCalendar'). fullCalendar ( 'refetchEvents',test);//최신이벤트 가져오기 
-			
+		let empno = $(this).children('td[name="empno"]').text();
 		
-		}
-	});	
-	//calendar.addEvent( event [, source] )
-	//calendar.refetchEvents()
-	//extrapram >> 동적,.,,?
+			$.ajax({
+				type: "POST",
+				url: "/Annual/annualUser.do",
+				dataType: "json",
+				data:{
+					empno:empno
+				},
+				success: function(data) {
+					successCallback(data);
+					console.log(data);
+				},
+				error: function(xhr) {
+					console.log(xhr.status)
+				}
+			});
+		
+	
 
-});
+	});
 	//db일정 받아오기 
 	var eventFeed = function(info, successCallback,failureCallback,empno) {
 		$.ajax({
@@ -55,8 +39,8 @@ var calendarEl = document.getElementById('calendar');
 			}
 		});
 	}
-//.fullCalendar( ‘renderEvent’, event [, stick ] )
-// $("#calendar").fullCalendar('renderEvent', { "empno",empno}
+	
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -82,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 
 			//initialDate : '2020-09-12', // 캘린더 지정날짜로 보이게하기 
+		
 			navLinks: true, // can click day/week names to navigate views
 			nowIndicator: true,
 			weekNumbers: true,
@@ -98,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
 					} 
 
 				]*/
+
 			events: eventFeed
 
 		});
 	calendar.render();
-	calendar.refetchEvents();
 
 });

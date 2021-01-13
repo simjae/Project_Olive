@@ -29,6 +29,9 @@ public interface AttendanceDao {
 
 	public List<Document> getanaltableList(String empno);
 
+	//휴가관리 user캘린더 
+	public List<Document> getannualUser(String empno);
+	
 	// 희승 : 이번 주 총 근무시간
 	public WorkHourPerWeek getHoursPerWeek(String empno);
 

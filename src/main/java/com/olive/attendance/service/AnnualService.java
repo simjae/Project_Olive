@@ -42,4 +42,16 @@ public class AnnualService {
 			return analcaldao.getanaltableList(auth.getName());			
 		}
 
+
+
+		public List<Document> annualUser(String empno) {
+			AttendanceDao annualUser = sqlsession.getMapper(AttendanceDao.class);
+			//눌렀을때 누른 클래스 empno 값이  mapper empno에 들어가야함
+			//mapper empno가 jsp에서 누르면 empno가 mapper empno 들어가서 찾고 다시가지고옴 
+			
+			System.out.println("유저만 가지고오니?" + annualUser);
+			
+			return annualUser.getanaltableList(empno);
+		}
+
 }

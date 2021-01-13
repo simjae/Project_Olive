@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			type: "GET",
 			url: "/attendance/calendarList.do",
 			dataType: "json",
+			display:'block',
 			success: function(data) {
 				successCallback(data);
 				console.log(data);
@@ -24,15 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var calendar = new FullCalendar.Calendar(
 		calendarEl,
 		{
-			dateClick: function(info) {
-				/* alert('Date: ' + info.dateStr);
-				alert('Resource ID: ' + info.resource.id); */
-				$("#myModal").modal();
-				$("#sname").val(info.dateStr);
-				$("#ename").val(info.dateStr);
-				$("#modal-body").html("");
-			},
-
+			
 			headerToolbar: {
 				left: 'prev,next today',
 				center: 'title',
@@ -47,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 
 			//initialDate : '2020-09-12', // 캘린더 지정날짜로 보이게하기 
+			
 			navLinks: true, // can click day/week names to navigate views
 			nowIndicator: true,
 			weekNumbers: true,
@@ -54,15 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			editable: true,
 			selectable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
-			/*events:[
-				{
-					
-					  title: '휴가',
-					  start: '2021-01-07',
-					  end: '2021-01-10'
-					} 
-				]*/
-
+	
 			events: eventFeed
 
 		});
