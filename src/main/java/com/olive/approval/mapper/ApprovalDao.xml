@@ -91,7 +91,7 @@
 		values
 		<choose>
 			<when test="typeCode != 20">
-			(#{docno}, #{start},#{end},(TIMESTAMPDIFF(DAY,#{end},#{start})+1))
+			(#{docno}, #{start},#{end},(TIMESTAMPDIFF(DAY,#{start},#{end})+1))
 			</when>
 			<otherwise>
 			(#{docno},#{start},#{start},0.5) 
