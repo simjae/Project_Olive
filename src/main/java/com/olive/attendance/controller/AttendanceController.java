@@ -22,10 +22,9 @@ import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
 import com.olive.dto.WorkHourPerWeek;
 import com.olive.hr_info.service.Hr_infoService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/attendance/")
@@ -43,7 +42,7 @@ public class AttendanceController {
 
 	public String mannual(Model model, Criteria cri) {
 		System.out.println("cri 값 초기화 전" + cri);
-		cri.setCriteria("annaul_diff", "docno", "desc");
+		cri.setCriteria("annual_diff", "docno", "desc");
 		System.out.println("cri 값 초기화 후" + cri);
 
 		int totalCount = pagingService.getListCount(cri);
@@ -65,7 +64,7 @@ public class AttendanceController {
 
 	@RequestMapping(value = "attendance.do", method = RequestMethod.GET)
 	public String mattendance(Model model, Criteria cri) {
-		cri.setCriteria("rectable", "empno", "desc");
+		cri.setCriteria("rectable", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 
@@ -75,7 +74,7 @@ public class AttendanceController {
 		Map<String, Object> emp = empService.searchEmpByEmpno(username);
 		WorkHourPerWeek workHours = attendanceService.getHoursPerWeek(username);
 		List<Att_Record> hoursEachList = attendanceService.getHoursEachDays(username);
-
+		
 		model.addAttribute("emp", emp);
 		model.addAttribute("list", result);
 		model.addAttribute("pagination", pagination);

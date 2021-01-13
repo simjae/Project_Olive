@@ -30,10 +30,9 @@ import com.mysql.cj.Session;
 import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
 import com.olive.dto.Emp;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 
 @RestController
@@ -108,7 +107,7 @@ public class AttendanceRestController {
 @RequestMapping(value = "attPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("rectable", "empno", "desc");
+		cri.setCriteria("rectable", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);

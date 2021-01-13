@@ -26,10 +26,8 @@ import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
-import com.olive.dto.Reference;
-
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @RestController
 @RequestMapping("/approval/")
@@ -181,6 +179,7 @@ public class ApprovalRestController {
 	private String approve(@RequestBody Approver app) {
 		System.out.println(app); 
 		approvalService.approve(app);
+		
 		return "/approval/ProgressDoc.do";
 	}
 	

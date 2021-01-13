@@ -25,10 +25,9 @@ import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Reference;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/approval/")
@@ -98,8 +97,6 @@ public class ApprovalController {
 			System.out.println(e.getMessage());
 			System.out.println("다 안드감");
 			// TODO: handle exception
-		}{
-			
 		}
 		return "redirect:/approval/ApprovalHome.do";
 	}
@@ -156,9 +153,8 @@ public class ApprovalController {
 	
 
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
-	public String viewDocument(String docno,String typeCode,Model model,Principal principal) {
-		System.out.println(typeCode);
-		Document document = approvalService.viewDocumnet(docno,typeCode); 
+	public String viewDocument(String docno,Model model,Principal principal) {
+		Document document = approvalService.viewDocumnet(docno); 
 		EmpTest emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);

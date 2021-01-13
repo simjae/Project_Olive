@@ -5,7 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.olive.utils.dao.AlarmDao">
 
 	<insert id ="insertAlarm" parameterType="com.olive.dto.Alarm">
-	insert into alarm (alarmno,alarmtime,empno,content,alarmcheck) 
-	values (1,now(),1,1,1)
+	insert into alarm (alarmtime,empno,content,alarmcheck,color)
+	values (now(),#{empno},#{content},0,#{color})
 	</insert>
+	
+	<select id="getAlarmList" resultType="com.olive.dto.Alarm">
+	select alarmTime, content, color,alarmno,alarmcheck
+	from alarm where empno=#{param1}
+	order by alarmno desc
+	limit #{param2},#{param3}
+	</select>
+	
+	<select id="alarmCount" resultType="int">
+		select count(*) from alarm where alarmcheck=0 and empno=#{empno}
+	</select>
+	
+	<update id="readAlarm">
+		update alarm set alarmcheck=1 where alarmno = #{alarmno}
+	</update>
 </mapper>

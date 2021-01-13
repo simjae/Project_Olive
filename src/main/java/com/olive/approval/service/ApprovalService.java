@@ -29,8 +29,7 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
-
-import paging.Criteria;
+import com.olive.utils.Criteria;
 
 @Service
 public class ApprovalService {
@@ -228,22 +227,25 @@ public class ApprovalService {
 		return approvalDao.getAllHeadList();
 	}
 
-	public Document viewDocumnet(String docno, String typeCode) {// 문서 조회시
+	public Document viewDocumnet(String docno) {// 문서 조회시
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
-		return approvalDao.viewDocument(docno, typeCode);
+		return approvalDao.viewDocument(docno);
 	}
 
 	public List<Approver> viewApprovers(String docno) {// 문서 조회시 결재자
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
 		return approvalDao.viewApprovers(docno);
-	}
+	} 
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-	}
-	
+		
+		
+		System.out.println("----------------------------------------App--------------------------------"+app);
+		//approvalDao.afterApprove(app);
+	} 
 	public int getListCount(Criteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);

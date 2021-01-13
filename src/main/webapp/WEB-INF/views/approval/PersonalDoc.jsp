@@ -16,7 +16,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,26 +47,7 @@
 	font-size: 24px;
 }
 
-.table-title .btn-group {
-	float: right;
-}
 
-.table-title .btn {
-	color: #fff;
-	float: right;
-	font-size: 13px;
-	border: none;
-	min-width: 50px;
-	border-radius: 2px;
-	border: none;
-	outline: none !important;
-	margin-left: 10px;
-}
-
-.table-title .btn span {
-	float: left;
-	margin-top: 2px;
-}
 
 table.table tr th, table.table tr td {
 	border-color: #e9e9e9;
@@ -89,45 +69,6 @@ table.table td {
 
 table.table th {
 	text-align: center;
-}
-
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-
-table.table td a:hover {
-	color: #2196F3;
-}
-
-table.table td a.edit {
-	color: #7F7FD5;
-}
-
-table.table td a.delete {
-	color: #F44336;
-}
-
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-
-.pagination {
-	float: right;
-	margin: 0 0 5px;
 }
 
 .pagination li a {
@@ -160,9 +101,53 @@ table.table .avatar {
 }
 
 .pagination li i {
-	font-size: 16px;
+	font-size: 13px;
 	padding-top: 6px
 }
+.pagination {
+	
+	margin: 0 0 5px;
+}
+
+table.table td a {
+	font-weight: bold;
+	color: #566787;
+	display: inline-block;
+	text-decoration: none;
+	outline: none !important;
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #fcfcfc;
+}
+
+table.table-striped.table-hover tbody tr:hover {
+	background: #f5f5f5;
+}
+
+
+
+table.table td a:hover {
+	color: #2196F3;
+}
+/*
+table.table td a.edit {
+	color: #7F7FD5;
+}
+
+table.table td a.delete {
+	color: #F44336;
+}
+
+table.table .avatar {
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+
+
+
 
 .hint-text {
 	float: left;
@@ -172,11 +157,9 @@ table.table .avatar {
 
 .nav-link :active {
 	border: 2px;
-}
+}  */
 
-.card {
-	height: 500px;
-}
+
 </style>
 </head>
 <body id="page-top">
@@ -228,18 +211,18 @@ table.table .avatar {
 															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
 														</td>
 														<td>
-															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
+															<a href="viewDocument.do?docno=${list.docno}" name="document">${list.title}</a>
 														</td>
 														<td>${list.ename}</td>
 														<td>${list.typename}</td>
 														<td>
-														<div class="row">
-															<div class="col-md-7 px-0 mx-0">
-																<div class="progress">
-																	<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
+															<div class="row">
+																<div class="col-md-7 px-0 mx-0">
+																	<div class="progress">
+																		<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0">${list.curr_Approval }/${list.total_Approval }</div>
+																	</div>
 																</div>
-															</div>
-															<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
+																<div class="col-md-5 px-0 mx-0">${list.statusname}</div>
 															</div>
 														</td>
 													</tr>
@@ -248,30 +231,28 @@ table.table .avatar {
 										</table>
 										<c:set var="page" value="${pagination}"></c:set>
 										<nav aria-label="Page navigation example">
-											
 											<ul class="pagination" id="pagination">
 												<c:if test="${page.prev}">
-													<li class="page-item"><a class="page-link page-btn-prev" href="#"
-														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-															<span class="sr-only">Previous</span>
-													</a></li>
+													<li class="page-item"><a class="page-link page-btn-prev" href="#" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+														</a></li>
 												</c:if>
-
-												<c:forEach var="paging" begin="${page.startPage}"
-													end="${page.endPage}">
-													<li class="page-item">
-													<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
+												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+													<c:choose>
+														<c:when test="${paging eq criteria.page}">
+															<li class="page-item page-link"><b>${paging}</b></li>
+														</c:when>
+														<c:otherwise>
+															<li class="page-item"><a class="page-link page-btn" href="#">${paging}</a></li>
+														</c:otherwise>
+													</c:choose>
 												</c:forEach>
-
 												<c:if test="${page.next}">
-													<li class="page-item"><a class="page-link page-btn-next" href="#"
-														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-															<span class="sr-only">Next</span>
-													</a></li>
+													<li class="page-item"><a class="page-link page-btn-next" href="#" aria-label="Next">
+															<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+														</a></li>
 												</c:if>
 											</ul>
-											
 										</nav>
 									</div>
 								</div>
@@ -301,12 +282,11 @@ table.table .avatar {
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 	<script src="/resources/js/Approval/personalDoc.js"></script>
-
-<script>
+	<script>
 
 </script>
 </body>

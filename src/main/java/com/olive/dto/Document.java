@@ -3,6 +3,7 @@ package com.olive.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import lombok.Data;
@@ -27,8 +28,9 @@ public class Document {
 	private CommonsMultipartFile file;
 	//추가 문서관련
 	private String title;
-	private Date startdate;
-	private Date enddate;
+	private Date start;
+	private Date end;
+	private String color;
 	
 	
 	private List<String> approvers;

@@ -1,5 +1,7 @@
 package com.olive.utils.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,24 @@ public class AlarmService {
 	public void insertAlarm(Alarm al) {
 		AlarmDao alarmDao = sqlsession.getMapper(AlarmDao.class);
 		alarmDao.insertAlarm(al);
-		
 	}
+	
+	public List<Alarm> getAlarmList(String empno,int index){
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		int size = 5;
+		int start = index*size;
+		int end = (index+1)*size;
+		return alarmDao.getAlarmList(empno,start,end);
+	}
+	
+	public int alarmCount(String empno){
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		return alarmDao.alarmCount(empno);
+	}
+	
+	public void readAlarm(String alarmno){
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		alarmDao.readAlarm(alarmno);
+	}
+	
 }

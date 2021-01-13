@@ -111,6 +111,7 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
 								<div class='file file--upload'>
 							      <label for='input-file'>
 							        <i class="fas fa-cloud-upload-alt"></i>Upload
@@ -119,12 +120,17 @@
 							    </div>
 								<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 								<button type="button" onclick="uploadProcess()">submit</button>
+=======
+								<input type="file" class="" name="excelFile" id="excelFile">
+								<button type="button" onclick="uploadProcess">submit</button>
+>>>>>>> snu/Sunwoo
 							</form>
 						</div>
 
 						<div class=" col-md-1">
-							<input type="button" class="form-control btn btn-info"
-								value="양식 다운">
+							<a href="/HR_management/SalaryExcelForm.do">
+								<input type="button" class="form-control btn btn-info" value="양식 다운">
+							</a>
 						</div>
 
 						<div class="form-group col-md-2">
@@ -186,12 +192,14 @@
 						</table>
 
 						<c:set var="criteria" value="${criteria}" />
-						<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
-						<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
-						<input type="text" value="${criteria.page}" id="oldPage" hidden>
-						<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
-						
-						
+						<input type="text" value="${criteria.searchType}"
+							id="oldSearchType" hidden> <input type="text"
+							value="${criteria.keyword}" id="oldKeyword" hidden> <input
+							type="text" value="${criteria.page}" id="oldPage" hidden>
+						<input type="text" value="${criteria.perPageNum}"
+							id="oldPerPageNum" hidden>
+
+
 						<c:set var="page" value="${pagination}"></c:set>
 						<nav aria-label="Page navigation example">
 							<ul class="pagination" id="pagination">
@@ -203,8 +211,15 @@
 								</c:if>
 								<c:forEach var="paging" begin="${page.startPage}"
 									end="${page.endPage}">
-									<li class="page-item"><a class="page-link page-btn"
-										href="#">${paging}</a></li>
+									<c:choose>
+										<c:when test="${paging eq criteria.page}">
+											<li class="page-item page-link"><b>${paging}</b></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item"><a class="page-link page-btn"
+												href="#">${paging}</a></li>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 								<c:if test="${page.next}">
 									<li class="page-item"><a class="page-link page-btn-next"
@@ -213,7 +228,6 @@
 									</a></li>
 								</c:if>
 							</ul>
-
 						</nav>
 
 
@@ -237,17 +251,30 @@
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 
 	<script>
-	$(document).on("click", ".salaryDetail", function(){
- 			var date = $(this).val().split(',')[0]
-			var empno =  $(this).val().split(',')[1]
-			console.log(date);
-			console.log(empno);  
-			var windowW = 690;  // 창의 가로 길이
-	        var windowH = 800;  // 창의 세로 길이
-	        var left = Math.ceil((window.screen.width - windowW)/2);
-	        var top = Math.ceil((window.screen.height - windowH)/2);
-			window.open("${pageContext.request.contextPath}/HR_management/SalaryDetail.do?date="+date+"&empno="+empno,+"_blank","top="+top+", left="+left+", height="+windowH+", width="+windowW+"resizable=no");
-	});
+		$(document).on(
+				"click",
+				".salaryDetail",
+				function() {
+					var date = $(this).val().split(',')[0]
+					var empno = $(this).val().split(',')[1]
+					console.log(date);
+					console.log(empno);
+					var windowW = 690; // 창의 가로 길이
+					var windowH = 800; // 창의 세로 길이
+					var left = Math.ceil((window.screen.width - windowW) / 2);
+					var top = Math.ceil((window.screen.height - windowH) / 2);
+					window.open(
+							"${pageContext.request.contextPath}/HR_management/SalaryDetail.do?date="
+									+ date + "&empno=" + empno, +"_blank",
+							"top=" + top + ", left=" + left + ", height="
+									+ windowH + ", width=" + windowW
+									+ "resizable=no");
+				});
+
+
+		function downloadFormat(){
+			
+		}
 	</script>
 	<script src="/resources/js/Hr_management/excelUpload.js"></script>
 	<script src="/resources/js/Hr_management/salaryPaging.js"></script>
