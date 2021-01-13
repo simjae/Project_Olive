@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.dto.Emp;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @RestController
 @RequestMapping("/HR_managementRest/")

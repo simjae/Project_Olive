@@ -22,10 +22,9 @@ import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
 import com.olive.dto.WorkHourPerWeek;
 import com.olive.hr_info.service.Hr_infoService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/attendance/")

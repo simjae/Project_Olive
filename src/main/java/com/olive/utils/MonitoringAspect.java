@@ -11,11 +11,11 @@ import org.springframework.util.StopWatch;
 
 @Aspect
 @Component
-public class DaoMonitoringAdvice {
+public class MonitoringAspect {
 	
-	private static Log log = LogFactory.getLog(DaoMonitoringAdvice.class);
+	private static Log log = LogFactory.getLog(MonitoringAspect.class);
 	
-	@Around("within(com.olive.*.dao.*)")
+	@Around("within(com.olive.*.*.*)")
 	public Object doDAOMonitoring(ProceedingJoinPoint joinpoint) throws Throwable {
 		StopWatch clock = new StopWatch("Profiling ...");
 

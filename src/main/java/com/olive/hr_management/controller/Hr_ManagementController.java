@@ -29,10 +29,9 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.dto.SalaryInfo;
 import com.olive.hr_management.service.Hr_managementService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/HR_management/")
