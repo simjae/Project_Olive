@@ -36,16 +36,6 @@
 	</button>
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
-		<!--  출퇴근 버튼  -->
-		<!-- 	<li class="nav-item"><a
-			class="nav-link waves-effect waves-dark" id="work"
-			style="color: gray;" href="" data-toggle="dropdown"
-			aria-haspopup="true" aria-expanded="false"> <i
-				class="fas fa-fingerprint" style="size: 9x"></i>
-				<div class="dropdown-menu">
-				<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
-				<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
-		</a> -->
 		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-fingerprint" style="size: 9x"></i>
 			</a>
@@ -54,7 +44,6 @@
 					<div class="input-group-append">
 						<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
 						<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
-						</button>
 					</div>
 				</div>
 			</div></li>
@@ -121,8 +110,41 @@
 .alarm {
 	position: absolute;
 	width: 300px;
-	top: 30px;
-	right: 2px;
+	top: 10px;
+	left: 15rem;
+}
+@media screen and (max-width:768px){
+	.alarm {
+	position: absolute;
+	width: 300px;
+	top: 10px;
+	left: 11rem;
+}
+}
+
+@media screen and (max-width:685px){
+	.alarm {
+	position: absolute;
+	width: 40%;
+	top: 10px;
+	left: 11rem;
+}
+}
+@media screen and (max-width:580px){
+	.alarm {
+	position: absolute;
+	width: 38%;
+	top: 10px;
+	left: 5rem;
+}
+}
+@media screen and (max-width:490px){
+	.alarm {
+	position: absolute;
+	width: 38%;
+	top: 10px;
+	left: 5rem;
+}
 }
 </style>
 <!-- End of Topbar -->
@@ -192,7 +214,6 @@ jb(document).ready(function() {
 		type:"POST",
 		data:{empno:empno},
 		success:function(data){
-			console.log(data);
 			html=data.ENAME+' ('+data.DEPTNAME+') '+data.POSITIONNAME;
 			jb('#empinfo').append(html);
 			
@@ -219,7 +240,7 @@ jb(document).ready(function() {
 	jb('#alertsDropdown').on("click",function(){
 		jb('#alarmlist').empty();
 		jb.ajax({
-			url:"/alarm/modalAlarm.do",
+			url:"/alarm/alarmlist.do",
 			type:"POST",
 			data:{
 				empno:${LoginUser},
@@ -232,14 +253,15 @@ jb(document).ready(function() {
 				jb.each(data,(index,item)=>{
 					let docno = item.content.split('(')[1].split(')')[0];
 					let content = (item.content.length>20) ? item.content.substr(0,27) +"..." : item.content
-					console.log('docno:'+docno);
 					let alarmTime = moment(item.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
-					let html ='<a class="dropdown-item d-flex align-items-left card border-left-'+item.color+'" href="/approval/viewDocument.do?docno='+docno+'">\
+					let html ='<div class="dropdown-item d-flex align-items-left card border-left-'+item.color+' alist">\
+					<input type="text" hidden name="docno" value='+docno+'>\
+					<input type="text" hidden name="alarmno" value='+item.alarmno+'>\
 					<div>\
 					<div class="small text-gray-500">'+alarmTime+'</div>\
 					<span class="font-weight-bold">'+content+'</span>\
 						</div>\
-						</a>';
+						</div>';
 				jb('#alarmlist').append(html);
 				
 				})
@@ -250,12 +272,43 @@ jb(document).ready(function() {
 				
 
 			});
-			
-		
+
 
 	}); 
 
 	
+		jb(document).on("click",".alist",function(){
+			//console.log(this.children('input[name="alarmno"]').val() );
+			alarmno=jb(this).children('input[name="alarmno"]').val();
+			let docno = jb(this).children('input[name="docno"]').val();
+			
+			console.log("alarmno:"+alarmno);
+			alaRead(alarmno)
+			.then((resolve)=>{
+				if(docno!=null){
+					console.log("docno:"+docno);
+					location.href="/approval/viewDocument.do?docno="+docno;
+				}
+			})
+			
+		});
+
+		function alaRead(alarmno){
+			return new Promise((resolve,reject)=>{
+			jb.ajax({
+				url:"/alarm/readAlarm.do",
+				type:"POST",
+				data:{alarmno:alarmno},
+				success:function(){
+				
+					}
+					
+				});
+				resolve('done');
+
+			}) 
+		}
+		
 
 
 

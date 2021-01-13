@@ -85,11 +85,18 @@
 		into 
 		document (docno,empno,writedate,title,content,total_approval,curr_approval,filename,statuscode,typecode)
 		values 
-		(#{docno},#{empno},#{writedate},#{title},#{content},#{total_Approval},0,#{filename},10,#{typeCode});
+		(#{docno},#{empno},#{writedate},#{title},#{content},#{total_Approval},0,#{filename},10,#{typeCode}); 
 		<if test="typeCode!=10">
-		insert into doc_add (document_docno,startdate,enddate) 
+		insert into doc_add (DOCUMENT_DOCNO,STARTDATE,ENDDATE,timediff) 
 		values
-		(#{docno}, #{startdate},#{enddate});
+		<choose>
+			<when test="typeCode != 20">
+			(#{docno}, #{start},#{end},(TIMESTAMPDIFF(DAY,#{end},#{start})+1))
+			</when>
+			<otherwise>
+			(#{docno},#{start},#{start},0.5) 
+			</otherwise>
+		</choose>
 		</if>
 		
 	</insert>
@@ -160,7 +167,7 @@
 	</select>
 	
 	<update id="approve" parameterType="com.olive.dto.Approver">
-		update approver set app_date=now(),comment=#{comment}, app_check =#{app_Check} where docno =#{docno} and empno =#{empno};
+		update approver set app_date=now(),comment=#{comment}, app_check =#{app_Check} where docno =#{docno} and empno =#{empno}
 	</update>
 	
 	

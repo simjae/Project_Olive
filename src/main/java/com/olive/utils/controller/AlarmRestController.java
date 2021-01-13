@@ -15,7 +15,7 @@ public class AlarmRestController {
 	@Autowired
 	AlarmService alarmService;
 	
-	@RequestMapping(value="/*/modalAlarm.do")
+	@RequestMapping(value="/*/alarmlist.do")
 	public List<Alarm> getAlarmModal(String empno, int index){
 		
 		return alarmService.getAlarmList(empno, index);
@@ -25,6 +25,11 @@ public class AlarmRestController {
 	public int alarmCount(String empno){
 		
 		return alarmService.alarmCount(empno);
+	}
+	
+	@RequestMapping(value="/*/readAlarm.do")
+	public void readAlarm(String alarmno){
+		alarmService.readAlarm(alarmno);
 	}
 
 }

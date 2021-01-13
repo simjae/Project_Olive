@@ -32,4 +32,9 @@ public class AlarmService {
 		return alarmDao.alarmCount(empno);
 	}
 	
+	public void readAlarm(String alarmno){
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		alarmDao.readAlarm(alarmno);
+	}
+	
 }

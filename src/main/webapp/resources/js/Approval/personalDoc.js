@@ -121,10 +121,11 @@ $(function() {
 		console.log(data);
 
 		$.each(data.pagingList, (index, item) => {
-			let time = new Date(item.writedate);
+			let time = moment(item.writedate).format("YYYY-MM-DD");
+			
 
 			let html = '<tr><td>' + item.docno + '</td>\
-						<td>'+ time.getFullYear() + '-' + ('0' + (time.getMonth(+1)).slice(-2) + '-'+('0' + time.getDate()).slice(-2)) + '</td>\
+						<td>'+ time + '</td>\
 			<td><a href="viewDocument.do?docno='+ item.docno+'">'+ item.title+'</a></td>\
 			<td>'+ item.ename + '</td>\
 			<td>'+ item.typename+ '</td>\

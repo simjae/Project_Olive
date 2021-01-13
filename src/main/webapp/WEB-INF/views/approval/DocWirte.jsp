@@ -693,8 +693,8 @@ $(function() {
 							</td>\
 							<td colspan="5"\
 								style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); width: 852px;"><p\
-									style="font-family:   맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#startdate').val()+'\
-									 ~ '+$('#enddate').val()+'</p></td>\
+									style="font-family:   맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#start').val()+'\
+									 ~ '+$('#end').val()+'</p></td>\
 						</tr>';
 						};
 					
@@ -771,10 +771,10 @@ $(function() {
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="startdtae" name="startdate" width="276" readonly>'+
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="start" name="start" width="276" readonly>'+
 				'<span class="mx-2">';
 				if( $('#selector').val()!='20'){
-				html+= '~</span><input type="text" class="datepicker text-center" name="enddate" id="enddate" width="276" readonly></div></div></div></div></div></div>';
+				html+= '~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly></div></div></div></div></div></div>';
 				};
 				
 				$('#duration').append(html);

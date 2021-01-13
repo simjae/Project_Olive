@@ -47,26 +47,7 @@
 	font-size: 24px;
 }
 
-.table-title .btn-group {
-	float: right;
-}
 
-.table-title .btn {
-	color: #fff;
-	float: right;
-	font-size: 13px;
-	border: none;
-	min-width: 50px;
-	border-radius: 2px;
-	border: none;
-	outline: none !important;
-	margin-left: 10px;
-}
-
-.table-title .btn span {
-	float: left;
-	margin-top: 2px;
-}
 
 table.table tr th, table.table tr td {
 	border-color: #e9e9e9;
@@ -88,45 +69,6 @@ table.table td {
 
 table.table th {
 	text-align: center;
-}
-
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-
-table.table td a:hover {
-	color: #2196F3;
-}
-
-table.table td a.edit {
-	color: #7F7FD5;
-}
-
-table.table td a.delete {
-	color: #F44336;
-}
-
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-
-.pagination {
-	float: right;
-	margin: 0 0 5px;
 }
 
 .pagination li a {
@@ -159,9 +101,53 @@ table.table .avatar {
 }
 
 .pagination li i {
-	font-size: 16px;
+	font-size: 13px;
 	padding-top: 6px
 }
+.pagination {
+	
+	margin: 0 0 5px;
+}
+
+table.table td a {
+	font-weight: bold;
+	color: #566787;
+	display: inline-block;
+	text-decoration: none;
+	outline: none !important;
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #fcfcfc;
+}
+
+table.table-striped.table-hover tbody tr:hover {
+	background: #f5f5f5;
+}
+
+
+
+table.table td a:hover {
+	color: #2196F3;
+}
+/*
+table.table td a.edit {
+	color: #7F7FD5;
+}
+
+table.table td a.delete {
+	color: #F44336;
+}
+
+table.table .avatar {
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+
+
+
 
 .hint-text {
 	float: left;
@@ -171,11 +157,9 @@ table.table .avatar {
 
 .nav-link :active {
 	border: 2px;
-}
+}  */
 
-.card {
-	height: 500px;
-}
+
 </style>
 </head>
 <body id="page-top">
