@@ -86,7 +86,17 @@
 					<form action="" method="post" enctype="multipart/form-data" id="form">
 						<div class="col-md-12 border border-primary  py-2" style="background: white;">
 							<div class="row">
-								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
+							<div class="card mb-0 mt-2 py-0 mx-auto col-xl-1">
+									<div class="card-body py-2 px-0">
+										<div class="text-center text-primary">문서 번호</div>
+										<div class="mx-auto w-100">
+											<div class="docno">
+											</div>
+										</div>
+									</div>
+								</div>
+							
+								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-2">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">문서종류</div>
 										<div class="mx-auto w-100">
@@ -98,6 +108,7 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="card mb-0 mt-2 py-0   mx-auto col-xl-2">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">사번</div>
@@ -118,7 +129,7 @@
 										</div>
 									</div>
 								</div>
-								<div class=" my-2 py-0   mx-auto col-xl-2">
+								<div class=" my-2 py-0   mx-auto col-xl-1">
 									<%-- <div class="card-body py-2 px-0">
 										<div class="text-center text-primary">부서</div>
 										<div class="text-md mt-1 text-center">
@@ -128,7 +139,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
+								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-1">
+									<div class="card-body py-2 px-0">
+										<div class="text-center text-primary">직책</div>
+										<div class="text-md mt-1 text-center">
+											<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
+										</div>
+									</div>
+								</div>
+								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-1">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">직책</div>
 										<div class="text-md mt-1 text-center">
