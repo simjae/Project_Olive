@@ -135,10 +135,7 @@ function insertDatabyAjax(data) {
 			+ "<td>" + data.list[i].deptname + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>"
-			+ "<td>"
-			+ "<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-check fa-sm text-white'></i></a>"
-			+ "<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-edit fa-sm text-white'></i></a>"
-			+ "</td>"
+			+ "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>"
 			+ "</tr>"
 	}
 	$('#attListTable').html(inputListData);

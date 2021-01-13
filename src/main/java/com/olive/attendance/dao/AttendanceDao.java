@@ -23,14 +23,18 @@ public interface AttendanceDao {
 
 	// 근태관리 테이블/캘린더 select
 	public List<Att_Record> gettableList(String empno);
+	
+	// 근태관리 테이블/캘린더 radio select
+	public List<Att_Record> gettableUserList(String empno);
 
 	
-	//휴가관리  테이블/캘린더 select
-
+	// 휴가관리  테이블/캘린더 select
 	public List<Document> getanaltableList(String empno);
 
-	//휴가관리 user캘린더 
-	public List<Document> getannualUser(String empno);
+	// 휴가관리  캘린더 radio select
+	public List<Document> getanaltableUserList(String empno);
+
+
 	
 	// 희승 : 이번 주 총 근무시간
 	public WorkHourPerWeek getHoursPerWeek(String empno);

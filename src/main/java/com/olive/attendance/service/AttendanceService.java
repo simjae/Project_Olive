@@ -104,6 +104,11 @@ public class AttendanceService {
 		System.out.println(caldao);
 		return caldao.gettableList(auth.getName());
 	}
+	// 재형 : 근태 캘린더 radio select
+	public List<Att_Record> calendarUserList(String empno) {
+		AttendanceDao attcaldao = sqlsession.getMapper(AttendanceDao.class);
+		return attcaldao.gettableList(empno);
+	}
 
 	// 희승 : 이번 주 총 근무시간
 	public WorkHourPerWeek getHoursPerWeek(String empno) {

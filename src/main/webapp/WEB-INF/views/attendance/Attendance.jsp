@@ -211,16 +211,20 @@
 													<th>부서</th>
 													<th>출근시간</th>
 													<th>퇴근시간</th>
+													<th>선택</th>
 												</tr>
 											</thead>
 											<tbody id="attListTable">
 												<c:forEach var="rectable" items="${list}">
-													<tr>
-														<td><c:out value="${rectable.empno}" /></td>
+													<tr class = "namecal">
+														<td name="empno"><c:out value="${rectable.empno}" /></td>
 														<td><c:out value="${rectable.ename}" /></td>
 														<td><c:out value="${rectable.deptname}" /></td>
 														<td><c:out value="${rectable.starttime}" /></td>
 														<td><c:out value="${rectable.endtime}" /></td>
+														<td>
+														<label class="userCheck"><input class='filter' type="radio" name = "user" ></label>
+														</td>	
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -332,7 +336,7 @@
 	<!-- SearchAndPaging -->
 	<script src="/resources/js/Attendance/attendance.js"></script>
 	<!-- 캘린더 모듈화  -->
-	<script src="/resources/js/Attendance/calendar.js"></script>
+	<script src="/resources/js/Attendance/attendanceCal.js"></script>
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>

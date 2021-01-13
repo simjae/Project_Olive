@@ -62,6 +62,19 @@ public class AnnualRestController {
 		System.out.println("캘린더리스트"+calendarList);
 		return calendarList;
 	}		
+//=================== 휴가 캘린더 radio select ===================// 
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "calendarUserList.do", method = RequestMethod.GET)
+	public List<Document> calendarUserList(String empno) {
+		System.err.println(empno);
+		List<Document> calendarUserList = null;
+		System.out.println("휴가캘린더");
+		calendarUserList = service.calendarUserList(empno);
+		System.out.println("캘린더리스트123123"+calendarUserList);
+		return calendarUserList;
+	}		
 	
 //=================== 휴가 테이블  ===================// 
 @RequestMapping(value = "analPage.do", method = RequestMethod.POST)
@@ -82,19 +95,7 @@ public JSONObject attPage(Criteria cri) {
 	return jsonObject;
 	
 }
-//=================== 휴가 사용자별 캘린더 ===================// 
-@ResponseBody
-@RequestMapping(value = "annualUser.do", method = RequestMethod.POST)
- public List<Document> annualUser (String empno) {
-	System.out.println("휴가사용");
-	List<Document> annualUser = null;
-	annualUser = service.annualUser(empno);
-	
-	return annualUser;
-}
- 
-	
-	
+
 
 }
 	

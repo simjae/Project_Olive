@@ -186,6 +186,7 @@
 													<th>종료일</th>
 													<th>사용연차</th>
 													<th>남은연차</th>
+													<th>선택</th>
 												</tr>
 											</thead>
 											<tbody id="annualTable">
@@ -199,7 +200,9 @@
 														<td><c:out value="${annual_diff.ENDDATE}" /></td>
 														<td><c:out value="${annual_diff.COUNT}일 " /></td>
 														<td><c:out value="${annual_diff.DIFF}일 " /></td>
-														
+														<td>
+														<label class="userCheck"><input class='filter' type="radio" name = "user" ></label>
+														</td>	
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -331,7 +334,7 @@
 		<script src="/resources/js/Attendance/annual.js"></script>
 		<!-- 캘린더 모듈화  -->
 		<!-- <script src="/resources/js/Attendance/calendartest.js"></script> -->
-		<script src="/resources/js/Attendance/calendar2.js"></script>
+		<script src="/resources/js/Attendance/annualCal.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>
