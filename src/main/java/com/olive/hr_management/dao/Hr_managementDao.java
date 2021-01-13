@@ -16,8 +16,7 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.dto.Sal_Record;
 import com.olive.dto.SalaryInfo;
-
-import paging.Criteria;
+import com.olive.utils.Criteria;
 
 public interface Hr_managementDao {
 	

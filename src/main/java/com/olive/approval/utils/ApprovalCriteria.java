@@ -1,7 +1,8 @@
 package com.olive.approval.utils;
 
+import com.olive.utils.Criteria;
+
 import lombok.Data;
-import paging.Criteria;
 
 @Data
 public class ApprovalCriteria extends Criteria {

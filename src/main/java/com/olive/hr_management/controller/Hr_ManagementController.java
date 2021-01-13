@@ -11,11 +11,12 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,10 +29,9 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.dto.SalaryInfo;
 import com.olive.hr_management.service.Hr_managementService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/HR_management/")
@@ -60,7 +60,6 @@ public class Hr_ManagementController {
 		model.addAttribute("list", result);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("criteria", cri);
-
 		return "HR_management/Salary";
 	}
 
@@ -78,7 +77,6 @@ public class Hr_ManagementController {
 	public boolean uploadExcelFile(MultipartFile excelFile, MultipartHttpServletRequest request) {
 		System.out.println("업로드 진행");
 		excelFile = request.getFile("excelFile");
-		
 		if (excelFile == null || excelFile.isEmpty()) {
 			throw new RuntimeException("엑셀파일을 선택해주세요...");
 		}
@@ -90,9 +88,16 @@ public class Hr_ManagementController {
 		}
 		boolean result = service.excelUpload(destFile);
 		destFile.delete();
-		
 		return result;
 	}
+	
+	// 인사관리 > 계정 관리 > 엑셀 다운로드
+	@RequestMapping(value = "SalaryExcelForm.do")
+	public String salaryExcelForm(Model model, Criteria cri) {
+		System.out.println("들어옴");
+		return "salaryExcelFormat";
+	}
+	
 
 	// 인사관리 > 조직 관리 페이지
 	@RequestMapping("Organization.do")
@@ -103,9 +108,7 @@ public class Hr_ManagementController {
 	// 인사관리 > 계정 관리 페이지
 	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.GET)
 	public String employeeAccount(Model model, Criteria cri) {
-		System.out.println("cri 값 초기화 전" + cri);
 		cri.setCriteria("empinfo", "empno", "desc");
-		System.out.println("cri 값 초기화 후" + cri);
 
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
@@ -127,8 +130,6 @@ public class Hr_ManagementController {
 		cri.setPerPageNum(99);
 		List<Map<String, Object>> list = pagingService.getList(cri);
 		model.addAttribute("list", list);
-		System.out.println("엑셀다운로드");
-		System.out.println(list);
 		return "empTableToExcel";
 	}
 

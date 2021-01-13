@@ -29,8 +29,7 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
-
-import paging.Criteria;
+import com.olive.utils.Criteria;
 
 @Service
 public class ApprovalService {
