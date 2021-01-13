@@ -1,10 +1,24 @@
 /*
 	파일명: searchAndPaging.js
-    설명: 인사관리 - 계정 관리 - 게시판 비동기 
-    작성일: 2021-01-06
-    작성자: 정민찬
+    설명: 인사관리 - 직원 근태 휴가 관리 
+    작성일: 2021-01-012
+    작성자: 박채연 
 */
-	$('#searchBtn1').click(function() {
+	
+	// 타임스탬프 값을 년월일로 변환
+	function Unix_timestamp(t) {
+		var date = new Date(t);
+		var year = date.getFullYear();
+		var month = "0" + (date.getMonth() + 1);
+		var day = "0" + date.getDate();
+		var hour = "0" + date.getHours();
+		var minute = "0" + date.getMinutes();
+		var second = "0" + date.getSeconds();
+
+		return year + "-" + month.substr(-2) + "-" + day.substr(-2) + " " + hour.substr(-2) + ":" + minute.substr(-2) + ":" + second.substr(-2);
+	}
+	
+	$('#searchBtn').click(function() {
 		let searchType = "";
 		let keyword = $('#newKeyword').val();
 		if ($('#newSearchType option:selected').val() == "사번") {
@@ -23,7 +37,9 @@
 				keyword: keyword
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				console.log("검색버튼 클릭");
+				console.log(data);
+				insertDatabyAjax1(data);
 			}
 		});
 		$('#newKeyword').val("");
@@ -48,9 +64,10 @@
 				page : page
 			},
 			success: (data) => {
+				console.log("페이징클릭");
 				console.log("durl");
 				console.log(data);
-				insertDatabyAjax(data);
+				insertDatabyAjax1(data);
 			}
 		})
 	});
@@ -72,7 +89,7 @@
 				page : page
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				insertDatabyAjax1(data);
 			}
 		})
 	});
@@ -94,20 +111,19 @@
 				page : page
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				insertDatabyAjax1(data);
 			}
 		})
 	});
 	
 	
-	
-	
-	function insertDatabyAjax(data){
+	function insertDatabyAjax1(data){
 			console.log(data.criteria);
 			console.log(data.list);
 			console.log(data.pagination);
 			console.log(data.list[0].empno);
 			console.log(data.list[0].starttime);
+			console.log("durl!!!!!!");
 			$('#attListTable').empty();
 			let inputListData = "";
 			for (let i=0; i < data.list.length; i++) {
@@ -115,13 +131,14 @@
 							  	+"<td>"+data.list[i].empno+"</td>"
 								+"<td>"+data.list[i].ename+"</td>"
 								+"<td>"+data.list[i].deptname+"</td>"
-								+"<td>"+data.list[i].starttime+"</td>"
-								+"<td>"+data.list[i].endtime+"</td>"
+								+"<td>"+Unix_timestamp(Number(data.list[i].starttime))+"</td>"
+								+"<td>"+Unix_timestamp(Number(data.list[i].endtime))+"</td>"
 								+"<td>"+data.list[i].attname+"</td>"
 								+"</tr>"			
 			}
 			$('#attListTable').html(inputListData);
-			
+			console.log("여기");
+			console.log(inputListData);
 			
 			$('#pagination').empty();
 			let inputPaginationData = "";
@@ -181,7 +198,7 @@
 				keyword: keyword
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				insertDatabyAjax2(data);
 			}
 		});
 		$('#newKeyword2').val("");
@@ -208,7 +225,7 @@
 			success: (data) => {
 				console.log("durl");
 				console.log(data);
-				insertDatabyAjax(data);
+				insertDatabyAjax2(data);
 			}
 		})
 	});
@@ -230,7 +247,7 @@
 				page : page
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				insertDatabyAjax2(data);
 			}
 		})
 	});
@@ -252,7 +269,7 @@
 				page : page
 			},
 			success: (data) => {
-				insertDatabyAjax(data);
+				insertDatabyAjax2(data);
 			}
 		})
 	});
@@ -260,7 +277,7 @@
 	
 	
 	
-	function insertDatabyAjax(data){
+	function insertDatabyAjax2(data){
 			console.log(data.criteria);
 			console.log(data.list);
 			console.log(data.pagination);
@@ -270,7 +287,7 @@
 			let inputListData = "";
 			for (let i=0; i < data.list.length; i++) {
 				inputListData += "<tr>"
-							  	+"<td>"+data.list[i].startdate+"</td>"
+								+"<td>"+Unix_timestamp(Number(data.list[i].startdate))+"</td>"
 								+"<td>"+data.list[i].empno+"</td>"
 								+"<td>"+data.list[i].ename+"</td>"
 								+"<td>"+data.list[i].deptname+"</td>"

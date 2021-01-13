@@ -64,13 +64,13 @@
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
 													<select class="select"
-														id="newSearchType2">
+														id="newSearchType">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>본부</option>
 														<option>부서</option>
 													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn1"
+													<input type="button" class="btn btn-info" id="searchBtn"
 														value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
 												</form>
@@ -211,38 +211,38 @@
 											</tbody>
 										</table>
 										<!-- 일단 페이징, 검색 문제 있음 -->
-										<c:set var="criteria" value="${criteria2}" />
-										<input type="text" value="${criteria.searchType}" id="oldSearchType2" hidden>
-										<input type="text" value="${criteria.keyword}" id="oldKeyword2" hidden>
-										<input type="text" value="${criteria.page}" id="oldPage2" hidden>
-										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum2" hidden>
+										<c:set var="criteria2" value="${criteria2}" />
+										<input type="text" value="${criteria2.searchType}" id="oldSearchType2" hidden>
+										<input type="text" value="${criteria2.keyword}" id="oldKeyword2" hidden>
+										<input type="text" value="${criteria2.page}" id="oldPage2" hidden>
+										<input type="text" value="${criteria2.perPageNum}" id="oldPerPageNum2" hidden>
 
 
-										<c:set var="page" value="${pagination2}"></c:set>
+										<c:set var="page2" value="${pagination2}"></c:set>
 										<nav aria-label="Page navigation example">
 											
-											<ul class="pagination" id="pagination2">
-												<c:if test="${page.prev}">
+											<ul class="pagination2" id="pagination2">
+												<c:if test="${page2.prev}">
 													<li class="page-item"><a class="page-link page-btn-prev2" href="#"
 														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 															<span class="sr-only">Previous</span>
 													</a></li>
 												</c:if>
 
-												<c:forEach var="paging" begin="${page.startPage}"
-													end="${page.endPage}">
+												<c:forEach var="paging2" begin="${page2.startPage}"
+													end="${page2.endPage}">
 													<c:choose>
-														<c:when test="${paging eq criteria.page}">
-															<li class="page-item page-link"><b>${paging}</b></li>
+														<c:when test="${paging2 eq criteria2.page2}">
+															<li class="page-item page-link"><b>${paging2}</b></li>
 														</c:when>
 														<c:otherwise>
 															<li class="page-item"><a class="page-link page-btn2"
-																href="#">${paging}</a></li>
+																href="#">${paging2}</a></li>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
 
-												<c:if test="${page.next}">
+												<c:if test="${page2.next}">
 													<li class="page-item"><a class="page-link page-btn-next2" href="#"
 														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 															<span class="sr-only">Next</span>
