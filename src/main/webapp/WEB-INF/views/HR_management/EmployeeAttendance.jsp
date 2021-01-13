@@ -25,7 +25,52 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-
+	/* DatePicker */
+	div.wrap > div{
+	  font-size: 12px;
+	  position: relative;
+	  float: left;
+	  margin-right: 5px;
+	  height: 30px;
+	  line-height: 30px;
+	  vertical-align: middle;
+	  input{
+	    line-height: 30px;
+	    margin: 0;
+	    padding: 0;
+	    padding-left: 5px;
+	    padding-right: 5px;
+	    width: 100px;
+	  }  
+	}
+	button{
+	  clear: both;
+	  display: block;  
+	  line-height: 40px;
+	  margin-top: 80px;
+	  background-color: #eee;  
+	  color: #333;
+	  border: 1px solid #666;
+	  padding-left: 20px;
+	  padding-right: 20px;
+	  border-radius: 4px;
+	}
+	#ui-datepicker-div{
+	 top:-999px; 
+	 border: 0;
+	 font-size: 14px;
+	}
+	.ui-datepicker-header{
+	  font-size: 13px;
+	}
+	.ui-datepicker-calendar{
+	  background-color: #fff;
+	  border: 1px solid #ddd;
+	  
+	  tr{
+	    font-size: 11px;
+	  }
+	}
 </style>
 </head>
 <body id="page-top">
@@ -57,26 +102,23 @@
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<div class="card-for-flex mb-1">
-										<div
-											class="card-body-tridiv search-tab row justify-content-end mr-5">
+									<div class="card-for-flex  mb-1">
+										
+										<div class="card-body-tridiv justify-content-end search-tab row mr-5">
 											<div class="mb-3">
-												<!-- 비동기로 DB다녀오는 친구들 -->
+												
+												<!-- select Box -->
 												<form class="form-group">
-													<select class="select"
-														id="newSearchType">
+													<select class="select" id="newSearchType">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>본부</option>
 														<option>부서</option>
 													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
-														value="검색">
-													<!-- //비동기로 DB다녀오는 친구들 -->
+													<input type="button" class="btn btn-info" id="searchBtn" value="검색">
 												</form>
 											</div>
 										</div>
-										<div class="card-body-tridiv"></div>
 									</div>
 									<div class="row justify-content-center mx-5">
 										<table id="empAtt_table" class="table text-center">
@@ -88,6 +130,7 @@
 													<th>출근시간</th>
 													<th>퇴근시간</th>
 													<th>상태</th>
+													<th>수정</th>
 												</tr>
 											</thead>
 											<tbody id="attListTable">
@@ -99,6 +142,7 @@
 														<td>${attendance.starttime}</td>
 														<td>${attendance.endtime}</td>
 														<td>${attendance.attname}</td>
+														<td></td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -274,8 +318,7 @@
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<!-- datepicker 용 jquery ui script -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<!-- Validation -->
 	<script src="/resources/js/Hr_management/validationBeforeInsert.js"></script>
 	<!-- SearchAndPaging -->

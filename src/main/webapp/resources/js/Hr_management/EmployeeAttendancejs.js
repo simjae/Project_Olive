@@ -37,8 +37,6 @@
 				keyword: keyword
 			},
 			success: (data) => {
-				console.log("검색버튼 클릭");
-				console.log(data);
 				insertDatabyAjax1(data);
 			}
 		});
@@ -64,9 +62,6 @@
 				page : page
 			},
 			success: (data) => {
-				console.log("페이징클릭");
-				console.log("durl");
-				console.log(data);
 				insertDatabyAjax1(data);
 			}
 		})
@@ -118,12 +113,8 @@
 	
 	
 	function insertDatabyAjax1(data){
-			console.log(data.criteria);
 			console.log(data.list);
-			console.log(data.pagination);
-			console.log(data.list[0].empno);
-			console.log(data.list[0].starttime);
-			console.log("durl!!!!!!");
+			console.log("결과 값");
 			$('#attListTable').empty();
 			let inputListData = "";
 			for (let i=0; i < data.list.length; i++) {
@@ -134,6 +125,7 @@
 								+"<td>"+Unix_timestamp(Number(data.list[i].starttime))+"</td>"
 								+"<td>"+Unix_timestamp(Number(data.list[i].endtime))+"</td>"
 								+"<td>"+data.list[i].attname+"</td>"
+								+"<td></td>"
 								+"</tr>"			
 			}
 			$('#attListTable').html(inputListData);

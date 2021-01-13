@@ -111,7 +111,7 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
+
 								<div class='file file--upload'>
 							      <label for='input-file'>
 							        <i class="fas fa-cloud-upload-alt"></i>Upload
@@ -120,10 +120,7 @@
 							    </div>
 								<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 								<button type="button" onclick="uploadProcess()">submit</button>
-=======
-								<input type="file" class="" name="excelFile" id="excelFile">
-								<button type="button" onclick="uploadProcess">submit</button>
->>>>>>> snu/Sunwoo
+
 							</form>
 						</div>
 
