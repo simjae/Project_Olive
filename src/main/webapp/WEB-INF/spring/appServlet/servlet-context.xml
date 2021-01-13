@@ -16,6 +16,7 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
+	<context:component-scan base-package="com.olive" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -45,13 +46,11 @@
 	<beans:bean id="salaryExcelFormat"	class="com.olive.utils.SalaryExcelFormat" />
 	<beans:bean id="pagingService" class="com.olive.utils.service.PagingService"/>
 	
-	
 	<!-- Transaction 관련 Bean 객체생성 & Injection 작업 -->
    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<beans:property name="dataSource" ref="driverManagerDataSource" /> 
    </beans:bean>
    
-	<context:component-scan base-package="com.olive" />
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/> 
 	
@@ -66,7 +65,7 @@
 	<beans:bean id="AlarmHandler" class="com.olive.utils.controller.AlarmHandler"/>
 	
 	<!-- AspectJ 라이브러리를 이용한 Proxy 객체 생성 -->
-	<aop:aspectj-autoproxy/>
-	<beans:bean id="loggerAspect" class="com.olive.utils.LoggerAspect"/> 
+	<!-- <aop:aspectj-autoproxy/>
+	<beans:bean id="loggerAspect" class="com.olive.utils.LoggerAspect"/>  -->
 		
 </beans:beans>

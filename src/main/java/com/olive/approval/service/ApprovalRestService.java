@@ -25,16 +25,15 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
-import com.olive.utils.service.PagingService;
 
 @Service
-public class ApprovalService extends PagingService {
+public class ApprovalRestService {
 
 	private SqlSession sqlsession;
 
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
-		this.sqlsession = sqlsession;
+		this.sqlsession = sqlsession; 
 		System.out.println(this.sqlsession);
 	}
 
@@ -266,7 +265,5 @@ public class ApprovalService extends PagingService {
 		return dao.getAppList(cri);
 		
 	}
-	
-	
 	
 }
