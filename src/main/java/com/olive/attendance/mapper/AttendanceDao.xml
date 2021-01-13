@@ -20,7 +20,7 @@
 				color 
 		FROM 
 			Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE 
-		where empno = #{empno}
+		where empno = #{param1}
 	</select>
 
 	<!-- 재형 : 휴가관리  캘린더    -->

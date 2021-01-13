@@ -111,7 +111,6 @@ $(document).on("click", ".page-btn-next", function() {
 			page: page
 		},
 		success: (data) => {
-			console.log(data);
 
 			insertDatabyAjax(data);
 		}
@@ -130,7 +129,7 @@ function insertDatabyAjax(data) {
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
-			+ "<td>" + data.list[i].empno + "</td>"
+			+ "<td name='empno'>" + data.list[i].empno + "</td>"
 			+ "<td>" + data.list[i].ename + "</td>"
 			+ "<td>" + data.list[i].deptname + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"

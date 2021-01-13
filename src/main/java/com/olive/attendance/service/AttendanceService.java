@@ -107,7 +107,7 @@ public class AttendanceService {
 	// 재형 : 근태 캘린더 radio select
 	public List<Att_Record> calendarUserList(String empno) {
 		AttendanceDao attcaldao = sqlsession.getMapper(AttendanceDao.class);
-		return attcaldao.gettableList(empno);
+		return attcaldao.gettableUserList(empno);
 	}
 
 	// 희승 : 이번 주 총 근무시간
