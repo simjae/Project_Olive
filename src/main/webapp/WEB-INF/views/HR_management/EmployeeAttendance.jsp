@@ -25,62 +25,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-/* 데이트 피커 */
-.datepicker, .input-radius {
-	border-radius: 20px;
-}
 
-/* 신규 등록 모달 */
-.modal .modal-dialog {
-	max-width: 50%;
-	width: auto;
-}
-
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
-}
-
-.modal .modal-content {
-	border-radius: 3px;
-}
-
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-}
-
-.modal .modal-title {
-	display: inline-block;
-}
-
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}
-
-.modal form label {
-	font-weight: normal;
-}
-
-p.each-label {
-	margin-top: 0.5rem;
-	margin-bottom: 0;
-	font-weight: bolder;
-}
-
-p.each-label ~ .form-control::placeholder, p.each-label+select option {
-	font-size: 0.75rem;
-	color: gray;
-}
-
-p.each-label span {
-	font-weight: normal;
-	font-size: 0.75rem;
-}
-
-p.each-label>span {
-	font-weight: bold;
-}
 </style>
 </head>
 <body id="page-top">
@@ -119,13 +64,13 @@ p.each-label>span {
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
 													<select class="select"
-														id="newSearchType">
+														id="newSearchType2">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>본부</option>
 														<option>부서</option>
 													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
+													<input type="button" class="btn btn-info" id="searchBtn1"
 														value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
 												</form>
@@ -225,12 +170,12 @@ p.each-label>span {
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group">
 													<select class="select"
-														id="newSearchType">
+														id="newSearchType2">
 														<option selected>사번</option>
 														<option>이름</option>
 														<option>부서</option>
-													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
+													</select> <input type="text" class=inputState id="newKeyword2">
+													<input type="button" class="btn btn-info" id="searchBtn2"
 														value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
 												</form>
@@ -239,7 +184,7 @@ p.each-label>span {
 										<div class="card-body-tridiv"></div>
 									</div>
 									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="table text-center">
+										<table id="annTable" class="table text-center">
 											<thead>
 												<tr>
 													<th>사용일자</th>
@@ -251,7 +196,7 @@ p.each-label>span {
 													<th>잔여연차</th>
 												</tr>
 											</thead>
-											<tbody id="attListTable">
+											<tbody id="annListTable">
 												<c:forEach var="annual" items="${annual}">
 													<tr>
 														<td>${annual.startdate}</td>
@@ -266,19 +211,19 @@ p.each-label>span {
 											</tbody>
 										</table>
 										<!-- 일단 페이징, 검색 문제 있음 -->
-										<%-- <c:set var="criteria" value="${criteria2}" />
-										<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
-										<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
-										<input type="text" value="${criteria.page}" id="oldPage" hidden>
-										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
+										<c:set var="criteria" value="${criteria2}" />
+										<input type="text" value="${criteria.searchType}" id="oldSearchType2" hidden>
+										<input type="text" value="${criteria.keyword}" id="oldKeyword2" hidden>
+										<input type="text" value="${criteria.page}" id="oldPage2" hidden>
+										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum2" hidden>
 
 
 										<c:set var="page" value="${pagination2}"></c:set>
 										<nav aria-label="Page navigation example">
 											
-											<ul class="pagination" id="pagination">
+											<ul class="pagination" id="pagination2">
 												<c:if test="${page.prev}">
-													<li class="page-item"><a class="page-link page-btn-prev" href="#"
+													<li class="page-item"><a class="page-link page-btn-prev2" href="#"
 														aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 															<span class="sr-only">Previous</span>
 													</a></li>
@@ -291,21 +236,21 @@ p.each-label>span {
 															<li class="page-item page-link"><b>${paging}</b></li>
 														</c:when>
 														<c:otherwise>
-															<li class="page-item"><a class="page-link page-btn"
+															<li class="page-item"><a class="page-link page-btn2"
 																href="#">${paging}</a></li>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
 
 												<c:if test="${page.next}">
-													<li class="page-item"><a class="page-link page-btn-next" href="#"
+													<li class="page-item"><a class="page-link page-btn-next2" href="#"
 														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 															<span class="sr-only">Next</span>
 													</a></li>
 												</c:if>
 											</ul>
 											
-										</nav> --%>
+										</nav> 
 
 
 
