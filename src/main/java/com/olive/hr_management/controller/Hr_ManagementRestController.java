@@ -54,5 +54,20 @@ public class Hr_ManagementRestController {
 		
 		return jsonObject;		
 	}
-
+	
+	//근태관리 
+	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
+	public JSONObject getEmpAttListBykeyword(Criteria cri) {
+		
+		cri.setCriteria("rectable", "empno", "desc");
+		int totalCount = pagingService.getListCount(cri);
+		Pagination pagination = new Pagination(cri, totalCount);
+		List<Map<String, Object>> result = pagingService.getList(cri);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", result);
+		jsonObject.put("pagination", pagination);
+		jsonObject.put("criteria", cri);
+		
+		return jsonObject;		
+	}
 }

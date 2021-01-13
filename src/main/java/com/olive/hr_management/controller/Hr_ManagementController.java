@@ -189,5 +189,35 @@ public class Hr_ManagementController {
 		List<com.olive.dto.Class> classList = service.getClasses();
 		return classList;
 	}
-
+	
+	//인사관리 >> 근태관리 / 휴가관리
+	@RequestMapping(value = "EmployeeAttendance.do", method = RequestMethod.GET)
+	public String employeeAttendance(Model model, Criteria cri1, Criteria cri2) {
+		
+		cri1 =new Criteria();
+		cri2 =new Criteria();
+		//근태 테이블
+		cri1.setCriteria("emp_att", "starttime", "desc");
+		//휴가 테이블
+		cri2.setCriteria("annual_diff", "startdate", "desc");
+		int totalCount1 = pagingService.getListCount(cri1);
+		int totalCount2 = pagingService.getListCount(cri2);
+		Pagination pagination1 = new Pagination(cri1, totalCount1);
+		Pagination pagination2 = new Pagination(cri2, totalCount2);
+ 
+  		List<Map<String, Object>> result1 = pagingService.getList(cri1);
+  		List<Map<String, Object>> result2 = pagingService.getList(cri2);
+  		System.out.println("result1입니다.");
+		System.out.println("[result1] : " + result1);
+		System.out.println("result2입니다.");
+		System.out.println("[result2] : " + result2);
+		model.addAttribute("attendance", result1);
+		model.addAttribute("annual", result2);
+		model.addAttribute("pagination1", pagination1);
+		model.addAttribute("pagination2", pagination2);
+		model.addAttribute("criteria1", cri1);
+		model.addAttribute("criteria2", cri2);
+		System.out.println("휴가/근태관리");
+		return "HR_management/EmployeeAttendance";
+	}
 }

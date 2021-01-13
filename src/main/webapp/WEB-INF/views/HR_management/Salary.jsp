@@ -22,6 +22,65 @@
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+	.file {
+	  position: relative;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	.file > input[type='file'] {
+	  display: none
+	}
+	
+	.file > label {
+	  font-size: 1rem;
+	  font-weight: 300;
+	  cursor: pointer;
+	  outline: 0;
+	  user-select: none;
+	  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+	  border-style: solid;
+	  border-radius: 4px;
+	  border-width: 1px;
+	  background-color: hsl(0, 0%, 100%);
+	  color: hsl(0, 0%, 29%);
+	  padding-left: 16px;
+	  padding-right: 16px;
+	  padding-top: 16px;
+	  padding-bottom: 16px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	.file > label:hover {
+	  border-color: hsl(0, 0%, 21%);
+	}
+	
+	.file > label:active {
+	  background-color: hsl(0, 0%, 96%);
+	}
+	
+	.file > label > i {
+	  padding-right: 5px;
+	}
+	
+	.file--upload > label {
+	  color: hsl(204, 86%, 53%);
+	  border-color: hsl(204, 86%, 53%);
+	}
+	
+	.file--upload > label:hover {
+	  border-color: hsl(204, 86%, 53%);
+	  background-color: hsl(204, 86%, 96%);
+	}
+	
+	.file--upload > label:active {
+	  background-color: hsl(204, 86%, 91%);
+	}
+</style>
 </head>
 
 
@@ -52,7 +111,13 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
-								<input type="file" class="" name="excelFile" id="excelFile">
+								<div class='file file--upload'>
+							      <label for='input-file'>
+							        <i class="fas fa-cloud-upload-alt"></i>Upload
+							      </label>
+							      <input id='input-file' type='file' />
+							    </div>
+								<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 								<button type="button" onclick="uploadProcess()">submit</button>
 							</form>
 						</div>

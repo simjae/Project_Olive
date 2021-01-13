@@ -23,6 +23,32 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
+
+/* 모달 테이블 */
+#hr_info {
+	padding: 30px 30px;
+	margin:auto;
+	width: 80%;
+	
+}
+#hr_info td {
+	padding: 12px 15px;
+	vertical-align: middle;
+}
+#hr_info tr {
+	text-align: left;
+	font-size: 18px;
+}
+#hr_info tr td:first-child {
+	width: 30%;
+	color: #96a2af;
+}
+#hr_info tr td:last-child {
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+	color: #384a5e;
+	font-weight: bold;
+}
 .table-wrapper {
 	min-width: 1000px;
 	background: #fff;
@@ -228,7 +254,7 @@ table.table .avatar {
 												<td>${list.ENAME}</td>
 												<td>${list.DEPTNAME}</td>
 												<td>${list.POSITIONNAME}</td>
-												<td><button id="openEmpModal">보기</button></td>
+												<td></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -319,8 +345,15 @@ table.table .avatar {
 											</c:if>
 											<c:forEach var="paging" begin="${page.startPage}"
 												end="${page.endPage}">
-												<li class="page-item"><a class="page-link page-btn"
-													href="#">${paging}</a></li>
+												<c:choose>
+													<c:when test="${paging eq criteria.page}">
+														<li class="page-item page-link"><b>${paging}</b></li>
+													</c:when>
+													<c:otherwise>
+														<li class="page-item"><a class="page-link page-btn"
+															href="#">${paging}</a></li>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 											<c:if test="${page.next}">
 												<li class="page-item"><a class="page-link" href="#"
@@ -360,51 +393,40 @@ table.table .avatar {
 	<script>
 
 	/* 모달 */
-	$(document).ready(function(){
-		  $("#emptable tr").click(function(){
-		    $("#EmpModal").modal();
-		    var tr = $(this);
-			var td = tr.children();
-
-			var empno = td.eq(1).text();
-			console.log(empno);
-			console.log("왜 또 ...");
-
-			$.ajax(
-					{
-						type : "POST",
-						url	 : "/HRinfo/searchByEmpno.do",
-						data : {empno:empno},
-						success: (data) => {
-							console.log(data);
-							console.log(data.EMPNO);
-							console.log(data.ENAME);
-							console.log(data.HEADNAME);
-							console.log(data.DEPTNAME);
-							console.log(data.ENAME);
-							console.log(data.ENAME);
-							console.log(data.ADDRESS);
-							console.log(data.PHONE);
-							
-							/* $('#emptable > tbody').empty();
-							$.each(responseData, function(index, emp){
-								$('#emptable').append(
-										"<tr><td>"+emp.pic+
-										"</td><td>"+emp.empNo+
-										"</td><td>"+emp.ename+
-										"</td><td>"+emp.deptname+
-										"</td><td>"+emp.positionname+
-										"</td></tr>"
-									);
-							}); */
-						},
-						error : function(error){
-							console.log(error);
-						}
-					} 
-				);  
-		  });
-		});
+	$("#emptable").on("click", 'tr', function(){
+		var tr = $(this);
+		var td = tr.children();
+		var empno = td.eq(1).text();
+		console.log(empno);
+		$('.modal-content .modal-body').empty();
+		$.ajax(
+				{
+					type : "POST",
+					url	 : "/HRinfo/searchByEmpno.do",
+					data : {empno:empno},
+					success: (data) => {
+						console.log(data);
+						console.log(data.EMPNO);
+	                    var html="";
+	                    html += "<table id='hr_info'><tbody>";
+	                    html += "<tr><td>사번</td><td>"+data.EMPNO+"</td></tr>"+
+	                  			"<tr><td>이름</td><td>"+data.ENAME+"</td></tr>"+
+	                  			"<tr><td>본부</td><td>"+data.HEADNAME+"</td></tr>"+
+	                    		"<tr><td>부서</td><td>"+data.DEPTNAME+"</td></tr>"+
+	                    		"<tr><td>직위</td><td>"+data.CLASSNAME+"</td></tr>"+
+	                    		"<tr><td>이메일</td><td>"+data.EMAIL+"</td></tr>"+
+	                    		"<tr><td>휴대전화</td><td>"+data.PHONE+"</td></tr>"
+	                    html += '</tbody></table>';      
+						$('.modal-content .modal-body').append(html) 
+	                    $('#EmpModal').modal('show');
+					},
+					error : function(error){
+						console.log(error);
+					}
+				} 
+			);  
+	})
+	
 	
 
     $('#search_button').click(function() {
@@ -477,7 +499,7 @@ table.table .avatar {
 		let searchType = $('#oldSearchType').val();
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
-		let page = parseInt($('#oldPage').val())-1;
+		let page = ($('#oldPage').val()-1);
 		console.log(page);
 		$.ajax({
 			url: "/HRinfo/Emp.do",
@@ -499,7 +521,7 @@ table.table .avatar {
 		let searchType = $('#oldSearchType').val();
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
-		let page = parseInt($('#oldPage').val())+1;
+		let page = (parseInt($("#oldPage").val())+1);
 		console.log(page);
 		$.ajax({
 			url: "/HRinfo/Emp.do",
@@ -535,7 +557,7 @@ table.table .avatar {
 						"</td><td>"+emp.ENAME+
 						"</td><td>"+emp.DEPTNAME+
 						"</td><td>"+emp.POSITIONNAME+
-						"</td><td><a href='' id='openEmpModal'>보기</a>"+
+						"</td><td>"+
 						"</td></tr>"
 					);
 		
@@ -545,7 +567,7 @@ table.table .avatar {
 			//수정
 			$('#pagination').empty();
 			let inputPaginationData = "";
-			if(data.pagination.prev = "true"){
+			if(data.pagination.prev == true){
 				inputPaginationData += "<li class='page-item'>"
 									  +"<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
 									  +"<span aria-hidden='true'>&laquo;</span>"
@@ -553,16 +575,20 @@ table.table .avatar {
 									  +"</a></li>"
 			}
 			for(let i=data.pagination.startPage; i<=data.pagination.endPage; i++){
-				console.log(i);
+				if(i == data.criteria.page){
+				inputPaginationData += "<li class='page-item page-link'>"
+				+ "<b>"
+				+i +"</b></li>"
+				}else{
 				inputPaginationData += "<li class='page-item'>"
-									 + "<a class='page-link page-btn' href='#'>"
-									 + i
-									 +"</a></li>"
+				+ "<a class='page-link page-btn' href='#'>" +i
+				+"</a></li>"
+				} 
 			}
-			if(data.pagination.next = "true"){
+			if(data.pagination.next == true){
 				inputPaginationData += "<li class='page-item'>"
 									  +"<a class='page-link page-btn-next' href='#' aria-label='Next'>"
-									  +"<span aria-hidden='true'>&laquo;</span>"
+									  +"<span aria-hidden='true'>&raquo;</span>"
 									  +"<span class='sr-only'>Next</span>"
 									  +"</a></li>"
 			}
@@ -574,47 +600,6 @@ table.table .avatar {
 			$('#oldperPageNum').val(data.criteria.perPageNum);
 			$('#oldPage').val(data.criteria.page);	  
 	}
-
-
-
-
-	
-/* 		//검색 조회 ajax
-		$('#search_button').click(function(){
-			var search = $('#search_input').val();
-			console.log(search);
-			var select = $('#inputState').val();
-			console.log(select);
-
-			$.ajax(
-					{
-						type : "post",
-						url	 : "searchByEmpno.do",
-						data : {param1:select, param2:search},
-						success : function(responseData)	{
-							console.log(responseData);
-							console.log(responseData[0].ename);
-							console.log(responseData[0].positionname);
-							$('#emptable > tbody').empty();
-							$.each(responseData, function(index, emp){
-								$('#emptable').append(
-										"<tr><td>"+emp.pic+
-										"</td><td>"+emp.empNo+
-										"</td><td>"+emp.ename+
-										"</td><td>"+emp.deptname+
-										"</td><td>"+emp.positionname+
-										"</td></tr>"
-									);
-							});
-
-						},
-						error : function(error){
-							console.log(error);
-						}
-					} 
-				); 
-			
-		}); */
 
 
 		
