@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -17,26 +19,23 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.olive.approval.service.ApprovalService;
 import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
+import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
-import com.olive.dto.Reference;
-import com.olive.utils.Criteria;
 import com.olive.utils.Pagination;
-import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/approval/")
 public class ApprovalController {
 	private ApprovalService approvalService;
-	@Autowired
-	private PagingService paging; 
-	
-	@Autowired
+
+	@Resource(name="approvalService")
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
 	}
@@ -133,7 +132,7 @@ public class ApprovalController {
 		int totalCount =approvalService.getAppListCount(cri);
 		System.out.println(totalCount);
 		Pagination pagenation = new Pagination(cri,totalCount);
-		List<Map<String,Object>> pagingList = paging.getList(cri);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
 		System.out.println(cri);
 		
 		List<Document> document = approvalService.getDocument(empno,0,10);
@@ -161,8 +160,10 @@ public class ApprovalController {
 		model.addAttribute("emp",emp);
 		model.addAttribute("apps",apps);
 	
-		return "papers/document";
+		return "papers/document"; 
 	}
+	
+	
 	
 	
 }

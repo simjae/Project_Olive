@@ -144,12 +144,12 @@
 												</td>
 												<td colspan="5" style="padding: 10px; border: 1px solid rgb(205, 205, 205); width: 852px;">
 													<p style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
-														<fmt:formatDate value="${doc.startdate}" pattern="yyyy-MM-dd" />
+														<fmt:formatDate value="${doc.start}" pattern="yyyy-MM-dd" />
 														<c:if test="${doc.typeCode eq 20}">
-												~<fmt:formatDate value="${doc.startdate}" pattern="yyyy-MM-dd" />
+												~<fmt:formatDate value="${doc.start}" pattern="yyyy-MM-dd" />
 														</c:if>
 														<c:if test="${doc.typeCode ne 20}">
-												~<fmt:formatDate value="${doc.enddate}" pattern="yyyy-MM-dd" />
+												~<fmt:formatDate value="${doc.end}" pattern="yyyy-MM-dd" />
 														</c:if>
 													</p>
 												</td>

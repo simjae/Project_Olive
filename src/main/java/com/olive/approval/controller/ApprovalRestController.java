@@ -20,28 +20,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.olive.approval.service.ApprovalService;
+import com.olive.approval.service.ApprovalRestService;
 import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.utils.Pagination;
-import com.olive.utils.service.PagingService;
 
 @RestController
 @RequestMapping("/approval/")
-public class ApprovalRestController {
+public class ApprovalrestController {
 
 	@Autowired
-	private PagingService paging;
+	private ApprovalRestService approvalService;
 	
-	private ApprovalService approvalService;
-
-	@Autowired
-	public void setApprovalService(ApprovalService approvalService) {
-		this.approvalService = approvalService;
-	}
 
 	@RequestMapping(value = "/getAllEmpList.do")
 	private List<Emp> getAllEmpList() {
