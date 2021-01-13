@@ -28,7 +28,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
-
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar topbar-cst mb-4 static-top shadow">
 	<!--  Sidebar Toggle (Topbar)-->
@@ -37,16 +36,6 @@
 	</button>
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
-		<!--  출퇴근 버튼  -->
-		<!-- 	<li class="nav-item"><a
-			class="nav-link waves-effect waves-dark" id="work"
-			style="color: gray;" href="" data-toggle="dropdown"
-			aria-haspopup="true" aria-expanded="false"> <i
-				class="fas fa-fingerprint" style="size: 9x"></i>
-				<div class="dropdown-menu">
-				<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
-				<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
-		</a> -->
 		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-fingerprint" style="size: 9x"></i>
 			</a>
@@ -55,7 +44,6 @@
 					<div class="input-group-append">
 						<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
 						<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
-						</button>
 					</div>
 				</div>
 			</div></li>
@@ -77,43 +65,15 @@
 			</div></li>
 		</button>
 		<!-- 알람 -->
-		<li class="nav-item dropdown no-arrow mx-1">
-		<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-bell fa-fw"></i>
 				<!-- Counter - Alerts -->
 				<span class="badge badge-danger badge-counter" id="counter"></span>
 			</a> <!-- Dropdown - Alerts -->
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header">Alerts Center</h6>
-				<a class="dropdown-item d-flex align-items-center card border-left-primary" href="#">
-					<div>
-						<div class="small text-gray-500">December 12, 2019</div>
-						<span class="font-weight-bold">A new monthly report is ready to download!</span>
-					</div>
-				</a>
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-success">
-							<i class="fas fa-donate text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">December 7, 2019</div>
-						$290.29 has been deposited into your account!
-					</div>
-				</a>
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-warning">
-							<i class="fas fa-exclamation-triangle text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">December 2, 2019</div>
-						Spending Alert: We've noticed unusually high spending for your account.
-					</div>
-				</a>
-				<a class="dropdown-item text-center small text-gray-500" href="${pageContext.request.contextPath}/Alrams.do">Show All Alerts</a>
+				<div id="alarmlist"></div>
+				<a class="dropdown-item text-center small text-gray-500 showmore" href="${pageContext.request.contextPath}/Alrams.do">Show All Alerts</a>
 			</div></li>
 		<div class="topbar-divider d-none d-sm-block"></div>
 		<sec:authentication property="name" var="LoginUser" />
@@ -139,19 +99,52 @@
 			</div></li>
 	</ul>
 </nav>
-<div class="alarm">
-	
-</div>
+<div class="alarm"></div>
+<input id="alcount" value="" hidden>
 <style>
-.cbody{
-	padding-top:5px;
-	padding-bottom:5px;
+.cbody {
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
-.alarm{
-	position:absolute;
-	width:300px;
-	top:30px;
-	right:2px;
+
+.alarm {
+	position: absolute;
+	width: 300px;
+	top: 10px;
+	left: 15rem;
+}
+@media screen and (max-width:768px){
+	.alarm {
+	position: absolute;
+	width: 300px;
+	top: 10px;
+	left: 11rem;
+}
+}
+
+@media screen and (max-width:685px){
+	.alarm {
+	position: absolute;
+	width: 40%;
+	top: 10px;
+	left: 11rem;
+}
+}
+@media screen and (max-width:580px){
+	.alarm {
+	position: absolute;
+	width: 38%;
+	top: 10px;
+	left: 5rem;
+}
+}
+@media screen and (max-width:490px){
+	.alarm {
+	position: absolute;
+	width: 38%;
+	top: 10px;
+	left: 5rem;
+}
 }
 </style>
 <!-- End of Topbar -->
@@ -159,7 +152,7 @@
 <!-- 날짜 변환 관련 CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script type="text/javascript">
-
+let count =0;
 function connect(){
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
 	websocket.onopen =(evt) =>{
@@ -174,7 +167,7 @@ function connect(){
 	}
 	
 }
-let i=1;
+var i=1;
 function writeMsg(evt){
 	let html = JSON.parse(evt.data);
 	let alarmTime = moment(html.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
@@ -199,13 +192,15 @@ function writeMsg(evt){
 		$('.alarm').empty();
 		},5000);
 
-	
-	let number = i;
+	let count = jb('#alcount').val();
+	console.log(jb('#alcount').val());
 	jb('#counter').empty();
-	jb('#counter').append(number);
-	i++
-	console.log(html);
+	jb('#counter').append(parseInt(count)+1);
+	
+
 }
+
+
 function disconnect(){
 	websocket.close();
 }
@@ -219,7 +214,6 @@ jb(document).ready(function() {
 		type:"POST",
 		data:{empno:empno},
 		success:function(data){
-			console.log(data);
 			html=data.ENAME+' ('+data.DEPTNAME+') '+data.POSITIONNAME;
 			jb('#empinfo').append(html);
 			
@@ -227,24 +221,94 @@ jb(document).ready(function() {
 		
 	});
 	connect();
+
 	
+	jb.ajax({
+		url:"/alarm/alarmCount.do",
+		type:"POST",
+		data:{empno:${LoginUser}},
+		success:function(data){
+			console.log(data);
+			jb('#counter').empty();
+			jb('#counter').append(data);
+			jb('#alcount').val(data);
+			}	
+
+		});
+
 
 	jb('#alertsDropdown').on("click",function(){
-		jb('#counter').empty();
+		jb('#alarmlist').empty();
 		jb.ajax({
-			url:"modalAlarm.do",
+			url:"/alarm/alarmlist.do",
+			type:"POST",
+			data:{
+				empno:${LoginUser},
+				index:0
+				},
+				
 			success:function(data){
 
+				console.log(data);
+				jb.each(data,(index,item)=>{
+					let docno = item.content.split('(')[1].split(')')[0];
+					let content = (item.content.length>20) ? item.content.substr(0,27) +"..." : item.content
+					let alarmTime = moment(item.alarmTime).format('YYYY-MM-DD'+" "+'HH:mm');
+					let html ='<div class="dropdown-item d-flex align-items-left card border-left-'+item.color+' alist">\
+					<input type="text" hidden name="docno" value='+docno+'>\
+					<input type="text" hidden name="alarmno" value='+item.alarmno+'>\
+					<div>\
+					<div class="small text-gray-500">'+alarmTime+'</div>\
+					<span class="font-weight-bold">'+content+'</span>\
+						</div>\
+						</div>';
+				jb('#alarmlist').append(html);
+				
+				})
+				
+					
+				
 				}
 				
 
 			});
-			
-		
+
 
 	}); 
 
 	
+		jb(document).on("click",".alist",function(){
+			//console.log(this.children('input[name="alarmno"]').val() );
+			alarmno=jb(this).children('input[name="alarmno"]').val();
+			let docno = jb(this).children('input[name="docno"]').val();
+			
+			console.log("alarmno:"+alarmno);
+			alaRead(alarmno)
+			.then((resolve)=>{
+				if(docno!=null){
+					console.log("docno:"+docno);
+					location.href="/approval/viewDocument.do?docno="+docno;
+				}
+			})
+			
+		});
+
+		function alaRead(alarmno){
+			return new Promise((resolve,reject)=>{
+			jb.ajax({
+				url:"/alarm/readAlarm.do",
+				type:"POST",
+				data:{alarmno:alarmno},
+				success:function(){
+				
+					}
+					
+				});
+				resolve('done');
+
+			}) 
+		}
+		
 
 
 

@@ -1,4 +1,4 @@
-package paging;
+package com.olive.utils;
 
 import lombok.Getter;
 import lombok.Setter;

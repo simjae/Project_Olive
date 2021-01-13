@@ -52,8 +52,11 @@ public class AlarmHandler extends TextWebSocketHandler {
 		String cmd = (String)json.get("cmd");
 		String color = (String)json.get("color");
 		String title = (String)json.get("docTitle");
+		String docno = (String)json.get("docno");
+		alarm.setDocno(docno);
 		alarm.setAlarmTime(alarmTime);
 		alarm.setColor(color);
+		docno = (docno==null) ? "" : "("+docno+")";
 
 	//승인 또는 반려 됐다고 기안자에게 보내는 거	
 	 if(cmd.equals("App")) {
@@ -61,9 +64,8 @@ public class AlarmHandler extends TextWebSocketHandler {
 			String approver = (String)json.get("approver");
 			String docWriter = (String)json.get("docWriter");
 			String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
-			String docno = (String)json.get("docno");
 			String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
-			String content = approver+"님 께서 '"+title+"' 문서를 "+done+approveOrNot;
+			String content = approver+"님 께서 '"+title+"'"+docno+" 문서를 "+done+approveOrNot;
 			
 			alarm.setEmpno(Integer.parseInt(docWriter));
 			alarm.setContent(content);
@@ -83,9 +85,8 @@ public class AlarmHandler extends TextWebSocketHandler {
 			System.out.println(json);
 			String approver = (String) json.get("approver");
 			String nextApprover = (String)json.get("nextApprover");
-			String docno= "("+(String)json.get("docno")+"번)";
 			String docWriter = (String)json.get("docWriter");
-			String content = docWriter+"의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
+			String content = docWriter+"님의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
 			
 			alarm.setEmpno(Integer.parseInt(nextApprover));
 			alarm.setContent (content);

@@ -1,13 +1,18 @@
-package paging;
+package com.olive.utils.service;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.olive.utils.Criteria;
+import com.olive.utils.dao.PagingDao;
+
 @Service
+@Component
 public class PagingService {
 
 	private SqlSession sqlsession;
