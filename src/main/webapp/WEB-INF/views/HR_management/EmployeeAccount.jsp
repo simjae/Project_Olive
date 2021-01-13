@@ -174,6 +174,7 @@ p.each-label>span {
 											</tbody>
 										</table>
 										<c:set var="criteria" value="${criteria}" />
+										
 										<input type="text" value="${criteria.searchType}" id="oldSearchType" hidden>
 										<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
 										<input type="text" value="${criteria.page}" id="oldPage" hidden>
@@ -193,9 +194,18 @@ p.each-label>span {
 
 												<c:forEach var="paging" begin="${page.startPage}"
 													end="${page.endPage}">
-													<li class="page-item">
-													<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
+													<c:choose>
+														<c:when test="${paging eq criteria.page}">
+															<li class="page-item page-link">
+																<b>${paging}</b>
+															</li>	
+														</c:when>
+														<c:otherwise>
+															<li class="page-item">
+																<a class="page-link page-btn" href="#">${paging}</a>
+															</li>														
+														</c:otherwise>
+													</c:choose>
 												</c:forEach>
 
 												<c:if test="${page.next}">

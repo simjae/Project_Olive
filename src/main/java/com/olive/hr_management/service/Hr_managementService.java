@@ -40,53 +40,6 @@ public class Hr_managementService {
 		System.out.println(this.sqlsession);
 	}
 
-//	public List<Emp> getEmpList() {
-//		System.out.println("getEmpList 서비스 진입");
-//		List<Emp> result = null;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getEmpList();
-//			System.out.println("getEmpList result : " + result);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("getEmpList error : " + e.getMessage());
-//		}
-//
-//		return result;
-//	}
-
-//	public List<Map<String, Object>> getEmpList(Criteria cri) {
-//		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-//		return dao.getEmpList(cri);
-//	}
-//
-//	public int getListCount() {
-//		System.out.println("getListCount 서비스 시작");
-//		int result = 0;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getListCount();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-
-//	public List<Emp> getEmpList() {
-//		System.out.println("getEmpList 서비스 진입");
-//		List<Emp> result = null;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getEmpList();
-//			System.out.println("getEmpList result : " + result);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println("getEmpList error : " + e.getMessage());
-//		return result;
-//	}
-
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
@@ -136,7 +89,8 @@ public class Hr_managementService {
 		List<Class> classList = dao.getClasses();
 		return classList;
 	}
-
+	
+	
 	public SalaryInfo getSalaryDetail(String date, int empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		Map parameter = new HashMap<String, Object>();

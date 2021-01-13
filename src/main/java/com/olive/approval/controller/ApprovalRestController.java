@@ -26,9 +26,8 @@ import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
-
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @RestController
 @RequestMapping("/approval/")

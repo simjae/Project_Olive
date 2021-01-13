@@ -24,10 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.attendance.service.AnnualService;
 import com.olive.dto.Document;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 
 @RestController
@@ -66,7 +65,7 @@ public class AnnualRestController {
 @RequestMapping(value = "analPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("annaul_diff", "docno", "desc");
+		cri.setCriteria("annual_diff", "docno", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);

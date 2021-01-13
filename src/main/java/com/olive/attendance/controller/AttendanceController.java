@@ -22,10 +22,9 @@ import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
 import com.olive.dto.WorkHourPerWeek;
 import com.olive.hr_info.service.Hr_infoService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 @Controller
 @RequestMapping("/attendance/")
@@ -43,7 +42,7 @@ public class AttendanceController {
 
 	public String mannual(Model model, Criteria cri) {
 		System.out.println("cri 값 초기화 전" + cri);
-		cri.setCriteria("annaul_diff", "docno", "desc");
+		cri.setCriteria("annual_diff", "docno", "desc");
 		System.out.println("cri 값 초기화 후" + cri);
 
 		int totalCount = pagingService.getListCount(cri);

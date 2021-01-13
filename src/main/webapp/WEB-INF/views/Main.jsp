@@ -89,7 +89,9 @@
 									</div>
 								</div>
 								<!-- 날씨 컨텐츠 :  -->
-								<div class="card-body weather-here"></div>
+								<div class="card-body weather-here div-min-height">
+									<jsp:include page="/WEB-INF/views/inc/preloadingWeather.jsp"/>
+								</div>
 							</div>
 						</div>
 

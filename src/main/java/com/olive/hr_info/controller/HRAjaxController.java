@@ -18,10 +18,9 @@ import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.hr_info.service.Hr_infoService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 
 
