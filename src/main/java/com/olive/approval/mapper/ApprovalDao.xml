@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.approval.dao.ApprovalDao">
 
+	<select id="getMaxDocno" resultType="string">
+	select max(docno) from document where typeCode=#{typeCode}
+	</select>
+
 	<select id="selectEmp" resultType="com.olive.dto.EmpTest">
 	    select emp.empno, emp.ename, dept.deptname, position.positionname, acc_status.statuscode
 		from emp join dept on emp.deptcode = dept.deptcode
@@ -78,9 +82,7 @@
 	</select>
 
 	<insert id="writeDocument" parameterType="com.olive.dto.Document">
-		<selectKey order="BEFORE" keyProperty="docno" resultType="int">
-			SELECT IFNULL(MAX(docno),1)+1 FROM document
-		</selectKey>
+		
 		insert
 		into 
 		document (docno,empno,writedate,title,content,total_approval,curr_approval,filename,statuscode,typecode)
@@ -102,9 +104,7 @@
 	</insert>
 
 	<insert id="insertApprover" parameterType="com.olive.dto.Document">
-		<selectKey order="BEFORE" keyProperty="docno" resultType="int">
-			SELECT IFNULL(MAX(docno),1) FROM document
-		</selectKey>
+		
 		insert into approver (docno,app_order,empno) values
 		<foreach collection="approvers" item="item" index="index" separator=",">
 			<if test='item != null and item != ""'>
@@ -113,9 +113,7 @@
 		</foreach>
 	</insert>
 	<insert id="insertReferrer" parameterType="com.olive.dto.Document">
-		<selectKey order="BEFORE" keyProperty="docno" resultType="int">
-			SELECT IFNULL(MAX(docno),1) FROM document
-		</selectKey>
+		
 		insert into REFERENCE (docno,empno)	values
 		<foreach collection="referrers" item="item" index="index" separator=",">
 		(${docno},${item}) 
