@@ -75,7 +75,7 @@ $(document).on("click", ".page-btn-prev", function() {
 	let searchType = $('#oldSearchType').val();
 	let keyword = $('#oldKeyword').val();
 	let perPageNum = $('#oldPerPageNum').val();
-	let page = parseInt($('#oldPage').val()) - 1;
+	let page = ($('#oldPage').val()-1);	
 	console.log(page);
 	$.ajax({
 		url: "/attendance/attPage.do",
@@ -98,7 +98,7 @@ $(document).on("click", ".page-btn-next", function() {
 	let searchType = $('#oldSearchType').val();
 	let keyword = $('#oldKeyword').val();
 	let perPageNum = $('#oldPerPageNum').val();
-	let page = parseInt($('#oldPage').val()) + 1;
+	let page = (parseInt($("#oldPage").val())+1);
 	console.log(page);
 	$.ajax({
 		url: "/attendance/attPage.do",
@@ -111,7 +111,6 @@ $(document).on("click", ".page-btn-next", function() {
 			page: page
 		},
 		success: (data) => {
-			console.log(data);
 
 			insertDatabyAjax(data);
 		}
@@ -130,15 +129,12 @@ function insertDatabyAjax(data) {
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
-			+ "<td>" + data.list[i].empno + "</td>"
+			+ "<td name='empno'>" + data.list[i].empno + "</td>"
 			+ "<td>" + data.list[i].ename + "</td>"
 			+ "<td>" + data.list[i].deptname + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>"
-			+ "<td>"
-			+ "<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-check fa-sm text-white'></i></a>"
-			+ "<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-edit fa-sm text-white'></i></a>"
-			+ "</td>"
+			+ "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>"
 			+ "</tr>"
 	}
 	$('#attListTable').html(inputListData);
@@ -146,24 +142,28 @@ function insertDatabyAjax(data) {
 
 	$('#pagination').empty();
 	let inputPaginationData = "";
-	if (data.pagination.prev = "true") {
+	if (data.pagination.prev == true) {
 		inputPaginationData += "<li class='page-item'>"
 			+ "<a class='page-link page-btn-prev' href='#' aria-label='Previous'>"
 			+ "<span aria-hidden='true'>&laquo;</span>"
 			+ "<span class='sr-only'>Previous</span>"
 			+ "</a></li>"
 	}
-	for (let i = data.pagination.startPage; i <= data.pagination.endPage; i++) {
-		console.log(i);
-		inputPaginationData += "<li class='page-item'>"
-			+ "<a class='page-link page-btn' href='#'>"
-			+ i
-			+ "</a></li>"
-	}
-	if (data.pagination.next = "true") {
+	for(let i=data.pagination.startPage; i<=data.pagination.endPage; i++){
+	    if(i == data.criteria.page){
+		        inputPaginationData += "<li class='page-item page-link'>"
+									+ "<b>"
+									+i +"</b></li>"
+					    }else{
+					        inputPaginationData += "<li class='page-item'>"
+													+ "<a class='page-link page-btn' href='#'>" +i
+													+"</a></li>"
+		} 
+	}	
+	if (data.pagination.next == true) {
 		inputPaginationData += "<li class='page-item'>"
 			+ "<a class='page-link page-btn-next' href='#' aria-label='Next'>"
-			+ "<span aria-hidden='true'>&laquo;</span>"
+			+ "<span aria-hidden='true'>&raquo;</span>"
 			+ "<span class='sr-only'>Next</span>"
 			+ "</a></li>"
 	}

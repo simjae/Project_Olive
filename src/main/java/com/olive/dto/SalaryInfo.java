@@ -83,6 +83,7 @@ public class SalaryInfo{
 		}
 	}
 	private void calcTotal() {
+		System.out.println(basic_pay);
 		int temp1= (Integer.parseInt(basic_pay)
 				+Integer.parseInt(overtime_pay)
 				+Integer.parseInt(position_pay)
