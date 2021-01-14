@@ -211,19 +211,20 @@
 													<th>부서</th>
 													<th>출근시간</th>
 													<th>퇴근시간</th>
+													<th>선택</th>
 												</tr>
 											</thead>
 											<tbody id="attListTable">
 												<c:forEach var="rectable" items="${list}">
-													<tr>
-														<td><c:out value="${rectable.empno}" /></td>
+													<tr class = "namecal">
+														<td name="empno"><c:out value="${rectable.empno}" /></td>
 														<td><c:out value="${rectable.ename}" /></td>
 														<td><c:out value="${rectable.deptname}" /></td>
 														<td><c:out value="${rectable.starttime}" /></td>
 														<td><c:out value="${rectable.endtime}" /></td>
-														<td><a href=# class="btn-sm btn-info shadow-sm"><i class="fas fa-check fa-sm text-white"></i></a>
-															<a href=# class="btn-sm btn-info shadow-sm"><i class="fas fa-edit fa-sm text-white"></i></a>
-														</td>
+														<td>
+														<label class="userCheck"><input class='filter' type="radio" name = "user" ></label>
+														</td>	
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -244,11 +245,20 @@
 														</a>
 													</li>
 												</c:if>
-												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
-													<li class="page-item">
-														<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
-												</c:forEach>
+											<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+											    <c:choose>
+											        <c:when test="${paging eq criteria.page}">
+											            <li class="page-item page-link">
+											                <b>${paging}</b>
+											            </li>
+											        </c:when>
+											        <c:otherwise>
+											            <li class="page-item">
+											                <a class="page-link page-btn" href="#">${paging}</a>
+											            </li>
+											        </c:otherwise>
+											    </c:choose>
+											</c:forEach>
 												<c:if test="${page.next}">
 													<li class="page-item">
 														<a class="page-link page-btn-next" href="#" aria-label="Next">
@@ -326,7 +336,7 @@
 	<!-- SearchAndPaging -->
 	<script src="/resources/js/Attendance/attendance.js"></script>
 	<!-- 캘린더 모듈화  -->
-	<script src="/resources/js/Attendance/calendar.js"></script>
+	<script src="/resources/js/Attendance/attendanceCal.js"></script>
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>

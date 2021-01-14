@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
 	$('#startWork').click(function() {
-		alert("출근하기 ");
+		//alert("출근하기 ");
 		$.ajax({
 			type: "GET"
 			, url: "/attendance/startwork.do"
@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 		});
 	})
 	$('#endWork').click(function() {
-		alert("퇴근하기 ");
+		//alert("퇴근하기 ");
 		$.ajax({
 			type: "GET"
 			, url: "/attendance/endwork.do"
