@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
 
 	function makeDeptOptions() {
 		$.ajax({
-			url: "getDept.do",
+			url: "/HR_managementRest/getDept.do",
 			type: "POST",
 			data: { headCode: $(this).val() },
 			success: (data) => {
@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 	// class : 직위 가져오기
 	function getClass() {
 		$.ajax({
-			url: "getClass.do",
+			url: "/HR_managementRest/getClass.do",
 			type: "POST",
 			success: (data) => {
 				let classes = "<option value='null'>직위 선택</option>";
@@ -83,7 +83,7 @@ jQuery(document).ready(function($) {
 	// position : 직책 가져오기
 	function getPosition() {
 		$.ajax({
-			url: "getPosition.do",
+			url: "/HR_managementRest/getPosition.do",
 			type: "POST",
 			success: (data) => {
 				let positions = "<option value='null'>직책 선택</option>";
@@ -113,7 +113,7 @@ jQuery(document).ready(function($) {
 			return;
 		}
 		$.ajax({
-			url: "checkEmpNo.do",
+			url: "/HR_managementRest/checkEmpNo.do",
 			data: { empNo: $('#empNo').val() },
 			type: "POST",
 			success: (data) => {
