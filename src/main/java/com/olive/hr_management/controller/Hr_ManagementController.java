@@ -117,7 +117,7 @@ public class Hr_ManagementController {
 
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
-
+		cri.setPerPageNum(5);
 		List<Map<String, Object>> result = pagingService.getList(cri);
 		System.out.println("[result] : " + result);
 
