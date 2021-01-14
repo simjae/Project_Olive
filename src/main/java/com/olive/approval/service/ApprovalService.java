@@ -37,6 +37,13 @@ public class ApprovalService extends PagingService {
 		this.sqlsession = sqlsession;
 		System.out.println(this.sqlsession);
 	}
+	
+	//maxdocno
+	public String getMaxDocno(String typeCode) {
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		
+		return approvalDao.getMaxDocno(typeCode);
+	}
 
 	// 전체 뽑기
 	public List<Document> getDocument(String empno) {

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.olive.approval.service.ApprovalRestService;
+import com.olive.approval.service.ApprovalService;
 import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
@@ -30,10 +30,16 @@ import com.olive.utils.Pagination;
 
 @RestController
 @RequestMapping("/approval/")
-public class ApprovalrestController {
-
+public class ApprovalRestController {
+ 
 	@Autowired
-	private ApprovalRestService approvalService;
+	private ApprovalService approvalService;
+	
+	@RequestMapping(value="/getMaxDocno.do")
+	private String getMaxDocno(String typeCode) {
+		
+		return approvalService.getMaxDocno(typeCode);
+	}
 	
 
 	@RequestMapping(value = "/getAllEmpList.do")
