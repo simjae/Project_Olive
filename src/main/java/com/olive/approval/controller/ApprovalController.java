@@ -23,7 +23,7 @@ import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
-import com.olive.dto.EmpTest;
+import com.olive.dto.Emp;
 import com.olive.utils.Pagination;
 
 @Controller
@@ -66,7 +66,7 @@ public class ApprovalController {
 		model.addAttribute("time", sf.format(nowTime));
 		String empno = request.getUserPrincipal().getName();
 		System.out.println(empno);
-		EmpTest emp = approvalService.selectEmp(empno);
+		Emp emp = approvalService.selectEmp(empno);
 		List<Doc_Type> docType = approvalService.selectDocType();
 		
 		model.addAttribute("docType", docType);
@@ -150,7 +150,7 @@ public class ApprovalController {
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
 	public String viewDocument(String docno,Model model,Principal principal) {
 		Document document = approvalService.viewDocumnet(docno); 
-		EmpTest emp = approvalService.selectEmp(principal.getName());
+		Emp emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);
 		model.addAttribute("emp",emp);

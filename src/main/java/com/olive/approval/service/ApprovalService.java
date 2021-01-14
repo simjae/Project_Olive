@@ -22,7 +22,6 @@ import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
-import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
 import com.olive.utils.service.PagingService;
@@ -131,7 +130,7 @@ public class ApprovalService extends PagingService {
 	}
 
 	// 기안하기 페이지 들어갈때 필요한 개인정보
-	public EmpTest selectEmp(String empno) {
+	public Emp selectEmp(String empno) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.selectEmp(empno);
 	}

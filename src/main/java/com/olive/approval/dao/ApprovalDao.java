@@ -8,14 +8,13 @@ import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
-import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
 import com.olive.utils.Criteria;
 import com.olive.utils.dao.PagingDao;
 
 public interface ApprovalDao extends PagingDao{
-	public EmpTest selectEmp(String empno); //기안문서작성페이지 개인 정보
+	public Emp selectEmp(String empno); //기안문서작성페이지 개인 정보
 	public List<Doc_Type> selectDocType(); //기안 문서 작성페이지 문서 종류
 	public List<Emp> getAllEmpList(); //결재선 결정시 
 	public List<Dept> getAllDeptList(); //결재선 결정시 

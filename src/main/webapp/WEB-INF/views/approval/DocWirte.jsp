@@ -439,6 +439,8 @@ $(function() {
 	var $drop=$('#drop');
 	var uploadFiles=[];
 	var data = [];
+
+
 	
 	function createFirstTree(){
 		
@@ -825,8 +827,18 @@ $(function() {
 		
 		$(document).on("click",".datepicker",(e)=>{
 			e.preventDefault();
-		$('.datepicker').datepicker({
-			dateFormat:"yy-mm-dd"
+		$('#start').datepicker({
+			minDate:0,
+			dateFormat:"yy-mm-dd",
+			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+			onClose:function(){
+				$('#end').datepicker({
+					dateFormat:"yy-mm-dd",
+					minDate:new Date($('#start').val()+''),
+					dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']			
+	
+					})
+				}
 			});
 		});
 		$('#selector').on("change",()=>{
@@ -838,12 +850,14 @@ $(function() {
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="start" name="start" width="276" readonly>'+
-				'<span class="mx-2">';
-				if( $('#selector').val()!='20'){
-				html+= '~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly></div></div></div></div></div></div>';
-				};
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="start" name="start" width="276" readonly>';
 				
+				if( $('#selector').val()!='20'){ 
+				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
+				};
+				if($('#selector').val() =='30'){
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+${emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+					}
 				$('#duration').append(html);
 				let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
 					<tbody class="text-center">\
@@ -868,9 +882,15 @@ $(function() {
     		
     		
 	  		}
-		
-			
 		});
+
+		$(document).on("change","#end",function(){
+			$('#diff').empty();
+			let startdate = new Date($('#start').val());
+			let enddate = new Date($('#end').val());
+			let diff = " : "+((enddate-startdate)/(1000*60*60*24)+1)+'일';
+			$('#diff').append(diff);
+			})
 		
 		$drop.on("dragenter",function(e){
 			$(this).addClass('drag-over');

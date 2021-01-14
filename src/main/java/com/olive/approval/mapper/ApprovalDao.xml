@@ -6,12 +6,9 @@
 	select max(docno) from document where typeCode=#{typeCode}
 	</select>
 
-	<select id="selectEmp" resultType="com.olive.dto.EmpTest">
-	    select emp.empno, emp.ename, dept.deptname, position.positionname, acc_status.statuscode
-		from emp join dept on emp.deptcode = dept.deptcode
-		join position on emp.positioncode = position.positioncode
-		join acc_status on emp.statuscode = acc_status.statuscode 
-		where empno = #{empno}
+	<select id="selectEmp" resultType="com.olive.dto.Emp">
+	    select e.* ,sum(count) as usedAnnual from empinfo e left join annual_diff a on e.empno = a.empno 
+		where e.empno = #{empno} group by empno
 	</select>
 	<!--내가 기안한 문서 가지고 오는거-->
 	<select id="getDocument" resultType="com.olive.dto.Document">
