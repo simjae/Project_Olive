@@ -59,10 +59,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,
 		ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode,
-		enabled, birth)
+		enabled, birth,annual)
 		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate},
 		#{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{enabled},
-		#{birth})
+		#{birth},round(20*(1-(month(now())-1)/12)))
 	</insert>
 
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
