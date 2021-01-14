@@ -1,18 +1,13 @@
 package com.olive.approval.service;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.olive.approval.dao.ApprovalDao;
+import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
@@ -29,10 +25,10 @@ import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
-import com.olive.utils.Criteria;
+import com.olive.utils.service.PagingService;
 
 @Service
-public class ApprovalService {
+public class ApprovalService extends PagingService {
 
 	private SqlSession sqlsession;
 
@@ -40,6 +36,13 @@ public class ApprovalService {
 	public void setSqlsession(SqlSession sqlsession) {
 		this.sqlsession = sqlsession;
 		System.out.println(this.sqlsession);
+	}
+	
+	//maxdocno
+	public String getMaxDocno(String typeCode) {
+		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
+		
+		return approvalDao.getMaxDocno(typeCode);
 	}
 
 	// 전체 뽑기
@@ -227,10 +230,10 @@ public class ApprovalService {
 		return approvalDao.getAllHeadList();
 	}
 
-	public Document viewDocumnet(String docno, String typeCode) {// 문서 조회시
+	public Document viewDocumnet(String docno) {// 문서 조회시
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
-		return approvalDao.viewDocument(docno, typeCode);
+		return approvalDao.viewDocument(docno);
 	}
 
 	public List<Approver> viewApprovers(String docno) {// 문서 조회시 결재자
@@ -246,24 +249,24 @@ public class ApprovalService {
 		System.out.println("----------------------------------------App--------------------------------"+app);
 		//approvalDao.afterApprove(app);
 	} 
-	public int getListCount(Criteria cri) {
+	public int getListCount(ApprovalCriteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getListCount(cri);
 	}	
 	
-	public int getAppListCount(Criteria cri) {
+	public int getAppListCount(ApprovalCriteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getAppListCount(cri);
 	}	
 	
-	public List<Map<String, Object>> getList(Criteria cri) {
+	public List<Map<String, Object>> getList(ApprovalCriteria cri) {
 		System.out.println("getList 서비스 시작");
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getList(cri);
 	}
-	public List<Map<String, Object>> getAppList(Criteria cri) {
+	public List<Map<String, Object>> getAppList(ApprovalCriteria cri) {
 		System.out.println("getAppList 서비스 시작");
 		System.out.println(cri);
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);

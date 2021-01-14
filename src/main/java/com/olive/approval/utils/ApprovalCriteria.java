@@ -2,9 +2,13 @@ package com.olive.approval.utils;
 
 import com.olive.utils.Criteria;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class ApprovalCriteria extends Criteria {
 	
 	private String searchType2; // 검색타입

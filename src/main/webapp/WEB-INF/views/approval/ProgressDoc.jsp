@@ -42,26 +42,7 @@
 	font-size: 24px;
 }
 
-.table-title .btn-group {
-	float: right;
-}
 
-.table-title .btn {
-	color: #fff;
-	float: right;
-	font-size: 13px;
-	border: none;
-	min-width: 50px;
-	border-radius: 2px;
-	border: none;
-	outline: none !important;
-	margin-left: 10px;
-}
-
-.table-title .btn span {
-	float: left;
-	margin-top: 2px;
-}
 
 table.table tr th, table.table tr td {
 	border-color: #e9e9e9;
@@ -74,15 +55,7 @@ table.table tr th:first-child {
 }
 
 table.table tr th:last-child {
-	width: 100px;
-}
-
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
+	width: 150px;
 }
 
 table.table td {
@@ -91,37 +64,6 @@ table.table td {
 
 table.table th {
 	text-align: center;
-}
-
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-
-table.table td a:hover {
-	color: #2196F3;
-}
-
-table.table td a.edit {
-	color: #7F7FD5;
-}
-
-table.table td a.delete {
-	color: #F44336;
-}
-
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-
-.pagination {
-	float: right;
-	margin: 0 0 5px;
 }
 
 .pagination li a {
@@ -154,14 +96,34 @@ table.table .avatar {
 }
 
 .pagination li i {
-	font-size: 16px;
+	font-size: 13px;
 	padding-top: 6px
 }
+.pagination {
+	
+	margin: 0 0 5px;
+}
 
-.hint-text {
-	float: left;
-	margin-top: 10px;
-	font-size: 13px;
+table.table td a {
+	font-weight: bold;
+	color: #566787;
+	display: inline-block;
+	text-decoration: none;
+	outline: none !important;
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #fcfcfc;
+}
+
+table.table-striped.table-hover tbody tr:hover {
+	background: #f5f5f5;
+}
+
+
+
+table.table td a:hover {
+	color: #2196F3;
 }
 </style>
 </head>
@@ -218,7 +180,7 @@ table.table .avatar {
 															<td>대기</td>
 														</c:if>
 														<td>
-															<a href="viewDocument.do?docno=${list.docno}&typeCode=${list.typeCode}" name="document">${list.title}</a>
+															<a href="viewDocument.do?docno=${list.docno}" name="document">${list.title}</a>
 														</td>
 														<td>${list.ename }</td>
 														<td>${list.typename}</td>
