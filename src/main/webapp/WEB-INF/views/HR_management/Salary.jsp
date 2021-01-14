@@ -111,11 +111,6 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
-								<input type="file" class="" name="excelFile" id="excelFile">
-								<button type="button" onclick="uploadProcess()">submit</button>
-=======
-
 <!-- 								<div class='file file--upload'>
 							      <label for='input-file'>
 							        <i class="fas fa-cloud-upload-alt"></i>Upload
@@ -251,7 +246,6 @@
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
-
 	<script>
 		$(document).on(
 				"click",
@@ -272,11 +266,6 @@
 									+ windowH + ", width=" + windowW
 									+ "resizable=no");
 				});
-
-
-		function downloadFormat(){
-			
-		}
 	</script>
 	<script src="/resources/js/Hr_management/excelUpload.js"></script>
 	<script src="/resources/js/Hr_management/salaryPaging.js"></script>

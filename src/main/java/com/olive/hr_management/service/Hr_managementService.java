@@ -44,7 +44,6 @@ public class Hr_managementService {
 	public void insertNewEmp(Emp emp) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.insertNewEmp(emp);
-		System.out.println("서비스단 거침스");
 	}
 
 	// 인사관리 : 사원 리스트 출력 테스트

@@ -4,7 +4,7 @@ function uploadProcess() {
 	console.log(form);
 	if (check()) {
 		$.ajax({
-			url: "/HR_management/uploadExcelFile.do",
+			url: "/HR_managementRest/uploadExcelFile.do",
 			data : form,
 			processData: false,
 			contentType: false,
