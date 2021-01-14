@@ -25,6 +25,13 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <!-- 날씨 css -->
 <link href="/resources/css/weather.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	.appbadge{
+		position:absolute;
+		right:3px;
+	}
+	
+</style>
 </head>
 <body id="page-top">
 	<input value='<spring:eval expression="@weather.getProperty('weatherkey')"></spring:eval>' hidden id="weatherkey">
@@ -39,8 +46,8 @@
 			<div id="content">
 				<!-- Topbar -->
 				<jsp:include page="/WEB-INF/views/inc/Topbar.jsp"></jsp:include>
-				<c:set var="arrangedDocList" value="${requestScope.arrangedDocList }"/>
-				<c:set var="arrangedAppList" value="${requestScope.arrangedAppList }"/>
+				<c:set var="arrangedDocList" value="${requestScope.arrangedDocList }" />
+				<c:set var="arrangedAppList" value="${requestScope.arrangedAppList }" />
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
@@ -102,26 +109,122 @@
 					<!-- xl3 md6 카드들 row -->
 					<div class="row">
 						<!-- Tasks Card Example -->
-						<div class="col-xl-6 col-md-6 mb-4">
+						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-info shadow h-100 py-2">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<div class="h5 font-weight-bold text-info text-uppercase mb-1">개인 문서함</div>
+								<div class="">
+										<a class="" href="/approval/PersonalDoc.do" role="button">
+											<img src="/resources/img/external-link.png">
+										</a>
+									</div>
+								</div>
+								
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-											<div class="row no-gutters align-items-center">
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/document.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">기안 문서</div>
 												</div>
-												<div class="col">
-													<div class="progress progress-sm mr-2">
-														<div class="progress-bar bg-info" role="progressbar" style="width: 70%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="52"></div>
-													</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedDocList.doc_ready.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/onApp.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 진행중</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedDocList.doc_ing.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/document.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">반려 문서</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedDocList.doc_rej.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/doneApp.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 완료</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedDocList.doc_cmp.size() }
 												</div>
 											</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-primary shadow h-100 py-2">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<div class="h5 font-weight-bold text-primary text-uppercase mb-1">결재 문서함</div>
+								<div class="">
+										<a class="" href="/approval/ProgressDoc.do" role="button">
+											<img src="/resources/img/external-link.png">
+										</a>
+									</div>
+								</div>
+								
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/document.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 대기</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedAppList.doc_ready.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/onApp.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 진행중</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedAppList.doc_ing.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/document.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">반려 문서</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedAppList.doc_rej.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/doneApp.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 완료</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${arrangedAppList.doc_cmp.size() }
+												</div>
+											</div>
 										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -167,6 +270,5 @@
 	<script src="/resources/js/skycons.js"></script>
 	<script src="/resources/js/openweatherAPIuse.js"></script>
 	<script src="/resources/js/newsAPI.js"></script>
-	<script src="/resources/js/startWork.js"></script>
 </body>
 </html>
