@@ -43,4 +43,8 @@ public interface Hr_managementDao {
 	public SalaryInfo getSalaryDetail(Map parameter);
 	
 	public void insertSalaryTbl(List<Sal_Record> excelData); 
+	
+	public List<Map<String, Object>> getAnnualList(String empno);
+	
+	public void updateAnnual(String ename, String annual);
 }

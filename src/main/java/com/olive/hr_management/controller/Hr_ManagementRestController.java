@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.dto.Emp;
+import com.olive.hr_management.service.Hr_managementService;
 import com.olive.utils.Criteria;
 import com.olive.utils.Pagination;
 import com.olive.utils.service.PagingService;
@@ -21,6 +22,9 @@ public class Hr_ManagementRestController {
 
 	@Autowired
 	private PagingService pagingService;
+	
+	@Autowired
+	private Hr_managementService managementService;
 	
 	@RequestMapping(value = "getList.do", method = RequestMethod.POST)
 	public JSONObject getEmpListBykeyword(Criteria cri) {
@@ -77,7 +81,7 @@ public class Hr_ManagementRestController {
 	@RequestMapping(value = "getAnnList.do", method = RequestMethod.POST)
 	public JSONObject getEmpAnnListBykeyword(Criteria cri) {
 		
-		cri.setCriteria("annual_diff", "startdate", "desc");
+		cri.setCriteria("empAnnual", "empno", "asc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);
@@ -87,5 +91,27 @@ public class Hr_ManagementRestController {
 		jsonObject.put("criteria", cri);
 		
 		return jsonObject;		
+	}
+	
+	//휴가관리 연차이력 조회
+	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
+	public List<Map<String, Object>> getAnnualList(String empno){
+		System.out.println(empno);
+		List<Map<String, Object>> annualList = managementService.getAnnualList(empno);
+		System.out.println("얘 뽑은거임"+annualList);
+		return annualList;
+	}
+	
+	//휴가관리 수정하기
+	@RequestMapping(value="updateAnnual.do", method=RequestMethod.POST)
+	public String updateAnnual(String empno, String annual) {
+		System.out.println("editAnnual");
+		System.out.println(empno);
+		System.out.println(annual);
+		
+		managementService.updateAnnual(empno, annual);
+		System.out.println("????");
+		//return "redirect:/HRinfo/EditMyinfo.do";
+		return null;	
 	}
 }

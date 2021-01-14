@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,12 +202,13 @@ public class Hr_ManagementController {
 		//근태 테이블
 		cri1.setCriteria("emp_att", "starttime", "desc");
 		//휴가 테이블
-		cri2.setCriteria("annual_diff", "startdate", "desc");
+		cri2.setCriteria("empAnnual", "empno", "asc");
+		cri2.setPerPageNum(5);
 		int totalCount1 = pagingService.getListCount(cri1);
 		int totalCount2 = pagingService.getListCount(cri2);
 		Pagination pagination1 = new Pagination(cri1, totalCount1);
 		Pagination pagination2 = new Pagination(cri2, totalCount2);
- 
+
   		List<Map<String, Object>> result1 = pagingService.getList(cri1);
   		List<Map<String, Object>> result2 = pagingService.getList(cri2);
   		System.out.println("result1입니다.");
@@ -221,4 +224,5 @@ public class Hr_ManagementController {
 		System.out.println("휴가/근태관리");
 		return "HR_management/EmployeeAttendance";
 	}
+	
 }

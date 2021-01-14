@@ -90,6 +90,21 @@ public class Hr_managementService {
 		return classList;
 	}
 	
+	//연차이력 리스트
+	public List<Map<String, Object>> getAnnualList(String empno){
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
+		System.out.println(annualList);
+		return annualList;
+	}
+	
+	// 사원 연차 수정
+	public void updateAnnual(String empno, String annual) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAnnual(empno, annual);
+		System.out.println("annual update 완료");
+	}
+	
 	
 	public SalaryInfo getSalaryDetail(String date, int empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
@@ -104,7 +119,7 @@ public class Hr_managementService {
 		boolean result = false;
 		ExcelReadOption excelReadOption = new ExcelReadOption();
 		excelReadOption.setFilePath(destFile.getAbsolutePath());
-		excelReadOption.setOutputColumns("지급일자", "사번", "기본급여", "시간외수당", "직책수당", "상여금", "차량유지", "식대", "교육지원");
+		excelReadOption.setOutputColumns("지급일자", "사번", "기본급", "시간외수당", "직책수당", "상여금", "차량유지", "식대", "교육지원");
 		excelReadOption.setStartRow(2);
 		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
 
@@ -117,7 +132,7 @@ public class Hr_managementService {
 					salRecord = new Sal_Record();
 					salRecord.setSal_date(excelContent.get(i).get("지급일자"));
 					salRecord.setEmpno(Integer.parseInt(excelContent.get(i).get("사번")));
-					salRecord.setBasic_pay(Integer.parseInt(excelContent.get(i).get("기본급여")));
+					salRecord.setBasic_pay(Integer.parseInt(excelContent.get(i).get("기본급")));
 					salRecord.setOvertime_pay(Integer.parseInt(excelContent.get(i).get("시간외수당")));
 					salRecord.setPosition_pay(Integer.parseInt(excelContent.get(i).get("직책수당")));
 					salRecord.setBonus(Integer.parseInt(excelContent.get(i).get("상여금")));
