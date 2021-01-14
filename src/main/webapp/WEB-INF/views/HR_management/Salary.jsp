@@ -53,7 +53,7 @@
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
 								<input type="file" class="" name="excelFile" id="excelFile">
-								<button type="button" onclick="uploadProcess">submit</button>
+								<button type="button" onclick="uploadProcess()">submit</button>
 							</form>
 						</div>
 

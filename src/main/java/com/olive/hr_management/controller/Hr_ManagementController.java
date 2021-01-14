@@ -47,6 +47,11 @@ public class Hr_ManagementController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@RequestMapping(value = "registration.do", method = RequestMethod.GET)
+	public String registeration() {
+		return "HR_management/employeeRegistration";
+	}
+	
 	@RequestMapping(value = "Salary.do", method = RequestMethod.GET)
 	public String salaryPage(Model model, Criteria cri) {
 		cri.setCriteria("salaryinfo", "SAL_DATE", "DESC");
@@ -134,21 +139,17 @@ public class Hr_ManagementController {
 	}
 
 	// 인사관리 > 계정 관리 > 사원 신규 등록
-	@RequestMapping(value = "EmployeeAccount.do")
+	@RequestMapping(value = "EmployeeAccount.do", method = RequestMethod.POST)
 	public String insertNewAccount(Emp emp) {
-
 		// 확인
 		System.out.println(
 				"==================================비밀번호 확인!! : 사번 - " + emp.getEmpNo() + "/ 비밀번호 - " + emp.getPwd());
-
 		// 비밀번호 암호화하여 INSERT
 		emp.setPwd(this.bCryptPasswordEncoder.encode(emp.getPwd()));
-
 		// 암호화 확인
 		System.out.println("==================================비밀번호 암호화 확인 : " + emp.getPwd());
-
 		service.insertNewEmp(emp);
-		return "HR_management/EmployeeAccount";
+		return "redirect:/HR_management/EmployeeAccount.do";
 	}
 
 	// 인사관리 > 계정 관리 > 사원 신규 등록 시 사번 중복 검증

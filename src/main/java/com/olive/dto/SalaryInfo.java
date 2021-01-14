@@ -68,7 +68,7 @@ public class SalaryInfo{
 	}
 	
 	private String numberFormality(String data) {
-		return new DecimalFormat("#,###").format(Integer.parseInt(data));
+		return new DecimalFormat("###,###,###,###").format(Integer.parseInt(data));
 	}
 	
 	private String dateFormality(String data){
