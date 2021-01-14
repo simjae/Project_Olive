@@ -35,7 +35,7 @@ import com.olive.utils.Pagination;
 public class ApprovalController {
 	private ApprovalService approvalService;
 
-	@Resource(name="approvalService")
+	@Autowired
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
 	}
