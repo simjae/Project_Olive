@@ -42,5 +42,7 @@ public interface Hr_managementDao {
 
 	public SalaryInfo getSalaryDetail(Map parameter);
 	
-	public void insertSalaryTbl(List<Sal_Record> excelData); 
+	public void insertSalaryTbl(List<Sal_Record> excelData);
+
+	public String checkEmpno(String empno); 
 }
