@@ -111,6 +111,10 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
+								<input type="file" class="" name="excelFile" id="excelFile">
+								<button type="button" onclick="uploadProcess()">submit</button>
+=======
 
 <!-- 								<div class='file file--upload'>
 							      <label for='input-file'>
@@ -121,6 +125,7 @@
 								<input type="file" class="" name="excelFile" id="excelFile">
 								<button type="button" onclick="uploadProcess()">submit</button>
 
+>>>>>>> 219eb233452ab0e40916457afca3b8ec8b1fb598
 							</form>
 						</div>
 

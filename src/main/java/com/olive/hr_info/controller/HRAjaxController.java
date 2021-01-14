@@ -1,11 +1,14 @@
 package com.olive.hr_info.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +39,6 @@ public class HRAjaxController {
 	@Autowired
 	private PagingService pagingService;
 	
-	//Emp 
 	@RequestMapping(value = "Emp.do", method = RequestMethod.POST)
 	public JSONObject getEmpListBykeyword(Criteria cri) {
 		
@@ -46,20 +48,13 @@ public class HRAjaxController {
 		List<Map<String, Object>> result = pagingService.getList(cri);
 		
 		cri.setPerPageNum(3);
-	    
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("emplist", result);
 		jsonObject.put("pagination", pagination);
-		jsonObject.put("criteria", cri);
-		
-		System.out.println("ajax"+result);
-		System.out.println("ajax"+pagination);
-		System.out.println("ajax"+cri);
-		
+		jsonObject.put("criteria", cri);		
 		return jsonObject;		
-	}
-	
+	}	
 
 	//사원 사번 조회 //일단 모달창 전용으로 
 	@RequestMapping(value="searchByEmpno.do", method = RequestMethod.POST)
@@ -75,6 +70,24 @@ public class HRAjaxController {
 	public List<DeptTest> showOrgbyDept(String param){
 		List<DeptTest> emplist = empService.showOrgbyDept(param);
 		return emplist;
+	}
+	
+	@RequestMapping(value="salaryPaging.do", method=RequestMethod.GET)
+	public String showSalary(Model model, Criteria cri, Principal pri) {	
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		cri.setCriteria("salaryinfo", "SAL_DATE", "DESC");
+		cri.setSearchType("empno");
+		cri.setKeyword(auth.getName());
+		int totalCount = pagingService.getListCount(cri);
+		cri.setPerPageNum(5);
+		Pagination pagination = new Pagination(cri, totalCount);
+
+		List<Map<String, Object>> result = pagingService.getList(cri);
+
+		model.addAttribute("list", result);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", cri);
+		return "HRinfo/Salary";
 	}
 
 //	//마이페이지 수정하기

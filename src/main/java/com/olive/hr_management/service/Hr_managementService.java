@@ -133,4 +133,17 @@ public class Hr_managementService {
 		}
 		return result;
 	}
+
+	public String createEmpno(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		String checkNum= null;
+		String result;
+		checkNum = dao.checkEmpno(empno);
+		if(checkNum != null) {
+			result = ""+(Integer.parseInt(checkNum)+1);
+		}else {
+			result = empno + "001";
+		}
+		return result;
+	}
 }

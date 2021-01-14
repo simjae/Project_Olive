@@ -24,6 +24,7 @@ function uploadProcess() {
 		})
 	}
 }
+
 function check() {
 	var fileName = $("#excelFile").val().split("\\")[2];
 	console.log(fileName);
