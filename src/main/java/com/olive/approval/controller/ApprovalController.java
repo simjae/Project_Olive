@@ -159,6 +159,17 @@ public class ApprovalController {
 		return "papers/document"; 
 	}
 	
+	@RequestMapping(value="AddForm.do", method=RequestMethod.GET)
+	public String AddFormPage() {
+		
+		return "approval/AddForm";
+	}
+	
+	@RequestMapping(value="AddForm.do", method=RequestMethod.POST)
+	public String AddForm(Doc_Type doctype) {
+		approvalService.addForm(doctype);
+		return "redirect:/approval/ApprovalHome.do";
+	}
 	
 	
 	

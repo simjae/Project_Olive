@@ -6,4 +6,5 @@ import lombok.Data;
 public class Doc_Type {
 	private int typeCode;
 	private String typeName;
+	private String content;
 }

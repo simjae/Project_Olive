@@ -245,6 +245,18 @@
 		
 	</select>
 	
+	<select id="checkTypeName" resultType="int">
+		select count(*) from doc_type where typename LIKE CONCAT(#{typename},'%')
+	</select>
+	
+	<insert id="addForm">
+		insert into doc_Type values (10, #{typename},#{content})
+	</insert>
+	
+	<select id="selectForm" resultType="String">
+		select content from doc_type where typename=#{typename}
+	</select>
+		
 	
 	
 

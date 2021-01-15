@@ -273,6 +273,21 @@ public class ApprovalService extends PagingService {
 		
 	}
 	
+	public int checkTypeName(String typename) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		
+		return dao.checkTypeName(typename);
+	}
+	
+	public void addForm(Doc_Type doctype) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		dao.addForm(doctype);
+	}
+	
+	public String selectForm(String typename) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.selectForm(typename);
+	}
 	
 	
 }

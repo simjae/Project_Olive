@@ -232,7 +232,16 @@ public class ApprovalRestController {
 		}
 		
 	}
-
+	@RequestMapping(value="checkTypeName.do")
+	private int checkTypeName(String typename) {
+		System.out.println(typename);
+		return approvalService.checkTypeName(typename);
+	}
+	
+	@RequestMapping(value="selectForm.do")
+	private String selectForm(String typename) {
+		return approvalService.selectForm(typename);
+	}
 
 
 }

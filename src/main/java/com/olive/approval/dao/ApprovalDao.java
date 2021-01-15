@@ -36,4 +36,8 @@ public interface ApprovalDao extends PagingDao{
 	public int getAppListCount(Criteria cri);
 	public List<Map<String, Object>> getAppList(Criteria cri);
 	public String getMaxDocno(String typeCode);
+	public int checkTypeName(String typename);
+	public void addForm(Doc_Type doctype);
+	public String selectForm(String typename);
+	
 }

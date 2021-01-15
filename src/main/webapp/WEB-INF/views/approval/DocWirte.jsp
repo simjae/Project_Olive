@@ -612,7 +612,7 @@ $(function() {
 			<div\
 				style="margin: 0px; padding: 0px; font-family:   맑은 고딕; font-size: 16px; line-height: 1.8;">\
 				<h1\
-					style="text-align: center; padding: 30px 0px; font-size: 26px; font-family:   맑은 고딕; line-height: 1.8;">'+$('#selector').text()+'</h1>\
+					style="text-align: center; padding: 30px 0px; font-size: 26px; font-family:   맑은 고딕; line-height: 1.8;">'+$('#selector option:selected').text()+'</h1>\
 				<p>\
 					\
 				</p>\
@@ -843,6 +843,7 @@ $(function() {
 		});
 		$('#selector').on("change",()=>{
 			getMaxDocno($('#selector').val());
+			let typename=$('#selector option:selected').text();
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
 			let html='';
@@ -859,16 +860,29 @@ $(function() {
 				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+${emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
-				let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
+
+				$.ajax({
+					url:"selectForm.do",
+					data:{typename:typename},
+					type:"POST",
+					success:function(data){
+						console.log(data);
+						$('#summernote').summernote("code",data);
+						
+						}
+
+					});
+				
+				/* let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
 					<tbody class="text-center">\
 						<tr style="height: 400px;">\
-					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;"> 사유</td>\
+					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;">휴가 사유</td>\
 					<td>내용</td>\
 					</tr>\
 					</tbody>\
-					</table>'
+					</table>' */
 				
-				$('#summernote').summernote("code",table);
+				//$('#summernote').summernote("code",table);
 				
 			}
 		});
