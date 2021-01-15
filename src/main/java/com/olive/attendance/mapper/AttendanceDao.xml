@@ -52,6 +52,17 @@
 	where t.attcode = 50 and  r.empno =#{param1}
 	 group by docno
 	 </select> 
+	<!-- 재형 : 휴가관리 카드  -->
+	 <select id="annualCard" resultType="com.olive.dto.Document"> 
+	select e.empno, e.ename, e.annual, IFNULL(sum(da.timediff),0) as COUNT, IFNULL((e.annual - sum(da.timediff)),0) as DIFF
+	from document d 
+	right outer 
+	join emp e on d.empno = e.empno
+	left outer 
+	join doc_add da on da.document_docno = d.docno
+	group by empno
+	having empno = #{empno}
+	 </select> 
 
 	<!-- 재형: 출근버튼 -->
 	<update id="startwork" parameterType="com.olive.dto.Att_Record">

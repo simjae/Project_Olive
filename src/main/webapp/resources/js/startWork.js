@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 			type: "GET"
 			, url: "/attendance/startwork.do"
 			, success: function(data) {
-				alert("성공");
+			//	alert("성공");
 			}
 		});
 	})
@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 			type: "GET"
 			, url: "/attendance/endwork.do"
 			, success: function(data) {
-				alert("집에가");
+			//	alert("집에가");
 			}
 		});
 	})
