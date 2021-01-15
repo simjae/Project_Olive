@@ -18,8 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.olive.attendance.service.AnnualService;
 import com.olive.attendance.service.AttendanceService;
 import com.olive.dto.Att_Record;
+import com.olive.dto.Document;
 import com.olive.dto.WorkHourPerWeek;
 import com.olive.hr_info.service.Hr_infoService;
 import com.olive.utils.Criteria;
@@ -37,6 +39,9 @@ public class AttendanceController {
 
 	@Autowired
 	private Hr_infoService empService;
+	
+	@Autowired
+	private AnnualService annualService;
 
 	@RequestMapping("annual.do")
 
@@ -53,7 +58,11 @@ public class AttendanceController {
 		String username = auth.getName();
 		System.out.println("emp컨트롤러" + username);
 		Map<String, Object> emp = empService.searchEmpByEmpno(username);
+		String empno = auth.getName();
+		Document annualCard = annualService.annualCard(empno);
+		System.out.println("카드"+annualCard);
 
+		model.addAttribute("annualCard", annualCard);
 		model.addAttribute("emp", emp);
 		model.addAttribute("list", result);
 		model.addAttribute("pagination", pagination);
@@ -87,6 +96,9 @@ public class AttendanceController {
 		System.out.println("AttendanceController [주 요일별 근무시간] >> " + hoursEachList + "\n****\n");
 
 		return "attendance/Attendance";
+		
+		
 	}
+	
 
 }
