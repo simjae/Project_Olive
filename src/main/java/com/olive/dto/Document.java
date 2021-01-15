@@ -30,7 +30,9 @@ public class Document {
 	private String title;
 	private Date start;
 	private Date end;
-	private String color;
+	private int annual;
+	private int count;
+	private int diff;
 	
 	
 	private List<String> approvers;

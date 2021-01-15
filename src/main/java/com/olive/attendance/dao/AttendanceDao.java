@@ -29,6 +29,9 @@ public interface AttendanceDao {
 
 	
 	// 휴가관리  테이블/캘린더 select
+	public Document annualCard(String empno);
+	
+	// 휴가관리  테이블/캘린더 select
 	public List<Document> getanaltableList(String empno);
 
 	// 휴가관리  캘린더 radio select
