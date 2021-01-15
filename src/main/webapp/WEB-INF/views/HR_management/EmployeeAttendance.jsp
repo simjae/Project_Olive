@@ -26,46 +26,52 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 
-/* Modal styles */
-.modal .modal-dialog {
-	max-width: 70%;
-}
-
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
-}
-
-.modal .modal-content {
-	border-radius: 3px;
-}
-
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-}
-
-.modal .modal-title {
-	display: inline-block;
-}
-
-.modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
-}
-
-.modal textarea.form-control {
-	resize: vertical;
-}
-
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}
-
-.modal form label {
-	font-weight: normal;
-}
+	/* Modal styles */
+	.modal .modal-dialog {
+		max-width: 70%;
+	}
+	
+	.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+		padding: 20px 30px;
+	}
+	
+	.modal .modal-content {
+		border-radius: 3px;
+	}
+	
+	.modal .modal-footer {
+		background: #ecf0f1;
+		border-radius: 0 0 3px 3px;
+	}
+	
+	.modal .modal-title {
+		display: inline-block;
+	}
+	
+	.modal .form-control {
+		border-radius: 2px;
+		box-shadow: none;
+		border-color: #dddddd;
+	}
+	
+	.modal textarea.form-control {
+		resize: vertical;
+	}
+	
+	.modal .btn {
+		border-radius: 2px;
+		min-width: 100px;
+	}
+	
+	.modal form label {
+		font-weight: normal;
+	}
+	
+	.comBtn{
+	
+		display:none;
+	
+	}
 </style>
 </head>
 <body id="page-top">
@@ -137,7 +143,11 @@
 														<td>${attendance.starttime}</td>
 														<td>${attendance.endtime}</td>
 														<td>${attendance.attname}</td>
-														<td><input type="button" class="checkBtn" value="수정" /></td>
+														<td>
+														<c:if test="${attendance.attname ne '정상'}">
+															<button class='attBtn'>퇴근처리</button>
+														</c:if>
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>

@@ -201,6 +201,7 @@ public class Hr_ManagementController {
 		cri2 =new Criteria();
 		//근태 테이블
 		cri1.setCriteria("emp_att", "starttime", "desc");
+		cri1.setPerPageNum(5);
 		//휴가 테이블
 		cri2.setCriteria("empAnnual", "empno", "asc");
 		cri2.setPerPageNum(5);

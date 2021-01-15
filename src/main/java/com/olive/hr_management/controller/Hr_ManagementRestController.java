@@ -1,5 +1,6 @@
 package com.olive.hr_management.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,16 +103,31 @@ public class Hr_ManagementRestController {
 		return annualList;
 	}
 	
-	//휴가관리 수정하기
+	//휴가관리 수정하기 //redirect ??!?!?
 	@RequestMapping(value="updateAnnual.do", method=RequestMethod.POST)
 	public String updateAnnual(String empno, String annual) {
 		System.out.println("editAnnual");
 		System.out.println(empno);
 		System.out.println(annual);
-		
-		managementService.updateAnnual(empno, annual);
-		System.out.println("????");
-		//return "redirect:/HRinfo/EditMyinfo.do";
-		return null;	
+		Map<String, Object> map =  new HashMap<String, Object>();
+		map.put("empno", empno);
+		map.put("annual", annual);
+		managementService.updateAnnual(map);
+		return "/HR_management/EmployeeAttendance.do";
+	}
+	
+	//근태관리 수정하기 >> 퇴근처리
+	@RequestMapping(value="updateAttRecord.do", method=RequestMethod.POST)
+	public String updateAttRecord(String empno, String starttime) {
+		System.out.println("empno");
+		System.out.println(empno);
+		System.out.println(starttime);
+		Map<String, Object> map =  new HashMap<String, Object>();
+		map.put("empno", empno);
+		map.put("starttime", starttime);
+		managementService.updateAttRecord(map);
+		return "/HR_management/EmployeeAttendance.do";
+
+
 	}
 }

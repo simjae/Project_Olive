@@ -19,56 +19,77 @@ function Unix_timestamp(t) {
 }
 
 
-//휴가 연차 수정
-$(document).ready(function(){
-		$('.comBtn').hide();
-		
-		$(".editBtn").click(function() {
-			$('.comBtn').show();
-			$('.editBtn').hide();
-			$('.checkBtn').hide();
-			console.log("Hi");
-			//$('#annListTable td')
-			//var checkBtn = $(this);
-			var editBtn = $(this);
-			var tr = editBtn.parent().parent();
-			var td = tr.children();
-			var no = td.eq(0).text();
-			
-			var html = td.eq(2).html();
-			console.log(html);
-		    var input = $('<input type="text" id="annual" name="annual"/>');
-		    input.val(html);
-		    $(td.eq(2)).html(input);
-	});
-	
-		$('.comBtn').on('click', function(){
-			var tr = $(this).parent().parent();
-			var td = tr.children();
-			var empno = td.eq(0).html();
-			var annual = $('#annual').val();
-			console.log(empno);
-			console.log(annual);
-			
-			
-			$.ajax({
-					url: "/HR_managementRest/updateAnnual.do",
-					type: "POST",
-					dataType: "JSON",
-					data: {
-						empno: empno,
-						annual: annual
-					},
-					success: (data) => {
-						console.log(data);
-						//insertDatabyAjax(data);
-					},error : function(error){
-						console.log(error);
-					}
-				});
-		});
+$(document).on("click", ".editBtn", function() {
 
-})
+	$('.comBtn').show();
+	$('.editBtn').hide();
+	$('.checkBtn').hide();
+	console.log("Hi");
+	//$('#annListTable td')
+	//var checkBtn = $(this);
+	var editBtn = $(this);
+	var tr = editBtn.parent().parent();
+	var td = tr.children();
+	var no = td.eq(0).text();
+
+	var html = td.eq(2).html();
+	console.log(html);
+	var input = $('<input type="text" id="annual" name="annual"/>');
+	input.val(html);
+	$(td.eq(2)).html(input);
+
+	$('.comBtn').on('click', function() {
+		var tr = $(this).parent().parent();
+		var td = tr.children();
+		var empno = td.eq(0).html();
+		var annual = $('#annual').val();
+		console.log(empno);
+		console.log(annual);
+
+
+		$.ajax({
+			url: "/HR_managementRest/updateAnnual.do",
+			type: "POST",
+			data: {
+				empno: empno,
+				annual: annual
+			},
+			success: (data) => {
+				location.href = data;
+			}, error: function(error) {
+				console.log(error);
+			}
+		});
+	});
+});
+
+//퇴근처리 수정
+$(document).on("click", '.attBtn', function() {
+	var tr = $(this).parent().parent();
+	var td = tr.children();
+	var empno = td.eq(0).html();
+	var start = td.eq(2).html();
+	console.log(empno);
+	console.log(start);
+
+	$.ajax({
+		url: "/HR_managementRest/updateAttRecord.do",
+		type: "POST",
+		data: {
+			empno: empno,
+			starttime: start
+		},
+		success: (data) => {
+			console.log(data);
+			location.href = data;
+		}, error: function(error) {
+			console.log(error);
+		}
+	});
+
+});
+
+
 
 
 
@@ -88,13 +109,13 @@ $(".checkBtn").click(function() {
 			success: (data) => {
 				var html = "";
 				console.log(data);
-				if((Array.isArray(data)) && data.length === 0) {
-						console.log("null");
-						html += "<h3>연차사용 내역이 존재하지 않습니다.</h3>"
+				if ((Array.isArray(data)) && data.length === 0) {
+					console.log("null");
+					html += "<h3>연차사용 내역이 존재하지 않습니다.</h3>"
 				}
 				for (let i = 0; i < data.length; i++) {
-				
-						html += "<tr>"
+
+					html += "<tr>"
 						+ "<td>" + data[i].empno + "</td>"
 						+ "<td>" + data[i].ename + "</td>"
 						+ "<td>" + data[i].annual + "</td>"
@@ -103,7 +124,7 @@ $(".checkBtn").click(function() {
 						+ "<td>" + Unix_timestamp(Number(data[i].enddate)) + "</td>"
 						+ "<td>" + data[i].timediff + "</td>"
 						+ "</tr>"
-					
+
 
 				}
 				$('#annBody').html(html);
@@ -221,14 +242,20 @@ function insertDatabyAjax1(data) {
 	$('#attListTable').empty();
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
-		inputListData += "<tr>"
-			+ "<td>" + data.list[i].empno + "</td>"
-			+ "<td>" + data.list[i].ename + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>"
-			+ "<td>" + data.list[i].attname + "</td>"
-			+ "<td><button id='attBtn' class='btn-sm btn-info'><i class='fas fa-edit fa-sm text-white'></i></button></td>"
-			+ "</tr>"
+		inputListData += "<tr>";
+		inputListData += "<td>" + data.list[i].empno + "</td>";
+		inputListData += "<td>" + data.list[i].ename + "</td>";
+		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>";
+		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>";
+		inputListData += "<td>" + data.list[i].attname + "</td>";
+		if (data.list[i].attname != '정상') {
+			inputListData += "<td><button class='attBtn'>퇴근처리</button></td>"
+		} else {
+			inputListData += "<td></td>"
+		}
+		inputListData += "</tr>";
+
+
 	}
 	$('#attListTable').html(inputListData);
 	console.log("여기");
@@ -390,7 +417,10 @@ function insertDatabyAjax2(data) {
 			+ "<td>" + data.list[i].annual + "</td>"
 			+ "<td>" + data.list[i].COUNT + "</td>"
 			+ "<td>" + data.list[i].DIFF + "</td>"
-			+ "<td><button id='annBtn' class='btn-sm btn-info'><i class='fas fa-edit fa-sm text-white'></i></button></td>"
+			+ "<td><input type='button' class='checkBtn' value='목록' />"
+			+ "<input type='button' class='editBtn' value='수정' />"
+			+ "<input type='button' class='comBtn' value='완료' />"
+			+ "</td>"
 			+ "</tr>"
 	}
 	$('#annListTable').html(inputListData);

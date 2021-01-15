@@ -46,5 +46,9 @@ public interface Hr_managementDao {
 	
 	public List<Map<String, Object>> getAnnualList(String empno);
 	
-	public void updateAnnual(String ename, String annual);
+	public void updateAnnual(Map<String, Object> map);
+	
+	public void updateAttRecord(Map<String, Object> map);
+	
+	
 }

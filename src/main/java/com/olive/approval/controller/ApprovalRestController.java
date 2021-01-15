@@ -30,7 +30,7 @@ import com.olive.utils.Pagination;
 
 @RestController
 @RequestMapping("/approval/")
-public class ApprovalRestController {
+public class ApprovalrestController {
  
 	@Autowired
 	private ApprovalService approvalService;

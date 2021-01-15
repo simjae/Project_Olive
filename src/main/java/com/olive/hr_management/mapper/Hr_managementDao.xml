@@ -103,9 +103,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE empno = #{empno}
 	</select>
 	
-	<update id="updateAnnual">
+	<update id="updateAnnual" parameterType="HashMap">
 		update emp
 		set annual = #{annual}
 		where empno = #{empno}
 	</update>
+	
+	<update id="updateAttRecord" parameterType="HashMap">
+		update att_record
+		set 
+		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
+		attcode=80
+		where empno = #{empno} and DATE(starttime) = DATE(#{starttime})
+	</update>
+
+	
 </mapper>
