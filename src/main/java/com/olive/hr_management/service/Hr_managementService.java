@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.management.openmbean.ArrayType;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,7 +66,9 @@ public class Hr_managementService {
 	// 인사관리 : 사원 신규 등록 시 Ajax 본부 목록 호출
 	public List<Head> getHeadQuarters() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		System.out.println("head service");
 		List<Head> HQList = dao.getHeadQuarters();
+		System.out.println(HQList);
 		return HQList;
 	}
 
@@ -143,6 +147,69 @@ public class Hr_managementService {
 		}else {
 			result = empno + "001";
 		}
+		return result;
+	}
+
+	public List<Map<String, Object>> searchEmp(String ename) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> result = dao.searchEmp(ename);
+//		List<String> data = new ArrayList<>();
+//		for(HashMap<String, Object> result : results) {
+//			String temp = "";
+//			data.add(result.get("ename")+" "+result.get("classname")+"/"+result.get("deptname"));
+//		}
+		return result;
+	}
+
+	public List<HashMap<String, Object>> getAttbyEmpno(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<HashMap<String, Object>> list = dao.getAttbyEmpno(empno);
+		List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+		System.out.println(list.get(0));
+		for(HashMap<String, Object> item : list) {
+			if(item.containsValue("출근")) {
+				result.add(item);
+			}else if(item.containsValue("지각")){
+				result.add(item);				
+			}else if(item.containsValue("결근")) {
+				result.add(item);
+			}
+			System.out.println(item);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	public Map<String, Object> getEmpInfo(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		Map<String, Object> result = dao.getEmpInfo(empno);
+		return result;
+	}
+
+	public Map<String, String> getOrganizationInfo() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		String headCount = dao.getHeadCount();
+		String hired = dao.getHiredCount();
+		String retired = dao.getRetiredCount();
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("headCount", headCount);
+		result.put("hired", hired);
+		result.put("retired", retired);
+		System.out.println(result);
+		return result;
+	}
+
+	public List<Map<String, Object>> getSalChartDataForClass() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> result = dao.getSalChartDataForClass();
+		System.out.println(result);
+		return result;
+	}
+	
+	public List<Map<String, Object>> getSalChartDataForDept() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> result = dao.getSalChartDataForDept();
+		System.out.println(result);
 		return result;
 	}
 }

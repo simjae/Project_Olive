@@ -6,6 +6,7 @@
 */
 package com.olive.hr_management.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.dto.Sal_Record;
 import com.olive.dto.SalaryInfo;
-import com.olive.utils.Criteria;
 
 public interface Hr_managementDao {
 	
@@ -44,5 +44,21 @@ public interface Hr_managementDao {
 	
 	public void insertSalaryTbl(List<Sal_Record> excelData);
 
-	public String checkEmpno(String empno); 
+	public String checkEmpno(String empno);
+
+	public List<Map<String, Object>> searchEmp(String ename);
+
+	public List<HashMap<String, Object>> getAttbyEmpno(String empno);
+
+	public Map<String, Object> getEmpInfo(String empno);
+
+	public String getHiredCount();
+
+	public String getHeadCount();
+
+	public String getRetiredCount();
+
+	public List<Map<String, Object>> getSalChartDataForClass();
+	
+	public List<Map<String, Object>> getSalChartDataForDept();
 }
