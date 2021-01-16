@@ -238,7 +238,7 @@ function createFirstTree(){
 	return new Promise((resolve,reject)=>{
 		
 	$.ajax({
-	url:"/approval/getAllEmpList.do",
+	url:"organization.do",
 	 dataType: "json",
 	 contentType: "application/json; charset=utf-8",
 	success:function(responsedata){

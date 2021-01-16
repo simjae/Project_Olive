@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
-import com.olive.dto.EmpTest;
 
 public interface Hr_infoDao {
 	public List<Emp> showEmpList();

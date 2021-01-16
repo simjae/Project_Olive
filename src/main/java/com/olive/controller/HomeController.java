@@ -66,6 +66,7 @@ public class HomeController {
 
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
 	private ApprovalService approvalService;
 	
 
@@ -85,12 +86,15 @@ public class HomeController {
 
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getName() : " + n);
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getAuthroties().toString() : " + r);
-			
+
 			List<Document> doclist = approvalService.getDocument(n);
 			List<Approver> applist = approvalService.getApprover(n);
 			
 			Map arrangedAppList = approvalService.arrangedAppDoc(applist);
 			Map arrangedDocList = approvalService.arrangeDoc(doclist);
+			
+			System.out.println("App"+arrangedAppList);
+			System.out.println("Doc"+arrangedDocList);
 			
 			model.addAttribute("arrangedAppList",arrangedAppList);
 			model.addAttribute("arrangedDocList",arrangedDocList);

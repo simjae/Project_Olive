@@ -47,9 +47,9 @@ public class ApprovalService extends PagingService {
 
 	// 전체 뽑기
 	public List<Document> getDocument(String empno) {
+		System.out.println("empno는 "+empno);
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Document> document = approvalDao.getDocument(empno);
-
 		return document;
 	}
 
