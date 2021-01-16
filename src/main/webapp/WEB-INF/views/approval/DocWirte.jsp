@@ -367,7 +367,7 @@
 	border: none;
 }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -386,6 +386,8 @@ function deletefromrim(me){
 	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
 function getMaxDocno(typeCode){
+
+	console.log(typeCode);
 	$.ajax({
 		url:"getMaxDocno.do",
 		type:"POST",
@@ -408,7 +410,9 @@ function getMaxDocno(typeCode){
 			docno = (parseInt(first.substring(2,4)+typeCode+last)+1);
 			console.log(docno);
 			$('#docno').val(docno)
-			}
+			},error: function(data){
+				console.log(data.responseText);
+				}
 		});
 }
 
@@ -419,8 +423,6 @@ $(function() {
 	var uploadFiles=[];
 	var data = [];
 
-
-	
 	function createFirstTree(){
 		
 		return new Promise((resolve,reject)=>{

@@ -6,9 +6,10 @@
 */
 package com.olive.attendance.utils;
 
+import com.olive.utils.Criteria;
+
 import lombok.Data;
 import lombok.ToString;
-import paging.Criteria;
 
 @Data
 @ToString

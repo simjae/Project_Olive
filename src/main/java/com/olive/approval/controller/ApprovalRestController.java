@@ -37,7 +37,7 @@ public class ApprovalRestController {
 	
 	@RequestMapping(value="/getMaxDocno.do")
 	private String getMaxDocno(String typeCode) {
-		
+		System.out.println("sijdiofjsdijfsiodjfios;adajsdif;asj iofjisdjfi asjdif ajsdiof jasido fjiaosdjfioasjdiofajsdiof jasid;fjaisdjfioasdjfiasjdifjaisdfjiaso;di");
 		return approvalService.getMaxDocno(typeCode);
 	}
 	

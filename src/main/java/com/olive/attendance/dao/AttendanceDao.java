@@ -9,10 +9,12 @@
 package com.olive.attendance.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.olive.dto.Att_Record;
 import com.olive.dto.Document;
 import com.olive.dto.WorkHourPerWeek;
+import com.olive.utils.Criteria;
 
 public interface AttendanceDao {
 	// 출근 확인

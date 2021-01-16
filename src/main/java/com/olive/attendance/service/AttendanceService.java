@@ -11,6 +11,7 @@ package com.olive.attendance.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.olive.attendance.dao.AttendanceDao;
 import com.olive.dto.Att_Record;
 import com.olive.dto.WorkHourPerWeek;
+import com.olive.utils.Criteria;
 
 @Service
 public class AttendanceService {
