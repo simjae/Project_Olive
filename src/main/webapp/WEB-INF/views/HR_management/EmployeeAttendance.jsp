@@ -248,6 +248,7 @@
 												</tr>
 											</thead>
 											<tbody id="annListTable">
+											<h1>${annual}</h1>
 												<c:forEach var="annual" items="${annual}">
 													<tr>
 														<td>${annual.empno}</td>
@@ -289,6 +290,10 @@
 													<c:choose>
 														<c:when test="${paging eq criteria2.page}">
 															<li class="page-item page-link"><b>${paging}</b></li>
+
+														<c:when test="${paging2 eq criteria2.page}">
+															<li class="page-item page-link"><b>${paging2}</b></li>
+
 														</c:when>
 														<c:otherwise>
 															<li class="page-item"><a class="page-link page-btn2"

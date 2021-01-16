@@ -104,3 +104,4 @@ public class SalaryInfo{
       this.afterTaxIncome = temp3+"";   
    }
 }
+

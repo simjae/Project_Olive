@@ -6,10 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,14 +17,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.olive.approval.service.ApprovalService;
 import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
-import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.utils.Pagination;
 
@@ -35,7 +31,7 @@ import com.olive.utils.Pagination;
 public class ApprovalController {
 	private ApprovalService approvalService;
 
-	@Resource(name="approvalService")
+	@Autowired
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
 	}

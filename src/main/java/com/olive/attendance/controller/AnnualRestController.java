@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.velocity.app.event.ReferenceInsertionEventHandler.referenceInsertExecutor;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -60,8 +61,21 @@ public class AnnualRestController {
 		System.out.println("캘린더리스트"+calendarList);
 		return calendarList;
 	}		
+//=================== 휴가 캘린더 radio select ===================// 
 	
-//=================== 휴가 테이블테스트  ===================// 
+	
+	@ResponseBody
+	@RequestMapping(value = "calendarUserList.do", method = RequestMethod.GET)
+	public List<Document> calendarUserList(String empno) {
+		System.err.println(empno);
+		List<Document> calendarUserList = null;
+		System.out.println("휴가캘린더");
+		calendarUserList = service.calendarUserList(empno);
+		System.out.println("캘린더리스트123123"+calendarUserList);
+		return calendarUserList;
+	}		
+	
+//=================== 휴가 테이블  ===================// 
 @RequestMapping(value = "analPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
@@ -74,15 +88,17 @@ public JSONObject attPage(Criteria cri) {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
-	
+		System.out.println("휴가테이블1" + result);
 	
 	
 	return jsonObject;
 	
 }
 
-	
-	
+
+
+
+
 
 }
 	

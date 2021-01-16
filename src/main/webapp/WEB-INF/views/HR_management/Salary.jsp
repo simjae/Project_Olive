@@ -118,8 +118,11 @@
 							      </label>
 							      <input id='input-file' type='file' />
 							    </div> -->
+
 								<input type="file" class="" name="excelFile" id="excelFile"> 
+
 								<button type="button" onclick="uploadProcess()">submit</button>
+
 
 							</form>
 						</div>
@@ -246,7 +249,6 @@
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
-
 	<script>
 		$(document).on(
 				"click",
@@ -267,11 +269,6 @@
 									+ windowH + ", width=" + windowW
 									+ "resizable=no");
 				});
-
-
-		function downloadFormat(){
-			
-		}
 	</script>
 	<script src="/resources/js/Hr_management/excelUpload.js"></script>
 	<script src="/resources/js/Hr_management/salaryPaging.js"></script>
