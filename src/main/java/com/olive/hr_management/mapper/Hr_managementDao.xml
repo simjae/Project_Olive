@@ -3,41 +3,80 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
-	
-	
+
+
+	<select id="getHeadCount" resultType="String">
+		SELECT COUNT(*) FROM emp
+		WHERE statuscode != 30
+	</select>
+
+	<select id="getHiredCount" resultType="String">
+		SELECT count(*) FROM emp
+		WHERE year(hiredate) = year(now())
+	</select>
+
+	<select id="getRetiredCount" resultType="String">
+		SELECT count(*) FROM emp
+		WHERE year(leavedate) = year(now())
+	</select>
+
+	<select id="getEmpInfo" parameterType="String"
+		resultType="HashMap">
+		SELECT *
+		FROM empinfo
+		WHERE empno = #{empno}
+	</select>
+
+
 	<select id="checkEmpno" parameterType="String" resultType="String">
-		SELECT empno 
-			FROM emp
-			WHERE empno LIKE CONCAT(#{empno},'%')
-			ORDER BY empno desc
-			LIMIT 0, 1;
+		SELECT empno
+		FROM emp
+		WHERE empno LIKE CONCAT(#{empno},'%')
+		ORDER BY empno desc
+		LIMIT 0, 1;
 	</select>
-	
-	<select id="getSalaryDetail" parameterType="Hashmap" resultType="com.olive.dto.SalaryInfo">
-		SELECT * 
-			FROM salaryInfo
-			WHERE sal_date=#{sal_date} and empno=#{empno}
+
+	<select id="getSalaryDetail" parameterType="Hashmap"
+		resultType="com.olive.dto.SalaryInfo">
+		SELECT *
+		FROM salaryInfo
+		WHERE sal_date=#{sal_date} and empno=#{empno}
 	</select>
-	
+
+	<select id="searchEmp" parameterType="String"
+		resultType="HashMap">
+		SELECT ename, deptname, classname, empno
+		FROM empinfo
+		WHERE ename LIKE CONCAT(#{ename},'%') AND STATUSNAME != 'inactive'
+	</select>
+
+	<select id="getAttbyEmpno" parameterType="String"
+		resultType="HashMap">
+		SELECT attname, count(*) as num
+		FROM (SELECT * FROM emp_att WHERE empno = #{empno}) a
+		GROUP BY attname
+	</select>
+
 	<insert id="insertSalaryTbl" parameterType="java.util.List">
 		INSERT INTO Sal_record(
-			SAL_DATE,
-			EMPNO,
-			basic_pay,
-			overtime_pay,
-			position_pay,
-			bonus,
-			maintenance_of_vehicle,
-			educational_supports,
-			mess_allowance,
-			income_tax,
-			local_income_tax,
-			health_insurance,
-			care_insurance,
-			employment_insurance,
-			national_pension
+		SAL_DATE,
+		EMPNO,
+		basic_pay,
+		overtime_pay,
+		position_pay,
+		bonus,
+		maintenance_of_vehicle,
+		educational_supports,
+		mess_allowance,
+		income_tax,
+		local_income_tax,
+		health_insurance,
+		care_insurance,
+		employment_insurance,
+		national_pension
 		)VALUES
-		<foreach collection="list" item="item" separator="," open="(" close=")">
+		<foreach collection="list" item="item" separator="," open="("
+			close=")">
 			#{item.sal_date},
 			#{item.empno},
 			#{item.basic_pay},
@@ -100,6 +139,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT classCode, className
 		FROM class
 	</select>
+
+
+	<select id="getSalChartDataForDept" resultType="HashMap">
+		SELECT 
+			deptname as 'dept',
+			sum((basic_pay+
+				overtime_pay+
+				position_pay+
+				bonus+
+				maintenance_of_vehicle+
+				educational_supports
+				)) as 'total'
+		FROM salaryinfo
+		group by deptname;
+	</select>
+	
+		<select id="getSalChartDataForClass" resultType="HashMap">
+		SELECT 
+			classname as 'class',
+			sum((basic_pay+
+				overtime_pay+
+				position_pay+
+				bonus+
+				maintenance_of_vehicle+
+				educational_supports
+				)) as 'total'
+		FROM salaryinfo
+		group by classname;
+	</select>
+
 	
 	<select id="getAnnualList" resultType="HashMap">
         SELECT
@@ -124,4 +193,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	
+
 </mapper>
