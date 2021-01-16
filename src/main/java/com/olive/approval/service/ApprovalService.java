@@ -57,7 +57,7 @@ public class ApprovalService {
 		List<Document> document = approvalDao.getDocumentRec(empno, start, size);
 
 		return document;
-	} 
+	}
 
 	// 내가 기안한 문서 분류하기 (카운트용)
 	public Map arrangeDoc(List<Document> document) {
@@ -84,7 +84,7 @@ public class ApprovalService {
 
 		return arrangedDoc;
 	}
- 
+
 	// 내가 결재자인 문서 분류
 	public Map arrangedAppDoc(List<Approver> approver) {
 		Map<String, List<Approver>> arrangedAppDoc = new HashMap();
@@ -93,7 +93,7 @@ public class ApprovalService {
 		List<Approver> doc_cmp = new ArrayList();
 		List<Approver> doc_rej = new ArrayList();
 		for (Approver doc : approver) {
-			if (doc.getCurr_Approval() == 0 && doc.getApp_Order()==1) {
+			if (doc.getCurr_Approval() == 0 && doc.getApp_Order() == 1) {
 				doc_ready.add(doc);
 			} else if (doc.getCurr_Approval() > 0 && doc.getTotal_Approval() > doc.getCurr_Approval()) {
 				doc_ing.add(doc);
@@ -122,7 +122,7 @@ public class ApprovalService {
 		return approvalDao.getApproverRec(empno, start, size);
 	}
 
-	//내가 참조자인 문서
+	// 내가 참조자인 문서
 	public List<Reference> getRefference(String empno) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getRefference(empno);
@@ -165,23 +165,22 @@ public class ApprovalService {
 		}
 
 		doc.setFilename(filename);
-		int i=0;
+		int i = 0;
 		// 결재자 추가
-		for(String app : doc.getApprovers()) {
-			if(!app.equals("")) {
+		for (String app : doc.getApprovers()) {
+			if (!app.equals("")) {
 				i++;
 			}
 		}
 		doc.setTotal_Approval(i);
 		System.out.println(doc.getTotal_Approval());
 		System.out.println(doc.getReferrers());
-		
-		
+
 		System.out.println(doc);
 
 		// Transaction
 		try {
-			if (doc.getApprovers()!=null) {
+			if (doc.getApprovers() != null) {
 				approvalDao.writeDocument(doc);
 				approvalDao.insertApprover(doc);
 			}
@@ -201,8 +200,7 @@ public class ApprovalService {
 	// 전자결재 메인페이지에서 결재상태 비동기용 , 개인 문서함
 	public List<Document> getArrangedDocList(String statusCode, Principal principal) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
-	
-		
+
 		return approvalDao.getArrangedDocList(statusCode, principal.getName());
 	}
 
@@ -238,40 +236,39 @@ public class ApprovalService {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 
 		return approvalDao.viewApprovers(docno);
-	} 
+	}
+
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-		
-		
-		System.out.println("----------------------------------------App--------------------------------"+app);
-		//approvalDao.afterApprove(app);
-	} 
+
+		System.out.println("----------------------------------------App--------------------------------" + app);
+		// approvalDao.afterApprove(app);
+	}
+
 	public int getListCount(Criteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getListCount(cri);
-	}	
-	
+	}
+
 	public int getAppListCount(Criteria cri) {
 		System.out.println("getListCount 서비스 시작");
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.getAppListCount(cri);
-	}	
-	
+	}
+
 	public List<Map<String, Object>> getList(Criteria cri) {
 		System.out.println("getList 서비스 시작");
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getList(cri);
 	}
+
 	public List<Map<String, Object>> getAppList(Criteria cri) {
 		System.out.println("getAppList 서비스 시작");
 		System.out.println(cri);
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.getAppList(cri);
-		
 	}
-	
-	
-	
+
 }

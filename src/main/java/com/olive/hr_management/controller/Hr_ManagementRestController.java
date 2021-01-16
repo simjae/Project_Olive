@@ -25,8 +25,9 @@ public class Hr_ManagementRestController {
 	
 	@RequestMapping(value = "getList.do", method = RequestMethod.POST)
 	public JSONObject getEmpListBykeyword(Criteria cri) {
-		
+		System.out.println(cri);
 		cri.setCriteria("empinfo", "empno", "desc");
+		System.out.println(cri);
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);

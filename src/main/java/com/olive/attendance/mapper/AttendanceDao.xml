@@ -110,8 +110,64 @@
 						
 						
 		FROM 	att_record
-		WHERE 	empNo = #{empNo} 
+		WHERE 	empNo = #{empNo}
 				AND date BETWEEN ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 )
 				AND ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 6 )
+	</select>
+	
+	<select id="getListCount" resultType="Integer" parameterType="Hashmap">
+	 	<![CDATA[
+		SELECT 
+			count(*) 
+		FROM 
+			${table}
+		WHERE ${searchType} = #{keyword}
+		]]>
+		<if test='keyword2 neq 1'>
+		AND ${searchType2} = #{keyword2} 
+		</if>
+	</select>
+
+	<select id="getList" resultType="Hashmap" parameterType="Hashmap">
+	 	 <![CDATA[
+        SELECT
+            *
+        FROM 
+			${table}
+		WHERE ${searchType} = #{keyword}
+		]]>
+		<if test='keyword2 neq 1'>
+		AND ${searchType2} = #{keyword2} 
+		</if>
+		<![CDATA[
+        ORDER BY ${column} ${sort}
+		LIMIT ${rowStart}, ${perPageNum}
+   		 ]]>
+	</select>
+	
+	<select id="getAttList" resultType="Hashmap" parameterType="Hashmap">
+	 	 <![CDATA[
+        SELECT
+            *
+        FROM 
+			${table}
+		WHERE ${searchType} = #{keyword}
+        ORDER BY ${column} ${sort}
+		LIMIT ${rowStart}, ${perPageNum}
+   		 ]]>
+	</select>
+	
+	<select id="getDeptName" resultType="String">
+		SELECT deptName
+		FROM empinfo
+		WHERE empno = #{empno}
+	</select>
+	
+	<select id="isPunchedIn" resultType="Hashmap">
+		SELECT starttime AS 'start', endtime AS 'end' 
+		FROM rectable
+		WHERE 
+			empno = #{empno} AND 
+			DATE_FORMAT(starttime, '%y-%m-%d') = DATE_FORMAT(NOW(), '%y-%m-%d')
 	</select>
 </mapper>

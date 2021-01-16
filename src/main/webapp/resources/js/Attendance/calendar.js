@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 
 			headerToolbar: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'custom,dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+				left: 'title',
+				center: 'custom,dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+				right: 'prev,next today'
 			},
 			buttonText: {
 				today: '오늘',
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			nowIndicator: true,
 			weekNumbers: true,
 			weekNumberCalculation: 'ISO',
-			editable: true,
+			editable: false,
 			selectable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			/*events:[

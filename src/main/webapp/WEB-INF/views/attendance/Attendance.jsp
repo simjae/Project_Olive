@@ -6,8 +6,9 @@
 	작성자 : 심재형 
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,6 @@
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">${emp.ENAME}</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">${emp.ENAME}</a>
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
@@ -179,21 +179,37 @@
 							<div class="card shadow mb-4">
 								<!-- Card Header -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
+									<s:authorize access="!hasRole('ROLE_MANAGER')">
+										<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
+									</s:authorize>
+									<s:authorize access="hasRole('ROLE_MANAGER')">
+										<h6 class="m-0 font-weight-bold text-primary">근태 관리 : <span>${emp.HEADNAME}</span>본부 <span>${emp.DEPTNAME}</span>부서</h6>
+									</s:authorize>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<div class="card-for-flex mb-1">
 										<div class="card-body-tridiv d-flex search-tab row justify-content-end mr-5">
 											<div class="mb-3">
+												<input id="role" hidden value="<s:authentication property='Authorities'/>"/>
 												<!-- 비동기로 DB다녀오는 친구들 -->
-												<form class="form-group d-flex justify-content-end">
-													<select class="form-control width-100 mr-2" id="newSearchType"> 
-														<option selected>사번</option>
-														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
-													</select>
+												<form class="form-group d-flex">
+													<s:authorize access="!hasRole('ROLE_MANAGER')">
+														<select class="form-control width-100 mr-2" id="newSearchType"> 
+															<option selected>사번</option>
+															<option>이름</option>
+															<option>본부</option>
+															<option>부서</option>
+														</select>
+													</s:authorize>
+													<s:authorize access="hasRole('ROLE_MANAGER')">
+														<select class="form-control width-100 mr-2" id="newSearchType"> 
+															<option selected>사번</option>
+															<option>이름</option>
+															<option>본부</option>
+															<option>부서</option>
+														</select>
+													</s:authorize>
 													<input type="text" class="form-control width-250 mr-2 inputState" id="newKeyword" placeholder="검색할 키워드를 입력..">
 													<input type="button" class="btn btn-info" id="searchBtn" value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
@@ -271,7 +287,7 @@
 								</div>
 								
 							</div>
-						</div>
+						</div>                                                                
 						<!-- Modal -->
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog">
@@ -323,7 +339,7 @@
 	</a>
 	<!-- Logout Modal-->
 	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"></jsp:include>
-	<!-- SearchAndPaging -->
+	<!-- SearchAndPaging 권한 처리 -->
 	<script src="/resources/js/Attendance/attendance.js"></script>
 	<!-- 캘린더 모듈화  -->
 	<script src="/resources/js/Attendance/calendar.js"></script>
