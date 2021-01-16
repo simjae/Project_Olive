@@ -30,8 +30,8 @@ public class Hr_infoService {
 	   }
 	   
 	   //Emp 전체 검색
-	   public List<EmpTest> showEmpList(){
-		   List<EmpTest> list = null;
+	   public List<Emp> showEmpList(){
+		   List<Emp> list = null;
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		   list = dao.showEmpList();
 		   //System.out.println("뿌려바");
@@ -41,9 +41,9 @@ public class Hr_infoService {
 	   }
 	   
 	   //Emp 조건 검색 selectbox (사번, 이름, 부서)
-	   public List<EmpTest> searchEmp(Map<String, Object> map) {
+	   public List<Emp> searchEmp(Map<String, Object> map) {
 		    Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
-		    List<EmpTest> emplist = dao.searchEmp(map);
+		    List<Emp> emplist = dao.searchEmp(map);
 		    //System.out.println("여기가 리스트");
 		    //System.out.println(emplist);
 			return emplist;
@@ -102,7 +102,20 @@ public class Hr_infoService {
 		   
 	   }
 	   
-	   
+		//이메일 검증
+		public Emp checkEmail_Pwd(String email) {
+			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
+			Emp emp = dao.checkEmail_Pwd(email);
+			System.out.println(emp);
+			return emp;
+		}
+		
+		//비밀번호 수정
+		public void updatePwd(Map<String, Object> map) {
+			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
+			dao.updatePwd(map);
+			System.out.println("비밀번호 재설정 완료");
+		}
 
 	   
 	   

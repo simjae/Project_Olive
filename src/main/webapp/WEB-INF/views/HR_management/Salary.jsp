@@ -111,16 +111,19 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
+
 <!-- 								<div class='file file--upload'>
 							      <label for='input-file'>
 							        <i class="fas fa-cloud-upload-alt"></i>Upload
 							      </label>
 							      <input id='input-file' type='file' />
 							    </div> -->
-								<input type="file" class="" name="excelFile" id="excelFile">
+
+								<input type="file" class="" name="excelFile" id="excelFile"> 
+
 								<button type="button" onclick="uploadProcess()">submit</button>
 
->>>>>>> 219eb233452ab0e40916457afca3b8ec8b1fb598
+
 							</form>
 						</div>
 

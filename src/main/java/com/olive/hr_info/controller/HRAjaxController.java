@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olive.dto.DeptTest;
-import com.olive.dto.EmpTest;
+import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
 import com.olive.utils.Criteria;
 import com.olive.utils.Pagination;
@@ -85,6 +85,7 @@ public class HRAjaxController {
 		return "HRinfo/Salary";
 	}
 
+
 //	//마이페이지 수정하기
 //	@RequestMapping(value="updateMyInfo.do")
 //	public Emp updateMyInfo(String param1, String param2, String param3, String param4, String param5, String param6) {
@@ -111,12 +112,12 @@ public class HRAjaxController {
 //	}
 	
 	@RequestMapping(value="organization.do")
-	public List<EmpTest> organization() {
+	public List<Emp> organization() {
 		
 		return empService.showEmpList();
 		
 	}
 	
 	
-	
+
 }
