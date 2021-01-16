@@ -184,7 +184,6 @@ public class ApprovalRestController {
 	
 	@RequestMapping(value="/download.do")
 	private void download(@RequestParam String filename,HttpServletRequest request,HttpServletResponse response) {
-		System.out.println(filename+"은 파일이름 ㅓ냐얼냐ㅐ어랴");
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -228,20 +227,32 @@ public class ApprovalRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+			 
 		}
 		
 	}
-	@RequestMapping(value="checkTypeName.do")
+	@RequestMapping(value="checktypeName.do")
 	private int checkTypeName(String typename) {
 		System.out.println(typename);
 		return approvalService.checkTypeName(typename);
 	}
 	
-	@RequestMapping(value="selectForm.do")
-	private String selectForm(String typename) {
-		return approvalService.selectForm(typename);
+	@RequestMapping(value="selectSpecialForm.do")
+	private Map<String,String> selectSpecialForm(String typename) {
+		Map<String,String> map = new HashMap<>();
+		map.put("typename",approvalService.selectSpecialForm(typename));
+		return map;
 	}
+
+	@RequestMapping(value="selectForm.do")
+	private Map<String,String> selectForm(String formname) {
+		Map<String,String> map = new HashMap<>();
+		map.put("formname",approvalService.selectForm(formname));
+		return map;
+	}
+	
+	
+	
 
 
 }

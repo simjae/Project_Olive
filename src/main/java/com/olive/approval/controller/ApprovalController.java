@@ -24,6 +24,7 @@ import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
+import com.olive.dto.Doc_form;
 import com.olive.utils.Pagination;
 
 @Controller
@@ -68,7 +69,9 @@ public class ApprovalController {
 		System.out.println(empno);
 		Emp emp = approvalService.selectEmp(empno);
 		List<Doc_Type> docType = approvalService.selectDocType();
+		List<Doc_form> form = approvalService.formList();
 		
+		model.addAttribute("formList",form);
 		model.addAttribute("docType", docType);
 		System.out.println(docType);
 		model.addAttribute("emp", emp);
@@ -167,10 +170,11 @@ public class ApprovalController {
 	
 	@RequestMapping(value="AddForm.do", method=RequestMethod.POST)
 	public String AddForm(Doc_Type doctype) {
+		
+		System.out.println();
 		approvalService.addForm(doctype);
 		return "redirect:/approval/ApprovalHome.do";
 	}
-	
 	
 	
 }

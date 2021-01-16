@@ -24,6 +24,7 @@ import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
+import com.olive.dto.Doc_form;
 import com.olive.utils.service.PagingService;
 
 @Service
@@ -284,9 +285,19 @@ public class ApprovalService extends PagingService {
 		dao.addForm(doctype);
 	}
 	
-	public String selectForm(String typename) {
+	public String selectSpecialForm(String typename) {
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
-		return dao.selectForm(typename);
+		return dao.selectSpecialForm(typename);
+	}
+	
+	public String selectForm(String formname) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.selectForm(formname);
+	}
+	
+	public List<Doc_form> formList() {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.formList(); 
 	}
 	
 	

@@ -122,7 +122,7 @@
 		select * from emp
 	</select>
 	<select id="getAllDeptList" resultType="com.olive.dto.Dept">
-		select * from dept
+		select * from dept d join head h on d.headCode = h.headCode
 	</select> 
 	<select id="getAllHeadList" resultType="com.olive.dto.Head">
 		select * from head
@@ -246,18 +246,24 @@
 	</select>
 	
 	<select id="checkTypeName" resultType="int">
-		select count(*) from doc_type where typename LIKE CONCAT(#{typename},'%')
+		select count(*) from doc_form where formname LIKE CONCAT(#{typeName},'%')
 	</select>
 	
 	<insert id="addForm">
-		insert into doc_Type values (10, #{typename},#{content})
+		insert into doc_form (formname, content) values ( #{typename},#{content})
 	</insert>
 	
-	<select id="selectForm" resultType="String">
-		select content from doc_type where typename=#{typename}
+	<select id="selectSpecialForm" resultType="String">
+		select content from doc_type where typeName=#{typeName}
 	</select>
 		
+	<select id="selectForm" resultType="String">
+		select content from doc_form where formname=#{formname}
+	</select>	
+	
+	<select id="formList" resultType="com.olive.dto.Doc_form">
+		select * from doc_form
+	</select>	
 	
 	
-
 </mapper>

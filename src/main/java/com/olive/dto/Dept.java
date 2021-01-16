@@ -13,4 +13,5 @@ public class Dept {
 	private int deptCode;
 	private String deptName;
 	private int headCode;
+	private String headName;
 }

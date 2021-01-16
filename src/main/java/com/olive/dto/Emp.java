@@ -42,7 +42,5 @@ public class Emp {
 	private String headname;
 	private int headcode;
 	private CommonsMultipartFile file;
-	
-	private String usedAnnual;
-	
+	private String usedAnnual;	
 }

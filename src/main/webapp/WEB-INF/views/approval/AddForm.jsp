@@ -88,8 +88,8 @@
 												<div class="card-body py-2 px-0">
 													<div class="text-center text-primary">문서 이름</div>
 													<div class="mx-auto w-100">
-														<input class="inputbox col-xl-12 text-center" type="text" id="typeName" name="typeName">
-													</div>
+														<input class="inputbox col-xl-12 text-center" type="text" id="typename" name="typename">
+													</div> 
 												</div>
 											</div>
 										</div>
@@ -165,12 +165,12 @@ $(function() {
 	  		}
 		});
 
-	$('#typeName').on("keyup",function(){
-		let typeName = $(this).val();
+	$('#typename').on("keyup",function(){
+		let typename = $(this).val();
 		$.ajax({
-			url:"checkTypeName.do",
+			url:"checktypeName.do",
 			type:"POST",
-			data:{typeName:typeName},
+			data:{typename:typename},
 			success:function(data){
 				$('#check').empty();
 				console.log(data);

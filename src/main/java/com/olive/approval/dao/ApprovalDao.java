@@ -10,6 +10,7 @@ import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
+import com.olive.dto.Doc_form;
 import com.olive.utils.Criteria;
 import com.olive.utils.dao.PagingDao;
 
@@ -38,6 +39,8 @@ public interface ApprovalDao extends PagingDao{
 	public String getMaxDocno(String typeCode);
 	public int checkTypeName(String typename);
 	public void addForm(Doc_Type doctype);
-	public String selectForm(String typename);
+	public String selectSpecialForm(String typename);
+	public String selectForm(String formname);
+	public List<Doc_form> formList();
 	
 }

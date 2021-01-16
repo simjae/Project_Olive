@@ -10,10 +10,7 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>SB Admin 2 - Write</title>
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
@@ -88,114 +85,97 @@
 						<div class="col-md-12 border border-primary py-2" style="background: white;">
 							<div class="container-fluid">
 								<div class="container-fluid">
-								<div class="row">
-									<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-										<div class="card-body py-2 px-0">
-											<div class="text-center text-primary">문서 번호</div>
-											<div class="mx-auto w-100">
-												<input type="text" class="inputbox text-center w-100"  id="docno" name="docno" readonly>
+									<div class="row">
+										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">문서 번호</div>
+												<div class="mx-auto w-100">
+													<input type="text" class="inputbox text-center w-100" id="docno" name="docno" readonly>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-										<div class="card-body py-2 px-0">
-											<div class="text-center text-primary">문서종류</div>
-											<div class="mx-auto w-100">
-												<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last: center">
-													<c:forEach var="list" items="${requestScope.docType}">
-														<option value="${list.typeCode}">${list.typeName}</option>
+										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">문서종류</div>
+												<div class="mx-auto w-100">
+													<select class="px-auto mx-auto w-100 selector" id="selector" name="typeCode" style="text-align-last: center">
+														<c:forEach var="list" items="${requestScope.docType}">
+															<option value="${list.typeCode}">${list.typename}</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+										</div>
+										<c:set var="formlist" value="${requestScope.formList }" />
+										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2" style="display: block" id="doc">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">일반 문서 종류</div>
+												<select class="px-auto mx-auto w-100 selector" id="doc_form" style="text-align-last: center">
+													<option>선택하세요</option>
+													<c:forEach var="form" items="${formlist }">
+														<option value="${form.formName}">${form.formName}</option>
 													</c:forEach>
 												</select>
 											</div>
 										</div>
-									</div>
-									<div class="mt-0 mb-2 py-0 mx-auto col-xl-1">
-										
-									</div> 
-									
-									<div class="card mt-0 mb-2 py-0 mx-auto  mx-1 col-xl-2">
-										<div class="card-body py-2 px-0">
-											<div class="text-center text-primary">직책</div>
-											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
-											</div>
-										</div>
-									</div>
-									<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
-										<div class="card-body py-2 px-0">
-											<div class="text-center text-primary">부서</div>
-											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${emp.deptname }" id="deptname" readonly>
-											</div>
-										</div>
-									</div>
-									<div class="card mt-0 mb-2 py-0  mx-auto mx-1 col-xl-2">
-										<div class="card-body py-2 px-0">
-											<div class="text-center text-primary">사번</div>
-											<sec:authentication property="name" var="LoginUser" />
-											<sec:authorize access="isAuthenticated()">
+										<div class="card mt-0 mb-2 py-0 mx-auto  mx-1 col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">직책</div>
 												<div class="text-md mt-1 text-center">
-													<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
+													<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
 												</div>
-											</sec:authorize>
+											</div>
+										</div>
+										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">부서</div>
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${emp.deptname }" id="deptname" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="card mt-0 mb-2 py-0  mx-auto mx-1 col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">사번</div>
+												<sec:authentication property="name" var="LoginUser" />
+												<sec:authorize access="isAuthenticated()">
+													<div class="text-md mt-1 text-center">
+														<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
+													</div>
+												</sec:authorize>
+											</div>
 										</div>
 									</div>
-									
-									
-								</div>
 								</div>
 							</div>
 							<div class="container-fluid">
 								<div class="container-fluid">
-							<div class="row">
-							<div class="col-xl-2 mx-auto my-auto">
-									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
-										<span class="text">결재선 추가하기</span>
-									</a>
-								</div>
-								 
-								<div class="card my-auto py-0 mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">작성일자</div>
-										<c:set var="time" value="${requestScope.time}" />
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" name="writedate" readonly>
+									<div class="row">
+										<div class="col-xl-2 mx-auto my-auto">
+											<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
+												<span class="text">결재선 추가하기</span>
+											</a>
+										</div>
+										<div class="card my-auto py-0 mx-auto col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">작성일자</div>
+												<c:set var="time" value="${requestScope.time}" />
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${time}" id="writedate" name="writedate" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="my-auto py-0 mx-4  col-xl-3"></div>
+										<div class="card my-auto py-0 mx-auto col-xl-4">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">이름</div>
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="my-auto py-0 mx-4  col-xl-3">
-										
-									</div> 
-									<div class="card my-auto py-0 mx-auto col-xl-4">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">이름</div>
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
-										</div>
-									</div>
-								</div>
-								<%-- <div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">총연차</div>
-										<c:set var="time" value="${requestScope.time}" />
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100"  id="totalAnnual" name="totalAnnual" readonly>
-										</div>
-									</div>
-								</div>
-								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">남은 연차</div>
-										<c:set var="time" value="${requestScope.time}" />
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100"  id="leftAnnual" name="leftAnnual" readonly>
-										</div>
-									</div>
-								</div> --%>
-								
-								
-							</div>
-							</div>
 							</div>
 							<div class="row">
 								<div class="card my-2 py-0   mr-auto mx-auto col-xl-11">
@@ -355,7 +335,7 @@
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>
 <style type="text/css">
-#selector {
+.selector {
 	border-radius: 20px;
 }
 
@@ -386,7 +366,6 @@
 	background: hsla(0, 100%, 100%, 0);
 	border: none;
 }
-
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
@@ -451,6 +430,7 @@ $(function() {
 		 dataType: "json",
 		 contentType: "application/json; charset=utf-8",
 		success:function(responsedata){
+			console.log(responsedata);
 			$.each(responsedata,(index,item)=>{
 				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename,"icon":"/resources/img/user.jpg"}
 					})
@@ -467,6 +447,7 @@ $(function() {
 				 dataType: "json",
 				 contentType: "application/json; charset=utf-8",
 				success:function(responsedata){
+					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
 						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName, "icon":"/resources/img/dept.jpg"}
 						})
@@ -482,6 +463,7 @@ $(function() {
 				 dataType: "json",
 				 contentType: "application/json; charset=utf-8",
 				success:function(responsedata){
+					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
 						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName,"icon":"/resources/img/head.jpg"}
 						})
@@ -844,10 +826,12 @@ $(function() {
 		$('#selector').on("change",()=>{
 			getMaxDocno($('#selector').val());
 			let typename=$('#selector option:selected').text();
+			console.log(typename);
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
 			let html='';
 			if($('#selector').val()!='10' ){
+				$('#doc').css("display","none");
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
@@ -857,34 +841,24 @@ $(function() {
 				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
 				};
 				if($('#selector').val() =='30'){
-				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+${emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+/* ${emp.usedAnnual} */+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
+			$.ajax({
+				url:"selectSpecialForm.do",
+				data:{typename:typename},
+				type:"POST", 
+				success:function(data){
+					console.log(data);
+					$('#summernote').summernote("code",data.typename);
+					
+					}
 
-				$.ajax({
-					url:"selectForm.do",
-					data:{typename:typename},
-					type:"POST",
-					success:function(data){
-						console.log(data);
-						$('#summernote').summernote("code",data);
-						
-						}
-
-					});
+				});
+			}else{
+				$('#doc').css("display","block");
 				
-				/* let table='<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">\
-					<tbody class="text-center">\
-						<tr style="height: 400px;">\
-					<td scope="col" rowspan="1" colspan="1" style="width: 20%; padding-top: 200px;">휴가 사유</td>\
-					<td>내용</td>\
-					</tr>\
-					</tbody>\
-					</table>' */
-				
-				//$('#summernote').summernote("code",table);
-				
-			}
+				}
 		});
 		$('#summernote').summernote( {
 			maxheight: 400,
@@ -897,6 +871,24 @@ $(function() {
     		
 	  		}
 		});
+
+		$('#doc_form').on("change",()=>{
+			let formname=$('#doc_form option:selected').text();
+			console.log(formname);
+			$.ajax({
+				url:"selectForm.do",
+				data:{formname:formname},
+				type:"POST",
+				success:function(data){
+					console.log(data);
+					$('#summernote').summernote("code",data.formname);
+					
+					}
+
+				});
+
+
+				})
 
 		$(document).on("change","#end",function(){
 			$('#diff').empty();
