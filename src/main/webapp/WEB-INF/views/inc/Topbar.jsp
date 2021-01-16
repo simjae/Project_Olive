@@ -35,18 +35,22 @@
 		<i class="fa fa-bars"></i>
 	</button>
 	<!-- Topbar Navbar -->
+	
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-fingerprint" style="size: 9x"></i>
+				<i class="fas fa-fingerprint" style="size: 9x; color:red;" ></i>
 			</a>
 			<div class="dropdown-menu dropdown-menu-right  shadow animated--grow-in" aria-labelledby="sear=Dropdown">
+				
 				<div class="input-group">
 					<div class="input-group-append">
-						<button class="dropdown-item" id="startWork">&nbsp;출근하기</button>
-						<button class="dropdown-item" id="endWork">&nbsp;퇴근하기</button>
+						<button class="dropdown-item toggletoggle" id="startWork" >&nbsp;출근하기</button>
+						<button class="dropdown-item toggletoggle" id="endWork" style="display:none">&nbsp;퇴근하기</button>
 					</div>
 				</div>
+				
 			</div></li>
+			
 		<!-- Nav Item - Search Dropdown (Visible Only XS) -->
 		<li class="nav-item dropdown no-arrow d-sm-none"><a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-search fa-fw"></i>
@@ -80,7 +84,7 @@
 		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small" id="empinfo"> </span>
-				<img class="img-profile rounded-circle" src="/resources/img/undraw_profile.svg">
+				<img class="img-profile rounded-circle" id="empimg" src="" onerror="this.src='/resources/img/undraw_profile_1.svg'">
 			</a> <!-- Dropdown - User Information -->
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/HRinfo/EditMyinfo.do">
@@ -147,10 +151,13 @@
 }
 }
 </style>
+<link href='/resources/css/topWork.css' rel='stylesheet' />
 <!-- End of Topbar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 날짜 변환 관련 CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+<!-- SweetAlert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 let count =0;
 function connect(){
@@ -214,9 +221,10 @@ jb(document).ready(function() {
 		type:"POST",
 		data:{empno:empno},
 		success:function(data){
+			var img = data.PIC;
 			html=data.ENAME+' ('+data.DEPTNAME+') '+data.POSITIONNAME;
 			jb('#empinfo').append(html);
-			
+			jb('#empimg').attr('src','/resources/upload/'+img);
 			}
 		
 	});
@@ -309,7 +317,11 @@ jb(document).ready(function() {
 			}) 
 		}
 		
+$('.toggletoggle').on("click",function(){
 
+	$('.toggletoggle').toggle();
+	
+});
 
 
 })

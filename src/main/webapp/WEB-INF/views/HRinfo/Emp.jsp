@@ -248,8 +248,10 @@ table.table .avatar {
 										<c:forEach var="list" items="${emplist}">
 											<tr>
 
-												<td><img src="/resources/img/undraw_profile_1.svg"
-													width="40"></td>
+												<td>
+													<img src="/resources/upload/${list.PIC}" width="40" class="rounded-circle"
+													onerror="this.src='/resources/img/undraw_profile_1.svg'">
+												</td>
 												<td>${list.EMPNO}</td>
 												<td>${list.ENAME}</td>
 												<td>${list.DEPTNAME}</td>
@@ -553,7 +555,9 @@ table.table .avatar {
 			$.each(data.emplist, function(index, emp){
 				
 				$('#emptable').append(
-						"<tr><td><img width='40' src='/resources/img/undraw_profile_1.svg'/></td><td>"+emp.EMPNO+
+						"<tr><td>"+
+						"<img src='/resources/upload/"+emp.PIC+"' class='rounded-circle' width='40' onerror='this.src=\"/resources/img/undraw_profile_1.svg\"'>"+
+						"</td><td>"+emp.EMPNO+
 						"</td><td>"+emp.ENAME+
 						"</td><td>"+emp.DEPTNAME+
 						"</td><td>"+emp.POSITIONNAME+

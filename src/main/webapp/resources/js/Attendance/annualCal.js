@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			selectable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			displayEventTime:false,
+			themeSystem: 'bootstrap',
 			events: eventFeed
 				
 		});

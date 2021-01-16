@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import com.olive.dto.Emp;
+import com.olive.hr_management.dao.Hr_managementDao;
+
 @Service
 public class MailService {
 
@@ -33,7 +36,7 @@ public class MailService {
 	private VelocityEngineFactoryBean velocityEngineFactoryBean;
 
 	// 이메일 인증번호 보내기
-	public boolean sendMail(HttpSession session, String email) {
+	public boolean sendMail(HttpSession session, String email, String ename) {
 		boolean flag = true;
 
 		// 6자리 랜덤 정수
@@ -46,21 +49,36 @@ public class MailService {
 			Map model = new HashMap<String, String>();
 
 			model.put("certNumber", certNumber);
+			model.put("ename", ename);
 
 			messageHelper.setFrom("tivkfzlzl@gmail.com", "Adminstrator");
-			// 받는 사람 지정 : 사원
-			messageHelper.setTo(email);
-			// 제목 지정
-			messageHelper.setSubject("회원가입 인증번호");
 
-			String mailBody = VelocityEngineUtils.mergeTemplateIntoString(
-					velocityEngineFactoryBean.createVelocityEngine(), "mail.vm", "UTF-8", model);
+			
+			String mailBody;
+			
+			if(ename != null) {
+				//비밀번호 재설정용 이메일
+				
+				messageHelper.setTo(email); // 받는 사람 지정 : 사원
+				messageHelper.setSubject("OLIVE 계정의 비밀번호를 잊으셨나요?"); // 제목 지정
+				mailBody = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngineFactoryBean.createVelocityEngine(), "password.vm", "UTF-8", model);
+			}else {
+				//초기 이메일 설정용 이메일
+				
+				messageHelper.setTo(email); 
+				messageHelper.setSubject("OLIVE를 사용해보세요!");
+				mailBody = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngineFactoryBean.createVelocityEngine(), "mail.vm", "UTF-8", model);
+			}
+			
 			// HTML을 보낼 것이다.
 			messageHelper.setText(mailBody, true);
 
 			mailSender.send(message);
 
 			session.setAttribute("certNumber", certNumber);
+			session.setAttribute("ename", ename);
 
 		} catch (MessagingException e) {
 			flag = false;
@@ -98,5 +116,6 @@ public class MailService {
 		}
 		return result;
 	}
+
 
 }
