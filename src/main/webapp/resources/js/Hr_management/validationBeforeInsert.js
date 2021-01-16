@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 	// 본부 select > option 뿌려주기
 	function showHeadQuarters() {
 		$.ajax({
-			url: "getHead.do",
+			url: "/HR_managementRest/getHead.do",
 			type: "POST",
 			success: (data) => {
 				makeHQOptions(data);
