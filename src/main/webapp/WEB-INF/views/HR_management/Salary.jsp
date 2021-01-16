@@ -104,30 +104,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-<<<<<<< HEAD
-					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">급여명세서</h1>
 
-					<div class="row justify-content-end mx-5">
-						<div class="input-group col-mb-3">
-							<form id="uploadForm" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
-
-=======
->>>>>>> snu/Sunwoo
-<!-- 								<div class='file file--upload'>
-							      <label for='input-file'>
-							        <i class="fas fa-cloud-upload-alt"></i>Upload
-							      </label>
-							      <input id='input-file' type='file' />
-							    </div> -->
-<<<<<<< HEAD
-								<input type="file" class="" name="excelFile" id="excelFile"> 
-=======
-								<input type="file" class="" name="excelFile" id="excelFile">
->>>>>>> snu/Sunwoo
-								<button type="button" onclick="uploadProcess()">submit</button>
-=======
->>>>>>> snu/Sunwoo
 
 					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">급여관리</h1>
 					<div class="row">

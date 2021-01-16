@@ -29,6 +29,42 @@ jQuery(document).ready(function($) {
 		return flag;
 	}
 
+
+	// 이메일 중복 막기 =
+	$('#email').click(() => {
+		checkEmailDB($('#email').val());
+	});
+
+	//이메일 인증 시 인증된 이메일 DB 비교 AJAX
+	function checkEmailDB(email) {
+
+		$.ajax({
+			url: "checkEmail_Pwd.do",
+			type: "POST",
+			data: { email: $('#email').val() },
+			async: false,
+			success: (data) => {
+				console.log(data);
+				console.log(data.ename);
+				$('#email').empty();
+				if (data == "") {
+					$('#checkEmail').empty();
+					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용가능한 이메일입니다.");
+					$('#checkEmail').css("color", "green");
+				} else if (data != null) {
+					$('#checkEmail').empty();
+					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이미 사용중인 이메일입니다.");
+					$('#checkEmail').css("color", "red");
+				}
+			},
+			error: (xhr) => {
+				console.log(xhr.status);
+			}
+		});
+
+	}
+
+	
 	// 이메일 보내기
 	function sendEmail() {
 		$('.loader').css('visibility', 'visible');
@@ -147,9 +183,11 @@ jQuery(document).ready(function($) {
 				console.log(data.ename);
 				$('#email').empty();
 				if (data == "") {
+					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인증되지 않은 이메일입니다.");
 					$('#checkEmail').css("color", "red");
 				} else if (data != null) {
+					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.ename + "님 메일함을 확인해주세요.");
 					$('#checkEmail').css("color", "green");
 					rtn = true;
