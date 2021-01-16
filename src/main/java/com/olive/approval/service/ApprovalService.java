@@ -22,9 +22,9 @@ import com.olive.dto.Dept;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
-import com.olive.dto.EmpTest;
 import com.olive.dto.Head;
 import com.olive.dto.Reference;
+import com.olive.dto.Doc_form;
 import com.olive.utils.service.PagingService;
 
 @Service
@@ -47,9 +47,9 @@ public class ApprovalService extends PagingService {
 
 	// 전체 뽑기
 	public List<Document> getDocument(String empno) {
+		System.out.println("empno는 "+empno);
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		List<Document> document = approvalDao.getDocument(empno);
-
 		return document;
 	}
 
@@ -131,7 +131,7 @@ public class ApprovalService extends PagingService {
 	}
 
 	// 기안하기 페이지 들어갈때 필요한 개인정보
-	public EmpTest selectEmp(String empno) {
+	public Emp selectEmp(String empno) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		return approvalDao.selectEmp(empno);
 	}
@@ -274,6 +274,31 @@ public class ApprovalService extends PagingService {
 		
 	}
 	
+	public int checkTypeName(String typename) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		
+		return dao.checkTypeName(typename);
+	}
+	
+	public void addForm(Doc_Type doctype) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		dao.addForm(doctype);
+	}
+	
+	public String selectSpecialForm(String typename) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.selectSpecialForm(typename);
+	}
+	
+	public String selectForm(String formname) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.selectForm(formname);
+	}
+	
+	public List<Doc_form> formList() {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.formList(); 
+	}
 	
 	
 }

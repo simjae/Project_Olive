@@ -36,10 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.olive.approval.service.ApprovalService;
 import com.olive.authentication.service.AuthenticationService;
 import com.olive.authentication.service.MailService;
-import com.olive.dto.Emp;
-import com.olive.hr_info.service.Hr_infoService;
+
 import com.olive.dto.Approver;
 import com.olive.dto.Document;
+import com.olive.dto.Emp;
+import com.olive.hr_info.service.Hr_infoService;
 import com.olive.utils.NewsAPI;
 
 @Controller
@@ -65,8 +66,10 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
 	private ApprovalService approvalService;
 	
+
 	// 최초 index.jsp 접근 시 : Login 페이지
 	@RequestMapping("/goToLogin.do")
 	public String goToLogin() {
@@ -83,12 +86,15 @@ public class HomeController {
 
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getName() : " + n);
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getAuthroties().toString() : " + r);
-			
+
 			List<Document> doclist = approvalService.getDocument(n);
 			List<Approver> applist = approvalService.getApprover(n);
 			
 			Map arrangedAppList = approvalService.arrangedAppDoc(applist);
 			Map arrangedDocList = approvalService.arrangeDoc(doclist);
+			
+			System.out.println("App"+arrangedAppList);
+			System.out.println("Doc"+arrangedDocList);
 			
 			model.addAttribute("arrangedAppList",arrangedAppList);
 			model.addAttribute("arrangedDocList",arrangedDocList);

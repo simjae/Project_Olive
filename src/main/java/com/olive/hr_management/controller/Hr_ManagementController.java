@@ -22,12 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.olive.dto.Dept;
 import com.olive.dto.Emp;
-import com.olive.dto.Head;
-import com.olive.dto.Position;
 import com.olive.dto.SalaryInfo;
 import com.olive.hr_management.service.Hr_managementService;
 import com.olive.utils.Criteria;
@@ -95,7 +91,9 @@ public class Hr_ManagementController {
 
 	// 인사관리 > 조직관리 페이지
 	@RequestMapping("Organization.do")
-	public String organization() {
+	public String organization(Model model) {
+		Map<String, String> result= managementService.getOrganizationInfo();
+		model.addAttribute("dashboard", result);
 		return "HR_management/Organization";
 	}
 
@@ -151,11 +149,7 @@ public class Hr_ManagementController {
 
   		List<Map<String, Object>> result1 = pagingService.getList(cri1);
   		List<Map<String, Object>> result2 = pagingService.getList(cri2);
-  		System.out.println("result1입니다.");
 
-		System.out.println("[result1] : " + result1);
-		System.out.println("result2입니다.");
-		System.out.println("[result2] : " + result2);
 		model.addAttribute("attendance", result1);
 		model.addAttribute("annual", result2);
 		model.addAttribute("pagination1", pagination1);

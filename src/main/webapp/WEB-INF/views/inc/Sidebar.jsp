@@ -88,7 +88,7 @@
 				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/ProgressDoc.do">결재 진행함</a>
 				<div class="collapse-divider"></div>
 				<h6 class="collapse-header">다른 권한 :</h6>
-				<a class="collapse-item" href="#">양식관리</a>
+				<a class="collapse-item" href="${pageContext.request.contextPath}/approval/AddForm.do">양식관리</a>
 			</div>
 		</div></li>
 
