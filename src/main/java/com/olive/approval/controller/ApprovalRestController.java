@@ -26,23 +26,21 @@ import com.olive.dto.Approver;
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
-
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Pagination;
 
 @RestController
 @RequestMapping("/approval/")
-public class ApprovalRestController {
-
+public class ApprovalrestController {
+ 
 	@Autowired
-	private PagingService paging;
-	
 	private ApprovalService approvalService;
-
-	@Autowired
-	public void setApprovalService(ApprovalService approvalService) {
-		this.approvalService = approvalService;
+	
+	@RequestMapping(value="/getMaxDocno.do")
+	private String getMaxDocno(String typeCode) {
+		
+		return approvalService.getMaxDocno(typeCode);
 	}
+	
 
 	@RequestMapping(value = "/getAllEmpList.do")
 	private List<Emp> getAllEmpList() {

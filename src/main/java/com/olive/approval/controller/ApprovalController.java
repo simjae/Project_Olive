@@ -24,19 +24,13 @@ import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
 import com.olive.dto.EmpTest;
-import com.olive.dto.Reference;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Pagination;
 
 @Controller
 @RequestMapping("/approval/")
 public class ApprovalController {
 	private ApprovalService approvalService;
-	@Autowired
-	private PagingService paging; 
-	
+
 	@Autowired
 	public void setApprovalService(ApprovalService approvalService) {
 		this.approvalService=approvalService;
@@ -134,7 +128,7 @@ public class ApprovalController {
 		int totalCount =approvalService.getAppListCount(cri);
 		System.out.println(totalCount);
 		Pagination pagenation = new Pagination(cri,totalCount);
-		List<Map<String,Object>> pagingList = paging.getList(cri);
+		List<Map<String,Object>> pagingList = approvalService.getList(cri);
 		System.out.println(cri);
 		
 		List<Document> document = approvalService.getDocument(empno,0,10);
@@ -154,17 +148,18 @@ public class ApprovalController {
 	
 
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
-	public String viewDocument(String docno,String typeCode,Model model,Principal principal) {
-		System.out.println(typeCode);
-		Document document = approvalService.viewDocumnet(docno,typeCode); 
+	public String viewDocument(String docno,Model model,Principal principal) {
+		Document document = approvalService.viewDocumnet(docno); 
 		EmpTest emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);
 		model.addAttribute("emp",emp);
 		model.addAttribute("apps",apps);
 	
-		return "papers/document";
+		return "papers/document"; 
 	}
+	
+	
 	
 	
 }

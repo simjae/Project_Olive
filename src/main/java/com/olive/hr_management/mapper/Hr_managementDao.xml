@@ -5,6 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.olive.hr_management.dao.Hr_managementDao">
 	
 	
+	<select id="checkEmpno" parameterType="String" resultType="String">
+		SELECT empno 
+			FROM emp
+			WHERE empno LIKE CONCAT(#{empno},'%')
+			ORDER BY empno desc
+			LIMIT 0, 1;
+	</select>
+	
 	<select id="getSalaryDetail" parameterType="Hashmap" resultType="com.olive.dto.SalaryInfo">
 		SELECT * 
 			FROM salaryInfo
@@ -29,8 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			employment_insurance,
 			national_pension
 		)VALUES
-		<foreach collection="list" item="item" separator=",">
-			(
+		<foreach collection="list" item="item" separator="," open="(" close=")">
 			#{item.sal_date},
 			#{item.empno},
 			#{item.basic_pay},
@@ -46,7 +53,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{item.health_insurance},
 			#{item.care_insurance},
 			#{item.national_pension}
-			)
 		</foreach>
 	</insert>
 
@@ -94,4 +100,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT classCode, className
 		FROM class
 	</select>
+	
+	<select id="getAnnualList" resultType="HashMap">
+        SELECT
+            *
+        FROM 
+			annualList
+		WHERE empno = #{empno}
+	</select>
+	
+	<update id="updateAnnual" parameterType="HashMap">
+		update emp
+		set annual = #{annual}
+		where empno = #{empno}
+	</update>
+	
+	<update id="updateAttRecord" parameterType="HashMap">
+		update att_record
+		set 
+		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
+		attcode=80
+		where empno = #{empno} and DATE(starttime) = DATE(#{starttime})
+	</update>
+
+	
 </mapper>

@@ -1,5 +1,6 @@
 package com.olive.hr_info.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,9 @@ import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
 import com.olive.dto.EmpTest;
 import com.olive.hr_info.service.Hr_infoService;
-
-import paging.Criteria;
-import paging.Pagination;
-import paging.PagingService;
+import com.olive.utils.Criteria;
+import com.olive.utils.Pagination;
+import com.olive.utils.service.PagingService;
 
 
 
@@ -49,8 +50,21 @@ public class HRController {
 	@Autowired
 	private PagingService pagingService;
 	
-	@RequestMapping("Salary.do")
-	public String showSalary() {	
+	@RequestMapping(value="Salary.do", method=RequestMethod.GET)
+	public String showSalary(Model model, Criteria cri, Principal pri) {	
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		cri.setCriteria("salaryinfo", "SAL_DATE", "DESC");
+		cri.setSearchType("empno");
+		cri.setKeyword(auth.getName());
+		int totalCount = pagingService.getListCount(cri);
+		cri.setPerPageNum(5);
+		Pagination pagination = new Pagination(cri, totalCount);
+
+		List<Map<String, Object>> result = pagingService.getList(cri);
+
+		model.addAttribute("list", result);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", cri);
 		return "HRinfo/Salary";
 	}
 	
@@ -62,7 +76,6 @@ public class HRController {
 	//전체 사원 목록 조회
 	@RequestMapping(value="Emp.do", method=RequestMethod.GET)
 	public String showEmpList(Model model, Criteria cri) {
-		System.out.println("cri 받아오기");
 		//empinfo 뷰 사용
 		cri.setCriteria("empinfo", "empno", "asc");
 		System.out.println("cri 값 초기화 후"+cri);
@@ -83,10 +96,8 @@ public class HRController {
 	    model.addAttribute("emplist", result);
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("criteria", cri);
-	      
-		//List<EmpTest> emplist = empService.showEmpList();
-		//model.addAttribute("emplist", emplist);
-		return "HRinfo/Emp";
+
+	    return "HRinfo/Emp";
 	}
 	
 	//조직도 본부 단위 (default) //미완성

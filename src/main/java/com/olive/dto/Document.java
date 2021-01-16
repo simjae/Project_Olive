@@ -3,6 +3,7 @@ package com.olive.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import lombok.Data;
@@ -29,7 +30,9 @@ public class Document {
 	private String title;
 	private Date start;
 	private Date end;
-	private String color;
+	private int annual;
+	private int count;
+	private int diff;
 	
 	
 	private List<String> approvers;

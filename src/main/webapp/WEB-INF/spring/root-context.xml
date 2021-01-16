@@ -16,8 +16,8 @@
    <!-- Root Context: defines shared resources visible to all other web components -->
    
    <context:property-placeholder location="/config/*.properties"/>
-   
-   <bean id="pagingService" class="paging.PagingService"></bean>
+	
+
       
    <!-- 공통 DB작업 -->
    <bean id="driverManagerDataSource" 
@@ -103,7 +103,7 @@
 
 	<!-- Velocity -->
 	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="/resources/velocity/" />
+		<property name="resourceLoaderPath" value="/resources/velocity/"/>
 		<property name="velocityProperties">
 			<props>
 				<prop key="input.encoding">UTF-8</prop>
@@ -111,10 +111,11 @@
 			</props>
 		</property>
 	</bean>
-	
 	<!-- Velocity -->
 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 		<property name="resourceLoaderPath" value="/resources/velocity/" />
 	</bean>
+	
+
 	
 </beans>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.olive.attendance.dao.AttendanceDao">
-	<!-- 재형: 근태관리 캘린더 테스트 -->
+	<!-- 재형: 근태관리 캘린더  -->
 	<select resultType="com.olive.dto.Att_Record" id="gettableList">
 		select 	a.attname as title, 
 				ar.starttime as start, 
@@ -11,8 +11,19 @@
 			Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE 
 		where empno = #{empno}
 	</select>
+	
+	<!-- 재형: 근태관리 캘린더 radio -->
+	<select resultType="com.olive.dto.Att_Record" id="gettableUserList">
+		select 	a.attname as title, 
+				ar.starttime as start, 
+				ar.endtime as end,
+				color 
+		FROM 
+			Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE 
+		where empno = #{param1}
+	</select>
 
-<!-- 휴가관리  캘린더 테스트  -->
+	<!-- 재형 : 휴가관리  캘린더    -->
 	 <select id="getanaltableList" resultType="com.olive.dto.Document">
 		select 	r.empno as empno, 
 		d.title as title, 
@@ -25,7 +36,32 @@
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
 	where t.attcode = 50 and  r.empno =#{empno}
 	 group by docno
-	<!-- group by docno  -->
+	 </select>  
+	
+	<!-- 재형 : 휴가관리  캘린더  radio -->
+	 <select id="getanaltableUserList" resultType="com.olive.dto.Document">
+		select 	r.empno as empno, 
+		d.title as title, 
+		a.startdate as start, 
+        a.enddate as end,
+        t.color as color,r.attcode
+	FROM document d 
+	join doc_add a ON d.docno  = a.document_docno 
+	join att_record r on d.empno = r.empno 
+	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
+	where t.attcode = 50 and  r.empno =#{param1}
+	 group by docno
+	 </select> 
+	<!-- 재형 : 휴가관리 카드  -->
+	 <select id="annualCard" resultType="com.olive.dto.Document"> 
+	select e.empno, e.ename, e.annual, IFNULL(sum(da.timediff),0) as COUNT, IFNULL((e.annual - sum(da.timediff)),0) as DIFF
+	from document d 
+	right outer 
+	join emp e on d.empno = e.empno
+	left outer 
+	join doc_add da on da.document_docno = d.docno
+	group by empno
+	having empno = #{empno}
 	 </select> 
 
 	<!-- 재형: 출근버튼 -->
@@ -110,64 +146,8 @@
 						
 						
 		FROM 	att_record
-		WHERE 	empNo = #{empNo}
+		WHERE 	empNo = #{empNo} 
 				AND date BETWEEN ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 )
 				AND ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 6 )
-	</select>
-	
-	<select id="getListCount" resultType="Integer" parameterType="Hashmap">
-	 	<![CDATA[
-		SELECT 
-			count(*) 
-		FROM 
-			${table}
-		WHERE ${searchType} = #{keyword}
-		]]>
-		<if test='keyword2 neq 1'>
-		AND ${searchType2} = #{keyword2} 
-		</if>
-	</select>
-
-	<select id="getList" resultType="Hashmap" parameterType="Hashmap">
-	 	 <![CDATA[
-        SELECT
-            *
-        FROM 
-			${table}
-		WHERE ${searchType} = #{keyword}
-		]]>
-		<if test='keyword2 neq 1'>
-		AND ${searchType2} = #{keyword2} 
-		</if>
-		<![CDATA[
-        ORDER BY ${column} ${sort}
-		LIMIT ${rowStart}, ${perPageNum}
-   		 ]]>
-	</select>
-	
-	<select id="getAttList" resultType="Hashmap" parameterType="Hashmap">
-	 	 <![CDATA[
-        SELECT
-            *
-        FROM 
-			${table}
-		WHERE ${searchType} = #{keyword}
-        ORDER BY ${column} ${sort}
-		LIMIT ${rowStart}, ${perPageNum}
-   		 ]]>
-	</select>
-	
-	<select id="getDeptName" resultType="String">
-		SELECT deptName
-		FROM empinfo
-		WHERE empno = #{empno}
-	</select>
-	
-	<select id="isPunchedIn" resultType="Hashmap">
-		SELECT starttime AS 'start', endtime AS 'end' 
-		FROM rectable
-		WHERE 
-			empno = #{empno} AND 
-			DATE_FORMAT(starttime, '%y-%m-%d') = DATE_FORMAT(NOW(), '%y-%m-%d')
 	</select>
 </mapper>

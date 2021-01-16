@@ -40,58 +40,10 @@ public class Hr_managementService {
 		System.out.println(this.sqlsession);
 	}
 
-//	public List<Emp> getEmpList() {
-//		System.out.println("getEmpList 서비스 진입");
-//		List<Emp> result = null;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getEmpList();
-//			System.out.println("getEmpList result : " + result);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("getEmpList error : " + e.getMessage());
-//		}
-//
-//		return result;
-//	}
-
-//	public List<Map<String, Object>> getEmpList(Criteria cri) {
-//		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-//		return dao.getEmpList(cri);
-//	}
-//
-//	public int getListCount() {
-//		System.out.println("getListCount 서비스 시작");
-//		int result = 0;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getListCount();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-
-//	public List<Emp> getEmpList() {
-//		System.out.println("getEmpList 서비스 진입");
-//		List<Emp> result = null;
-//		Hr_managementDao hr_managementDao = sqlsession.getMapper(Hr_managementDao.class);
-//		try {
-//			result = hr_managementDao.getEmpList();
-//			System.out.println("getEmpList result : " + result);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println("getEmpList error : " + e.getMessage());
-//		return result;
-//	}
-
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.insertNewEmp(emp);
-		System.out.println("서비스단 거침스");
 	}
 
 	// 인사관리 : 사원 리스트 출력 테스트
@@ -136,7 +88,29 @@ public class Hr_managementService {
 		List<Class> classList = dao.getClasses();
 		return classList;
 	}
-
+	
+	//연차이력 리스트
+	public List<Map<String, Object>> getAnnualList(String empno){
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
+		System.out.println(annualList);
+		return annualList;
+	}
+	
+	// 사원근태 >> 퇴근처리
+	public void updateAttRecord(Map<String, Object> map) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAttRecord(map);
+		System.out.println("Emp 근태 수정 완료");
+	}
+	
+	// 사원 연차 수정
+	public void updateAnnual(Map<String, Object> map) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAnnual(map);
+		System.out.println("Emp annual update 완료");
+	}
+	
 	public SalaryInfo getSalaryDetail(String date, int empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		Map parameter = new HashMap<String, Object>();
@@ -150,7 +124,7 @@ public class Hr_managementService {
 		boolean result = false;
 		ExcelReadOption excelReadOption = new ExcelReadOption();
 		excelReadOption.setFilePath(destFile.getAbsolutePath());
-		excelReadOption.setOutputColumns("지급일자", "사번", "기본급여", "시간외수당", "직책수당", "상여금", "차량유지", "식대", "교육지원");
+		excelReadOption.setOutputColumns("지급일자", "사번", "기본급", "시간외수당", "직책수당", "상여금", "차량유지", "식대", "교육지원");
 		excelReadOption.setStartRow(2);
 		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
 
@@ -163,7 +137,7 @@ public class Hr_managementService {
 					salRecord = new Sal_Record();
 					salRecord.setSal_date(excelContent.get(i).get("지급일자"));
 					salRecord.setEmpno(Integer.parseInt(excelContent.get(i).get("사번")));
-					salRecord.setBasic_pay(Integer.parseInt(excelContent.get(i).get("기본급여")));
+					salRecord.setBasic_pay(Integer.parseInt(excelContent.get(i).get("기본급")));
 					salRecord.setOvertime_pay(Integer.parseInt(excelContent.get(i).get("시간외수당")));
 					salRecord.setPosition_pay(Integer.parseInt(excelContent.get(i).get("직책수당")));
 					salRecord.setBonus(Integer.parseInt(excelContent.get(i).get("상여금")));
@@ -176,6 +150,19 @@ public class Hr_managementService {
 			}
 			Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 			dao.insertSalaryTbl(excelData);
+		}
+		return result;
+	}
+
+	public String createEmpno(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		String checkNum= null;
+		String result;
+		checkNum = dao.checkEmpno(empno);
+		if(checkNum != null) {
+			result = ""+(Integer.parseInt(checkNum)+1);
+		}else {
+			result = empno + "001";
 		}
 		return result;
 	}

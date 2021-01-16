@@ -24,17 +24,20 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
 .flexbox-items {
 	max-width: 120px;
 	min-height: 50px;
 	padding: 1.1rem 1.1rem;
 	padding-bottom: 0;
 }
+
 #nono {
-	color:red;
+	color: red;
 }
-.round{
-	border-radius:10px;
+
+.round {
+	border-radius: 10px;
 }
 </style>
 </head>
@@ -75,41 +78,83 @@
 										</span> <span class="text">미리 보기</span>
 									</button>
 								</div>
-								<div class="p-2" >
-								<p class="mt-2" id="nono"></p>
+								<div class="p-2">
+									<p class="mt-2" id="nono"></p>
 								</div>
-							
 							</div>
-							
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
-						<div class="col-md-12 border border-primary  py-2" style="background: white;">
-							<div class="row">
-								<div class="card mb-0 mt-2 py-0 mx-auto col-xl-3">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">문서종류</div>
-										<div class="mx-auto w-100">
-											<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last: center">
-												<c:forEach var="list" items="${requestScope.docType}">
-													<option value="${list.typeCode}">${list.typeName}</option>
-												</c:forEach>
-											</select>
+						<div class="col-md-12 border border-primary py-2" style="background: white;">
+							<div class="container-fluid">
+								<div class="container-fluid">
+								<div class="row">
+									<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">문서 번호</div>
+											<div class="mx-auto w-100">
+												<input type="text" class="inputbox text-center w-100"  id="docno" name="docno" readonly>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="card mb-0 mt-2 py-0   mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">사번</div>
-										<sec:authentication property="name" var="LoginUser" />
-										<sec:authorize access="isAuthenticated()">
-											<div class="text-md mt-1 text-center">
-												<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
+									<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">문서종류</div>
+											<div class="mx-auto w-100">
+												<select class="px-auto mx-auto w-100" id="selector" name="typeCode" style="text-align-last: center">
+													<c:forEach var="list" items="${requestScope.docType}">
+														<option value="${list.typeCode}">${list.typeName}</option>
+													</c:forEach>
+												</select>
 											</div>
-										</sec:authorize>
+										</div>
 									</div>
+									<div class="mt-0 mb-2 py-0 mx-auto col-xl-1">
+										
+									</div> 
+									
+									<div class="card mt-0 mb-2 py-0 mx-auto  mx-1 col-xl-2">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">직책</div>
+											<div class="text-md mt-1 text-center">
+												<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">부서</div>
+											<div class="text-md mt-1 text-center">
+												<input type="text" class="inputbox text-center w-100" value="${emp.deptname }" id="deptname" readonly>
+											</div>
+										</div>
+									</div>
+									<div class="card mt-0 mb-2 py-0  mx-auto mx-1 col-xl-2">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">사번</div>
+											<sec:authentication property="name" var="LoginUser" />
+											<sec:authorize access="isAuthenticated()">
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${LoginUser}" id="empno" name="empno" readonly>
+												</div>
+											</sec:authorize>
+										</div>
+									</div>
+									
+									
 								</div>
-								<div class="card mb-0 mt-2 py-0   mx-auto col-xl-3">
+								</div>
+							</div>
+							<div class="container-fluid">
+								<div class="container-fluid">
+							<div class="row">
+							<div class="col-xl-2 mx-auto my-auto">
+									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
+										<span class="text">결재선 추가하기</span>
+									</a>
+								</div>
+								 
+								<div class="card my-auto py-0 mx-auto col-xl-2">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">작성일자</div>
 										<c:set var="time" value="${requestScope.time}" />
@@ -118,33 +163,10 @@
 										</div>
 									</div>
 								</div>
-								<div class=" my-2 py-0   mx-auto col-xl-2">
-									<%-- <div class="card-body py-2 px-0">
-										<div class="text-center text-primary">부서</div>
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${emp.deptname}" id="dept" readonly>
-										</div>
-									</div> --%>
-								</div>
-							</div>
-							<div class="row">
-								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">직책</div>
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${emp.positionname }" id="headname" readonly>
-										</div>
-									</div>
-								</div>
-								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-2">
-									<div class="card-body py-2 px-0">
-										<div class="text-center text-primary">부서</div>
-										<div class="text-md mt-1 text-center">
-											<input type="text" class="inputbox text-center w-100" value="${emp.deptname }" id="deptname" readonly>
-										</div>
-									</div>
-								</div>
-								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-3">
+								<div class="my-auto py-0 mx-4  col-xl-3">
+										
+									</div> 
+									<div class="card my-auto py-0 mx-auto col-xl-4">
 									<div class="card-body py-2 px-0">
 										<div class="text-center text-primary">이름</div>
 										<div class="text-md mt-1 text-center">
@@ -152,11 +174,28 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-2 my-auto mx-auto">
-									<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split mx-auto my-auto w-100" id="approval">
-										<span class="text">결재선 추가하기</span>
-									</a>
+								<%-- <div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
+									<div class="card-body py-2 px-0">
+										<div class="text-center text-primary">총연차</div>
+										<c:set var="time" value="${requestScope.time}" />
+										<div class="text-md mt-1 text-center">
+											<input type="text" class="inputbox text-center w-100"  id="totalAnnual" name="totalAnnual" readonly>
+										</div>
+									</div>
 								</div>
+								<div class="card mt-0 mb-2 py-0   mx-auto col-xl-2">
+									<div class="card-body py-2 px-0">
+										<div class="text-center text-primary">남은 연차</div>
+										<c:set var="time" value="${requestScope.time}" />
+										<div class="text-md mt-1 text-center">
+											<input type="text" class="inputbox text-center w-100"  id="leftAnnual" name="leftAnnual" readonly>
+										</div>
+									</div>
+								</div> --%>
+								
+								
+							</div>
+							</div>
 							</div>
 							<div class="row">
 								<div class="card my-2 py-0   mr-auto mx-auto col-xl-11">
@@ -202,9 +241,7 @@
 													</table>
 												</div>
 												<br> <span>참조자</span>
-												<div id="referrer" class=" border-bottom border-secondary">
-													
-												</div>
+												<div id="referrer" class=" border-bottom border-secondary"></div>
 											</div>
 										</div>
 									</div>
@@ -276,7 +313,7 @@
 				<div class="modal-body" id="approver-modal-body">
 					<div class="horizontalTree mb-2 col-mb-12 d-flex" style="height: 500px;">
 						<div class="col-md-5 mx-auto border border-secondary h-100 round">
-							<ul style="padding-left:10px;">
+							<ul style="padding-left: 10px;">
 								<div class="mt-4" id="jstree_div"></div>
 							</ul>
 						</div>
@@ -313,7 +350,7 @@
 	</a>
 	</div>
 	<!-- Logout Modal-->
-	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>
@@ -321,28 +358,35 @@
 #selector {
 	border-radius: 20px;
 }
+
 .inputbox {
 	border: 0px;
 	outline: none;
 }
+
 .datepicker {
 	border-radius: 20px;
 	outline: none;
 }
+
 .modal-body ul {
 	list-style-type: none;
 }
+
 .modal-body ul img {
 	padding-bottom: 7px;
 	padding-right: 7px;
 }
+
 .team {
 	list-style-image: none;
 }
+
 .temp {
 	background: hsla(0, 100%, 100%, 0);
 	border: none;
 }
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
@@ -362,7 +406,35 @@ function deletefromrim(me){
 	$(me).parents('a.jstree-anchor').remove();
 	referrerList.splice(referrerList.indexOf($(me).parents('a.jstree-anchor').text()),2);
 };
+function getMaxDocno(typeCode){
+	$.ajax({
+		url:"getMaxDocno.do",
+		type:"POST",
+		data:{typeCode:typeCode},
+		success:function(data){
+			console.log(data);
+			let first = new Date();
+			first = first.getFullYear()+""
+			console.log(first.substring(2,4));
+			
+			let last = data.substring(data.length-3);
+			
+			 if(last.length==0){
+				last = "000";
+				}else if(last.length<3){
+					for(let i = 0; i<3-last.length; i++){
+						typeCode +="0";
+						};
+					} 
+			docno = (parseInt(first.substring(2,4)+typeCode+last)+1);
+			console.log(docno);
+			$('#docno').val(docno)
+			}
+		});
+}
+
 $(function() {
+	getMaxDocno(10);
 	
 	var $drop=$('#drop');
 	var uploadFiles=[];
@@ -377,9 +449,7 @@ $(function() {
 		 dataType: "json",
 		 contentType: "application/json; charset=utf-8",
 		success:function(responsedata){
-			console.log(responsedata);
 			$.each(responsedata,(index,item)=>{
-				console.log(item);
 				data[index] = {"id":item.empNo, "parent":"department"+item.deptCode, "text":item.ename,"icon":"/resources/img/user.jpg"}
 					})
 				resolve();
@@ -395,9 +465,7 @@ $(function() {
 				 dataType: "json",
 				 contentType: "application/json; charset=utf-8",
 				success:function(responsedata){
-					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
-						console.log(item);
 						data[data.length] = {"id":"department"+item.deptCode, "parent":"headquter"+item.headCode, "text":item.deptName, "icon":"/resources/img/dept.jpg"}
 						})
 						resolve();
@@ -412,9 +480,7 @@ $(function() {
 				 dataType: "json",
 				 contentType: "application/json; charset=utf-8",
 				success:function(responsedata){
-					console.log(responsedata);
 					$.each(responsedata,(index,item)=>{
-						console.log(item);
 						data[data.length] = {"id":"headquter"+item.headCode, "parent":"#", "text":item.headName,"icon":"/resources/img/head.jpg"}
 						})
 						resolve();
@@ -693,8 +759,8 @@ $(function() {
 							</td>\
 							<td colspan="5"\
 								style="padding: 10px 0px; border: 1px solid rgb(205, 205, 205); width: 852px;"><p\
-									style="font-family:   맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#startdate').val()+'\
-									 ~ '+$('#enddate').val()+'</p></td>\
+									style="font-family:   맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">'+$('#start').val()+'\
+									 ~ '+$('#end').val()+'</p></td>\
 						</tr>';
 						};
 					
@@ -764,6 +830,7 @@ $(function() {
 			});
 		});
 		$('#selector').on("change",()=>{
+			getMaxDocno($('#selector').val());
 			$('#summernote').summernote("code",'');
 			$('#duration').empty();
 			let html='';
@@ -771,10 +838,10 @@ $(function() {
 				
 				html = '<div class="card my-2 py-0   mr-auto mx-auto col-xl-11"><div class="card-body py-2">'+
 				'<div class="row no-gutters align-items-center"><div class="col mx-auto"><div class=" text-center font-weight-bold text-primary text-uppercase mb-1">'+
-				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="startdtae" name="startdate" width="276" readonly>'+
+				' 기간</div><div class="row px-auto"><div class="mx-auto mb-0 font-weight-bold text-gray-800">	<input type="text" class="datepicker text-center" id="start" name="start" width="276" readonly>'+
 				'<span class="mx-2">';
 				if( $('#selector').val()!='20'){
-				html+= '~</span><input type="text" class="datepicker text-center" name="enddate" id="enddate" width="276" readonly></div></div></div></div></div></div>';
+				html+= '~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly></div></div></div></div></div></div>';
 				};
 				
 				$('#duration').append(html);
