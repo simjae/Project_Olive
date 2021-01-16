@@ -896,8 +896,13 @@ $(function() {
 			$('#diff').empty();
 			let startdate = new Date($('#start').val());
 			let enddate = new Date($('#end').val());
-			let diff = " : "+((enddate-startdate)/(1000*60*60*24)+1)+'일';
-			$('#diff').append(diff);
+			let diffday = (enddate-startdate)/(1000*60*60*24)+1;
+			let html = " : "+diffday+'일';
+			if(diffday> ${emp.annual - emp.usedAnnual}){
+				html += '<br>사용하실 수 있는 연차수를 초과 했습니다.';
+				$('#diff').css("color","red"); 								
+				}
+			$('#diff').append(html);
 			})
 		
 		$drop.on("dragenter",function(e){

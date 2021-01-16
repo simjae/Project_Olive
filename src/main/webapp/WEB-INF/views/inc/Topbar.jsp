@@ -193,10 +193,9 @@ function writeMsg(evt){
 		</div>\
 	</div>';
 
-
 	jb('.alarm').append(content);
 	setTimeout(()=>{
-		$('.alarm').empty();
+		jb('.alarm').empty();
 		},5000);
 
 	let count = jb('#alcount').val();

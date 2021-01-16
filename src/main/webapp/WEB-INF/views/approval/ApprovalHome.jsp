@@ -313,7 +313,7 @@ h6.text-primary>i.fas {
 											</thead>
 											<tbody id="inputState_appBody">
 												<c:forEach var="list" items="${applist}">
-												<h1>${list }</h1>
+												<tr>
 													<td>${list.docno}</td>
 													<c:if test="${list.app_Check eq 1 || list.app_Check eq 2}">
 														<td>완료</td>
