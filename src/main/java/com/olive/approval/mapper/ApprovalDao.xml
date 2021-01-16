@@ -7,8 +7,8 @@
 	</select>
 
 	<select id="selectEmp" resultType="com.olive.dto.Emp">
-	    select e.* ,sum(count) as usedAnnual from empinfo e left join annual_diff a on e.empno = a.empno 
-		where e.empno = #{empno} group by empno
+	    select e.* ,count as usedAnnual from empinfo e left join empAnnual a on e.empno = a.empno 
+		where e.empno = #{empno}
 	</select>
 	<!--내가 기안한 문서 가지고 오는거-->
 	<select id="getDocument" resultType="com.olive.dto.Document">
@@ -27,7 +27,7 @@
 	</select> 
 			<!--문서 번호로 문서 가지고 오는거-->
 	<select id="viewDocument" resultType="com.olive.dto.Document">
-		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, d.statusname,d.typename,d.ename,da.startdate,da.enddate,d.filename 
+		select d.docno,d.empno, d.writedate, d.title, d.total_Approval, d.content, d.curr_Approval, d.statusCode, d.typeCode, d.statusname,d.typename,d.ename,da.startdate as start ,da.enddate as end ,d.filename 
 		from viewdocument d left join doc_add da
 		on da.document_docno=d.docno
 		where d.docno = #{docno}

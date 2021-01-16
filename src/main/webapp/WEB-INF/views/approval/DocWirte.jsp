@@ -843,7 +843,7 @@ $(function() {
 				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
 				};
 				if($('#selector').val() =='30'){
-				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+/* ${emp.usedAnnual} */+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+ ${emp.annual - emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
 			$.ajax({
