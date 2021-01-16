@@ -11,6 +11,7 @@ package com.olive.attendance.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.olive.attendance.dao.AttendanceDao;
 import com.olive.dto.Att_Record;
 import com.olive.dto.WorkHourPerWeek;
+import com.olive.utils.Criteria;
 
 @Service
 public class AttendanceService {
@@ -125,5 +127,35 @@ public class AttendanceService {
 		List<Att_Record> hoursEachList = dao.getHoursEachDays(empno);
 		System.out.println("AttendanceService : +getHoursEachDays() >> " + hoursEachList);
 		return hoursEachList;
+	}
+	
+	// 희승 : Criteria 상속된 조건으로 리스트 개수 검색
+	public int getListCount(Criteria cri) {
+		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
+		return dao.getListCount(cri);
+	}
+		
+	// 희승 : Criteria 상속된 기본 조건 리스트 반환
+	public List<Map<String, Object>> getList(Criteria cri){
+		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
+		return dao.getList(cri);
+	}
+		
+	// 희승 : Criteria 상속된 동적 쿼리 조건 리스트 반환
+	public List<Map<String, Object>> getAttList(Criteria cri){
+		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
+		return dao.getAttList(cri);
+	}
+		
+	// 희승 : 부서번호 가져오기
+	public String getDeptName(String empno) {
+		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
+		return dao.getDeptName(empno);
+	}
+	
+	// 희승 : 출근 확인
+	public Map<String, Object> isPunchedIn(String empno) {
+		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
+		return dao.isPunchedIn(empno);
 	}
 }

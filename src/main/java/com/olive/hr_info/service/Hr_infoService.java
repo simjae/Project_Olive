@@ -102,7 +102,20 @@ public class Hr_infoService {
 		   
 	   }
 	   
-	   
+		//이메일 검증
+		public Emp checkEmail_Pwd(String email) {
+			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
+			Emp emp = dao.checkEmail_Pwd(email);
+			System.out.println(emp);
+			return emp;
+		}
+		
+		//비밀번호 수정
+		public void updatePwd(Map<String, Object> map) {
+			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
+			dao.updatePwd(map);
+			System.out.println("비밀번호 재설정 완료");
+		}
 
 	   
 	   
