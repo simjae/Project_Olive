@@ -31,35 +31,32 @@
 
 <style>
 .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  border-bottop: 16px solid #3498db; 
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-  
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  box-shadow: 0px 0px 50px #888888;
-  /* transform: translateX(-50%); */
-  visibility: hidden;
-  oppacity: 0;
-  transition:all 0.3s;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	border-bottop: 16px solid #3498db;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	box-shadow: 0px 0px 50px #888888;
+	/* transform: translateX(-50%); */
+	visibility: hidden;
+	oppacity: 0;
+	transition: all 0.3s;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 .swal-overlay {
 	background-color: rgba(43, 165, 137, 0.45);
 }
 
-#setPwdPage{
-	display : none;
+#setPwdPage {
+	display: none;
 }
 </style>
 
@@ -121,13 +118,19 @@
 											<input type="password" class="form-control form-control-user"
 												id="setpwd" name="setpwd" aria-describedby="emailHelp"
 												placeholder="새로운 비밀번호 입력" readonly>
+											
+										</div>
+										<div class="form-group" id="codeForm">
+											<input type="password" class="form-control form-control-user"
+												id="setpwdcon" name="setpwdcon" aria-describedby="emailHelp"
+												placeholder="새로운 비밀번호 확인" readonly>
+											<span id="checkPwd"></span>
 										</div>
 										<button type="button" id="setpwdcheck"
 											class="btn btn-secondary btn-user btn-block" disabled>확인</button>
 									</form>
 									<hr>
-									<div class="form-group" id="goToMain">
-									</div>
+									<div class="form-group" id="goToMain"></div>
 								</div>
 							</div>
 						</div>
