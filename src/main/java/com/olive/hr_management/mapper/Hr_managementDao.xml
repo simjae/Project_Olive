@@ -100,4 +100,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT classCode, className
 		FROM class
 	</select>
+	
+	<select id="getAnnualList" resultType="HashMap">
+        SELECT
+            *
+        FROM 
+			annualList
+		WHERE empno = #{empno}
+	</select>
+	
+	<update id="updateAnnual" parameterType="HashMap">
+		update emp
+		set annual = #{annual}
+		where empno = #{empno}
+	</update>
+	
+	<update id="updateAttRecord" parameterType="HashMap">
+		update att_record
+		set 
+		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
+		attcode=80
+		where empno = #{empno} and DATE(starttime) = DATE(#{starttime})
+	</update>
+
+	
 </mapper>

@@ -89,6 +89,27 @@ public class Hr_managementService {
 		return classList;
 	}
 	
+	//연차이력 리스트
+	public List<Map<String, Object>> getAnnualList(String empno){
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
+		System.out.println(annualList);
+		return annualList;
+	}
+	
+	// 사원근태 >> 퇴근처리
+	public void updateAttRecord(Map<String, Object> map) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAttRecord(map);
+		System.out.println("Emp 근태 수정 완료");
+	}
+	
+	// 사원 연차 수정
+	public void updateAnnual(Map<String, Object> map) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAnnual(map);
+		System.out.println("Emp annual update 완료");
+	}
 	
 	public SalaryInfo getSalaryDetail(String date, int empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);

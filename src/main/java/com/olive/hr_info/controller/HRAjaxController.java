@@ -90,31 +90,6 @@ public class HRAjaxController {
 		return "HRinfo/Salary";
 	}
 
-//	//마이페이지 수정하기
-//	@RequestMapping(value="updateMyInfo.do")
-//	public Emp updateMyInfo(String param1, String param2, String param3, String param4, String param5, String param6) {
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("param1", param1); //empno
-//		map.put("param2", param2); //pwd
-//		map.put("param3", param3); //email
-//		map.put("param4", param4); //phone
-//		map.put("param5", param5); //address
-//		map.put("param6", param6); //profilepic
-//		
-//		
-//		System.out.println(param6);
-//		
-//		
-//		//CommonsMultipartFile multifile =param6.getFile();
-//		//String filename  = multifile.getOriginalFilename();
-//		
-//		
-//		System.out.println("여기는 왔어");
-//		Emp emp = empService.updateMyInfo(map);
-//		System.out.println(emp);
-//		return emp;
-//	}
-	
-	
+
 	
 }

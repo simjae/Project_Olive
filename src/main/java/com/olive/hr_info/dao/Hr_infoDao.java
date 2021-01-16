@@ -14,4 +14,6 @@ public interface Hr_infoDao {
 	public List<DeptTest> showOrg();
 	public List<DeptTest> showOrgbyDept(String param);
 	public int updateMyInfo(Emp emp);
+	public Emp checkEmail_Pwd(String email);
+	public void updatePwd(Map<String, Object> map);
 }
