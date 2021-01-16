@@ -31,78 +31,29 @@
 
 <style>
 .loader {
-	border: 16px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 16px solid #3498db;
-	border-bottop: 16px solid #3498db;
-	width: 120px;
-	height: 120px;
-	animation: spin 2s linear infinite;
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	box-shadow: 0px 0px 50px #888888;
-	/* transform: translateX(-50%); */
-	visibility: hidden;
-	oppacity: 0;
-	transition: all 0.3s;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  border-bottop: 16px solid #3498db; 
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  box-shadow: 0px 0px 50px #888888;
+  /* transform: translateX(-50%); */
+  visibility: hidden;
+  oppacity: 0;
+  transition:all 0.3s;
 }
 
-@
-keyframes spin { 0% {
-	transform: rotate(0deg);
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-100
-
-
-
-
-
-
-%
-{
-transform
-
-
-
-
-
-
-:
-
-
-
-
-
-
-rotate
-
-
-
-
-(
-
-
-
-
-
-
-360deg
-
-
-
-
-
-
-)
-
-
-
-
-;
-}
-}
 .swal-overlay {
 	background-color: rgba(43, 165, 137, 0.45);
 }

@@ -80,7 +80,7 @@
 		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small" id="empinfo"> </span>
-				<img class="img-profile rounded-circle" src="/resources/img/undraw_profile.svg">
+				<img class="img-profile rounded-circle" id="empimg" src="" onerror="this.src='/resources/img/undraw_profile_1.svg'">
 			</a> <!-- Dropdown - User Information -->
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/HRinfo/EditMyinfo.do">
@@ -214,9 +214,10 @@ jb(document).ready(function() {
 		type:"POST",
 		data:{empno:empno},
 		success:function(data){
+			var img = data.PIC;
 			html=data.ENAME+' ('+data.DEPTNAME+') '+data.POSITIONNAME;
 			jb('#empinfo').append(html);
-			
+			jb('#empimg').attr('src','/resources/upload/'+img);
 			}
 		
 	});

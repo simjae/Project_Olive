@@ -8,8 +8,8 @@ jQuery(document).ready(function($) {
 	});
 
 	// 인증번호 보내기 클릭 이벤트
-	$('#submitBtn').click( () => {
-		if( checkEmail($('#email').val()) ){
+	$('#submitBtn').click(() => {
+		if (checkEmail($('#email').val())) {
 			sendEmail();
 		}
 	});
@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 		}
 		return flag;
 	}
-	
+
 	// 이메일 보내기
 	function sendEmail() {
 		$('.loader').css('visibility', 'visible');
@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 	}
-	
+
 	// 코드 유효성검사
 	function checkCode(code) {
 		let flag = false;
@@ -64,7 +64,7 @@ jQuery(document).ready(function($) {
 		}
 		return flag;
 	}
-	
+
 	// 인증번호 체크
 	$('#finalCheck').click(() => {
 		if (checkCode($('#code').val())) {
@@ -94,12 +94,7 @@ jQuery(document).ready(function($) {
 						// 완료되어 페이지 이동 버튼 생성
 						let homeBtn = "<button type='button' id='goToWork' class='btn btn-success btn-user btn-block'>Let's go to Work!</button>";
 						$('#goToMain').append(homeBtn);
-						
-						// 비밀번호 재설정 페이지
-						//$('#emailCheckPage').hide();
-						//$('#setPwdPage').show();
-						//$('#setpwd').attr('readonly', false);
-						//$('#setpwdcheck').attr('disabled', false);
+
 					} else {
 
 						swal("인증 실패", "인증번호를 확인해주세요", "error");
@@ -130,23 +125,23 @@ jQuery(document).ready(function($) {
 
 
 	/////////비밀번호////////////////////
-	
+
 	// 비밀번호 재설정 시 인증번호 보내기 클릭 이벤트
 	$('#submitBtnPwd').click(() => {
 		if (checkDB($('#email').val())) {
-			sendEmail();
+			sendPwdEmail();
 		}
 	});
-	
+
 	// 비밀번호 재설정 시 인증된 이메일 DB 비교 AJAX
 	function checkDB(email) {
 		var rtn = false;
-		
+
 		$.ajax({
 			url: "checkEmail_Pwd.do",
 			type: "POST",
 			data: { email: $('#email').val() },
-			async:false,
+			async: false,
 			success: (data) => {
 				console.log(data);
 				console.log(data.ename);
@@ -164,10 +159,32 @@ jQuery(document).ready(function($) {
 				console.log(xhr.status);
 			}
 		});
-		
+
 		return rtn;
 	}
-	
+
+	// 이메일 보내기
+	function sendPwdEmail() {
+		$('.loader').css('visibility', 'visible');
+		$('.loader').css('oppacity', '1');
+		$.ajax({
+			url: "registEmail.do",
+			type: "POST",
+			data: { email: $('#email').val() },
+			success: () => {
+				$('.loader').css('visibility', 'hidden');
+				$('.loader').css('oppacity', '0');
+				swal("인증번호 발송 완료", $('#email').val() + " 이메일로 인증번호가 발송되었습니다.", "success");
+				$('#code').attr('readonly', false);
+
+				$('#pwdfinalCheck').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
+			},
+			error: (xhr) => {
+				console.log(xhr.status);
+			}
+		});
+	}
+
 	// 비밀번호용 인증번호 체크
 	$('#pwdfinalCheck').click(() => {
 		if (checkCode($('#code').val())) {
@@ -184,26 +201,22 @@ jQuery(document).ready(function($) {
 
 						swal({
 							title: "인증 완료",
-							text: $('#email').val() + " 이메일로 인증이 완료되었습니다!",
+							text: "이메일 인증이 완료되었습니다!",
 							icon: "success",
 						});
 
 						// 시각적으로 완료되었음을 표시
-						$('#pwdfinalCheck').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
-						$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', false);
-						$('#email').attr('readonly', true);
-						$('#code').attr('readonly', true);
-						
+						//$('#pwdfinalCheck').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
+						//$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', false);
+						//$('#email').attr('readonly', true);
+						//$('#code').attr('readonly', true);
+
 						// 비밀번호 재설정 페이지
 						$('#emailCheckPage').hide();
 						$('#setPwdPage').show();
 						$('#setpwd').attr('readonly', false);
-						$('#setpwdcheck').attr('disabled', false);
+						$('#setpwdcheck').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 
-						// 완료되어 페이지 이동 버튼 생성
-						let homeBtn = "<button type='button' id='goToWork' class='btn btn-success btn-user btn-block'>Let's go to Work!</button>";
-						$('#goToMain').append(homeBtn);
-						
 
 					} else {
 
@@ -218,18 +231,30 @@ jQuery(document).ready(function($) {
 	}); // 인증번호 체크
 
 
+	//
+
+
 	// 비밀번호 재설정
-	$('#setpwdcheck').click(function(){
+	$('#setpwdcheck').click(function() {
 		console.log($('#email').val());
 		console.log($('#setpwd').val());
 		$.ajax({
 			url: "updatePwd.do",
 			type: "POST",
-			data: {email:$('#email').val(),
-			pwd:$('#setpwd').val()},
+			data: {
+				email: $('#email').val(),
+				pwd: $('#setpwd').val()
+			},
 			success: (data) => {
-				console.log(data);
-				//location.href = "/" + url;
+				swal({
+					title: "인증 완료",
+					text: "비밀번호 설정이 완료되었습니다!",
+					type: "success",
+					timer: 2000,
+				}).then(function() {
+					location.href = "goToLogin.do";
+				});
+
 			},
 			error: (xhr) => {
 				console.log(xhr.status);
@@ -238,5 +263,5 @@ jQuery(document).ready(function($) {
 
 	});
 
-	
+
 });

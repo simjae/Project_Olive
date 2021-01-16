@@ -126,7 +126,7 @@
 						        <div class="col-md-5 border-right my-auto">
 						        
 						            <div class="d-flex flex-column align-items-center text-center p-3">
-							            	<img id="preview" class="mt-5 rounded-circle" src="/resources/upload/${emp.PIC}" width="120"> 
+							            	<img id="preview" class="mt-5 rounded-circle" src="/resources/upload/${emp.PIC}" width="120" onerror="this.src='/resources/img/undraw_profile_1.svg'"> 
 							            	
 
 
@@ -210,7 +210,7 @@
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>이메일</p>
-						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.email}" >
+						                    	<input name="email" id="email" type="text" class="form-control" placeholder="이메일" value="${emp.EMAIL}" >
 						                    </div>
 						                   
 						                </div>
@@ -218,15 +218,15 @@
 				 		                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 						                    	<p>휴대전화</p>
-						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.phone}" >
+						                    	<input name="phone" id="phone" type="text" class="form-control" placeholder="휴대전화" value="${emp.PHONE}" >
 						                    </div>
 						                </div> 
 						                
 						                <div class="form-group row mt-4">
 						                    <div class="col-md-10">
 
-						                    	<p>주소</p><span><i class="fas fa-map-marker-alt"></i></span>
-						                       <!--  <input type="button"  style="border:none" onclick="sample2_execDaumPostcode()"> -->
+						                    	<p>주소</p>
+						                        <input value="주소찾기" type="button"  style="border:none" onclick="sample2_execDaumPostcode()">
 						                    	<input name="address" id="address" type="text" class="form-control" placeholder="주소" value="${emp.ADDRESS}" >
 						                    </div>
 						                </div>  		 
