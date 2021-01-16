@@ -185,7 +185,12 @@
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
+									<s:authorize access="!hasRole('ROLE_MANAGER')">
+										<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
+									</s:authorize>
+									<s:authorize access="hasRole('ROLE_MANAGER')">
+										<h6 class="m-0 font-weight-bold text-primary">근태 관리 : <span>${emp.HEADNAME}</span>본부 <span>${emp.DEPTNAME}</span>부서</h6>
+									</s:authorize>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -195,13 +200,23 @@
 											<div class="mb-3">
 												<!-- 비동기로 DB다녀오는 친구들 -->
 												<form class="form-group d-flex justify-content-end">
-													<select class="form-control width-100 mr-2"
-														id="newSearchType">
-														<option selected>사번</option>
-														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
-													</select> <input type="text"
+													<s:authorize access="!hasRole('ROLE_MANAGER')">
+														<select class="form-control width-100 mr-2" id="newSearchType"> 
+															<option selected>사번</option>
+															<option>이름</option>
+															<option>본부</option>
+															<option>부서</option>
+														</select>
+													</s:authorize>
+													<s:authorize access="hasRole('ROLE_MANAGER')">
+														<select class="form-control width-100 mr-2" id="newSearchType"> 
+															<option selected>사번</option>
+															<option>이름</option>
+															<option>본부</option>
+															<option>부서</option>
+														</select>
+													</s:authorize>
+														<input type="text"
 														class="form-control width-250 mr-2 inputState"
 														id="newKeyword" placeholder="검색할 키워드를 입력.."> <input
 														type="button" class="btn btn-info" id="searchBtn"
