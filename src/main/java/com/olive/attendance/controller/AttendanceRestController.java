@@ -97,17 +97,26 @@ public class AttendanceRestController {
 	@RequestMapping(value = "calendarList.do", method = RequestMethod.GET)
 	public List<Att_Record> calendarList() {
 		List<Att_Record> calendarList = null;
-		System.out.println("1");
 		calendarList = service.calendarList();
 		System.out.println("캘린더리스트"+calendarList);
 		return calendarList;
+	}		
+//=================== 근태 캘린더 radio select ===================// 
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "calendarUserList.do", method = RequestMethod.GET)
+	public List<Att_Record> calendarUserList(String empno) {
+		List<Att_Record> calendarUserList = null;
+		calendarUserList = service.calendarUserList(empno);
+		return calendarUserList;
 	}		
 	
 //=================== 근태 테이블테스트  ===================// 
 @RequestMapping(value = "attPage.do", method = RequestMethod.POST)
 public JSONObject attPage(Criteria cri) {
 		
-		cri.setCriteria("rectable", "date", "desc");
+		cri.setCriteria("empannual", "date", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);
@@ -122,8 +131,7 @@ public JSONObject attPage(Criteria cri) {
 	return jsonObject;
 	
 }
-	
-	
+
 
 }
 	

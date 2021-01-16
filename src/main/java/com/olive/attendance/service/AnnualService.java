@@ -38,8 +38,26 @@ public class AnnualService {
 		public List<Document> calendarList () {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			AttendanceDao analcaldao = sqlsession.getMapper(AttendanceDao.class);
-			System.out.println("뭐가나옴"+analcaldao);
 			return analcaldao.getanaltableList(auth.getName());			
 		}
+//=================== 휴가 캘린더 radio select ===================// 
+		
+		public List<Document> calendarUserList (String empno) {
+			AttendanceDao analcaldao = sqlsession.getMapper(AttendanceDao.class);
+			return analcaldao.getanaltableUserList(empno);			
+		}
+//=================== 휴가 캘린더 radio select ===================// 
+
+
+
+		public Document annualCard(String empno) {
+			AttendanceDao annualCard = sqlsession.getMapper(AttendanceDao.class);
+			return annualCard.annualCard(empno);	
+		
+		}
+		
+
+
+
 
 }

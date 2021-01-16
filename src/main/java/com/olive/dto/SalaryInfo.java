@@ -59,6 +59,7 @@ public class SalaryInfo{
       this.care_insurance = numberFormality(this.care_insurance);
       this.national_pension = numberFormality(this.national_pension);
 
+
       this.totalIncome = numberFormality(this.totalIncome);
       this.exemption = numberFormality(this.exemption);
       this.afterTaxIncome = numberFormality(this.afterTaxIncome);
@@ -104,3 +105,51 @@ public class SalaryInfo{
       this.afterTaxIncome = temp3+"";   
    }
 }
+
+		this.totalIncome = numberFormality(this.totalIncome);
+		this.exemption = numberFormality(this.exemption);
+		this.afterTaxIncome = numberFormality(this.afterTaxIncome);
+		
+		this.hiredate = dateFormality(this.hiredate);
+		this.sal_date = dateFormality(this.sal_date);	
+	}
+	
+	private String numberFormality(String data) {
+		return new DecimalFormat("###,###,###,###").format(Integer.parseInt(data));
+	}
+	
+	private String dateFormality(String data){
+		Date temp = null;
+		try {
+			temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			e.getMessage();
+		} finally {			
+			return new SimpleDateFormat("yyyy/MM/dd").format(temp);
+		}
+	}
+	private void calcTotal() {
+		System.out.println(basic_pay);
+		int temp1= (Integer.parseInt(basic_pay)
+				+Integer.parseInt(overtime_pay)
+				+Integer.parseInt(position_pay)
+				+Integer.parseInt(bonus)
+				+Integer.parseInt(maintenance_of_vehicle)
+				+Integer.parseInt(educational_supports)
+				+Integer.parseInt(mess_allowance));
+		
+		int temp2 = Integer.parseInt(income_tax)
+					+Integer.parseInt(local_income_tax)
+					+Integer.parseInt(employment_insurance)
+					+Integer.parseInt(health_insurance)
+					+Integer.parseInt(care_insurance)
+					+Integer.parseInt(national_pension);
+		
+		int temp3 = temp1 - temp2;
+		this.totalIncome = temp1+"";
+		this.exemption = temp2+"";
+		this.afterTaxIncome = temp3+"";	
+	}
+}
+

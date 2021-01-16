@@ -111,16 +111,24 @@
 					<div class="row justify-content-end mx-5">
 						<div class="input-group col-mb-3">
 							<form id="uploadForm" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
 
+=======
+>>>>>>> snu/Sunwoo
 <!-- 								<div class='file file--upload'>
 							      <label for='input-file'>
 							        <i class="fas fa-cloud-upload-alt"></i>Upload
 							      </label>
 							      <input id='input-file' type='file' />
 							    </div> -->
+<<<<<<< HEAD
 								<input type="file" class="" name="excelFile" id="excelFile"> 
+=======
+								<input type="file" class="" name="excelFile" id="excelFile">
+>>>>>>> snu/Sunwoo
 								<button type="button" onclick="uploadProcess()">submit</button>
 
+>>>>>>> 219eb233452ab0e40916457afca3b8ec8b1fb598
 							</form>
 						</div>
 
@@ -246,7 +254,6 @@
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
-
 	<script>
 		$(document).on(
 				"click",
@@ -267,11 +274,6 @@
 									+ windowH + ", width=" + windowW
 									+ "resizable=no");
 				});
-
-
-		function downloadFormat(){
-			
-		}
 	</script>
 	<script src="/resources/js/Hr_management/excelUpload.js"></script>
 	<script src="/resources/js/Hr_management/salaryPaging.js"></script>

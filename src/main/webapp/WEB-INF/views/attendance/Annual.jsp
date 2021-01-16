@@ -53,21 +53,15 @@
 
 					<!-- Page Heading -->
 				<c:set var="emp" value="${emp}"/>
+				<c:set var="annualCard" value="${annualCard}"/>
 					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">${emp.ENAME} </h1>
-						 	
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">${emp.ENAME}</a>
-					</div>
-
-
-
+				
 
 					<div class="row">
-					<c:forEach var="annual" items="${list}">
-					
+					<%-- <c:set var="annual" value="${list}"/>
+					<c:forEach var="list" items="${annual}">
+					<c:if test="${list.EMPNO == emp.EMPNO}"> --%>
+					<!--  <h1>${list}</h1> -->
 						<div class="col-xl col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
@@ -76,7 +70,7 @@
 											<div
 												class="text-xl font-weight-bold text-primary text-uppercase mb-1">
 												이번달 총연차</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${annual.annual}</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${annualCard.annual}일</div>
 
 										</div>
 										<div class="col-auto">
@@ -96,7 +90,7 @@
 											<div
 												class="text-xl font-weight-bold text-success text-uppercase mb-1">
 												이번달 사용연차</div>
-											<span class="h5 font-weight-bold text-gray-800">${annual.COUNT}일</span>
+											<span class="h5 font-weight-bold text-gray-800">${annualCard.count}일</span>
 
 										</div>
 										<div class="col-auto">
@@ -118,7 +112,7 @@
 												이번달 남은연차</div>
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${annual.diff}</div>
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${annualCard.diff}</div>
 
 												</div>
 
@@ -131,8 +125,11 @@
 								</div>
 							</div>
 						</div>
-						</c:forEach>
+					<%-- </c:if> --%>
+					<%-- </c:forEach> --%>
 					</div>
+					
+					
 
 
 					<!-- End of Main Content -->
@@ -173,26 +170,31 @@
 											<thead>
 												<tr>
 												<h1>우리부서 </h1>
+													<th>문서번호</th>
 													<th>사번</th>
 													<th>이름</th>
 													<th>사용연차</th>
-													<th>발생일</th>
+													<th>발생일</th> 
 													<th>종료일</th>
-													<th>사용연차</th>
-													<th>남은연차</th>
+													<!-- <th>사용연차</th>
+													<th>남은연차</th> -->
+													<th>선택</th>
 												</tr>
 											</thead>
 											<tbody id="annualTable">
 												<c:forEach var="annual_diff" items="${list}">
-													<tr>
-														<td><c:out value="${annual_diff.EMPNO}" /></td>
-														<td><c:out value="${annual_diff.ename}" /></td>
+													<tr class = "namecal">
+														<td><c:out value="${annual_diff.DOCNO}" /></td>
+														<td name="empno"><c:out value="${annual_diff.EMPNO}" /></td>
+														<td><c:out value="${annual_diff.ENAME}" /></td>
 														<td><c:out value="${annual_diff.TYPENAME}" /></td>
-														<td><c:out value="${annual_diff.startdate}" /></td>
-														<td><c:out value="${annual_diff.enddate}" /></td>
-														<td><c:out value="${annual_diff.COUNT}일 " /></td>
-														<td><c:out value="${annual_diff.diff}일 " /></td>
-														
+														<td><c:out value="${annual_diff.STARTDATE}" /></td>
+														<td><c:out value="${annual_diff.ENDDATE}" /></td>
+														<%-- <td><c:out value="${annual_diff.COUNT}일 " /></td>
+														<td><c:out value="${annual_diff.DIFF}일 " /></td> --%>
+														<td>
+														<label class="userCheck"><input class='filter' type="radio" name = "user" ></label>
+														</td>	
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -215,11 +217,19 @@
 													</a></li>
 												</c:if>
 
-												<c:forEach var="paging" begin="${page.startPage}"
-													end="${page.endPage}">
-													<li class="page-item">
-													<a class="page-link page-btn" href="#">${paging}</a>
-													</li>
+												<c:forEach var="paging" begin="${page.startPage}" end="${page.endPage}">
+												    <c:choose>
+												        <c:when test="${paging eq criteria.page}">
+												            <li class="page-item page-link">
+												                <b>${paging}</b>
+												            </li>
+												        </c:when>
+												        <c:otherwise>
+												            <li class="page-item">
+												                <a class="page-link page-btn" href="#">${paging}</a>
+												            </li>
+												        </c:otherwise>
+												    </c:choose>
 												</c:forEach>
 
 												<c:if test="${page.next}">
@@ -315,7 +325,8 @@
 		<!-- SearchAndPaging -->
 		<script src="/resources/js/Attendance/annual.js"></script>
 		<!-- 캘린더 모듈화  -->
-		<script src="/resources/js/Attendance/calendar2.js"></script>
+		<!-- <script src="/resources/js/Attendance/calendartest.js"></script> -->
+		<script src="/resources/js/Attendance/annualCal.js"></script>
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 </body>

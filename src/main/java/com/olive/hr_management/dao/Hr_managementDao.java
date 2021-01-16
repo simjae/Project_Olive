@@ -49,6 +49,6 @@ public interface Hr_managementDao {
 	public void updateAnnual(Map<String, Object> map);
 	
 	public void updateAttRecord(Map<String, Object> map);
-	
-	
+
+	public String checkEmpno(String empno); 
 }

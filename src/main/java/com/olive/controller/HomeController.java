@@ -7,19 +7,15 @@
 */
 package com.olive.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.velocity.exception.VelocityException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,24 +23,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
-import org.springframework.ui.velocity.VelocityEngineUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.olive.approval.service.ApprovalService;
 import com.olive.authentication.service.AuthenticationService;
 import com.olive.authentication.service.MailService;
 import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
+import com.olive.dto.Approver;
+import com.olive.dto.Document;
 import com.olive.utils.NewsAPI;
 
 @Controller
@@ -70,6 +65,8 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	private ApprovalService approvalService;
+	
 	// 최초 index.jsp 접근 시 : Login 페이지
 	@RequestMapping("/goToLogin.do")
 	public String goToLogin() {
@@ -78,7 +75,7 @@ public class HomeController {
 
 	// 로그인 시 Main : 대쉬보드 페이지 (LoginForm은 Post, But Security 처리 = GetMapping)
 	@RequestMapping(value = "/goToMain.do", method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String n = auth.getName();
@@ -86,7 +83,18 @@ public class HomeController {
 
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getName() : " + n);
 			System.out.println("홈컨트롤러 /goToMain - HOME_CONTROLLER_auth.getAuthroties().toString() : " + r);
-
+			
+			List<Document> doclist = approvalService.getDocument(n);
+			List<Approver> applist = approvalService.getApprover(n);
+			
+			Map arrangedAppList = approvalService.arrangedAppDoc(applist);
+			Map arrangedDocList = approvalService.arrangeDoc(doclist);
+			
+			model.addAttribute("arrangedAppList",arrangedAppList);
+			model.addAttribute("arrangedDocList",arrangedDocList);
+			
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -177,7 +185,7 @@ public class HomeController {
 
 	
 	// 이메일 중복검증
-	@RequestMapping(value = "checkEmail_Pwd.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkEmail_Pwd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Emp checkEmail_Pwd(String email) {
 		System.out.println(email);
@@ -186,7 +194,7 @@ public class HomeController {
 	}
 	
 	// 비밀번호 수정
-	@RequestMapping(value = "updatePwd.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePwd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void updatePwd(String email, String pwd) {
 		System.out.println(email);
