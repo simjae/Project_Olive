@@ -127,13 +127,11 @@ function insertDatabyAjax(data) {
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
 			+ "<td>" + data.list[i].DOCNO + "</td>"
-			+ "<td name="+'empno'+">" + data.list[i].EMPNO + "</td>"
-			+ "<td>" + data.list[i].ENAME + "</td>"
-			+ "<td>" + data.list[i].TYPENAME + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].STARTDATE)) + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].ENDDATE))+ "</td>"
-			+ "<td>" + data.list[i].COUNT + "</td>"
-			+ "<td>" + data.list[i].DIFF + "</td>"
+			+ "<td name="+'empno'+">" + data.list[i].empno + "</td>"
+			+ "<td>" + data.list[i].ename + "</td>"
+			+ "<td>" + data.list[i].count + "</td>"
+			+ "<td>" + Unix_timestamp(Number(data.list[i].startdate)) + "</td>"
+			+ "<td>" + Unix_timestamp(Number(data.list[i].enddate))+ "</td>"
 			+ "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>"
 			+ "</tr>"
 	}
