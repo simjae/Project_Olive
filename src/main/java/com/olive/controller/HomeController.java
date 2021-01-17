@@ -223,5 +223,8 @@ public class HomeController {
 	 * @RequestMapping(value = "/accessDenied.do") public String accessDenied() {
 	 * return "403시 넣어줄 주소"; }
 	 */
-
+	@RequestMapping(value="duplicateLogin.do")
+	public String duplicateLigin() {
+		return "error/DuplicateLogin";
+	}
 }

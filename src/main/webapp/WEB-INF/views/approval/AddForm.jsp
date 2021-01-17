@@ -60,16 +60,15 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<div class="row">
-						<div class="col-xl-2 h3 my-auto text-gray-800">
-							<span class="py-auto">양식 추가하기</span> <span>
-								<button id="add" class="btn btn-success btn-icon-split">
-									<span class="icon"> <i class="fas fa-plus"></i></span>
-								</button>
-							</span>
+					<h3 class="text-gray-800">양식 추가하기</h3>
+					<div class="card border-left-warning shadow py-0 bg-white my-4">
+						<div class="card-header py-3 pb-0 d-flex flex-row align-items-center justify-content-between">
+							<button id="add" class="btn btn-success btn-icon-split my-auto">
+								<span class="icon"> <i class="fas fa-plus"></i></span><span class="text">추가하기</span>
+							</button>
 						</div>
-						<div class="col-xl-10">
-							<div class="d-flex flex-row-reverse mr-0">
+						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-3">
+							<div class="mb-3">
 								<div id="submitdiv" style="display: none">
 									<button id="submit" class="btn btn-warning">
 										<span class="icon"> <img src="/resources/img/formupload.png"></span>
@@ -77,32 +76,26 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div style="display: none;" id="addform">
-						<form action="" method="post" enctype="multipart/form-data" id="form">
-							<div class="col-md-12 border border-primary py-2 mt-2" style="background: white;">
-								<div class="container-fluid">
-									<div class="container-fluid">
-										<div class="row">
-											<div class="card mt-0 mb-2 mx-auto py-0 col-xl-11">
-												<div class="card-body py-2 px-0">
-													<div class="text-center text-primary">문서 이름</div>
-													<div class="mx-auto w-100">
-														<input class="inputbox col-xl-12 text-center" type="text" id="typename" name="typename">
-													</div> 
-												</div>
+						<div class="row justify-content-center mx-5" style="display: none;" id="addform">
+							<div class="mb-3">
+								<form action="" method="post" enctype="multipart/form-data" id="form">
+									<div class="mt-0 mb-2 mx-auto py-0">
+										<div class="card-body py-2 px-0">
+											<div class="text-center text-primary">문서 이름</div>
+											<div class="mx-auto w-100">
+												<input class="inputbox col-xl-12 text-center" type="text" id="typename" name="typename">
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class ="container col-md-11" id="check"></div>
-								<div class="row">
-									<div class="card my-2 py-2 mr-auto mx-auto col-xl-11">
-										<textarea class="col-md-10" id="summernote" name="content"></textarea>
+									<div class="container col-md-11" id="check"></div>
+									<div class="row">
+										<div class="card my-2 py-2 mr-auto mx-auto col-xl-11">
+											<textarea class="col-md-10" id="summernote" name="content"></textarea>
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				<!-- /.container-fluid -->

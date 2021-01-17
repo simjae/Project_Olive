@@ -103,6 +103,7 @@ public class AlarmHandler extends TextWebSocketHandler {
 		}
 	 	System.out.println("------------------------------------------------------넣는다----------------");
 	 	alarmService.insertAlarm(alarm);
+	 	System.out.println("알람 디비 저장해야해!!!"+alarm);
 	 	System.out.println("------------------------------------------------------넣었다----------------");
 		super.handleMessage(session, message);
 	}

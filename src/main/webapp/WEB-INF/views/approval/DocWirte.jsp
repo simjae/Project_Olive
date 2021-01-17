@@ -82,20 +82,18 @@
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
-						<div class="col-md-12 border border-primary py-2" style="background: white;">
-							<div class="container-fluid">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-											<div class="card-body py-2 px-0">
+						<div class="card shadow py-0 bg-white my-4 border-left-warning">
+									<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center">
+										<div class=" mt-0 mb-2 py-0 col-xl-2">
+											<div class=" py-2 px-0">
 												<div class="text-center text-primary">문서 번호</div>
 												<div class="mx-auto w-100">
-													<input type="text" class="inputbox text-center w-100" id="docno" name="docno" readonly>
+													<input type="text" class="selector text-center w-100" id="docno" name="docno" readonly>
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-											<div class="card-body py-2 px-0">
+										<div class=" mt-0 mb-2  py-0 col-xl-2">
+											<div class=" py-2 px-0">
 												<div class="text-center text-primary">문서종류</div>
 												<div class="mx-auto w-100">
 													<select class="px-auto mx-auto w-100 selector" id="selector" name="typeCode" style="text-align-last: center">
@@ -107,8 +105,8 @@
 											</div>
 										</div>
 										<c:set var="formlist" value="${requestScope.formList }" />
-										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2" style="display: block" id="doc">
-											<div class="card-body py-2 px-0">
+										<div class=" mt-0 mb-2 py-0 col-xl-2" style="display: block" id="doc">
+											<div class="py-2 px-0">
 												<div class="text-center text-primary">일반 문서 종류</div>
 												<select class="px-auto mx-auto w-100 selector" id="doc_form" style="text-align-last: center">
 													<option>선택하세요</option>
@@ -118,7 +116,25 @@
 												</select>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0 mx-auto  mx-1 col-xl-2">
+										
+									</div>
+							<div class="container-fluid">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xl-2 mx-auto my-4">
+											<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
+												<span class="text">결재선 추가하기</span>
+											</a>
+										</div>
+										<div class="card my-auto py-0 mx-auto col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">이름</div>
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="card my-auto py-0 mx-auto  mx-1 col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">직책</div>
 												<div class="text-md mt-1 text-center">
@@ -126,7 +142,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
+										<div class="card my-auto py-0 mx-auto col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">부서</div>
 												<div class="text-md mt-1 text-center">
@@ -134,7 +150,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0  mx-auto mx-1 col-xl-2">
+										<div class="card my-auto py-0  mx-auto mx-1 col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">사번</div>
 												<sec:authentication property="name" var="LoginUser" />
@@ -145,17 +161,8 @@
 												</sec:authorize>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="container-fluid">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-xl-2 mx-auto my-auto">
-											<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
-												<span class="text">결재선 추가하기</span>
-											</a>
-										</div>
+										
+										
 										<div class="card my-auto py-0 mx-auto col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">작성일자</div>
@@ -165,20 +172,11 @@
 												</div>
 											</div>
 										</div>
-										<div class="my-auto py-0 mx-4  col-xl-3"></div>
-										<div class="card my-auto py-0 mx-auto col-xl-4">
-											<div class="card-body py-2 px-0">
-												<div class="text-center text-primary">이름</div>
-												<div class="text-md mt-1 text-center">
-													<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="card my-2 py-0   mr-auto mx-auto col-xl-11">
+								<div class="card mb-2 py-0   mr-auto mx-auto col-xl-11">
 									<div class="card-body py-auto">
 										<div class="row">
 											<div class="table-responsive py-auto">
