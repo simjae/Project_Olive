@@ -265,5 +265,9 @@
 		select * from doc_form
 	</select>	
 	
+	<delete id="deleteDoc">
+		delete from document where docno = #{docno}
+	</delete>
+	
 	
 </mapper>

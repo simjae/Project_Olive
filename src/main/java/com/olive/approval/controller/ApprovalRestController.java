@@ -251,6 +251,13 @@ public class ApprovalRestController {
 		return map;
 	}
 	
+	@RequestMapping(value="deleteDoc.do")
+	private String deleteDoc(String docno) {
+		System.out.println(docno);
+		approvalService.deleteDoc(docno);
+		return "/approval/PersonalDoc.do";
+	}
+	
 	
 	
 
