@@ -164,27 +164,25 @@
 										<table id="salary_table" class="table text-center">
 											<thead>
 												<tr>
-													<h1>우리부서</h1>
+													<h1>${annual_diff.DEPTNAME}</h1>
 													<th>문서번호</th>
 													<th>사번</th>
 													<th>이름</th>
 													<th>사용연차</th>
 													<th>발생일</th>
 													<th>종료일</th>
-													<!-- <th>사용연차</th>
-													<th>남은연차</th> -->
 													<th>선택</th>
 												</tr>
 											</thead>
 											<tbody id="annualTable">
 												<c:forEach var="annual_diff" items="${list}">
 													<tr class="namecal">
-														<td><c:out value="${annual_diff.DOCNO}" /></td>
-														<td name="empno"><c:out value="${annual_diff.EMPNO}" /></td>
-														<td><c:out value="${annual_diff.ENAME}" /></td>
-														<td><c:out value="${annual_diff.TYPENAME}" /></td>
-														<td><c:out value="${annual_diff.STARTDATE}" /></td>
-														<td><c:out value="${annual_diff.ENDDATE}" /></td>
+														<td><c:out value="${annual_diff.docno}" /></td>
+														<td name="empno"><c:out value="${annual_diff.empno}" /></td>
+														<td><c:out value="${annual_diff.ename}" /></td>
+														<td><c:out value="${annual_diff.COUNT}" /></td>
+														<td><c:out value="${annual_diff.startdate}" /></td>
+														<td><c:out value="${annual_diff.enddate}" /></td>
 														<%-- <td><c:out value="${annual_diff.COUNT}일 " /></td>
 														<td><c:out value="${annual_diff.DIFF}일 " /></td> --%>
 														<td><label class="userCheck"><input
