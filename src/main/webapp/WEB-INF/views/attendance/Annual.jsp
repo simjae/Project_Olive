@@ -180,7 +180,7 @@
 														<td><c:out value="${annual_diff.docno}" /></td>
 														<td name="empno"><c:out value="${annual_diff.empno}" /></td>
 														<td><c:out value="${annual_diff.ename}" /></td>
-														<td><c:out value="${annual_diff.COUNT}" /></td>
+														<td><c:out value="${annual_diff.count}" /></td>
 														<td><c:out value="${annual_diff.startdate}" /></td>
 														<td><c:out value="${annual_diff.enddate}" /></td>
 														<%-- <td><c:out value="${annual_diff.COUNT}일 " /></td>
