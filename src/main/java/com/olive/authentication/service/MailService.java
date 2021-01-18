@@ -6,6 +6,7 @@
 */
 package com.olive.authentication.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
@@ -17,14 +18,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.velocity.exception.VelocityException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-
-import com.olive.dto.Emp;
-import com.olive.hr_management.dao.Hr_managementDao;
 
 @Service
 public class MailService {
@@ -43,6 +45,7 @@ public class MailService {
 		int certNumber = (int) ((Math.random() * 99999) + 100000);
 
 		try {
+			
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -51,9 +54,7 @@ public class MailService {
 			model.put("certNumber", certNumber);
 			model.put("ename", ename);
 
-			messageHelper.setFrom("tivkfzlzl@gmail.com", "Adminstrator");
-
-			
+			messageHelper.setFrom("tivkfzlzl@gmail.com", "OLIVE");
 			String mailBody;
 			
 			if(ename != null) {

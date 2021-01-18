@@ -211,7 +211,7 @@
 														<td>${attendance.attname}</td>
 														<td>
 														<c:if test="${attendance.attname ne '정상'}">
-															<button class='attBtn btn btn-primary btn-sm outline'>정상처리</button>
+															<button class='attBtn btn btn-primary'>정상처리</button>
 														</c:if>
 														</td>
 													</tr>
@@ -321,8 +321,8 @@
 														<td>${annual.annual}</td>
 														<td>${annual.COUNT}</td>
 														<td>${annual.DIFF}</td>
-														<td><input type="button" class="checkBtn" value="목록" />
-														<input type="button" class="editBtn" value="수정" />
+														<td><input type="button" class="checkBtn btn btn-primary" value="목록" />
+														<input type="button" class="editBtn btn btn-primary" value="수정" />
 														<input type="button" class="comBtn" value="완료" /></td>
 													</tr>
 												</c:forEach>
@@ -397,7 +397,7 @@
 											<tr>
 												<th>사번</th>
 												<th>이름</th>
-												<th>연차 개수</th>
+												<th>구분</th>
 												<th>신청일</th>
 												<th>시작일</th>
 												<th>종료일</th>
@@ -426,6 +426,7 @@
 		<!-- 모든 스크립트 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 		<!-- datepicker 용 jquery ui script -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<!-- Validation -->

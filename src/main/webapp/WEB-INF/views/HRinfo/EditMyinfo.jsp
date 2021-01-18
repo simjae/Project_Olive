@@ -169,7 +169,7 @@ table tr td:last-child {
 											<tbody>
 												<tr>
 													<td>본부</td>
-													<td>${emp.HEADNAME}팀</td>
+													<td>${emp.HEADNAME}</td>
 												</tr>
 												<tr>
 													<td>부서</td>
