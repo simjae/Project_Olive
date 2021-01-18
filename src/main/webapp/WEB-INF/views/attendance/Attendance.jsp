@@ -26,6 +26,15 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <!-- CodePen 차용 vertical progress bar -->
 <link href="/resources/css/customForAttendance.css" rel="stylesheet" />
+<style type="text/css">
+#calendar{
+max-width: 1300px;
+margin: 0 auto;
+}
+.item{
+	flex: 1 1 auto;
+}
+</style>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -231,7 +240,9 @@
 													<th>부서</th>
 													<th>출근시간</th>
 													<th>퇴근시간</th>
+													<s:authorize access="hasRole('ROLE_MANAGER')">
 													<th>선택</th>
+													</s:authorize>
 												</tr>
 											</thead>
 											<tbody id="attListTable">
@@ -242,7 +253,9 @@
 														<td><c:out value="${rectable.deptname}" /></td>
 														<td><c:out value="${rectable.starttime}" /></td>
 														<td><c:out value="${rectable.endtime}" /></td>
+														<s:authorize access="hasRole('ROLE_MANAGER')">
 														<td><label class="userCheck"><input class='filter' type="radio" name="user"></label></td>
+														</s:authorize>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -297,10 +310,10 @@
 										<h6 class="m-0 font-weight-bold text-info">캘린더</h6>
 									</div>
 									<!-- Card Body -->
-									<div class="card-body">
-										<div class="m">
-											<div class="p-30">
-												<div id='calendar'></div>
+									<div class="card-body justify-content-center">
+										<div class="center-block item">
+											<div class="p-30 ">
+												<div id='calendar' ></div>
 											</div>
 										</div>
 									</div>
