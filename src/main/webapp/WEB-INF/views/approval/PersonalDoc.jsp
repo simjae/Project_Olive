@@ -57,7 +57,8 @@
 								<li class="nav-item"><button class="nav-link doc" value="30" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 							</ul>
 						</div>
-						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-3" id="myTabContent"></div>
+						
+						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-4" id="myTabContent"></div>
 						<div class="mb-3" id="total" role="tabpanel" aria-labelledby="home-tab">
 							<div class="row justify-content-center mx-5">
 								<!-- 전체 문서 -->

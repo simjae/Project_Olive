@@ -25,6 +25,13 @@
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 #saveBtn {
 	display: none;
 }
@@ -40,6 +47,8 @@ table {
 	margin-top: 30px;
 	margin-bottom: 20px;
 	width: 80%;
+
+
 }
 
 table td {
@@ -61,7 +70,9 @@ table tr td:last-child {
 	width: 100%;
 	border-bottom: 1px solid #ddd;
 	color: #384a5e;
-	font-weight: bold;
+	font-family: IBMPlexSansKR-SemiBold; 
+	font-style: normal; 
+	font-weight: normal;
 }
 
 .title {
@@ -127,7 +138,7 @@ table tr td:last-child {
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">정보 수정</h1>
+					<h1 class="h3 mb-4 text-gray-800">인사정보</h1>
 
 
 
@@ -169,7 +180,7 @@ table tr td:last-child {
 											<tbody>
 												<tr>
 													<td>본부</td>
-													<td>${emp.HEADNAME}팀</td>
+													<td>${emp.HEADNAME}</td>
 												</tr>
 												<tr>
 													<td>부서</td>

@@ -197,8 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
 		attcode=80
-		where
-		empno = #{empno} and DATE(starttime) = DATE(#{starttime})
+		where empno = #{empno} and starttime = #{starttime}
 	</update>
 
 	<select id="getAttGroupByDept" resultType="HashMap" parameterType="String">

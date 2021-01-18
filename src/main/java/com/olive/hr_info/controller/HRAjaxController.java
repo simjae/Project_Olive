@@ -28,9 +28,8 @@ import com.olive.utils.service.PagingService;
 public class HRAjaxController {
 	
 	@Autowired
-	private Hr_infoService empService;
+	private Hr_infoService empService;  
 
-	
 	@Autowired
 	private PagingService pagingService;
 	

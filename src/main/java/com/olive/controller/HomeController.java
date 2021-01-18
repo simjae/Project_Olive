@@ -34,10 +34,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.attendance.service.AttendanceService;
 import com.olive.authentication.service.AuthenticationService;
 import com.olive.authentication.service.MailService;
 
 import com.olive.dto.Approver;
+import com.olive.dto.Att_Record;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
@@ -69,11 +71,14 @@ public class HomeController {
 	@Autowired
 	private ApprovalService approvalService;
 	
+	@Autowired
+	private AttendanceService attendanceService;
+	
 
 	// 최초 index.jsp 접근 시 : Login 페이지
 	@RequestMapping("/goToLogin.do")
 	public String goToLogin() {
-		return "Login";
+		return "Login2";
 	}
 
 	// 로그인 시 Main : 대쉬보드 페이지 (LoginForm은 Post, But Security 처리 = GetMapping)
@@ -99,7 +104,11 @@ public class HomeController {
 			model.addAttribute("arrangedAppList",arrangedAppList);
 			model.addAttribute("arrangedDocList",arrangedDocList);
 			
+			Map<String,Object> attList = attendanceService.arrangedAtt();
+			model.addAttribute("attList",attList);
 			
+			Emp emp = approvalService.selectEmp(n);
+			model.addAttribute("emp",emp);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -223,5 +232,8 @@ public class HomeController {
 	 * @RequestMapping(value = "/accessDenied.do") public String accessDenied() {
 	 * return "403시 넣어줄 주소"; }
 	 */
-
+	@RequestMapping(value="duplicateLogin.do")
+	public String duplicateLigin() {
+		return "error/DuplicateLogin";
+	}
 }

@@ -7,6 +7,10 @@
 $(function() {
 	var today = new Date();
 
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
+	
 	console.log(today);
 
 
@@ -14,7 +18,7 @@ $(function() {
 		console.log($(this).val());
 
 		$.ajax({
-			url: "getArrangedDocList.do",
+			url: "/approval/getArrangedDocList.do",
 			dataType: "json",
 			mehtod: "get",
 			contentType: "application/json; charset=utf-8",
@@ -29,10 +33,6 @@ $(function() {
 
 	});
 
-
-
-
-
 	$(document).on("click", ".page-btn", function() {
 		let searchType = $('#oldSearchType').val();
 		let keyword = $('#oldKeyword').val();
@@ -42,7 +42,7 @@ $(function() {
 		let page = $(this)[0].text;
 
 		$.ajax({
-			url: "getArrangedDocListAjax.do",
+			url: "/approval/getArrangedDocListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {
@@ -70,7 +70,7 @@ $(function() {
 
 		console.log(page);
 		$.ajax({
-			url: "getArrangedDocListAjax.do",
+			url: "/approval/getArrangedDocListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {
@@ -98,7 +98,7 @@ $(function() {
 
 		console.log(page);
 		$.ajax({
-			url: "getArrangedDocListAjax.do",
+			url: "/approval/getArrangedDocListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {

@@ -29,7 +29,7 @@ public class ApprovalCriteria extends Criteria {
 	
 	public ApprovalCriteria() {
 		this.page = 1; //현재 페이지 
-		this.perPageNum = 3; //보여주는 페이지갯수 
+		this.perPageNum = 5; //보여주는 페이지갯수 
 		this.searchType = "1"; // 검색할 nav바 
 		this.keyword = this.searchType; //검색어 
 		this.searchType2= "1";

@@ -23,7 +23,7 @@
 <meta name="author" content="">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
 
 /* 채연 */
@@ -132,24 +132,26 @@ h6.text-primary>i.fas {
 					<div class="row">
 						<!-- 내가 올린 결재 : 부트스트랩 list-group 이용 -->
 						<div class="col-xl-6 col-lg-6">
-							<div class="card border-left-info shadow mb-4">
+							<div class="card  shadow mb-4">
+								<div class="card-header">
+									<div class="font-weight-bold h5 text-uppercase mb-1">내가 최근 올린 결재</div>
+								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="font-weight-bold h5 text-info text-uppercase mb-1">내가 최근 올린 결재</div>
 											<c:set var="doclist" value="${requestScope.document }" />
 											<c:set var="arrangedList" value="${requestScope.arrangedDoc }" />
 											<div class="mb-0 font-weight-bold text-sm">
 												<div class="row">
 													<div class="col-md-6 ">
-														<ul class="list-group" style="padding-top: 36px;">
-															<li class="list-group-item  d-flex justify-content-between align-items-center"style="border:0px; padding:0px; font-size:20px;">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
+														<ul class="list-group" style="padding:30px;">
+															<li class="list-group-item  d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">기안함 <span class="badge mr-3">${arrangedList.doc_ready.size()}</span>
 															</li>
-															<li class="list-group-item d-flex justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
+															<li class="list-group-item d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">결재중 <span class="badge mr-3">${arrangedList.doc_ing.size()}</span>
 															</li>
-															<li class="list-group-item d-flex  justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
+															<li class="list-group-item d-flex  justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">결재완료됨 <span class="badge mr-3">${arrangedList.doc_cmp.size()}</span>
 															</li>
-															<li class="list-group-item d-flex justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
+															<li class="list-group-item d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">반려됨 <span class="badge mr-3">${arrangedList.doc_rej.size()}</span>
 															</li>
 														</ul>
 													</div>
@@ -170,22 +172,24 @@ h6.text-primary>i.fas {
 						<c:set var="applist" value="${requestScope.approver}" />
 						<c:set var="arrangedAppList" value="${requestScope.arrangedAppDoc }" />
 						<div class="col-xl-6 col-lg-6">
-							<div class="card border-left-warning shadow mb-4">
+							<div class="card shadow mb-4">
+								<div class="card-header">
+									<div class="font-weight-bold h5 text-uppercase mb-1">내가 받은 결재</div>
+								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="font-weight-bold h5 text-warning text-uppercase mb-1">내가 받은 결재</div>
 											<div class="mb-0 font-weight-bold text-sm">
 												<div class="row">
 													<div class="col-md-6">
-														<ul class="list-group " style="padding-top: 36px;">
-															<li class="list-group-item bdn d-flex justify-content-between align-items-center " style="border:0px; padding:0px; font-size:20px;">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
+														<ul class="list-group" style="padding:30px">
+															<li class="list-group-item bdn d-flex justify-content-between align-items-center " style="border: 0px; padding: 0px; font-size: 20px;">처리요망 <span class="badge mr-3">${arrangedAppList.doc_ready.size()}</span>
 															</li>
-															<li class="list-group-item  d-flex justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
+															<li class="list-group-item  d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">진행중 <span class="badge mr-3">${arrangedAppList.doc_ing.size()}</span>
 															</li>
-															<li class="list-group-item d-flex justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
+															<li class="list-group-item d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">결재완료함 <span class="badge mr-3">${arrangedAppList.doc_cmp.size()}</span>
 															</li>
-															<li class="list-group-item  d-flex justify-content-between align-items-center" style="border:0px; padding:0px; font-size:20px;">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
+															<li class="list-group-item  d-flex justify-content-between align-items-center" style="border: 0px; padding: 0px; font-size: 20px;">반려함 <span class="badge mr-3">${arrangedAppList.doc_rej.size()}</span>
 															</li>
 														</ul>
 													</div>
@@ -206,10 +210,9 @@ h6.text-primary>i.fas {
 					<!-- 내가 올린 결재 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
-							<div class="card border-left-info shadow mb-4">
-								
+							<div class="card shadow mb-4">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">내가 올린 결재</h6>
+									<h6 class="m-0 font-weight-bold">내가 올린 결재</h6>
 									<!-- 바로가기 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
@@ -231,7 +234,7 @@ h6.text-primary>i.fas {
 										<div class="card-body-tridiv mb-1"></div>
 									</div>
 									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="styled-table text-center my-2">
+										<table id="salary_table" class="table text-center my-2">
 											<thead>
 												<tr>
 													<th>문서번호</th>
@@ -266,10 +269,10 @@ h6.text-primary>i.fas {
 					<!-- 내가 받은 결재 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
-							<div class="card border-left-warning shadow mb-4">
+							<div class="card  shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-warning">내가 최근 받은 결재</h6>
+									<h6 class="m-0 font-weight-bold">내가 최근 받은 결재</h6>
 									<!-- 옵션 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">
@@ -281,7 +284,6 @@ h6.text-primary>i.fas {
 										</a>
 									</div>
 								</div>
-								
 								<!-- 결재 홈 테이블 -->
 								<div class="card-body px-2 py-0 mb-2">
 									<div class="card-for-flex mb-1">
@@ -296,7 +298,7 @@ h6.text-primary>i.fas {
 										</div>
 									</div>
 									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="styled-table text-center my-2">
+										<table id="salary_table" class="table text-center my-2">
 											<thead>
 												<tr>
 													<th>문서번호</th>
@@ -309,24 +311,24 @@ h6.text-primary>i.fas {
 											</thead>
 											<tbody id="inputState_appBody">
 												<c:forEach var="list" items="${applist}">
-												<tr>
-													<td>${list.docno}</td>
-													<c:if test="${list.app_Check eq 1 || list.app_Check eq 2}">
-														<td>완료</td>
-													</c:if>
-													<c:if test="${list.app_Check eq 0 || list.app_Check == null}">
-														<td>대기</td>
-													</c:if>
-													<td>${list.title}</td>
-													<td>${list.ename}</td>
-													<td>
-														<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
-													</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax=>${list.curr_Approval }/${list.total_Approval }</div>
-														</div>
-													</td>
+													<tr>
+														<td>${list.docno}</td>
+														<c:if test="${list.app_Check eq 1 || list.app_Check eq 2}">
+															<td>완료</td>
+														</c:if>
+														<c:if test="${list.app_Check eq 0 || list.app_Check == null}">
+															<td>대기</td>
+														</c:if>
+														<td>${list.title}</td>
+														<td>${list.ename}</td>
+														<td>
+															<fmt:formatDate value="${list.writedate}" pattern="yyyy-MM-dd" />
+														</td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar" style="width:${(list.curr_Approval/list.total_Approval)*100}%;" aria-valuenow="${list.curr_Approval }" aria-valuemin="0" aria-valuemax=>${list.curr_Approval }/${list.total_Approval }</div>
+															</div>
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -351,18 +353,17 @@ h6.text-primary>i.fas {
 	<a class="scroll-to-top rounded" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-		<!-- Logout Modal-->
-	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"/>
-	
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 
 $(function(){
-	//내가 올린 문서 부분 비동기 바꾸기!
-
-		
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
 	
 	//파이차트 for document
 	var ctx2 = $("#document-chart");

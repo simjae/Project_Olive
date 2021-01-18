@@ -39,7 +39,7 @@
 					<h1 class="h3 text-gray-800">결재진행함</h1>
 					<div class="card border-left-warning shadow py-0 bg-white my-4">
 						<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center justify-content-between">
-							<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<ul class="nav nav-tabs" id="myTab" role="tablist" >
 								<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>
 								<li class="nav-item"><button class="nav-link doc" value="10" id="app_ready" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">대기 문서</button></li>
 								<li class="nav-item"><button class="nav-link doc" value="20" id="app_ing" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 진행</button></li>
@@ -48,7 +48,8 @@
 								<li class="nav-item"><button class="nav-link" value="60" id="app_ref" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">참조 문서</button></li>
 							</ul>
 						</div>
-						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-3" id="myTabContent"></div>
+						
+						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-4" id="myTabContent"></div>
 						<div class="mb-3" id="home" role="tabpanel" aria-labelledby="home-tab">
 							<c:set var="appdoc" value="${requestScope.appdoc}" />
 							<div class="row justify-content-center mx-5">

@@ -111,4 +111,5 @@ public class AttendanceController {
 		
 		return authorities.contains(new SimpleGrantedAuthority(role));
 	}
+	
 }

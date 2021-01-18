@@ -33,26 +33,10 @@
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">대쉬보드</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">전체 읽음 표시</a>
+						<a href="#" id="readAll" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">전체 읽음 표시</a>
 					</div>
 					<div id="alarmWrapper">
-						<div class="row">
-							<div class="col-12 mb-4">
-								<div class="card border-left-primary shadow h-100 py-2" style='background-color: #f2ffff'>
-									<a href="#">
-										<div class="card-body">
-											<div class="row no-gutters align-items-center">
-												<div class="col mr-2">
-													<div class="text-m font-weight-bold text-primary text-uppercase mb-1">[문서번호:11030] - 휴가계획서 승인</div>
-													<div class="h5 mb-0 font-weight-bold text-gray-800">최종 승인자 MSG</div>
-												</div>
-												<div class="col-auto text-secondary">n분 전</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -145,6 +129,21 @@
 				}
 			}
 		})
+
+		$('#readAll').on("click",function(){
+			$.ajax({
+				url:"/alarm/readAllAlarm.do",
+				data:{empno:${LoginUser}},
+				type :'POST',
+				success:function(data){
+					location.href=data;
+					}
+				
+
+				})
+
+			})
+			
 
 		
 			

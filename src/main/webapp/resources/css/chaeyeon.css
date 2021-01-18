@@ -19,6 +19,7 @@
 }
  */
  
+
 /* MainLogin 배경색, 버튼색 */
 .bg-gradient-loginpage {
   background-color: #7F7FD5;
@@ -79,7 +80,7 @@
 
 .table-button {
   width:100px;
-  background-color: #7F7FD5;
+  background-color: #7aa458;
   border: none;
   color:#fff;
   padding: 10px 0;

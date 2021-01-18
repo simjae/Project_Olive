@@ -109,19 +109,25 @@ $(".checkBtn").click(function() {
 			success: (data) => {
 				var html = "";
 				console.log(data);
+				
 				if ((Array.isArray(data)) && data.length === 0) {
 					console.log("null");
 					html += "<h3>연차사용 내역이 존재하지 않습니다.</h3>"
 				}
 				for (let i = 0; i < data.length; i++) {
-
+					let writedate = moment(data[i].writedate).format("YYYY-MM-DD");
+					console.log(writedate);
+					let enddate = moment(data[i].enddate).format("YYYY-MM-DD");
+					let startdate = moment(data[i].startdate).format("YYYY-MM-DD");
+					let typename = data[i].typename.substring(0,2);
+				
 					html += "<tr>"
 						+ "<td>" + data[i].empno + "</td>"
 						+ "<td>" + data[i].ename + "</td>"
-						+ "<td>" + data[i].annual + "</td>"
-						+ "<td>" + Unix_timestamp(Number(data[i].writedate)) + "</td>"
-						+ "<td>" + Unix_timestamp(Number(data[i].startdate)) + "</td>"
-						+ "<td>" + Unix_timestamp(Number(data[i].enddate)) + "</td>"
+						+ "<td>" + typename + "</td>"
+						+ "<td>" + writedate + "</td>"
+						+ "<td>" + startdate + "</td>"
+						+ "<td>" + enddate+ "</td>"
 						+ "<td>" + data[i].timediff + "</td>"
 						+ "</tr>"
 
@@ -236,12 +242,18 @@ $(document).on("click", ".page-btn-next", function() {
 });
 
 
+
+
+
 function insertDatabyAjax1(data) {
 	console.log(data.list);
 	console.log("결과 값");
 	$('#attListTable').empty();
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
+		
+		let starttime = moment(data.list[i].starttime).format("YYYY-MM-DD hh mm ss");
+		let endtime = moment(data.list[i].endtime).format("YYYY-MM-DD hh mm ss");
 		inputListData += "<tr>";
 		inputListData += "<td>" + data.list[i].empno + "</td>";
 		inputListData += "<td>" + data.list[i].ename + "</td>";
@@ -251,9 +263,10 @@ function insertDatabyAjax1(data) {
 		}else{
 			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) 	+ "</td>";
 		}
+
 		inputListData += "<td>" + data.list[i].attname + "</td>";
 		if (data.list[i].attname != '정상') {
-			inputListData += "<td><button class='attBtn btn btn-primary btn-sm outline'>퇴근처리</button></td>"
+			inputListData += "<td><button class='attBtn btn btn-primary'>정상처리</button></td>"
 		} else {
 			inputListData += "<td></td>"
 		}
@@ -421,8 +434,8 @@ function insertDatabyAjax2(data) {
 			+ "<td>" + data.list[i].annual + "</td>"
 			+ "<td>" + data.list[i].COUNT + "</td>"
 			+ "<td>" + data.list[i].DIFF + "</td>"
-			+ "<td><input type='button' class='checkBtn' value='목록' />"
-			+ "<input type='button' class='editBtn' value='수정' />"
+			+ "<td><input type='button' class='checkBtn btn btn-primary' value='목록' />"
+			+ "<input type='button' class='editBtn btn btn-primary' value='수정' />"
 			+ "<input type='button' class='comBtn' value='완료' />"
 			+ "</td>"
 			+ "</tr>"
