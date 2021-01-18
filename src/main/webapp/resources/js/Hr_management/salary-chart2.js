@@ -108,9 +108,15 @@ function getSalChartDataForDept(labelsForchart1, datasetsForchart1) {
 				caretPadding: 10,
 				callbacks: {
 					label: function(tooltipItem, data) {
-						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+"원";
+						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "원";
 					}
 				}
+			}, scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true   // minimum value will be 0.
+					}
+				}]
 			}
 		}
 	})
@@ -160,6 +166,13 @@ function getSalChartDataForClass(labelsForchart2, datasetsForchart2) {
 			]
 		},
 		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true   // minimum value will be 0.
+					}
+				}]
+			},
 			gridLines: {
 				color: "rgb(234, 236, 244)",
 				zeroLineColor: "rgb(234, 236, 244)",
@@ -193,7 +206,7 @@ function getSalChartDataForClass(labelsForchart2, datasetsForchart2) {
 				caretPadding: 10,
 				callbacks: {
 					label: function(tooltipItem, data) {
-						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+"원";
+						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "원";
 					}
 				}
 			}

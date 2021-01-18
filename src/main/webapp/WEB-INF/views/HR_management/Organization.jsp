@@ -120,12 +120,12 @@
 											<div class="row no-gutters align-items-center">
 												<div class="col-auto">
 													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-													<fmt:formatNumber value="${dashboard.headCount/30*100}" pattern=".0"/>%</div>
+													<fmt:formatNumber value="${dashboard.headCount/50*100}" pattern=".0"/>%</div>
 												</div>
 												<div class="col">
 													<div class="progress progress-sm mr-2">
 														<div class="progress-bar bg-info" role="progressbar"
-															style="width: <fmt:formatNumber value="${dashboard.headCount/30*100}" pattern=".0"/>%" aria-valuenow="<fmt:formatNumber value="${dashboard.headCount/30*100}" pattern=".0"/>" aria-valuemin="0"
+															style="width: <fmt:formatNumber value="${dashboard.headCount/50*100}" pattern=".0"/>%" aria-valuenow="<fmt:formatNumber value="${dashboard.headCount/30*100}" pattern=".0"/>" aria-valuemin="0"
 															aria-valuemax="100"></div>
 													</div>
 												</div>
