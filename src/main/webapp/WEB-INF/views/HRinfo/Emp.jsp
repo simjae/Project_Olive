@@ -23,6 +23,13 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
+
 
 /* 모달 테이블 */
 #hr_info {
@@ -205,9 +212,14 @@ table.table .avatar {
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 text-gray-800">사원조회</h1>
-					<div class="card shadow py-4 bg-white my-5">
-						<div class="row justify-content-end mx-5">
+					<h1 class="h3 text-gray-800">인사정보</h1>
+					<div class="card shadow bg-white my-5">
+					<!-- Card Header -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-info">급여정보</h6>
+								</div>
+						<div class="row justify-content-end mx-5 mt-5">
 							<div class="form-group col-md-2">
 								<select id="inputState" class="form-control">
 									<option value="">검색조건</option>

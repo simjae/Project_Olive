@@ -18,7 +18,7 @@
 	<!-- Sidebar - Brand -->
 	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/goToMain.do">
 		<div class="sidebar-brand-icon">
-			<img src="/resources/img/OLIVE.png">
+			<img src="/resources/img/logo.png" width="60%">
 		</div>
 	</a>
 	<!-- Divider -->
