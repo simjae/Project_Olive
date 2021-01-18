@@ -41,7 +41,7 @@ var eventFeed = function(info, successCallback,failureCallback) {
 		if($("input:radio[name=user]").is(":checked") == true){
 			console.log("ㅎ"+empno)
 			$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "/attendance/calendarUserList.do",
 			dataType: "json",
 			data:{

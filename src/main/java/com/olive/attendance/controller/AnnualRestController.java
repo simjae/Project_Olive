@@ -69,6 +69,7 @@ public class AnnualRestController {
 		System.err.println(empno);
 		List<Document> calendarUserList = null;
 		calendarUserList = service.calendarUserList(empno);
+		System.out.println("시발롬아 좀 "+calendarUserList);
 		return calendarUserList;
 	}		
 	

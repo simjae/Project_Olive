@@ -51,48 +51,48 @@ public class AttendanceRestController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	// 출근 확인 
+	// 출근 확인
 	@RequestMapping(value = "isPunchedIn.do", method = RequestMethod.POST)
 	public Map<String, Object> isPunchedIn() {
 		HashMap<String, Object> record = null;
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		
+
 		try {
 			record = (HashMap<String, Object>) service.isPunchedIn(username);
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		// 출근하지 않았다면 record == null, 이미 출근했다면 record != null
 		return record;
 	}
-	
+
 	// 출근하기
 	@RequestMapping(value = "startWork.do", method = RequestMethod.POST)
 	public Map<String, Object> startWork() {
 		HashMap<String, Object> record = null;
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		
+
 		try {
 			service.startwork(Integer.parseInt(username));
 			record = (HashMap<String, Object>) service.isPunchedIn(username);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		// 출근 처리 후 처리된 record를 반환
 		return record;
 	}
-	
+
 	// 퇴근 처리
 	@RequestMapping(value = "endWork.do", method = RequestMethod.POST)
 	public Map<String, Object> endWork() {
-			HashMap<String, Object> record = null;
-		
+		HashMap<String, Object> record = null;
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 
@@ -102,11 +102,11 @@ public class AttendanceRestController {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return record;
 	}
-	
-	//=================== 근태 출/퇴근 테이블 select ===================// 
+
+	// =================== 근태 출/퇴근 테이블 select ===================//
 	@RequestMapping(value = "attTableList.do", method = RequestMethod.GET)
 	public List<Att_Record> attTableList() {
 		List<Att_Record> tableList = null;
@@ -115,7 +115,7 @@ public class AttendanceRestController {
 		return tableList;
 	}
 
-	//=================== 근태 캘린더 select ===================// 
+	// =================== 근태 캘린더 select ===================//
 	@ResponseBody
 	@RequestMapping(value = "calendarList.do", method = RequestMethod.GET)
 	public List<Att_Record> calendarList() {
@@ -125,13 +125,14 @@ public class AttendanceRestController {
 		System.out.println("캘린더리스트" + calendarList);
 		return calendarList;
 	}
+	
 
-	//=================== 근태 테이블테스트  ===================// 
+	// =================== 근태 테이블테스트 ===================//
 	@RequestMapping(value = "attPage.do", method = RequestMethod.POST)
 	public JSONObject attPage(AttendanceCriteria cri, Principal principal) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		
+
 		cri.setCriteria("rectable", "starttime", "desc");
 		cri.setFirstCondition("deptName", service.getDeptName(username));
 		if (!userHasRole(auth, "ROLE_MANAGER")) {
@@ -145,7 +146,7 @@ public class AttendanceRestController {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
-		jsonObject.put("criteria", cri); 
+		jsonObject.put("criteria", cri);
 
 		return jsonObject;
 	}
@@ -155,5 +156,14 @@ public class AttendanceRestController {
 		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 
 		return authorities.contains(new SimpleGrantedAuthority(role));
+	}
+
+	// =================== 근태 캘린더 radio select ===================//
+
+	@RequestMapping(value = "calendarUserList.do", method = RequestMethod.POST)
+	public List<Att_Record> calendarUserList(String empno) {
+		List<Att_Record> calendarUserList = null;
+		calendarUserList = service.calendarUserList(empno);
+		return calendarUserList;
 	}
 }
