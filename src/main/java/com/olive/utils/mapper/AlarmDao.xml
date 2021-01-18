@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id ="insertAlarm" parameterType="com.olive.dto.Alarm">
 	<selectKey resultType="int" keyProperty="alarmno" order="BEFORE">
-        SELECT MAX(alarmno)+1 FROM alarm       
+        SELECT ifnull(MAX(alarmno),0)+1 FROM alarm       
     </selectKey>    
 	insert into alarm (alarmno,alarmtime,empno,content,alarmcheck,color)
 	values (#{alarmno},now(),#{empno},#{content},0,#{color})
