@@ -22,6 +22,14 @@
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
+</style>
 </head>
 
 
@@ -47,11 +55,16 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">급여명세서</h1>
-
+					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">인사정보</h1>
+					<div class="card shadow bg-white my-5">
+					<!-- Card Header -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-info">급여정보</h6>
+								</div>
 					<!-- Table -->
-					<div class="row justify-content-center mx-5">
-						<table id="salary_table" class="styled-table text-center">
+					<div class="row justify-content-center mx-5 mt-5">
+						<table id="salary_table" class="table text-center">
 							<thead>
 								<tr>
 									<th>지급일자</th>
@@ -83,7 +96,7 @@
 												value="${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance
 										- (list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension)}"
 												type="number" /></td>
-										<td><button class="table-button salaryDetail"
+										<td><button class="btn btn-primary salaryDetail"
 												value="${fn:substring(list.SAL_DATE,0,10)},${list.EMPNO}">보기
 
 											</button> <input type="text" class="date"
@@ -135,6 +148,9 @@
 
 
 					</div>
+				
+					</div>
+
 				</div>
 				<!-- /.container-fluid -->
 
