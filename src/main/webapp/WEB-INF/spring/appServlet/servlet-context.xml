@@ -65,7 +65,7 @@
 	<beans:bean id="AlarmHandler" class="com.olive.utils.controller.AlarmHandler"/>
 	
 	<!-- AspectJ 라이브러리를 이용한 Proxy 객체 생성 -->
-	<!-- <aop:aspectj-autoproxy/>
-	<beans:bean id="loggerAspect" class="com.olive.utils.LoggerAspect"/>  -->
+	<aop:aspectj-autoproxy/>
+	<beans:bean id="loggerAspect" class="com.olive.utils.LoggerAspect"/>
 		
 </beans:beans>
