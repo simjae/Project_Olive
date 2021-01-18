@@ -1,11 +1,7 @@
 package com.olive.hr_management.controller;
 
-
 import java.util.HashMap;
-
 import java.io.File;
-
-import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.olive.dto.Dept;
 import com.olive.dto.Emp;
+
 
 import com.olive.dto.Head;
 import com.olive.dto.Position;
@@ -41,7 +38,6 @@ public class Hr_ManagementRestController {
 
 
 	// 인사관리 - 계정관리 - 게시판 페이징
-
 	@RequestMapping(value = "getList.do", method = RequestMethod.POST)
 	public JSONObject getEmpListBykeyword(Criteria cri) {
 		cri.setCriteria("empinfo", "empno", "desc");
