@@ -37,15 +37,15 @@
 	<!-- Topbar Navbar -->
 	
 	<ul class="navbar-nav ml-auto">
-		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" id="attBtn" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-fingerprint" style="size: 9x; color:red;" ></i>
 			</a>
 			<div class="dropdown-menu dropdown-menu-right  shadow animated--grow-in" aria-labelledby="sear=Dropdown">
 				
 				<div class="input-group">
-					<div class="input-group-append">
-						<button class="dropdown-item toggletoggle" id="startWork" >&nbsp;출근하기</button>
-						<button class="dropdown-item toggletoggle" id="endWork" style="display:none">&nbsp;퇴근하기</button>
+					<div class="input-group-append nom">
+						<button class="dropdown-item toggletoggle btn-nom" id="startWork" >&nbsp;출근하기</button>
+						<button class="dropdown-item toggletoggle btn-nom" id="endWork" style="display:none">&nbsp;퇴근하기</button>
 					</div>
 				</div>
 				
@@ -66,8 +66,8 @@
 						</div>
 					</div>
 				</form>
-			</div></li>
-		</button>
+			</div>
+		</li>
 		<!-- 알람 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-bell fa-fw"></i>
@@ -78,7 +78,8 @@
 				<h6 class="dropdown-header">Alerts Center</h6>
 				<div id="alarmlist"></div>
 				<a class="dropdown-item text-center small text-gray-500 showmore" href="${pageContext.request.contextPath}/Alrams.do">Show All Alerts</a>
-			</div></li>
+			</div>
+		</li>
 		<div class="topbar-divider d-none d-sm-block"></div>
 		<sec:authentication property="name" var="LoginUser" />
 		<!-- Nav Item - User Information -->
@@ -149,6 +150,12 @@
 	top: 10px;
 	left: 5rem;
 }
+}
+.nom{
+	margin: 0 auto !important;
+}
+.btn-nom{
+	margin: 0 !important;
 }
 </style>
 <link href='/resources/css/topWork.css' rel='stylesheet' />
@@ -317,13 +324,6 @@ jb(document).ready(function() {
 			}) 
 		}
 		
-$('.toggletoggle').on("click",function(){
-
-	$('.toggletoggle').toggle();
-	
-});
-
-
 })
 	
 </script>
