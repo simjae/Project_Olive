@@ -18,6 +18,12 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 .highcharts-figure, .highcharts-data-table table {
 	min-width: 2000px;
 	max-width: 2000px;
@@ -41,12 +47,12 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Organization</h1>
+					<h1 class="h3 mb-2 text-gray-800">인사정보</h1>
 					<!-- Content Row -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
 							<!-- Area Chart -->
-							<div class="card shadow mb-4">
+							<div class="card shadow mb-4 mt-5">
 								<div class="card-header py-3">
 									<div class="form-group col-md-2 mb-0">
 										<button id="open" class="form-control">
