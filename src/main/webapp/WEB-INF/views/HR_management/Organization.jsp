@@ -198,6 +198,10 @@
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1bee378be434d468c0d312e86b6759531721e327
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </body>
 
@@ -206,7 +210,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/Hr_management/organization-attChart.js"></script>
+
 
 <script src="/resources/js/Hr_management/organization-dashboard.js"></script>
 </html>
