@@ -68,4 +68,11 @@ public interface Hr_managementDao {
 	
 	public List<Map<String, Object>> getSalChartDataForDept();
 
+	public List<HashMap<String, Object>> getHiredDate();
+	
+	public List<HashMap<String, Object>> getLeavedDate();
+	
+	public int getTotalCount();
+	
+	public List<HashMap<String, Object>> getGroupedDeptData();
 }
