@@ -98,6 +98,7 @@ public class Hr_managementService {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
 		System.out.println(annualList);
+		System.out.println(annualList);
 		return annualList;
 	}
 	

@@ -146,7 +146,7 @@ public class Hr_ManagementRestController {
 		boolean result = managementService.excelUpload(destFile);
 		destFile.delete();
 		return result;
-	}
+	}  
 
 	// 근태관리
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
@@ -169,7 +169,7 @@ public class Hr_ManagementRestController {
 	public JSONObject getEmpAnnListBykeyword(Criteria cri) {
 
 
-		cri.setCriteria("annual_diff", "startdate", "desc");
+		cri.setCriteria("empAnnual", "empno", "asc");
 
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
@@ -196,7 +196,7 @@ public class Hr_ManagementRestController {
 	}
 
 
-	//휴가관리 연차이력 조회
+	//휴가관리 연차이력 조회 >> 휴가관리 모달
 	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getAnnualList(String empno){
 		System.out.println(empno);

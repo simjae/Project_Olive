@@ -55,6 +55,7 @@ jQuery(document).ready(function($) {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이미 사용중인 이메일입니다.");
 					$('#checkEmail').css("color", "red");
+					$('#submitBtn').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
 				}
 			},
 			error: (xhr) => {
@@ -162,35 +163,38 @@ jQuery(document).ready(function($) {
 
 	/////////비밀번호////////////////////
 
+	$('#pwdemail').keyup(() => {
+		checkDB($('#pwdemail').val());
+	});
+
+
 	// 비밀번호 재설정 시 인증번호 보내기 클릭 이벤트
 	$('#submitBtnPwd').click(() => {
-		if (checkDB($('#email').val())) {
-			sendPwdEmail();
-		}
+		sendPwdEmail();
 	});
 
 	// 비밀번호 재설정 시 인증된 이메일 DB 비교 AJAX
 	function checkDB(email) {
-		var rtn = false;
+
 
 		$.ajax({
 			url: "checkEmail_Pwd.do",
 			type: "POST",
-			data: { email: $('#email').val() },
-			async: false,
+			data: { email: $('#pwdemail').val() },
 			success: (data) => {
 				console.log(data);
 				console.log(data.ename);
-				$('#email').empty();
 				if (data == "") {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인증되지 않은 이메일입니다.");
 					$('#checkEmail').css("color", "red");
+					$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
+					
 				} else if (data != null) {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.ename + "님 메일함을 확인해주세요.");
 					$('#checkEmail').css("color", "green");
-					rtn = true;
+
 				}
 			},
 			error: (xhr) => {
@@ -198,7 +202,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 
-		return rtn;
+
 	}
 
 	// 이메일 보내기
