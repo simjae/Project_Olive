@@ -169,3 +169,7 @@
 			$('#oldperPageNum').val(data.criteria.perPageNum);
 			$('#oldPage').val(data.criteria.page);	
 	}
+	
+	$('#collapseHRM').addClass('show');
+		$('#collapseHRM').prev().removeClass('collapsed');
+		$('#collapseHRM').prev().children().css("color","#fff");

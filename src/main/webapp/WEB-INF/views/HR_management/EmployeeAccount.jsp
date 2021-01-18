@@ -208,6 +208,8 @@ p.each-label>span {
 		<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	<!-- End of Footer 모듈화 -->

@@ -175,3 +175,8 @@ function insertDatabyAjax(data) {
 	$('#oldperPageNum').val(data.criteria.perPageNum);
 	$('#oldPage').val(data.criteria.page);
 }
+
+$('#collapseAtt').addClass('show');
+		$('#collapseAtt').prev().removeClass('collapsed');
+		$('#collapseAtt').prev().children().css("color","#fff");
+		

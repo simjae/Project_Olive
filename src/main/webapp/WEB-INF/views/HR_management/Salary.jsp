@@ -246,5 +246,14 @@
 	
 	<script src="/resources/js/Hr_management/salary-chart2.js"></script>
 </body>
+<script type="text/javascript">
+$(function(){
+	$('#collapseHRM').addClass('show');
+	$('#collapseHRM').prev().removeClass('collapsed');
+	$('#collapseHRM').prev().children().css("color","#fff");
+	
+	
+})
+</script>
 
 </html>

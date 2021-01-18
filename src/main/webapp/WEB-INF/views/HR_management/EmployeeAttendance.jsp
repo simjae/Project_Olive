@@ -1,3 +1,4 @@
+
 <%-- 
     파일명: EmployeeAttendance.jsp
     설명: 직원 휴가 및 근태 관리 CRUD (인사팀 전용)
@@ -25,7 +26,6 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-
 	/* Modal styles */
 	.modal .modal-dialog {
 		max-width: 70%;
@@ -72,9 +72,7 @@
 		display:none;
 	
 	}
-
 	
-
 </style>
 </head>
 <body id="page-top">
@@ -436,4 +434,12 @@
 		<script src="/resources/js/Hr_management/organization-attChart.js"></script>
 		<script src="/resources/js/Hr_management/attendance-chart.js"></script>
 </body>
+<script type="text/javascript">
+$(function(){
+	$('#collapseHRM').addClass('show');
+	$('#collapseHRM').prev().removeClass('collapsed');
+	$('#collapseHRM').prev().children().css("color","#fff");
+		
+})
+</script>
 </html>
