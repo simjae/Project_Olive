@@ -25,4 +25,10 @@ jb('#forgotten').click(function(){
     jb("#forgotten-container").fadeIn();
   });
 });
+
+jb('#submit').on("click",function(){
+	
+	$('#loginform').submit();
+})
+
 });

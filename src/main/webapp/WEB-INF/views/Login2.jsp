@@ -43,10 +43,7 @@
 </script>
 
 <body>
-	<div id=img_3>
-		<img src="/resources/img/logo1.png"></img>
 
-	</div>
 	<div id="login-button">
 		<img src="/resources/img/lo5.png"></img>
 	</div>
@@ -60,7 +57,7 @@
 
 
 		<c:url value="/login" var="loginURL" />
-		<form name="frm" action="${loginURL}" class="user" method="POST">
+		<form name="frm" action="${loginURL}" id="loginform" class="user" method="POST">
 			<div class="form-group">
 				<input class="form-control" placeholder="empno"
 					form-control-user" name="empno" placeholder="사번">
@@ -92,8 +89,8 @@
 					</div>
 				</div>
 			</div>
-			<button type="submit" class="orange-btn">Login</button>
-			<a href="/findPassword.do" class="orange-btn">Get new password</a>
+			<a href="#" id="submit" class="orange-btn">Login</a>
+			
 			<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 		</form>
 	</div>
