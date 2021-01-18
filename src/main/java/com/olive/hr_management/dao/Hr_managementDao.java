@@ -19,11 +19,11 @@ import com.olive.dto.Sal_Record;
 import com.olive.dto.SalaryInfo;
 
 public interface Hr_managementDao {
-	
+
 //	public List<Emp> getEmpList() throws Exception;
 
 //	public List<Map<String, Object>> getEmpList(Criteria cri);
-	
+
 //	public int getListCount() throws Exception;
 
 	public void insertNewEmp(Emp emp);
@@ -31,26 +31,24 @@ public interface Hr_managementDao {
 	public List<Emp> selectAllList();
 
 	public Emp checkEmpNo(String empNo);
-	
+
 	public List<Head> getHeadQuarters();
-	
+
 	public List<Dept> getDepartments(String headCode);
-	
+
 	public List<Position> getPositions();
-	
+
 	public List<Class> getClasses();
 
 	public SalaryInfo getSalaryDetail(Map parameter);
-	
 
-	public void insertSalaryTbl(List<Sal_Record> excelData); 
-	
+	public void insertSalaryTbl(List<Sal_Record> excelData);
+
 	public List<Map<String, Object>> getAnnualList(String empno);
-	
-	public void updateAnnual(Map<String, Object> map);
-	
-	public void updateAttRecord(Map<String, Object> map);
 
+	public void updateAnnual(Map<String, Object> map);
+
+	public void updateAttRecord(Map<String, Object> map);
 
 	public String checkEmpno(String empno);
 
@@ -67,7 +65,16 @@ public interface Hr_managementDao {
 	public String getRetiredCount();
 
 	public List<Map<String, Object>> getSalChartDataForClass();
-	
+
 	public List<Map<String, Object>> getSalChartDataForDept();
 
+	public List<HashMap<String, Object>> getHiredDate();
+
+	public List<HashMap<String, Object>> getLeavedDate();
+
+	public int getTotalCount();
+
+	public List<HashMap<String, Object>> getAttGroupByDept(String deptName);
+
+	public List<HashMap<String, Object>> getGroupedDeptData();
 }

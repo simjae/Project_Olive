@@ -19,8 +19,8 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
 .highcharts-figure, .highcharts-data-table table {
-	min-width: 360px;
-	max-width: 1000px;
+	min-width: 2000px;
+	max-width: 2000px;
 	margin: 1em auto;
 }
 </style>
@@ -89,7 +89,6 @@
 	<style>
 .highcharts-figure, .highcharts-data-table table {
 	min-width: 360px;
-	max-width: 800px;
 	margin: 1em auto;
 }
 
@@ -208,15 +207,15 @@
 									color : 'white'
 								},
 								borderColor : 'white',
-								nodeWidth : 65
+								nodeWidth : 40
 							} ],
 							tooltip : {
 								outside : true
 							},
 							exporting : {
 								allowHTML : true,
-								sourceWidth : 800,
-								sourceHeight : 600
+								sourceWidth : 100,
+								sourceHeight : 100
 							}
 
 						});

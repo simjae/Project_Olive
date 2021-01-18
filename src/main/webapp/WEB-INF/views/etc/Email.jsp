@@ -81,6 +81,7 @@
 										<div class="form-group">
 											<input type="email" class="form-control form-control-user" id="email" name="email"
 												aria-describedby="emailHelp" placeholder="Enter 이메일 주소..." required>
+												<span id="checkEmail"></span>
 										</div>
 										<button type="button" id="submitBtn" class="btn btn-primary btn-user btn-block" style="margin-bottom: 30px">인증번호
 											발송</button>

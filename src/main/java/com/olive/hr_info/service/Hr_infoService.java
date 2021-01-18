@@ -1,6 +1,8 @@
 package com.olive.hr_info.service;
 
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,15 @@ public class Hr_infoService {
 		   Map<String, Object> emp = dao.searchEmpByEmpno(empno);
 		   System.out.println("Mypage 수정중 ...");
 		   System.out.println(emp);
+		   System.out.println(emp.get("HIREDATE"));
+		   System.out.println(((Date) emp.get("HIREDATE")).getTime());
+		   Date hire = new Date(((Date) emp.get("HIREDATE")).getTime());
+		   SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		   String date = dateFormat.format(hire);
+		   System.out.println(date);
+		     
+		   emp.put("HIREDATE", date);
+
 		   return emp;
 	   }
 	   

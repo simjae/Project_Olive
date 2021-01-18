@@ -29,6 +29,43 @@ jQuery(document).ready(function($) {
 		return flag;
 	}
 
+
+	// 이메일 중복 막기 =
+	$('#email').keyup(() => {
+		checkEmailDB($('#email').val());
+	});
+
+	//이메일 인증 시 인증된 이메일 DB 비교 AJAX
+	function checkEmailDB(email) {
+
+		$.ajax({
+			url: "checkEmail_Pwd.do",
+			type: "POST",
+			data: { email: $('#email').val() },
+			async: false,
+			success: (data) => {
+				console.log(data);
+				console.log(data.ename);
+				$('#email').empty();
+				if (data == "") {
+					$('#checkEmail').empty();
+					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용가능한 이메일입니다.");
+					$('#checkEmail').css("color", "green");
+				} else if (data != null) {
+					$('#checkEmail').empty();
+					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이미 사용중인 이메일입니다.");
+					$('#checkEmail').css("color", "red");
+					$('#submitBtn').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
+				}
+			},
+			error: (xhr) => {
+				console.log(xhr.status);
+			}
+		});
+
+	}
+
+	
 	// 이메일 보내기
 	function sendEmail() {
 		$('.loader').css('visibility', 'visible');
@@ -126,33 +163,38 @@ jQuery(document).ready(function($) {
 
 	/////////비밀번호////////////////////
 
+	$('#pwdemail').keyup(() => {
+		checkDB($('#pwdemail').val());
+	});
+
+
 	// 비밀번호 재설정 시 인증번호 보내기 클릭 이벤트
 	$('#submitBtnPwd').click(() => {
-		if (checkDB($('#email').val())) {
-			sendPwdEmail();
-		}
+		sendPwdEmail();
 	});
 
 	// 비밀번호 재설정 시 인증된 이메일 DB 비교 AJAX
 	function checkDB(email) {
-		var rtn = false;
+
 
 		$.ajax({
 			url: "checkEmail_Pwd.do",
 			type: "POST",
-			data: { email: $('#email').val() },
-			async: false,
+			data: { email: $('#pwdemail').val() },
 			success: (data) => {
 				console.log(data);
 				console.log(data.ename);
-				$('#checkEmail').empty();
 				if (data == "") {
+					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인증되지 않은 이메일입니다.");
 					$('#checkEmail').css("color", "red");
+					$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
+					
 				} else if (data != null) {
+					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.ename + "님 메일함을 확인해주세요.");
 					$('#checkEmail').css("color", "green");
-					rtn = true;
+
 				}
 			},
 			error: (xhr) => {
@@ -160,7 +202,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 
-		return rtn;
+
 	}
 
 	// 이메일 보내기
@@ -215,6 +257,7 @@ jQuery(document).ready(function($) {
 						$('#emailCheckPage').hide();
 						$('#setPwdPage').show();
 						$('#setpwd').attr('readonly', false);
+						$('#setpwdcon').attr('readonly', false);
 						$('#setpwdcheck').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 
 
@@ -231,9 +274,18 @@ jQuery(document).ready(function($) {
 	}); // 인증번호 체크
 
 
-	//
-
-
+	//비밀번호 확인 체크
+	$('#setpwdcon').keyup(function(){
+		if($('#setpwd').val()!=$('#setpwdcon').val()){
+			$('#checkPwd').text('');
+			$('#checkPwd').html("비밀번호가 일치하지 않습니다.");
+			$('#checkPwd').css("color", "red");
+		}else{
+			$('#checkPwd').text('');
+			$('#checkPwd').html("비밀번호가 일치합니다.");
+			$('#checkPwd').css("color", "green");
+		}
+	})
 	// 비밀번호 재설정
 	$('#setpwdcheck').click(function() {
 		console.log($('#email').val());

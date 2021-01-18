@@ -357,12 +357,13 @@ h6.text-primary>i.fas {
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>
+
 <script type="text/javascript">
 
 $(function(){
-	//내가 올린 문서 부분 비동기 바꾸기!
-
-		
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
 	
 	//파이차트 for document
 	var ctx2 = $("#document-chart");

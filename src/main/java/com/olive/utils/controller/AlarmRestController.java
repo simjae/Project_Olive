@@ -31,5 +31,12 @@ public class AlarmRestController {
 	public void readAlarm(String alarmno){
 		alarmService.readAlarm(alarmno);
 	}
+	 
+	@RequestMapping(value="/alarm/readAllAlarm.do")
+	public String readAllAlarm(String empno) {
+		System.out.println(empno);
+		alarmService.readAllAlarm(empno);
+		return "/Alrams.do"; 
+	}
 
 }

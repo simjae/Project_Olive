@@ -87,7 +87,6 @@ public class AttendanceController {
 			cri.setSecondCondition("empno", username);
 		}
 		
-		System.out.println(cri);
 		int totalCount = attendanceService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = attendanceService.getList(cri);
@@ -103,10 +102,6 @@ public class AttendanceController {
 		model.addAttribute("workHours", workHours);
 		model.addAttribute("hoursEachList", hoursEachList);
 
-		System.out.println("근태관리" + result);
-		System.out.println("\n****\nAttendanceController [주 총 근무시간] >> " + workHours);
-		System.out.println("AttendanceController [주 요일별 근무시간] >> " + hoursEachList + "\n****\n");
-
 		return "attendance/Attendance";
 	}
 
@@ -116,4 +111,5 @@ public class AttendanceController {
 		
 		return authorities.contains(new SimpleGrantedAuthority(role));
 	}
+	
 }

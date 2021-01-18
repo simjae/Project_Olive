@@ -244,10 +244,6 @@ public class ApprovalService extends PagingService {
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-		
-		
-		System.out.println("----------------------------------------App--------------------------------"+app);
-		//approvalDao.afterApprove(app);
 	} 
 	public int getListCount(ApprovalCriteria cri) {
 		System.out.println("getListCount 서비스 시작");
