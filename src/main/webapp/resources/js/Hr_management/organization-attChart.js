@@ -38,12 +38,13 @@ $("#searchBtn").click(function() {
 		success: function(data) {
 			var datasetsForchart = new Array;
 			var labelsForchart = new Array;
+			console.log(data);
 			$.map(data.attrecord, function(item) {
 				labelsForchart.push(item.attname)
 				datasetsForchart.push(parseInt(item.num))
 			chart5(datasetsForchart, labelsForchart);
 			console.log(data.empinfo);
-			var empData = data.empinfo.ENAME+" "+data.empinfo.CLASSNAME +"/" +data.empinfo.DEPTNAME+"팀"
+			var empData = data.empinfo.ENAME+" "+data.empinfo.CLASSNAME +"/" +data.empinfo.DEPTNAME;
 			$('#emp').html(empData);
 			})
 		}

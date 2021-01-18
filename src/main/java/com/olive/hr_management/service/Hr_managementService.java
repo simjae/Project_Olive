@@ -7,15 +7,11 @@
 package com.olive.hr_management.service;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import javax.management.openmbean.ArrayType;
 
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONObject;
@@ -236,6 +232,38 @@ public class Hr_managementService {
 		return result;
 	}
 
+	public JSONObject getAttGroupByDept(String deptName) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		//1. 총부서 불러오기. List<String>
+		List<HashMap<String, Object>> result = dao.getAttGroupByDept(deptName);
+		System.out.println(result);
+		List<String> labels = new ArrayList<>();
+		List<Integer> datas = new ArrayList<>();
+		for (HashMap<String, Object> item : result) {
+			labels.add((String) item.get("status"));
+			datas.add(Integer.parseInt(item.get("count")+""));
+		}
+		if (!labels.contains("지각")) {
+			labels.add("지각");
+			datas.add(0);
+		}
+		if (!labels.contains("결근")) {
+			labels.add("결근");
+			datas.add(0);
+		}
+		if (!labels.contains("출장")) {
+			labels.add("출장");
+			datas.add(0);
+		}
+		if (!labels.contains("휴가")) {
+			labels.add("휴가");
+			datas.add(0);
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("labels", labels);
+		jsonObject.put("datas", datas);
+		return jsonObject;
+	}
 	// 연도별 총 사원 수 현황 선 그래프
 	public JSONObject getLineChartData() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
