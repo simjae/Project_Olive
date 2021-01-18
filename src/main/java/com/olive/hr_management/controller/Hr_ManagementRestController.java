@@ -143,7 +143,7 @@ public class Hr_ManagementRestController {
 		boolean result = managementService.excelUpload(destFile);
 		destFile.delete();
 		return result;
-	}
+	}  
 
 	// 근태관리
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
@@ -185,7 +185,8 @@ public class Hr_ManagementRestController {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();
 		return result;
 	}
-	//휴가관리 연차이력 조회
+
+	//휴가관리 연차이력 조회 >> 휴가관리 모달
 	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getAnnualList(String empno){
 		System.out.println(empno);
