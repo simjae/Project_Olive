@@ -95,6 +95,69 @@
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">직원 근태 및 휴가 관리</h1>
 					</div>
+					<div class="row">
+						<!-- Area Chart -->
+						<div class="col-xl-8 col-lg-7">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">부서별 근태 및 휴가 현황</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="attChartForDept"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Pie Chart -->
+						<div class="col-xl-4 col-lg-5">
+							<div class="card shadow mb-4">
+								<!-- Card Header -->
+								<div
+									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">근태 현황 조회</h6>
+									<div class="dropdown no-arrow">
+										<form
+											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
+											<div class="input-group">
+												<input type="text" class="form-control bg-light border-1"
+													placeholder="Search for..." aria-label="Search"
+													aria-describedby="basic-addon2" id="searchBar">
+												<div class="input-group-append">
+													<button class="btn btn-primary" type="button"
+														id="searchBtn">
+														<i class="fas fa-search fa-sm"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-pie pt-2 pb-2">
+										<div class="text-right small">
+											<i class="text-primary" id="emp"></i>
+										</div>
+										<canvas id="attChart"></canvas>
+									</div>
+									<div class="mt-4 text-center small">
+										<span class="mr-2"> <i
+											class="fas fa-circle text-primary"></i> 출근
+										</span> <span class="mr-2"> <i
+											class="fas fa-circle text-success"></i> 지각
+										</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
+											휴가
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<!-- 근태관리 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
@@ -309,11 +372,7 @@
 													</a></li>
 												</c:if>
 											</ul>
-
 										</nav>
-
-
-
 									</div>
 								</div>
 							</div>
@@ -376,5 +435,7 @@
 		<script src="/resources/js/Hr_management/EmployeeAttendancejs.js"></script>
 		<!-- SweetAlert -->
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="/resources/js/Hr_management/organization-attChart.js"></script>
+		<script src="/resources/js/Hr_management/attendance-chart.js"></script>
 </body>
 </html>

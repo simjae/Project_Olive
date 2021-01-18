@@ -40,7 +40,7 @@ public class AlarmHandler extends TextWebSocketHandler {
 	}
 
 	@Override
-	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 		// TODO Auto-generated method stub
 		System.out.println(message.getPayload());
 		JSONObject json = JsonToObjectParser((String)message.getPayload());
@@ -58,53 +58,60 @@ public class AlarmHandler extends TextWebSocketHandler {
 		alarm.setColor(color);
 		docno = (docno==null) ? "" : "("+docno+")";
 
+		
+		try {
 	//승인 또는 반려 됐다고 기안자에게 보내는 거	
-	 if(cmd.equals("App")) {
-			System.out.println(color);
-			String approver = (String)json.get("approver");
-			String docWriter = (String)json.get("docWriter");
-			String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
-			String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
-			String content = approver+"님 께서 '"+title+"'"+docno+" 문서를 "+done+approveOrNot;
-			
-			alarm.setEmpno(Integer.parseInt(docWriter));
-			alarm.setContent(content);
-			String sendjson =objMapper.writeValueAsString(alarm);
-			
-			for(Map.Entry list : socketList.entrySet()) {
-				WebSocketSession sess = (WebSocketSession) list.getValue();
-				if(list.getKey().equals(docWriter)) {
-					System.out.println("보내는 사람은 ???? (기안자_) "+docWriter);
-					sess.sendMessage(new TextMessage(sendjson));
-				}
+			if(cmd.equals("App")) {
+				System.out.println(color);
+				String approver = (String)json.get("approver");
+				String docWriter = (String)json.get("docWriter");
+				String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
+				String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
+				String content = approver+"님 께서 '"+title+"'"+docno+" 문서를 "+done+approveOrNot;
+				
+				
+				alarm.setEmpno(Integer.parseInt(docWriter));
+				alarm.setContent(content);
+				String sendjson =objMapper.writeValueAsString(alarm);
+				
+				for(Map.Entry list : socketList.entrySet()) {
+					WebSocketSession sess = (WebSocketSession) list.getValue();
+					if(list.getKey().equals(docWriter)) {
+						System.out.println("보내는 사람은 ???? (기안자_) "+docWriter);
+						sess.sendMessage(new TextMessage(sendjson));
+					}
 				
 			}
 	//기안 했으니 승인 해달라 , 승인하면 다음 결재자에게 보내는거
-		}else if (cmd.equals("next")) {
-			System.out.println("next");
-			System.out.println(json);
-			String approver = (String) json.get("approver");
-			String nextApprover = (String)json.get("nextApprover");
-			String docWriter = (String)json.get("docWriter");
-			String content = docWriter+"님의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
-			
-			alarm.setEmpno(Integer.parseInt(nextApprover));
-			alarm.setContent (content);
-			String sendjson =objMapper.writeValueAsString(alarm);
-			
-			for(Map.Entry list : socketList.entrySet()) {
-				WebSocketSession sess = (WebSocketSession) list.getValue();
-				if(list.getKey().equals(nextApprover)) {
-					System.out.println("보내는 사람은 ? (결재자)"+nextApprover);
-					sess.sendMessage(new TextMessage(sendjson));
+			}else if (cmd.equals("next")) {
+				System.out.println("next");
+				System.out.println(json);
+				String approver = (String) json.get("approver");
+				String nextApprover = (String)json.get("nextApprover");
+				String docWriter = (String)json.get("docWriter");
+				String content = docWriter+"님의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
+				
+				alarm.setEmpno(Integer.parseInt(nextApprover));
+				alarm.setContent (content);
+				String sendjson =objMapper.writeValueAsString(alarm);
+				
+				for(Map.Entry list : socketList.entrySet()) {
+					WebSocketSession sess = (WebSocketSession) list.getValue();
+					if(list.getKey().equals(nextApprover)) {
+						System.out.println("보내는 사람은 ? (결재자)"+nextApprover);
+						sess.sendMessage(new TextMessage(sendjson));
+					}
 				}
+				
 			}
-			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			System.out.println("------------------------------------------------------넣는다----------------");
+			alarmService.insertAlarm(alarm);
+			System.out.println("알람 디비 저장해야해!!!"+alarm);
+			System.out.println("------------------------------------------------------넣었다----------------");
 		}
-	 	System.out.println("------------------------------------------------------넣는다----------------");
-	 	alarmService.insertAlarm(alarm);
-	 	System.out.println("------------------------------------------------------넣었다----------------");
-		super.handleMessage(session, message);
 	}
 
 	@Override

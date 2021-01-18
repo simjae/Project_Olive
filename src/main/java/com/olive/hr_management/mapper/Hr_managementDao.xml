@@ -28,7 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<select id="checkEmpno" parameterType="String" resultType="String">
+	<select id="checkEmpno" parameterType="String"
+		resultType="String">
 		SELECT empno
 		FROM emp
 		WHERE empno LIKE CONCAT(#{empno},'%')
@@ -40,20 +41,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.olive.dto.SalaryInfo">
 		SELECT *
 		FROM salaryInfo
-		WHERE sal_date=#{sal_date} and empno=#{empno}
+		WHERE sal_date=#{sal_date} and
+		empno=#{empno}
 	</select>
 
 	<select id="searchEmp" parameterType="String"
 		resultType="HashMap">
 		SELECT ename, deptname, classname, empno
 		FROM empinfo
-		WHERE ename LIKE CONCAT(#{ename},'%') AND STATUSNAME != 'inactive'
+		WHERE
+		ename LIKE CONCAT(#{ename},'%') AND STATUSNAME != 'inactive'
 	</select>
 
 	<select id="getAttbyEmpno" parameterType="String"
 		resultType="HashMap">
 		SELECT attname, count(*) as num
-		FROM (SELECT * FROM emp_att WHERE empno = #{empno}) a
+		FROM
+		(SELECT *
+		FROM emp_att
+		WHERE empno = #{empno}) a
 		GROUP BY attname
 	</select>
 
@@ -75,8 +81,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		employment_insurance,
 		national_pension
 		)VALUES
-		<foreach collection="list" item="item" separator="," open="("
-			close=")">
+		<foreach collection="list" item="item" separator=",">
+			(
 			#{item.sal_date},
 			#{item.empno},
 			#{item.basic_pay},
@@ -92,6 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{item.health_insurance},
 			#{item.care_insurance},
 			#{item.national_pension}
+			)
 		</foreach>
 	</insert>
 
@@ -140,58 +147,102 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM class
 	</select>
 
-
 	<select id="getSalChartDataForDept" resultType="HashMap">
-		SELECT 
-			deptname as 'dept',
-			sum((basic_pay+
-				overtime_pay+
-				position_pay+
-				bonus+
-				maintenance_of_vehicle+
-				educational_supports
-				)) as 'total'
+		SELECT
+		deptname as
+		'dept',
+		round(sum((basic_pay+
+		overtime_pay+
+		position_pay+
+		bonus+
+		maintenance_of_vehicle+
+		educational_supports
+		))/count(*)) as 'total'
 		FROM salaryinfo
-		group by deptname;
-	</select>
-	
-		<select id="getSalChartDataForClass" resultType="HashMap">
-		SELECT 
-			classname as 'class',
-			sum((basic_pay+
-				overtime_pay+
-				position_pay+
-				bonus+
-				maintenance_of_vehicle+
-				educational_supports
-				)) as 'total'
-		FROM salaryinfo
-		group by classname;
+		group by deptname
 	</select>
 
-	
+	<select id="getSalChartDataForClass" resultType="HashMap">
+		SELECT
+		classname
+		as 'class',
+		round(sum((basic_pay+
+		overtime_pay+
+		position_pay+
+		bonus+
+		maintenance_of_vehicle+
+		educational_supports
+		))/count(*)) as 'total'
+		FROM salaryinfo
+		group by classname
+	</select>
+
 	<select id="getAnnualList" resultType="HashMap">
-        SELECT
-            *
-        FROM 
-			annualList
+		SELECT
+		*
+		FROM
+		annualList
 		WHERE empno = #{empno}
 	</select>
-	
+
 	<update id="updateAnnual" parameterType="HashMap">
 		update emp
-		set annual = #{annual}
+		set annual =
+		#{annual}
 		where empno = #{empno}
 	</update>
-	
+
 	<update id="updateAttRecord" parameterType="HashMap">
 		update att_record
-		set 
+		set
 		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
 		attcode=80
 		where empno = #{empno} and starttime = #{starttime}
 	</update>
 
-	
+	<select id="getAttGroupByDept" resultType="HashMap" parameterType="String">
+		SELECT deptname as "dept", 
+			   attname as "status",
+			   count(attname) as "count"
+		FROM emp_att
+		WHERE (attname="지각" or attname="결근" or attname="출장" or attname="휴가")	and deptname = #{deptName}
+		GROUP BY attname, deptname
+	</select>
 
+	<!-- 희승 : 연도별(최근 5년) 입사인원 select -->
+	<select id="getHiredDate" resultType="HashMap">
+		SELECT 	DATE_FORMAT(hiredate, '%Y') AS 'year',
+      			COUNT(*) 					AS 'hireCount' 
+        FROM emp
+        GROUP BY DATE_FORMAT(hiredate, '%y')
+        ORDER BY hiredate DESC
+        LIMIT 0,5
+	</select>
+	
+	<!-- 희승 : 연도별(최근 5년) 퇴사인원 select -->
+	<select id="getLeavedDate" resultType="HashMap">
+		SELECT	DATE_FORMAT(leavedate , '%Y') 	AS 'year',
+      			COUNT(*) 						AS 'leaveCount'
+        FROM emp
+		WHERE leavedate IS NOT NULL
+        GROUP BY DATE_FORMAT(leavedate , '%y')
+        ORDER BY leavedate DESC
+        LIMIT 0,5
+	</select>
+	
+	<!-- 희승 : 현재 총 사원 수 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT	COUNT(*)
+		FROM	emp
+		WHERE statuscode != 30
+	</select>
+	
+	<!-- 희승 : 부서별 근속인원 검색 -->
+	<select id="getGroupedDeptData" resultType="HashMap">
+		SELECT 	deptname AS 'deptName',
+		COUNT(*) AS 'empCount'
+		FROM empinfo
+		WHERE statusname != '비활성화'
+		GROUP BY DEPTNAME;
+	</select>
 </mapper>

@@ -5,34 +5,6 @@
     작성자: 정민찬
 */	
 
-
-/*	$('#searchBtn').click(function() {
-		let searchType = "";
-		let keyword = $('#newKeyword').val();
-		if ($('#newSearchType option:selected').val() == "사번") {
-			searchType = "EMPNO"
-		} else if ($('#newSearchType option:selected').val() == "본부") {
-			searchType = "HEADNAME"
-		} else if ($('#newSearchType option:selected').val() == "부서") {
-			searchType = "DEPTNAME"
-		} else if ($('#newSearchType option:selected').val() == "이름") {
-			searchType = "ENAME"
-		}
-		$.ajax({
-			url: "/HR_managementRest/getList.do",
-			type: "POST",
-			dataType:  "JSON",
-			data: {
-				searchType: searchType,
-				keyword: keyword
-			},
-			success: (data) => {
-				insertDatabyAjax(data);
-			}
-		});
-		$('#newKeyword').val("");
-	})*/
-	
 	
 	$(document).on("click", ".page-btn",function(){
 		let searchType = $('#oldSearchType').val();
@@ -92,6 +64,7 @@
 				page : page
 			},
 			success: (data) => {
+				window.scrollTo( scroll());
 				insertDatabyAjax(data);
 			}
 		})
@@ -131,7 +104,6 @@
 								+"</tr>";		
 			}
 			$('#salaryTbl').html(inputListData);
-			
 			$('#pagination').empty();
 			let inputPaginationData = "";
 			if(data.pagination.prev == true){
@@ -169,3 +141,8 @@
 			$('#oldperPageNum').val(data.criteria.perPageNum);
 			$('#oldPage').val(data.criteria.page);	
 	}
+	
+	function scroll() {
+	var scrollValue = $(document).scrollTop();
+	console.log(scrollValue);
+	};

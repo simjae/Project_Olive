@@ -82,20 +82,18 @@
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
-						<div class="col-md-12 border border-primary py-2" style="background: white;">
-							<div class="container-fluid">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-											<div class="card-body py-2 px-0">
+						<div class="card shadow py-0 bg-white my-4 border-left-warning">
+									<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center">
+										<div class=" mt-0 mb-2 py-0 col-xl-2">
+											<div class=" py-2 px-0">
 												<div class="text-center text-primary">문서 번호</div>
 												<div class="mx-auto w-100">
-													<input type="text" class="inputbox text-center w-100" id="docno" name="docno" readonly>
+													<input type="text" class="selector text-center w-100" id="docno" name="docno" readonly>
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 mx-auto py-0 col-xl-2">
-											<div class="card-body py-2 px-0">
+										<div class=" mt-0 mb-2  py-0 col-xl-2">
+											<div class=" py-2 px-0">
 												<div class="text-center text-primary">문서종류</div>
 												<div class="mx-auto w-100">
 													<select class="px-auto mx-auto w-100 selector" id="selector" name="typeCode" style="text-align-last: center">
@@ -107,8 +105,8 @@
 											</div>
 										</div>
 										<c:set var="formlist" value="${requestScope.formList }" />
-										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2" style="display: block" id="doc">
-											<div class="card-body py-2 px-0">
+										<div class=" mt-0 mb-2 py-0 col-xl-2" style="display: block" id="doc">
+											<div class="py-2 px-0">
 												<div class="text-center text-primary">일반 문서 종류</div>
 												<select class="px-auto mx-auto w-100 selector" id="doc_form" style="text-align-last: center">
 													<option>선택하세요</option>
@@ -118,7 +116,25 @@
 												</select>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0 mx-auto  mx-1 col-xl-2">
+										
+									</div>
+							<div class="container-fluid">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xl-2 mx-auto my-4">
+											<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
+												<span class="text">결재선 추가하기</span>
+											</a>
+										</div>
+										<div class="card my-auto py-0 mx-auto col-xl-2">
+											<div class="card-body py-2 px-0">
+												<div class="text-center text-primary">이름</div>
+												<div class="text-md mt-1 text-center">
+													<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="card my-auto py-0 mx-auto  mx-1 col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">직책</div>
 												<div class="text-md mt-1 text-center">
@@ -126,7 +142,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0 mx-auto col-xl-2">
+										<div class="card my-auto py-0 mx-auto col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">부서</div>
 												<div class="text-md mt-1 text-center">
@@ -134,7 +150,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="card mt-0 mb-2 py-0  mx-auto mx-1 col-xl-2">
+										<div class="card my-auto py-0  mx-auto mx-1 col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">사번</div>
 												<sec:authentication property="name" var="LoginUser" />
@@ -145,17 +161,8 @@
 												</sec:authorize>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="container-fluid">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-xl-2 mx-auto my-auto">
-											<a data-toggle="modal" data-target="#approverModal" class="btn btn-secondary btn-icon-split w-100" id="approval">
-												<span class="text">결재선 추가하기</span>
-											</a>
-										</div>
+										
+										
 										<div class="card my-auto py-0 mx-auto col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">작성일자</div>
@@ -165,20 +172,11 @@
 												</div>
 											</div>
 										</div>
-										<div class="my-auto py-0 mx-4  col-xl-3"></div>
-										<div class="card my-auto py-0 mx-auto col-xl-4">
-											<div class="card-body py-2 px-0">
-												<div class="text-center text-primary">이름</div>
-												<div class="text-md mt-1 text-center">
-													<input type="text" class="inputbox text-center w-100" value="${emp.ename }" id="ename" readonly>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="card my-2 py-0   mr-auto mx-auto col-xl-11">
+								<div class="card mb-2 py-0   mr-auto mx-auto col-xl-11">
 									<div class="card-body py-auto">
 										<div class="row">
 											<div class="table-responsive py-auto">
@@ -415,9 +413,11 @@ function getMaxDocno(typeCode){
 				}
 		});
 }
-
 $(function() {
-	getMaxDocno(10);
+getMaxDocno(10);
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
 	
 	var $drop=$('#drop');
 	var uploadFiles=[];
@@ -441,7 +441,7 @@ $(function() {
 			});
 	
 		});
-	};
+	};	
 	function createSecondTree(){
 		return new Promise((resolve,reject)=>{
 			$.ajax({
@@ -458,6 +458,7 @@ $(function() {
 				});
 			});
 	}
+	
 	function createFinalTree(){
 		return new Promise((resolve,reject)=>{
 			$.ajax({
@@ -480,8 +481,7 @@ $(function() {
 	 .then(createSecondTree)
 	 .then(createFinalTree)
 	 
-	 
-	 $('#submit').on("click",()=>{
+ $('#submit').on("click",()=>{
 	 	$('#nono').empty();
 		 console.log($('#app1_id').val())
 		 
@@ -509,6 +509,7 @@ $(function() {
 				 }
 		
 	 })
+
 		$('#applybtn').on("click",()=>{
 				console.log(approverList);
 				$('.apps').val('');
@@ -528,6 +529,8 @@ $(function() {
 					console.log(referrerList[j*2-1][0].id.split('_')[0]);
 				}
 			}); 
+			
+		
 			
 		 
 		$('#approval').on("click",()=>{
@@ -550,6 +553,8 @@ $(function() {
 			}
 		)
 		});  
+		
+		
  
 		
 		$('#add_approver').on("click",()=>{
@@ -569,6 +574,8 @@ $(function() {
 			}
 		
 		});
+		
+		
 		$('#add_referrer').on("click",()=>{
 			console.log('sjidjid');
 			let clicked = $('div#jstree_div a.jstree-clicked').clone();
@@ -587,6 +594,8 @@ $(function() {
 			}
 		});
 			
+			
+	
 	
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
@@ -825,6 +834,8 @@ $(function() {
 				}
 			});
 		});
+		
+		
 		$('#selector').on("change",()=>{
 			getMaxDocno($('#selector').val());
 			let typename=$('#selector option:selected').text();
@@ -843,7 +854,7 @@ $(function() {
 				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
 				};
 				if($('#selector').val() =='30'){
-				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+/* ${emp.usedAnnual} */+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+ '${emp.annual - emp.usedAnnual}' +'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
 			$.ajax({
@@ -862,6 +873,8 @@ $(function() {
 				
 				}
 		});
+		
+		
 		$('#summernote').summernote( {
 			maxheight: 400,
 			minHeight: 300,
@@ -873,7 +886,7 @@ $(function() {
     		
 	  		}
 		});
-
+		
 		$('#doc_form').on("change",()=>{
 			let formname=$('#doc_form option:selected').text();
 			console.log(formname);
@@ -892,13 +905,24 @@ $(function() {
 
 				})
 
+
+
 		$(document).on("change","#end",function(){
 			$('#diff').empty();
 			let startdate = new Date($('#start').val());
 			let enddate = new Date($('#end').val());
-			let diff = " : "+((enddate-startdate)/(1000*60*60*24)+1)+'일';
-			$('#diff').append(diff);
+			let diffday = (enddate-startdate)/(1000*60*60*24)+1;
+			let html = " : "+diffday+'일';
+			if(diffday> '${emp.annual - emp.usedAnnual}'){
+				html += '<br>사용하실 수 있는 연차수를 초과 했습니다.';
+				$('#diff').css("color","red"); 								
+				}
+			$('#diff').append(html);
 			})
+			
+			
+			
+		
 		
 		$drop.on("dragenter",function(e){
 			$(this).addClass('drag-over');
@@ -918,6 +942,8 @@ $(function() {
 			console.log(file);
 			thumbnail(file);
 		});
+		
+		
 		
 		function thumbnail(files){
 	
@@ -943,6 +969,8 @@ $(function() {
 			})(file,idx);
 			reader.readAsDataURL(file);
 		}
+		
+		
 	
 		$('#thumbnails').on("click",".close",function(e){
 			e.preventDefault();
@@ -952,6 +980,8 @@ $(function() {
 			$target.parent().parent().remove();
 			
 		})
+		
+		
 		$('#file_add').click(function() {
 		    console.log('fileadd');
 		    $("#file").click();
@@ -967,6 +997,22 @@ $(function() {
 			
 			
 		}));
-	});
+
+
+
+
+
+});
+
+
+
+	
+	
+	
+	 
+	
+
+		
+	
 </script>
 </html>

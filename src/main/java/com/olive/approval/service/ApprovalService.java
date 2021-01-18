@@ -244,10 +244,6 @@ public class ApprovalService extends PagingService {
 	public void approve(Approver app) {
 		ApprovalDao approvalDao = sqlsession.getMapper(ApprovalDao.class);
 		approvalDao.approve(app);
-		
-		
-		System.out.println("----------------------------------------App--------------------------------"+app);
-		//approvalDao.afterApprove(app);
 	} 
 	public int getListCount(ApprovalCriteria cri) {
 		System.out.println("getListCount 서비스 시작");
@@ -298,6 +294,11 @@ public class ApprovalService extends PagingService {
 	public List<Doc_form> formList() {
 		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
 		return dao.formList(); 
+	}
+	
+	public void deleteDoc(String docno) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		dao.deleteDoc(docno);
 	}
 	
 	

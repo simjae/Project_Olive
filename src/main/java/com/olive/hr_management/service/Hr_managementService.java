@@ -7,16 +7,14 @@
 package com.olive.hr_management.service;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.management.openmbean.ArrayType;
-
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,30 +90,30 @@ public class Hr_managementService {
 		List<Class> classList = dao.getClasses();
 		return classList;
 	}
-	
-	//연차이력 리스트
-	public List<Map<String, Object>> getAnnualList(String empno){
+
+	// 연차이력 리스트
+	public List<Map<String, Object>> getAnnualList(String empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
 		System.out.println(annualList);
 		System.out.println(annualList);
 		return annualList;
 	}
-	
+
 	// 사원근태 >> 퇴근처리
 	public void updateAttRecord(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAttRecord(map);
 		System.out.println("Emp 근태 수정 완료");
 	}
-	
+
 	// 사원 연차 수정
 	public void updateAnnual(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAnnual(map);
 		System.out.println("Emp annual update 완료");
 	}
-	
+
 	public SalaryInfo getSalaryDetail(String date, int empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		Map parameter = new HashMap<String, Object>();
@@ -161,12 +159,12 @@ public class Hr_managementService {
 
 	public String createEmpno(String empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		String checkNum= null;
+		String checkNum = null;
 		String result;
 		checkNum = dao.checkEmpno(empno);
-		if(checkNum != null) {
-			result = ""+(Integer.parseInt(checkNum)+1);
-		}else {
+		if (checkNum != null) {
+			result = "" + (Integer.parseInt(checkNum) + 1);
+		} else {
 			result = empno + "001";
 		}
 		return result;
@@ -186,14 +184,14 @@ public class Hr_managementService {
 	public List<HashMap<String, Object>> getAttbyEmpno(String empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<HashMap<String, Object>> list = dao.getAttbyEmpno(empno);
-		List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 		System.out.println(list.get(0));
-		for(HashMap<String, Object> item : list) {
-			if(item.containsValue("출근")) {
+		for (HashMap<String, Object> item : list) {
+			if (item.containsValue("출근")) {
 				result.add(item);
-			}else if(item.containsValue("지각")){
-				result.add(item);				
-			}else if(item.containsValue("결근")) {
+			} else if (item.containsValue("지각")) {
+				result.add(item);
+			} else if (item.containsValue("결근")) {
 				result.add(item);
 			}
 			System.out.println(item);
@@ -227,11 +225,108 @@ public class Hr_managementService {
 		System.out.println(result);
 		return result;
 	}
-	
+
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForDept();
 		System.out.println(result);
 		return result;
+	}
+
+	public JSONObject getAttGroupByDept(String deptName) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		//1. 총부서 불러오기. List<String>
+		List<HashMap<String, Object>> result = dao.getAttGroupByDept(deptName);
+		System.out.println(result);
+		List<String> labels = new ArrayList<>();
+		List<Integer> datas = new ArrayList<>();
+		for (HashMap<String, Object> item : result) {
+			labels.add((String) item.get("status"));
+			datas.add(Integer.parseInt(item.get("count")+""));
+		}
+		if (!labels.contains("지각")) {
+			labels.add("지각");
+			datas.add(0);
+		}
+		if (!labels.contains("결근")) {
+			labels.add("결근");
+			datas.add(0);
+		}
+		if (!labels.contains("출장")) {
+			labels.add("출장");
+			datas.add(0);
+		}
+		if (!labels.contains("휴가")) {
+			labels.add("휴가");
+			datas.add(0);
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("labels", labels);
+		jsonObject.put("datas", datas);
+		return jsonObject;
+	}
+	// 연도별 총 사원 수 현황 선 그래프
+	public JSONObject getLineChartData() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+
+		JSONObject jsonObject = new JSONObject();
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR); // 현재년도
+
+		long empCount = dao.getTotalCount(); 							// 현 시점 회사 인원 ( DB: select count(*) from emp where statuscode != 30 )
+		List<HashMap<String, Object>> hireResult = dao.getHiredDate(); 	// 쿼리2 (년도별 입사자 수)
+		List<HashMap<String, Object>> leaveResult = dao.getLeavedDate(); // 쿼리3 (년도별 퇴사자 수)
+
+		List<Object> result = new ArrayList<>();
+		List<Object> label = new ArrayList<>();
+		
+		for (int i = 0; i < 5; year--, i++) {
+			result.add(empCount);
+			for (HashMap<String, Object> data : hireResult) {
+				if (data.get("year").equals(year + "")) {
+					empCount -= ( (long) data.get("hireCount"));
+				}
+			}
+			for (HashMap<String, Object> data : leaveResult) {
+				if (data.get("year") == null) {
+					// null 배제
+				}
+				else if (data.get("year").equals(year + "")) {
+					empCount += ( (long) data.get("leaveCount"));
+				}
+			}
+			if(year == cal.get(Calendar.YEAR)) {
+				label.add("올 해");
+			}else {
+				label.add(year);
+			}
+		}
+
+		jsonObject.put("EmpCountByYear", result);	// 연도별 증,감된 총 사원수
+		jsonObject.put("labelList", label);			// 연도 라벨
+		jsonObject.put("hireResult", hireResult);	// 연도별 입사자 수
+		jsonObject.put("leaveResult", leaveResult);	// 연도별 퇴사자 수
+		return jsonObject;
+	}
+
+	// 부서별 사원 수 파이 차트 데이터
+	public JSONObject getPieChartData() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		
+		JSONObject jsonObject = new JSONObject();
+		List<HashMap<String,Object>> groupedDeptList = dao.getGroupedDeptData(); 
+		
+		List<Object> deptList = new ArrayList<>();
+		List<Object> countList = new ArrayList<>();
+		for (HashMap<String, Object> data : groupedDeptList) {
+			deptList.add(data.get("deptName"));
+			countList.add(data.get("empCount"));
+		}
+		
+		jsonObject.put("deptList", deptList);
+		jsonObject.put("countList", countList);
+		
+		return jsonObject;
 	}
 }

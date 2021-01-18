@@ -9,7 +9,10 @@
 package com.olive.attendance.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +34,6 @@ public class AttendanceService {
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
 		this.sqlsession = sqlsession;
-		System.out.println(this.sqlsession);
-		System.out.println("연결");
 	}
 
 	// 재형 : 출근
@@ -62,12 +63,10 @@ public class AttendanceService {
 			Att_Record att = new Att_Record();
 			att.setAttCode(attcode);
 			att.setEmpNo(id);
-			System.out.println(attcode);
 			attdao.startwork(att);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("찍음");
 		}
 	}
 
@@ -82,7 +81,6 @@ public class AttendanceService {
 			Att_Record att = new Att_Record();
 			att.setAttCode(attcode);
 			att.setEmpNo(id);
-			System.out.println(attcode);
 			attdao.endwork(att);
 
 		} catch (Exception e) {
@@ -116,7 +114,6 @@ public class AttendanceService {
 	public WorkHourPerWeek getHoursPerWeek(String empno) {
 		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
 		WorkHourPerWeek workHours = dao.getHoursPerWeek(empno);
-		System.out.println("AttendanceService : +getHoursPerWeek() >> " + workHours);
 		return workHours;
 	}
 
@@ -125,7 +122,6 @@ public class AttendanceService {
 	public List<Att_Record> getHoursEachDays(String empno) {
 		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
 		List<Att_Record> hoursEachList = dao.getHoursEachDays(empno);
-		System.out.println("AttendanceService : +getHoursEachDays() >> " + hoursEachList);
 		return hoursEachList;
 	}
 	
@@ -157,5 +153,36 @@ public class AttendanceService {
 	public Map<String, Object> isPunchedIn(String empno) {
 		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
 		return dao.isPunchedIn(empno);
+	}
+	
+	public Map<String,Object> arrangedAtt(){
+		SimpleDateFormat format = new SimpleDateFormat("MM");
+		Calendar cal = Calendar.getInstance();
+		int thisMonth = cal.get(cal.MONTH)+1;
+		List<Att_Record> attlist = calendarList();
+		Map <String, Object> attMap = new HashMap<>();
+		ArrayList<Att_Record> normal = new ArrayList();
+		ArrayList<Att_Record> over = new ArrayList();
+		ArrayList<Att_Record> early = new ArrayList();
+		ArrayList<Att_Record> none = new ArrayList();
+		for(Att_Record att : attlist) {
+			if(Integer.parseInt(format.format(att.getDate())) == thisMonth) {
+				if(att.getAttCode()==80) { 
+					normal.add(att);
+				}else if(att.getAttCode()==20) {
+					over.add(att);
+				}else if(att.getAttCode()==30) {
+					early.add(att);
+				}else if(att.getAttCode()==40) {
+					none.add(att);
+				}
+			};
+		}
+		attMap.put("normal", normal);
+		attMap.put("over", over);
+		attMap.put("early", early);
+		attMap.put("none", none);
+		
+		return attMap;
 	}
 }
