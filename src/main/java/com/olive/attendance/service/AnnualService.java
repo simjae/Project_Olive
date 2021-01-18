@@ -46,7 +46,7 @@ public class AnnualService {
 			AttendanceDao analcaldao = sqlsession.getMapper(AttendanceDao.class);
 			return analcaldao.getanaltableUserList(empno);			
 		}
-//=================== 휴가 캘린더 radio select ===================// 
+//=================== 휴가 카드  ===================// 
 
 
 
