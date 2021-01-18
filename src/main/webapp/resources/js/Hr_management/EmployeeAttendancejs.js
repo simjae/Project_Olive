@@ -246,7 +246,11 @@ function insertDatabyAjax1(data) {
 		inputListData += "<td>" + data.list[i].empno + "</td>";
 		inputListData += "<td>" + data.list[i].ename + "</td>";
 		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>";
-		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>";
+		if(data.list[i].endtime == null){
+			inputListData += "<td>" + "                        " + "</td>";	
+		}else{
+			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) 	+ "</td>";
+		}
 		inputListData += "<td>" + data.list[i].attname + "</td>";
 		if (data.list[i].attname != '정상') {
 			inputListData += "<td><button class='attBtn btn btn-primary btn-sm outline'>퇴근처리</button></td>"

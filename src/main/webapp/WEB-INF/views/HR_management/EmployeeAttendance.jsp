@@ -129,7 +129,7 @@
 													aria-describedby="basic-addon2" id="searchBar">
 												<div class="input-group-append">
 													<button class="btn btn-primary" type="button"
-														id="searchBtn">
+														id="searchBtn5">
 														<i class="fas fa-search fa-sm"></i>
 													</button>
 												</div>
@@ -428,8 +428,6 @@
 		<!-- datepicker 용 jquery ui script -->
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<!-- Validation -->
-		<script src="/resources/js/Hr_management/validationBeforeInsert.js"></script>
 		<!-- SearchAndPaging -->
 		<script src="/resources/js/Hr_management/EmployeeAttendancejs.js"></script>
 		<!-- SweetAlert -->

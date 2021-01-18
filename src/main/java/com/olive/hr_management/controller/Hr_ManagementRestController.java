@@ -149,6 +149,7 @@ public class Hr_ManagementRestController {
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
 	public JSONObject getEmpAttListBykeyword(Criteria cri) {
 		cri.setCriteria("emp_att", "starttime", "desc");
+		cri.setPerPageNum(5);
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);

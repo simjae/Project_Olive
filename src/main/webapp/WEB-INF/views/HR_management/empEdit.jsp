@@ -79,8 +79,8 @@
 																<span class="input-group-text each-label input_change"
 																	id="inputGroup-sizing-default">입사일자</span>
 															</div>
-															<input type="text" class="form-control datepicker"
-																placeholder="입사일 입력해주세요" id="hireDate" name="hireDate">
+															<input type="text" class="form-control"
+																placeholder="입사일 입력해주세요" id="hireDate" name="hireDate" readonly>
 														</div>
 													</div>
 

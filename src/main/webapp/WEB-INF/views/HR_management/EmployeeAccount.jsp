@@ -117,7 +117,7 @@ p.each-label>span {
 													<th>부서</th>
 													<th>직책</th>
 													<th>직급</th>
-													<th>버튼</th>
+													<th>수정하기</th>
 												</tr>
 											</thead>
 											<tbody id="empListTable">
@@ -129,10 +129,11 @@ p.each-label>span {
 														<td><c:out value="${emp.DEPTNAME}" /></td>
 														<td><c:out value="${emp.POSITIONNAME}" /></td>
 														<td><c:out value="${emp.CLASSNAME}" /></td>
-														<td><a href=# class="btn-sm btn-info shadow-sm"><i
-																class="fas fa-check fa-sm text-white"></i></a> <a href=#
-															class="btn-sm btn-info shadow-sm"><i
-																class="fas fa-edit fa-sm text-white"></i></a></td>
+														<td><button
+																class="btn-sm btn-info shadow-sm empEditBtn"
+																value="${emp.EMPNO}">
+																<i class="fas fa-check fa-sm text-white"></i>
+															</button></td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -218,5 +219,12 @@ p.each-label>span {
 	<script src="/resources/js/Hr_management/downloadToExcel.js"></script>
 	<!-- SweetAlert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		$(document).on("click", ".empEditBtn", function() {
+			var empno = $(".empEditBtn").val();
+			console.log(empno);
+			window.location.href="/HR_management/empEdit.do?empno="+empno
+		});
+	</script>
 </body>
 </html>
