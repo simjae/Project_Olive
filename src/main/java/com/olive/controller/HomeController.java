@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.olive.approval.service.ApprovalService;
 import com.olive.authentication.service.AuthenticationService;
 import com.olive.authentication.service.MailService;
+
 import com.olive.dto.Approver;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
@@ -63,7 +64,6 @@ public class HomeController {
 	private AuthenticationService authService;
 	
 	@Autowired
-
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
@@ -191,7 +191,7 @@ public class HomeController {
 
 	
 	// 이메일 중복검증
-	@RequestMapping(value = "checkEmail_Pwd.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkEmail_Pwd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Emp checkEmail_Pwd(String email) {
 		System.out.println(email);
@@ -200,7 +200,7 @@ public class HomeController {
 	}
 	
 	// 비밀번호 수정
-	@RequestMapping(value = "updatePwd.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePwd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void updatePwd(String email, String pwd) {
 		System.out.println(email);

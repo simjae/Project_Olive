@@ -137,7 +137,6 @@ public class Hr_ManagementController {
 		cri2 = new Criteria();
 		// 근태 테이블
 		cri1.setCriteria("emp_att", "starttime", "desc");
-
 		cri1.setPerPageNum(5);
 		//휴가 테이블
 		cri2.setCriteria("empAnnual", "empno", "asc");
@@ -148,14 +147,9 @@ public class Hr_ManagementController {
 		Pagination pagination1 = new Pagination(cri1, totalCount1);
 		Pagination pagination2 = new Pagination(cri2, totalCount2);
 
-
   		List<Map<String, Object>> result1 = pagingService.getList(cri1);
   		List<Map<String, Object>> result2 = pagingService.getList(cri2);
-  		System.out.println("result1입니다.");
 
-		System.out.println("[result1] : " + result1);
-		System.out.println("result2입니다.");
-		System.out.println("[result2] : " + result2);
 		model.addAttribute("attendance", result1);
 		model.addAttribute("annual", result2);
 		model.addAttribute("pagination1", pagination1);

@@ -41,7 +41,6 @@ public interface Hr_managementDao {
 	public List<Class> getClasses();
 
 	public SalaryInfo getSalaryDetail(Map parameter);
-	
 
 	public void insertSalaryTbl(List<Sal_Record> excelData); 
 	
@@ -50,7 +49,6 @@ public interface Hr_managementDao {
 	public void updateAnnual(Map<String, Object> map);
 	
 	public void updateAttRecord(Map<String, Object> map);
-
 
 	public String checkEmpno(String empno);
 
