@@ -55,6 +55,7 @@ public class Hr_infoService {
 		   Map<String, Object> emp = dao.searchEmpByEmpno(empno);
 		   System.out.println("Mypage 수정중 ...");
 		   System.out.println(emp);
+		   System.out.println(emp.get("HIREDATE"));
 		   return emp;
 	   }
 	   

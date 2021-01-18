@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 
 
 	// 이메일 중복 막기 =
-	$('#email').click(() => {
+	$('#email').keyup(() => {
 		checkEmailDB($('#email').val());
 	});
 

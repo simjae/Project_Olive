@@ -44,7 +44,7 @@ public class HRAjaxController {
 		
 		cri.setPerPageNum(3);
 		
-		JSONObject jsonObject = new JSONObject();
+		JSONObject jsonObject = new JSONObject();  
 		jsonObject.put("emplist", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);		
@@ -57,11 +57,11 @@ public class HRAjaxController {
 		System.out.println(empno);
 		Map<String, Object> emp = empService.searchEmpByEmpno(empno);
 		System.out.println("얘 뽑은거임"+emp);
-		return emp;
-	}
+		return emp;    
+	}     
 	
 	//조직도 부서별 조회
-	@RequestMapping(value="showOrgbyDept.do")
+	@RequestMapping(value="showOrgbyDept.do")   
 	public List<DeptTest> showOrgbyDept(String param){
 		List<DeptTest> emplist = empService.showOrgbyDept(param);
 		return emplist;
@@ -85,32 +85,6 @@ public class HRAjaxController {
 		return "HRinfo/Salary";
 	}
 
-
-//	//마이페이지 수정하기
-//	@RequestMapping(value="updateMyInfo.do")
-//	public Emp updateMyInfo(String param1, String param2, String param3, String param4, String param5, String param6) {
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("param1", param1); //empno
-//		map.put("param2", param2); //pwd
-//		map.put("param3", param3); //email
-//		map.put("param4", param4); //phone
-//		map.put("param5", param5); //address
-//		map.put("param6", param6); //profilepic
-//		
-//		
-//		System.out.println(param6);
-//		
-//		
-//		//CommonsMultipartFile multifile =param6.getFile();
-//		//String filename  = multifile.getOriginalFilename();
-//		
-//		
-//		System.out.println("여기는 왔어");
-//		Emp emp = empService.updateMyInfo(map);
-//		System.out.println(emp);
-//		return emp;
-//	}
-	
 	@RequestMapping(value="organization.do")
 	public List<Emp> organization() {
 		
