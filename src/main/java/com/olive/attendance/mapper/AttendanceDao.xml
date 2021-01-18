@@ -37,7 +37,8 @@ select 	r.empno as empno,
 	join doc_add a ON d.docno  = a.document_docno
 	join att_record r on d.empno = r.empno
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{empno};
+	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{empno}
+	group by d.docno
 	 </select>  
 	
 	<!-- 재형 : 휴가관리  캘린더  radio -->
@@ -52,7 +53,8 @@ select 	r.empno as empno,
 	join doc_add a ON d.docno  = a.document_docno
 	join att_record r on d.empno = r.empno
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{param1};
+	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{param1}
+	group by d.docno
 	 </select> 
 	<!-- 재형 : 휴가관리 카드  -->
 	 <select id="annualCard" resultType="com.olive.dto.Document"> 
