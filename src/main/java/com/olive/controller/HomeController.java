@@ -78,7 +78,7 @@ public class HomeController {
 	// 최초 index.jsp 접근 시 : Login 페이지
 	@RequestMapping("/goToLogin.do")
 	public String goToLogin() {
-		return "Login";
+		return "Login2";
 	}
 
 	// 로그인 시 Main : 대쉬보드 페이지 (LoginForm은 Post, But Security 처리 = GetMapping)

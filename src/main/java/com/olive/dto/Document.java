@@ -33,6 +33,7 @@ public class Document {
 	private int annual;
 	private int count;
 	private int diff;
+	private String color;
 	
 	
 	private List<String> approvers;
