@@ -26,4 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="readAlarm">
 		update alarm set alarmcheck=1 where alarmno = #{alarmno}
 	</update>
+	
+	
+	<update id="readAll" parameterType="String">
+		update alarm set alarmcheck=1 where empno=#{empno}
+	</update>
+	
 </mapper>

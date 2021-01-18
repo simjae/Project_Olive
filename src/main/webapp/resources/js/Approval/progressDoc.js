@@ -6,6 +6,10 @@
  */
 //결재할 문서 바뀌는 부분  
 $(function() {
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
+	
 	function createTable(data) {
 		$('#appBody').empty();
 		console.log(data);
@@ -80,9 +84,13 @@ $(function() {
 	}
 
 	$('.doc').on("click", function() {
+		$('#searching').css("display","block");
+		if($(this).val()!=50){
+			$('#searching').css("display","none");
+		}
 		let html = '';
 		$.ajax({
-			url: "getArrangedAppList.do",
+			url: "/approval/getArrangedAppList.do",
 			dataType: "json",
 			mehtod: "POST",
 			contentType: "application/json; charset=utf-8",
@@ -104,7 +112,7 @@ $(function() {
 		console.log("상태코드" + $(this).val());
 		let html = '';
 		$.ajax({
-			url: "getArrangedAppListRef.do",
+			url: "/approval/getArrangedAppListRef.do",
 			dataType: "json",
 			mehtod: "POST",
 			contentType: "application/json; charset=utf-8",
@@ -126,7 +134,7 @@ $(function() {
 		let page = $(this)[0].text;
 
 		$.ajax({
-			url: "getArrangedAppListAjax.do",
+			url: "/approval/getArrangedAppListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {
@@ -154,7 +162,7 @@ $(function() {
 
 		console.log(page);
 		$.ajax({
-			url: "getArrangedAppListAjax.do",
+			url: "/approval/getArrangedAppListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {
@@ -182,7 +190,7 @@ $(function() {
 
 		console.log(page);
 		$.ajax({
-			url: "getArrangedAppListAjax.do",
+			url: "/approval/getArrangedAppListAjax.do",
 			type: "POST",
 			dataType: "JSON",
 			data: {
@@ -199,5 +207,8 @@ $(function() {
 		})
 	});
 
+
+	
+	
 
 })

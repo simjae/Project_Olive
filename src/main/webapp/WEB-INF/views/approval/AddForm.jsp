@@ -132,7 +132,11 @@
 
 
 $(function() {
-
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
+	
+	
 	$('#submit').on("click",()=>{
 		$('#form').submit();
 		})

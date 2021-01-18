@@ -413,9 +413,11 @@ function getMaxDocno(typeCode){
 				}
 		});
 }
-
 $(function() {
-	getMaxDocno(10);
+getMaxDocno(10);
+	$('#collapseEA').addClass('show');
+	$('#collapseEA').prev().removeClass('collapsed');
+	$('#collapseEA').prev().children().css("color","#fff");
 	
 	var $drop=$('#drop');
 	var uploadFiles=[];
@@ -439,7 +441,7 @@ $(function() {
 			});
 	
 		});
-	};
+	};	
 	function createSecondTree(){
 		return new Promise((resolve,reject)=>{
 			$.ajax({
@@ -456,6 +458,7 @@ $(function() {
 				});
 			});
 	}
+	
 	function createFinalTree(){
 		return new Promise((resolve,reject)=>{
 			$.ajax({
@@ -478,8 +481,7 @@ $(function() {
 	 .then(createSecondTree)
 	 .then(createFinalTree)
 	 
-	 
-	 $('#submit').on("click",()=>{
+ $('#submit').on("click",()=>{
 	 	$('#nono').empty();
 		 console.log($('#app1_id').val())
 		 
@@ -507,6 +509,7 @@ $(function() {
 				 }
 		
 	 })
+
 		$('#applybtn').on("click",()=>{
 				console.log(approverList);
 				$('.apps').val('');
@@ -526,6 +529,8 @@ $(function() {
 					console.log(referrerList[j*2-1][0].id.split('_')[0]);
 				}
 			}); 
+			
+		
 			
 		 
 		$('#approval').on("click",()=>{
@@ -548,6 +553,8 @@ $(function() {
 			}
 		)
 		});  
+		
+		
  
 		
 		$('#add_approver').on("click",()=>{
@@ -567,6 +574,8 @@ $(function() {
 			}
 		
 		});
+		
+		
 		$('#add_referrer').on("click",()=>{
 			console.log('sjidjid');
 			let clicked = $('div#jstree_div a.jstree-clicked').clone();
@@ -585,6 +594,8 @@ $(function() {
 			}
 		});
 			
+			
+	
 	
 		$('#preview').on("click",()=>{
 			$('#preview-modal-body').empty();
@@ -823,6 +834,8 @@ $(function() {
 				}
 			});
 		});
+		
+		
 		$('#selector').on("change",()=>{
 			getMaxDocno($('#selector').val());
 			let typename=$('#selector option:selected').text();
@@ -841,7 +854,7 @@ $(function() {
 				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
 				};
 				if($('#selector').val() =='30'){
-				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+ ${emp.annual - emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+ '${emp.annual - emp.usedAnnual}' +'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
 			$.ajax({
@@ -860,6 +873,8 @@ $(function() {
 				
 				}
 		});
+		
+		
 		$('#summernote').summernote( {
 			maxheight: 400,
 			minHeight: 300,
@@ -871,7 +886,7 @@ $(function() {
     		
 	  		}
 		});
-
+		
 		$('#doc_form').on("change",()=>{
 			let formname=$('#doc_form option:selected').text();
 			console.log(formname);
@@ -890,18 +905,24 @@ $(function() {
 
 				})
 
+
+
 		$(document).on("change","#end",function(){
 			$('#diff').empty();
 			let startdate = new Date($('#start').val());
 			let enddate = new Date($('#end').val());
 			let diffday = (enddate-startdate)/(1000*60*60*24)+1;
 			let html = " : "+diffday+'일';
-			if(diffday> ${emp.annual - emp.usedAnnual}){
+			if(diffday> '${emp.annual - emp.usedAnnual}'){
 				html += '<br>사용하실 수 있는 연차수를 초과 했습니다.';
 				$('#diff').css("color","red"); 								
 				}
 			$('#diff').append(html);
 			})
+			
+			
+			
+		
 		
 		$drop.on("dragenter",function(e){
 			$(this).addClass('drag-over');
@@ -921,6 +942,8 @@ $(function() {
 			console.log(file);
 			thumbnail(file);
 		});
+		
+		
 		
 		function thumbnail(files){
 	
@@ -946,6 +969,8 @@ $(function() {
 			})(file,idx);
 			reader.readAsDataURL(file);
 		}
+		
+		
 	
 		$('#thumbnails').on("click",".close",function(e){
 			e.preventDefault();
@@ -955,6 +980,8 @@ $(function() {
 			$target.parent().parent().remove();
 			
 		})
+		
+		
 		$('#file_add').click(function() {
 		    console.log('fileadd');
 		    $("#file").click();
@@ -970,6 +997,22 @@ $(function() {
 			
 			
 		}));
-	});
+
+
+
+
+
+});
+
+
+
+	
+	
+	
+	 
+	
+
+		
+	
 </script>
 </html>

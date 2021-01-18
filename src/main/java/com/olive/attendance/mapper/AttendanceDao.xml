@@ -6,7 +6,9 @@
 		select 	a.attname as title, 
 				ar.starttime as start, 
 				ar.endtime as end,
-				color 
+				a.color as color, 
+				ar.attCode as attCode,
+				ar.date as date
 		FROM 
 			Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE 
 		where empno = #{empno}

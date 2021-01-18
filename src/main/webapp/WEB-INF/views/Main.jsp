@@ -48,6 +48,8 @@
 				<jsp:include page="/WEB-INF/views/inc/Topbar.jsp"></jsp:include>
 				<c:set var="arrangedDocList" value="${requestScope.arrangedDocList }" />
 				<c:set var="arrangedAppList" value="${requestScope.arrangedAppList }" />
+				<c:set var="attList" value="${requestScope.attList }"/>
+				<c:set var="emp" value="${requestScope.emp }"/>
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
@@ -110,9 +112,9 @@
 					<div class="row">
 						<!-- Tasks Card Example -->
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-info shadow h-100 py-2">
+							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-info text-uppercase mb-1">개인 문서함</div>
+								<div class="h5 font-weight-bold text-uppercase mb-1">개인 문서함</div>
 								<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -120,7 +122,7 @@
 									</div>
 								</div>
 								
-								<div class="card-body">
+								<div class="card-body"> 
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div class="row no-gutters align-items-center my-2">
@@ -170,9 +172,9 @@
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-primary shadow h-100 py-2">
+							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-primary text-uppercase mb-1">결재 문서함</div>
+								<div class="h5 font-weight-bold text-uppercase mb-1">결재 문서함</div>
 								<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -230,17 +232,112 @@
 							</div>
 						</div>
 						<!-- Pending Requests Card Example -->
-						<div class="col-xl-6 col-md-6 mb-4">
-							<div class="card border-left-warning shadow h-100 py-2">
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card shadow h-100">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<div class="h5 font-weight-bold text-uppercase mb-1">근태현황</div>
+								<div class="">
+										<a class="" href="${pageContext.request.contextPath}/attendance/attendance.do" role="button">
+											<img src="/resources/img/external-link.png">
+										</a>
+									</div>
+								</div>
+								
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/attendance.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">정상</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+												
+												${attList.normal.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/late.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">지각</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${attList.over.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/leave-early.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">조퇴</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${attList.early.size() }
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/absent.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결근</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${attList.none.size() }
+												</div>
+											</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-comments fa-2x text-gray-300"></i>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card shadow h-100">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<div class="h5 font-weight-bold text-uppercase mb-1">연차 현황</div>
+								<div class="">
+										<a class="" href="${pageContext.request.contextPath}/attendance/annual.do" role="button">
+											<img src="/resources/img/external-link.png">
+										</a>
+									</div>
+								</div>
+								
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/attendance.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">총 연차</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+												
+												${emp.annual}
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/late.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">사용연차</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${emp.usedAnnual}
+												</div>
+											</div>
+											<div class="row no-gutters align-items-center my-2">
+												<img src="/resources/img/leave-early.png">
+												<div class="col-auto">
+													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">남은연차</div>
+												</div>
+												<div class="badge badge-danger appbadge">
+									
+												${emp.annual-emp.usedAnnual}
+												</div>
+											</div>
 										</div>
+										
 									</div>
 								</div>
 							</div>

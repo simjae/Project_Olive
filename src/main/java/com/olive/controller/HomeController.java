@@ -34,9 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.olive.approval.service.ApprovalService;
+import com.olive.attendance.service.AttendanceService;
 import com.olive.authentication.service.AuthenticationService;
 import com.olive.authentication.service.MailService;
 import com.olive.dto.Approver;
+import com.olive.dto.Att_Record;
 import com.olive.dto.Document;
 import com.olive.dto.Emp;
 import com.olive.hr_info.service.Hr_infoService;
@@ -69,6 +71,9 @@ public class HomeController {
 	@Autowired
 	private ApprovalService approvalService;
 	
+	@Autowired
+	private AttendanceService attendanceService;
+	
 
 	// 최초 index.jsp 접근 시 : Login 페이지
 	@RequestMapping("/goToLogin.do")
@@ -99,7 +104,11 @@ public class HomeController {
 			model.addAttribute("arrangedAppList",arrangedAppList);
 			model.addAttribute("arrangedDocList",arrangedDocList);
 			
+			Map<String,Object> attList = attendanceService.arrangedAtt();
+			model.addAttribute("attList",attList);
 			
+			Emp emp = approvalService.selectEmp(n);
+			model.addAttribute("emp",emp);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

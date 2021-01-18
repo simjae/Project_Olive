@@ -36,5 +36,9 @@ public class AlarmService {
 		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
 		alarmDao.readAlarm(alarmno);
 	}
+	public void readAll(String empno) {
+		AlarmDao alarmDao  = sqlsession.getMapper(AlarmDao.class);
+		alarmDao.readAll(empno);
+	}
 	
 }

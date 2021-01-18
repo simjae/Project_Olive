@@ -88,7 +88,6 @@
 		</a>
 		<div id="collapseInfo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">모든 권한:</h6>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/HRinfo/Salary.do">급여 정보</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/HRinfo/Emp.do">직원 목록</a>
 				<a class="collapse-item" href="${pageContext.request.contextPath}/HRinfo/Organization_chart.do">회사 조직도</a>

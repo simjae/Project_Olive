@@ -30,7 +30,6 @@ public class HRAjaxController {
 	@Autowired
 	private Hr_infoService empService;
 
-	
 	@Autowired
 	private PagingService pagingService;
 	
