@@ -186,7 +186,7 @@ public class Hr_managementService {
 		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 		System.out.println(list.get(0));
 		for (HashMap<String, Object> item : list) {
-			if (item.containsValue("정상")) {
+			if (item.containsValue("출근")) {
 				result.add(item);
 			} else if (item.containsValue("지각")) {
 				result.add(item);
@@ -234,7 +234,7 @@ public class Hr_managementService {
 
 	public JSONObject getAttGroupByDept(String deptName) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		System.out.println(deptName);
+		//1. 총부서 불러오기. List<String>
 		List<HashMap<String, Object>> result = dao.getAttGroupByDept(deptName);
 		System.out.println(result);
 		List<String> labels = new ArrayList<>();
@@ -262,6 +262,70 @@ public class Hr_managementService {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("labels", labels);
 		jsonObject.put("datas", datas);
+		return jsonObject;
+	}
+	// 연도별 총 사원 수 현황 선 그래프
+	public JSONObject getLineChartData() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+
+		JSONObject jsonObject = new JSONObject();
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR); // 현재년도
+
+		long empCount = dao.getTotalCount(); 							// 현 시점 회사 인원 ( DB: select count(*) from emp where statuscode != 30 )
+		List<HashMap<String, Object>> hireResult = dao.getHiredDate(); 	// 쿼리2 (년도별 입사자 수)
+		List<HashMap<String, Object>> leaveResult = dao.getLeavedDate(); // 쿼리3 (년도별 퇴사자 수)
+
+		List<Object> result = new ArrayList<>();
+		List<Object> label = new ArrayList<>();
+		
+		for (int i = 0; i < 5; year--, i++) {
+			result.add(empCount);
+			for (HashMap<String, Object> data : hireResult) {
+				if (data.get("year").equals(year + "")) {
+					empCount -= ( (long) data.get("hireCount"));
+				}
+			}
+			for (HashMap<String, Object> data : leaveResult) {
+				if (data.get("year") == null) {
+					// null 배제
+				}
+				else if (data.get("year").equals(year + "")) {
+					empCount += ( (long) data.get("leaveCount"));
+				}
+			}
+			if(year == cal.get(Calendar.YEAR)) {
+				label.add("올 해");
+			}else {
+				label.add(year);
+			}
+		}
+
+		jsonObject.put("EmpCountByYear", result);	// 연도별 증,감된 총 사원수
+		jsonObject.put("labelList", label);			// 연도 라벨
+		jsonObject.put("hireResult", hireResult);	// 연도별 입사자 수
+		jsonObject.put("leaveResult", leaveResult);	// 연도별 퇴사자 수
+		return jsonObject;
+	}
+
+	// 부서별 사원 수 파이 차트 데이터
+	public JSONObject getPieChartData() {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		
+		JSONObject jsonObject = new JSONObject();
+		List<HashMap<String,Object>> groupedDeptList = dao.getGroupedDeptData(); 
+		
+		List<Object> deptList = new ArrayList<>();
+		List<Object> countList = new ArrayList<>();
+		for (HashMap<String, Object> data : groupedDeptList) {
+			deptList.add(data.get("deptName"));
+			countList.add(data.get("empCount"));
+		}
+		
+		jsonObject.put("deptList", deptList);
+		jsonObject.put("countList", countList);
+		
 		return jsonObject;
 	}
 }

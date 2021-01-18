@@ -75,4 +75,6 @@ public interface Hr_managementDao {
 	public int getTotalCount();
 
 	public List<HashMap<String, Object>> getAttGroupByDept(String deptName);
+
+	public List<HashMap<String, Object>> getGroupedDeptData();
 }

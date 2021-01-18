@@ -42,5 +42,6 @@ public interface ApprovalDao extends PagingDao{
 	public String selectSpecialForm(String typename);
 	public String selectForm(String formname);
 	public List<Doc_form> formList();
+	public void deleteDoc(String docno);
 	
 }

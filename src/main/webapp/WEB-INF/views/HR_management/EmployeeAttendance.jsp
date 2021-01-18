@@ -72,6 +72,9 @@
 		display:none;
 	
 	}
+
+	
+
 </style>
 </head>
 <body id="page-top">
@@ -208,7 +211,7 @@
 														<td>${attendance.attname}</td>
 														<td>
 														<c:if test="${attendance.attname ne '정상'}">
-															<button class='attBtn'>퇴근처리</button>
+															<button class='attBtn btn btn-primary btn-sm outline'>정상처리</button>
 														</c:if>
 														</td>
 													</tr>

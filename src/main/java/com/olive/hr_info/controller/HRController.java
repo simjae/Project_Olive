@@ -85,7 +85,7 @@ public class HRController {
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("criteria", cri);
 
-	    return "HRinfo/Emp";
+	    return "HRinfo/Emp";   
 	}
 	
 	//조직도 본부 단위 (default) //미완성
@@ -103,7 +103,6 @@ public class HRController {
 		String username = auth.getName();
 		System.out.println(username);
 		Map<String, Object> emp = empService.searchEmpByEmpno(username);
-		System.out.println(emp);
 		model.addAttribute("emp", emp);
 		return "HRinfo/EditMyinfo";
 		

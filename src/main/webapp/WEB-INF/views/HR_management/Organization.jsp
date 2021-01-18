@@ -148,12 +148,12 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">부서별 평균 급여</h6>
+									<h6 class="m-0 font-weight-bold text-primary">연도별 총 사원 수 현황</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<div class="chart-area">
-										<canvas id="employees-chart"></canvas>
+										<canvas id="employees-chart" style="height:30vh; width:50vw"></canvas>
 									</div>
 								</div>
 							</div>
@@ -163,42 +163,13 @@
 						<div class="col-xl-4 col-lg-5">
 							<div class="card shadow mb-4">
 								<!-- Card Header -->
-								<div
-									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
-									<div class="dropdown no-arrow">
-										<form
-											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
-											<div class="input-group">
-												<input type="text" class="form-control bg-light border-1"
-													placeholder="Search for..." aria-label="Search"
-													aria-describedby="basic-addon2" id="searchBar">
-												<div class="input-group-append">
-													<button class="btn btn-primary" type="button"
-														id="searchBtn">
-														<i class="fas fa-search fa-sm"></i>
-													</button>
-												</div>
-											</div>
-										</form>
-									</div>
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">부서별 사원 분포 현황</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<div class="chart-pie pt-2 pb-2">
-										<div class="text-right small">
-											<i class="text-primary" id="emp">정민찬 사원/개발팀</i>
-										</div>
-										<canvas id="attChart"></canvas>
-									</div>
-									<div class="mt-4 text-center small">
-										<span class="mr-2"> <i
-											class="fas fa-circle text-primary"></i> 출근
-										</span> <span class="mr-2"> <i
-											class="fas fa-circle text-success"></i> 지각
-										</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
-											휴가
-										</span>
+									<div class="chart-area">
+										<canvas id="groupedDept-chart"></canvas>
 									</div>
 								</div>
 							</div>
@@ -227,7 +198,10 @@
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1bee378be434d468c0d312e86b6759531721e327
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </body>
 
@@ -238,6 +212,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-
-
+<script src="/resources/js/Hr_management/organization-dashboard.js"></script>
 </html>

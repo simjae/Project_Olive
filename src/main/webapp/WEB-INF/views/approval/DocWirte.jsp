@@ -843,7 +843,7 @@ $(function() {
 				html+= '<span class="mx-2">~</span><input type="text" class="datepicker text-center" name="end" id="end" width="276" readonly>';
 				};
 				if($('#selector').val() =='30'){
-				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+/* ${emp.usedAnnual} */+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
+				html+= '<div class="text-center mt-2"><span>남은 연차 : </span><span>'+ ${emp.annual - emp.usedAnnual}+'일</span><br><span>선택 일수</span><span id="diff"></span></div></div></div></div></div></div></div>';
 					}
 				$('#duration').append(html);
 			$.ajax({
@@ -896,8 +896,13 @@ $(function() {
 			$('#diff').empty();
 			let startdate = new Date($('#start').val());
 			let enddate = new Date($('#end').val());
-			let diff = " : "+((enddate-startdate)/(1000*60*60*24)+1)+'일';
-			$('#diff').append(diff);
+			let diffday = (enddate-startdate)/(1000*60*60*24)+1;
+			let html = " : "+diffday+'일';
+			if(diffday> ${emp.annual - emp.usedAnnual}){
+				html += '<br>사용하실 수 있는 연차수를 초과 했습니다.';
+				$('#diff').css("color","red"); 								
+				}
+			$('#diff').append(html);
 			})
 		
 		$drop.on("dragenter",function(e){

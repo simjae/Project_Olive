@@ -249,7 +249,7 @@ function insertDatabyAjax1(data) {
 		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>";
 		inputListData += "<td>" + data.list[i].attname + "</td>";
 		if (data.list[i].attname != '정상') {
-			inputListData += "<td><button class='attBtn'>퇴근처리</button></td>"
+			inputListData += "<td><button class='attBtn btn btn-primary btn-sm outline'>퇴근처리</button></td>"
 		} else {
 			inputListData += "<td></td>"
 		}

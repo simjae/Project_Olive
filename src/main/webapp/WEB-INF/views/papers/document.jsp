@@ -28,7 +28,7 @@
 					<sec:authentication property="principal" var="user" />
 					<div id="hw_dext_default_style" style="font-family: 맑은 고딕; font-size: 16px; line-height: 1.8; margin-top: 0px; margin-bottom: 0px;">
 						<div style="margin: 0px; padding: 0px; font-family: 맑은 고딕; font-size: 16px; line-height: 1.8;">
-							<div style="text-align: right">
+							<div style="text-align: right"> 
 								<c:if test="${user.username != doc.empno }">
 									<c:forEach var="check" items="${ apps}">
 										<c:if test="${check.empno == user.username and check.app_Order - doc.curr_Approval ==1}">
@@ -48,6 +48,12 @@
 											<input type="text" id="nextApprover" value="${check.empno}" hidden>
 										</c:if>
 									</c:forEach>
+								</c:if>
+								<c:if test="${user.username == doc.empno && doc.curr_Approval ==0}">
+								<button class="btn btn-danger btn-icon-split cancle delete" value="0">
+									<span class="icon text-white-50"> <i class="fas fa-trash"></i>
+									</span> <span class="text">삭제하기</span>
+								</button>
 								</c:if>
 							</div>
 							<div>
@@ -345,6 +351,30 @@ $(function() {
 					
 		
     	});
+
+	$('.delete').on("click",function(){
+		swal({
+            title: "삭제 하시겠습니까?",
+            text: "",
+            icon: "warning",
+            buttons: ["취소하기", "삭제하기"],
+            dangerMode: true,
+        }).then((value) => {
+           	console.log(value);
+            if(value!='' && value != null){
+            	 $.ajax({
+         			url:"deleteDoc.do",
+         			data:{docno:${doc.docno}},
+         			success:function(data){
+         				location.href=data;
+         				}
+         			}); 
+            }else{
+            	 swal({title:'취소 되었습니다.',icon:"warning"});
+                 }
+        });
+		
+	})
 	
 				
         
@@ -353,23 +383,7 @@ $(function() {
     //기안자에게는 무조건 가야함
     
     
-	/* $('#filename').on("click",function(){
-		console.log($(this).text());
-		 $.ajax({
-			url:"download.do",
-			type:"POST",
-			data:{
-				filename:$('#filename').text()
-				},
-				success:function(){
-				alert('sjsj');
-					}
-			
-			});
- 
-		});		
-		 */
-    
+	
 });
 </script>
 </html>
