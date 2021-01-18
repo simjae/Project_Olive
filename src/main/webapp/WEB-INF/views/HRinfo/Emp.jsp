@@ -398,6 +398,8 @@ table.table .avatar {
 	</div>
 	<!-- End of Content Wrapper -->
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- End of Page Wrapper -->
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
@@ -405,6 +407,14 @@ table.table .avatar {
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<script>
+	$(function(){
+		$('#collapseInfo').addClass('show');
+		$('#collapseInfo').prev().removeClass('collapsed');
+		$('#collapseInfo').prev().children().css("color","#fff");
+		
+
+		})
+	
 
 	/* 모달 */
 	$("#emptable").on("click", 'tr', function(){

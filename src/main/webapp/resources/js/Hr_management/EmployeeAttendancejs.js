@@ -473,3 +473,5 @@ function insertDatabyAjax2(data) {
 	$('#oldperPageNum2').val(data.criteria.perPageNum);
 	$('#oldPage2').val(data.criteria.page);
 }
+
+
