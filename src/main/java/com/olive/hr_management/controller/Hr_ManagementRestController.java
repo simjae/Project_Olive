@@ -2,6 +2,7 @@ package com.olive.hr_management.controller;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.olive.dto.Dept;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
@@ -32,7 +34,6 @@ public class Hr_ManagementRestController {
 	@Autowired
 	private Hr_managementService managementService;
 
-	
 	//인사관리 - 계정관리 - 게시판 페이징
 	@RequestMapping(value = "getList.do", method = RequestMethod.POST)
 	public JSONObject getEmpListBykeyword(Criteria cri) {
@@ -147,7 +148,6 @@ public class Hr_ManagementRestController {
 	// 근태관리
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
 	public JSONObject getEmpAttListBykeyword(Criteria cri) {
-
 		cri.setCriteria("emp_att", "starttime", "desc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
@@ -156,13 +156,12 @@ public class Hr_ManagementRestController {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
-
 		return jsonObject;
 	}
 
 	// 휴가관리
 	@RequestMapping(value = "getAnnList.do", method = RequestMethod.POST)
-	public JSONObject getEmpAnnListBykeyword(Criteria cri) {		
+	public JSONObject getEmpAnnListBykeyword(Criteria cri) {
 		cri.setCriteria("empAnnual", "empno", "asc");
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
@@ -186,7 +185,6 @@ public class Hr_ManagementRestController {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();
 		return result;
 	}
-
 	//휴가관리 연차이력 조회
 	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getAnnualList(String empno){
@@ -220,7 +218,50 @@ public class Hr_ManagementRestController {
 		map.put("starttime", starttime);
 		managementService.updateAttRecord(map);
 		return "/HR_management/EmployeeAttendance.do";
-
-
 	}
+	
+//	// 인사관리 - 조직관리 - 근태현황 - 부서별 근태 현황
+//	@RequestMapping(value = "getAttGroupByDept.do", method = RequestMethod.POST)
+//	public JSONObject getAttGroupByDept(String deptName) {
+//		JSONObject jsonObject1 = managementService.getAttGroupByDept(deptName);
+//		JSONObject jsonObject2 = managementService.getAttGroupByDept("사업팀");
+//		JSONObject jsonObject3 = managementService.getAttGroupByDept("마케팅팀");
+//		JSONObject jsonObject4 = managementService.getAttGroupByDept("개발팀");
+//		JSONObject jsonObject5 = managementService.getAttGroupByDept("운영팀");
+//		JSONObject jsonObject6 = managementService.getAttGroupByDept("회계팀");
+//		
+//		JSONObject jsonObject = new JSONObject();
+//		jsonObject.put("a", jsonObject1);
+//		jsonObject.put("b", jsonObject2);
+//		jsonObject.put("c", jsonObject3);
+//		jsonObject.put("d", jsonObject4);
+//		jsonObject.put("e", jsonObject5);
+//		jsonObject.put("f", jsonObject6);
+//		System.out.println(jsonObject);
+//		return jsonObject;
+//	}
+	// 인사관리 - 조직관리 - 근태현황 - 부서별 근태 현황
+	@RequestMapping(value = "getAttGroupByDept.do", method = RequestMethod.POST)
+	public List<Object> getAttGroupByDept(String deptName) {
+		JSONObject jsonObject1 = managementService.getAttGroupByDept(deptName);
+		JSONObject jsonObject2 = managementService.getAttGroupByDept("사업팀");
+		JSONObject jsonObject3 = managementService.getAttGroupByDept("마케팅팀");
+		JSONObject jsonObject4 = managementService.getAttGroupByDept("개발팀");
+		JSONObject jsonObject5 = managementService.getAttGroupByDept("운영팀");
+		JSONObject jsonObject6 = managementService.getAttGroupByDept("회계팀");
+		
+		List<Object> jsonObject = new ArrayList<Object>();
+		jsonObject.add(jsonObject1);
+		jsonObject.add(jsonObject2);
+		jsonObject.add(jsonObject3);
+		jsonObject.add(jsonObject4);
+		jsonObject.add(jsonObject5);
+		jsonObject.add(jsonObject6);
+		System.out.println(jsonObject);
+		return jsonObject;
+	}
+
+	
+	
+	
 }

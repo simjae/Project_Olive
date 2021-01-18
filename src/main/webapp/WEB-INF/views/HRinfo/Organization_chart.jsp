@@ -20,7 +20,7 @@
 <style>
 .highcharts-figure, .highcharts-data-table table {
 	min-width: 360px;
-	max-width: 800px;
+	max-width: 1000px;
 	margin: 1em auto;
 }
 </style>
@@ -41,7 +41,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Charts</h1>
+					<h1 class="h3 mb-2 text-gray-800">Organization</h1>
 					<!-- Content Row -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
@@ -49,21 +49,10 @@
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<div class="form-group col-md-2 mb-0">
-										<select id="inputState" class="form-control">
-											<option value="">본부</option>
-											<optgroup label="경영지원">
-												<option value="인사">인사</option>
-												<option value="회계">회계</option>
-											</optgroup>
-											<optgroup label="전략">
-												<option value="사업">사업</option>
-												<option value="운영">운영</option>
-											</optgroup>
-											<optgroup label="R&D">
-												<option value="마케팅">마케팅</option>
-												<option value="개발">개발</option>
-											</optgroup>
-										</select>
+										<button id="open" class="form-control">
+										펼치기 
+										</button>
+											
 									</div>
 								</div>
 								<div class="row justify-content-end mx-5"></div>
@@ -90,13 +79,13 @@
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<!-- 추가 script -->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/sankey.js"></script>
 	<script src="https://code.highcharts.com/modules/organization.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<style>
 .highcharts-figure, .highcharts-data-table table {
 	min-width: 360px;
@@ -163,94 +152,11 @@
 </style>
 	<script type="text/javascript">
 	    //ajax
-	    $('#inputState').change(function(){
+	    $('#open').click(function(){
 	        var select = $(this).val();
 	        console.log(select);
 
-	        $.ajax(
-					{
-						type : "post",
-						url	 : "showOrgbyDept.do",
-						data : {param:select},
-						success : function(responseData)	{
-							/* console.log(responseData);
-							console.log(responseData.length);
-							console.log(responseData[0].deptName); //부서
-							console.log(responseData[0].ename); //이름
-							console.log(responseData[0].headName); //본부이름
-							console.log(responseData[0].positionName); //포지션이름 */
-							
-							
-							
-							//id : role , title : name , column : node, 	
-						    //{id : '올리브', title : '올리브',name : 'Grethe'}
-	
-							
-							
-							
-							var emplist = [];
-							var emprow = [];
-							var emp = {};
-
-							for(var i=0; i<responseData.length;i++){
-								var role = responseData[i].positionName;
-								var name = responseData[i].ename;
-							/* 	console.log(role);
-								console.log(name);
-								console.log(responseData[i]);								
-								 */
-								//var dept = responseData[i].deptName;
-								//var reportsTo = role == '팀원' ? '팀장' : null; 
-								/* if(role=='팀원'){
-									reportsTo = '팀장';
-								}else if(role=='팀장'){
-									reportsTo = '본부장';
-								}else{
-									reportsTo = null;
-								}
-								
-								name : 박채연, id : 팀원
-								name : 어피치, id : 팀원
-								name : 프로도, id : 팀원
-								name : 앙몬드, id : 팀장 >> 박채연, 어피치, 프로도
-								
-								
-								
-								id값 기준으로
-								본부장 > 팀장
-								팀장  > 팀원
-
-								id가 팀장이면 id가 본부장인 사람 밑으로 
-								id가 팀원이면 id가 팀장인 사람 밑으로 
-								*/
-								/* console.log(name); //name
-								console.log(role); */ //id
-								//console.log(reportsTo);
-								
-
-
-								let emp ={
-										id:role+i,
-										name:name,
-										title:role
-								};
-								
-								
-								/* emp['id'] = role;
-								emp['name'] = name; */
-								console.log(emp);
-								
-								/* emprow.push(role);
-								
-								emprow.push(name);
-								console.log(emprow); */
-								
-								emplist.push(emp);
-								
-								
-								console.log("------------");
-							}
-
+					        console.log(empdata);
 					        console.log(emplist);
 
 
@@ -263,6 +169,7 @@
 							title : {
 								text : 'Olive'
 							},
+							keys: ['from', 'to'],
 							accessibility : {
 								point : {
 									descriptionFormatter : function(point) {
@@ -283,16 +190,16 @@
 								type : 'organization',
 								name : 'Olive',
 								keys : [ 'from', 'to' ],
-								data : [ 
-									['본부장','팀장'],['팀장','팀원0'],['팀장','팀원1']
-								
-								 	   ],
-								levels : [  {
+								data : empdata,
+								levels : [ {
 									level : 1,
 									color : '#980104'
 								}, {
 									level : 2,
 									color : '#359154'
+								},{
+									level : 3,
+									color : 'orange'
 								} ],
 								nodes : emplist,
 								colorByPoint : false,
@@ -314,24 +221,77 @@
 
 						});
 						        
-						},
-						error : function(error){
-							console.log(error);
-						}
-					} 
-				); 
+						
 	    });
 					        
 	  	
+///////////////////////////////////////
+var empdata = [];
+/* google.charts.load('current', {packages:["orgchart"]});
+google.charts.setOnLoadCallback(drawChart); */
+var emplist = [];
+	
+		
+		 
+function createFirstTree(){
+	
+	return new Promise((resolve,reject)=>{
+		
+	$.ajax({
+	url:"organization.do",
+	 dataType: "json",
+	 contentType: "application/json; charset=utf-8",
+	success:function(responsedata){
+		$.each(responsedata,(index,item)=>{
+			console.log(item);
+			if(item.positionname=='팀원'){
+			empdata[empdata.length] = [item.deptname,item.ename];
+			 emplist[emplist.length] = {
+				      id: item.ename,
+				      name:item.ename,
+				      title:item.positionname,
+				      image: "/resources/img/undraw_profile.svg"
+				      
+				    };
+ 
+				}else if(item.positionname=='팀장'){
+					empdata[empdata.length] = [item.headname, item.deptname];
+					 emplist[emplist.length] = {
+						      id: item.deptname,
+						      name:item.ename,
+						      title:item.deptname,
+						      image: "/resources/img/undraw_profile.svg",
+						   	   layout: 'hanging'
+						    }; 
+					}else if(item.positionname=='본부장'){
+						empdata[empdata.length] = ["OLIVE", item.headname];
+						emplist[emplist.length] = {
+							      id: item.headname,
+							      name:item.ename,
+							      title:item.headname,
+							      image: "/resources/img/undraw_profile.svg"
+							    }; 
+						}
+				})
+			resolve();
+			}
+		});
+
+	});
+};
+
+
+
+createFirstTree();
+
+
+  							
+		
+		
+		
+		
+
 			
-
-							
-							
-							
-							
-							
-
-							
 							
 						
 						

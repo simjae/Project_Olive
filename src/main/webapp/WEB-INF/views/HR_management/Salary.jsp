@@ -20,67 +20,8 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-.file {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-.file>input[type='file'] {
-	display: none
-}
-
-.file>label {
-	font-size: 1rem;
-	font-weight: 300;
-	cursor: pointer;
-	outline: 0;
-	user-select: none;
-	border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
-	border-style: solid;
-	border-radius: 4px;
-	border-width: 1px;
-	background-color: hsl(0, 0%, 100%);
-	color: hsl(0, 0%, 29%);
-	padding-left: 16px;
-	padding-right: 16px;
-	padding-top: 16px;
-	padding-bottom: 16px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.file>label:hover {
-	border-color: hsl(0, 0%, 21%);
-}
-
-.file>label:active {
-	background-color: hsl(0, 0%, 96%);
-}
-
-.file>label>i {
-	padding-right: 5px;
-}
-
-.file--upload>label {
-	color: hsl(204, 86%, 53%);
-	border-color: hsl(204, 86%, 53%);
-}
-
-.file--upload>label:hover {
-	border-color: hsl(204, 86%, 53%);
-	background-color: hsl(204, 86%, 96%);
-}
-
-.file--upload>label:active {
-	background-color: hsl(204, 86%, 91%);
-}
-</style>
 </head>
 
 
@@ -161,25 +102,15 @@
 										</form>
 									</div>
 									<div class="">
-										<a href="/HR_management/SalaryExcelForm.do"> <input
-											type="button" class="form-control btn btn-info" value="양식 다운">
+										<a href="/HR_management/SalaryExcelForm.do"> 
+											<input type="button" class="form-control btn btn-info" value="양식 다운">
 										</a>
-									</div>
-									<div class="form-group">
-										<select id="inputState" class="form-control">
-											<option selected>연도</option>
-											<option>2020</option>
-											<option>2019</option>
-											<option>2018</option>
-											<option>2017</option>
-											<option>2016</option>
-										</select>
 									</div>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<div class="row justify-content-center mx-5">
-										<table id="salary_table" class="styled-table text-center">
+									<div class="row justify-content-center mx-2 mt-1">
+										<table id="salary_table" class="table text-center">
 											<thead>
 												<tr>
 													<th>지급일자</th>

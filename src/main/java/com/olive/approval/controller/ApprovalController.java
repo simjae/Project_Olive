@@ -23,7 +23,8 @@ import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Doc_Type;
 import com.olive.dto.Document;
-import com.olive.dto.EmpTest;
+import com.olive.dto.Emp;
+import com.olive.dto.Doc_form;
 import com.olive.utils.Pagination;
 
 @Controller
@@ -66,9 +67,11 @@ public class ApprovalController {
 		model.addAttribute("time", sf.format(nowTime));
 		String empno = request.getUserPrincipal().getName();
 		System.out.println(empno);
-		EmpTest emp = approvalService.selectEmp(empno);
+		Emp emp = approvalService.selectEmp(empno);
 		List<Doc_Type> docType = approvalService.selectDocType();
+		List<Doc_form> form = approvalService.formList();
 		
+		model.addAttribute("formList",form);
 		model.addAttribute("docType", docType);
 		System.out.println(docType);
 		model.addAttribute("emp", emp);
@@ -150,7 +153,7 @@ public class ApprovalController {
 	@RequestMapping(value = "viewDocument.do", method = RequestMethod.GET)
 	public String viewDocument(String docno,Model model,Principal principal) {
 		Document document = approvalService.viewDocumnet(docno); 
-		EmpTest emp = approvalService.selectEmp(principal.getName());
+		Emp emp = approvalService.selectEmp(principal.getName());
 		List<Approver> apps = approvalService.viewApprovers(docno);
 		model.addAttribute("document", document);
 		model.addAttribute("emp",emp);
@@ -159,7 +162,19 @@ public class ApprovalController {
 		return "papers/document"; 
 	}
 	
+	@RequestMapping(value="AddForm.do", method=RequestMethod.GET)
+	public String AddFormPage() {
+		
+		return "approval/AddForm";
+	}
 	
+	@RequestMapping(value="AddForm.do", method=RequestMethod.POST)
+	public String AddForm(Doc_Type doctype) {
+		
+		System.out.println();
+		approvalService.addForm(doctype);
+		return "redirect:/approval/ApprovalHome.do";
+	}
 	
 	
 }

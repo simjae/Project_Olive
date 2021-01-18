@@ -227,74 +227,7 @@
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
-	<script type="text/javascript">
-		var randomScalingFactor = function() {
-			return Math.round(Math.random() * 2000000)
-		};
-		var barChartData;
 
-		$(function() {
-			var ctx = $("#employees-chart");
-			var stackedBar = new Chart(ctx, {
-				type : 'bar',
-				data : {
-					labels : [ "인사팀", "회계팀", "사업팀", "운영팀", "마케팅팀", "개발팀" ],
-					datasets : [
-							{
-								label : '기본급',
-								backgroundColor : "#4e73df",
-								borderColor : "#4e73df",
-								data : [ randomScalingFactor(), randomScalingFactor(),
-										randomScalingFactor(), randomScalingFactor(),
-										randomScalingFactor(), randomScalingFactor() ]
-							}
-							]
-				},
-				options : {
-					gridLines : {
-						color : "rgb(234, 236, 244)",
-						zeroLineColor : "rgb(234, 236, 244)",
-						drawBorder : false,
-						borderDash : [ 2 ],
-						zeroLineBorderDash : [ 2 ]
-					},
-					maintainAspectRatio : false,
-					layout : {
-						padding : {
-							left : 10,
-							right : 25,
-							top : 25,
-							bottom : 0
-						}
-					},
-					scales : {
-						xAxes : [ {
-							stacked : true,
-						} ],
-						yAxes : [ {
-							stacked : true
-						} ]
-					}
-				},
-				tooltips : {
-					titleMarginBottom : 10,
-					titleFontColor : '#6e707e',
-					titleFontSize : 14,
-					backgroundColor : "rgb(255,255,255)",
-					bodyFontColor : "#858796",
-					borderColor : '#dddfeb',
-					borderWidth : 1,
-					xPadding : 15,
-					yPadding : 15,
-					displayColors : false,
-					caretPadding : 10
-				},
-				legend : {
-					display : false
-				}
-			})
-		});
-	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </body>
 
@@ -303,7 +236,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/Hr_management/organization-attChart.js"></script>
+
 
 
 
