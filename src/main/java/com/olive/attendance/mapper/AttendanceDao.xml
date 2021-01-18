@@ -23,7 +23,8 @@
 		FROM 
 			Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE 
 		where empno = #{param1}
-	</select>
+		group by docno
+	</select> 
 
 	<!-- 재형 : 휴가관리  캘린더    -->
 	 <select id="getanaltableList" resultType="com.olive.dto.Document">
@@ -37,7 +38,8 @@ select 	r.empno as empno,
 	join doc_add a ON d.docno  = a.document_docno
 	join att_record r on d.empno = r.empno
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{empno};
+	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{empno}
+	group by docno
 	 </select>  
 	
 	<!-- 재형 : 휴가관리  캘린더  radio -->
@@ -52,7 +54,7 @@ select 	r.empno as empno,
 	join doc_add a ON d.docno  = a.document_docno
 	join att_record r on d.empno = r.empno
 	join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{param1};
+	where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30  and r.empno = #{param1}
 	 </select> 
 	<!-- 재형 : 휴가관리 카드  -->
 	 <select id="annualCard" resultType="com.olive.dto.Document"> 

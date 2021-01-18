@@ -1,5 +1,13 @@
+@font-face {
+    font-family: 'MapoGoldenPier';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoGoldenPierA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 html { 
-	 background: url('/resources/img/background.png');
+	 background: url('/resources/img/Login.png');
   	/* background: #04B486; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -211,7 +219,7 @@ a:hover{
   position: absolute;
   font-size: 22px;
   font-family: 'Hind', sans-serif;
-  color: rgba(255,255,255,.2);
+  color: rgba(255,255,255);
   right:55px;
   top: 8px;
   cursor: pointer;
