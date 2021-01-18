@@ -146,3 +146,4 @@
 	var scrollValue = $(document).scrollTop();
 	console.log(scrollValue);
 	};
+	

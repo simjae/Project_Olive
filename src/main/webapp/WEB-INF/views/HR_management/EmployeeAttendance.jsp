@@ -438,4 +438,12 @@
 		<script src="/resources/js/Hr_management/organization-attChart.js"></script>
 		<script src="/resources/js/Hr_management/attendance-chart.js"></script>
 </body>
+<script type="text/javascript">
+$(function(){
+	$('#collapseHRM').addClass('show');
+	$('#collapseHRM').prev().removeClass('collapsed');
+	$('#collapseHRM').prev().children().css("color","#fff");
+		
+})
+</script>
 </html>

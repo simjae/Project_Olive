@@ -162,6 +162,8 @@ h1{
 		<!-- End of Content Wrapper -->
 
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- End of Page Wrapper -->
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
@@ -194,6 +196,11 @@ h1{
 		function downloadFormat(){
 			
 		}
+
+		$('#collapseInfo').addClass('show');
+		$('#collapseInfo').prev().removeClass('collapsed');
+		$('#collapseInfo').prev().children().css("color","#fff");
+		
 	</script>
 	<script src="/resources/js/Hr_management/salaryPaging.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

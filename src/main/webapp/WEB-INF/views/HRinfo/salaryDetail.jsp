@@ -1558,6 +1558,8 @@ rt {
 			<![endif]>
 		</table>
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		$('#printBtn').click(function(){
@@ -1576,6 +1578,11 @@ rt {
 			window.print();
 		}
 		window.onfocus=function(){ window.close();}
+
+
+		$('#collapseInfo').addClass('show');
+		$('#collapseInfo').prev().removeClass('collapsed');
+		$('#collapseInfo').prev().children().css("color","#fff");
 		
 	</script>
 </body>
