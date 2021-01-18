@@ -31,12 +31,12 @@ public class AlarmRestController {
 	public void readAlarm(String alarmno){
 		alarmService.readAlarm(alarmno);
 	}
-	
-	@RequestMapping(value="/*/readAll.do")
-	public String readAll(String empno) {
+	 
+	@RequestMapping(value="/alarm/readAllAlarm.do")
+	public String readAllAlarm(String empno) {
 		System.out.println(empno);
-		alarmService.readAll(empno);
-		return "/alarm/alarmlist.do";
+		alarmService.readAllAlarm(empno);
+		return "/Alrams.do"; 
 	}
 
 }

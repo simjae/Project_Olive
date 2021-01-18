@@ -132,7 +132,7 @@
 
 		$('#readAll').on("click",function(){
 			$.ajax({
-				url:"/alarm/readAll.do",
+				url:"/alarm/readAllAlarm.do",
 				data:{empno:${LoginUser}},
 				type :'POST',
 				success:function(data){
