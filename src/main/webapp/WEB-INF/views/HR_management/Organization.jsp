@@ -195,7 +195,8 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
-
+<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	

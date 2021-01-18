@@ -314,6 +314,8 @@ table tr td:last-child {
 
 	</div>
 	<!-- End of Page Wrapper -->
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	<!-- End of Footer 모듈화 -->
@@ -325,6 +327,9 @@ table tr td:last-child {
 
 
 	$(document).ready(function(){
+		$('#collapseInfo').addClass('show');
+		$('#collapseInfo').prev().removeClass('collapsed');
+		$('#collapseInfo').prev().children().css("color","#fff");
 		$('#editform').hide();
 		
 		//$('#pic').hide();

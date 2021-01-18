@@ -79,6 +79,8 @@ h1{
 		<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	<!-- End of Footer 모듈화 -->
@@ -289,6 +291,9 @@ function createFirstTree(){
 
 createFirstTree();
 
+$('#collapseInfo').addClass('show');
+$('#collapseInfo').prev().removeClass('collapsed');
+$('#collapseInfo').prev().children().css("color","#fff");
 
   							
 		

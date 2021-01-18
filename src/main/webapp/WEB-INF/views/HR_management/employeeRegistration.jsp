@@ -167,6 +167,8 @@
 		</div>
 		<!-- /.container-fluid -->
 	</div>
+	<!-- Logout Modal-->
+	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- Footer 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	<!-- End of Footer 모듈화 -->

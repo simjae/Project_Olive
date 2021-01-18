@@ -4,6 +4,9 @@ var randomScalingFactor = function() {
 var barChartData;
 
 jQuery(document).ready(function($) {
+$('#collapseHRM').addClass('show');
+		$('#collapseHRM').prev().removeClass('collapsed');
+		$('#collapseHRM').prev().children().css("color","#fff");
 	
 	// 연도별 총 근속사원 수 현황 : 라인차트 실행부
 	getLineChartData()

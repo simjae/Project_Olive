@@ -60,23 +60,21 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h3 class="text-gray-800">양식 추가하기</h3>
+					<h3 class="text-gray-800">전자결</h3>
 					<div class="card border-left-warning shadow py-0 bg-white my-4">
 						<div class="card-header py-3 pb-0 d-flex flex-row align-items-center justify-content-between">
-							<button id="add" class="btn btn-success btn-icon-split my-auto">
-								<span class="icon"> <i class="fas fa-plus"></i></span><span class="text">추가하기</span>
-							</button>
+							<h3>양식 추가하기</h3>
 						</div>
 						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-3">
 							<div class="mb-3">
-								<div id="submitdiv" style="display: none">
+								<div id="submitdiv">
 									<button id="submit" class="btn btn-warning">
 										<span class="icon"> <img src="/resources/img/formupload.png"></span>
 									</button>
 								</div>
 							</div>
 						</div>
-						<div class="row justify-content-center mx-5" style="display: none;" id="addform">
+						<div class="row justify-content-center mx-5" id="addform">
 							<div class="mb-3">
 								<form action="" method="post" enctype="multipart/form-data" id="form">
 									<div class="mt-0 mb-2 mx-auto py-0">
@@ -142,11 +140,6 @@ $(function() {
 		})
 	 
 	 
-	 $('#add').on("click",()=>{
-		 $('#submitdiv').show("blind","slow");
-		 $('#add').toggle();
-		 $('#addform').show("fade","slow");
-	 })
 	
 		
 		

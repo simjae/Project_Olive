@@ -54,7 +54,7 @@
 					<c:set var="emp" value="${requestScope.emp }" />
 					<!-- Page Heading -->
 					<div class="row">
-						<div class="col-xl-2 h3 my-auto text-gray-800">기안하기</div>
+						<div class="col-xl-2 h3 my-auto text-gray-800">전자결재</div>
 						<div class="col-md-10">
 							<div class="d-flex flex-row-reverse mr-0">
 								<div class="p-2">
@@ -82,7 +82,7 @@
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
-						<div class="card shadow py-0 bg-white my-4 border-left-warning">
+						<div class="card shadow py-0 bg-white my-4">
 									<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center">
 										<div class=" mt-0 mb-2 py-0 col-xl-2">
 											<div class=" py-2 px-0">

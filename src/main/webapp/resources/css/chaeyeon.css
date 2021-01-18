@@ -19,13 +19,7 @@
 }
  */
  
-@font-face {
-    font-family: 'MapoGoldenPier';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoGoldenPierA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
- 
+
 /* MainLogin 배경색, 버튼색 */
 .bg-gradient-loginpage {
   background-color: #7F7FD5;
