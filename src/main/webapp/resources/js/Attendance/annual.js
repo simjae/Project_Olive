@@ -126,7 +126,7 @@ function insertDatabyAjax(data) {
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
-			+ "<td>" + data.list[i].DOCNO + "</td>"
+			+ "<td>" + data.list[i].docno + "</td>"
 			+ "<td name="+'empno'+">" + data.list[i].empno + "</td>"
 			+ "<td>" + data.list[i].ename + "</td>"
 			+ "<td>" + data.list[i].count + "</td>"
