@@ -148,12 +148,12 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">부서별 평균 급여</h6>
+									<h6 class="m-0 font-weight-bold text-primary">연도별 총 사원 수 현황</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<div class="chart-area">
-										<canvas id="employees-chart"></canvas>
+										<canvas id="employees-chart" style="height:30vh; width:50vw"></canvas>
 									</div>
 								</div>
 							</div>
@@ -163,42 +163,13 @@
 						<div class="col-xl-4 col-lg-5">
 							<div class="card shadow mb-4">
 								<!-- Card Header -->
-								<div
-									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
-									<div class="dropdown no-arrow">
-										<form
-											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
-											<div class="input-group">
-												<input type="text" class="form-control bg-light border-1"
-													placeholder="Search for..." aria-label="Search"
-													aria-describedby="basic-addon2" id="searchBar">
-												<div class="input-group-append">
-													<button class="btn btn-primary" type="button"
-														id="searchBtn">
-														<i class="fas fa-search fa-sm"></i>
-													</button>
-												</div>
-											</div>
-										</form>
-									</div>
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">부서별 사원 분포 현황</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<div class="chart-pie pt-2 pb-2">
-										<div class="text-right small">
-											<i class="text-primary" id="emp">정민찬 사원/개발팀</i>
-										</div>
-										<canvas id="attChart"></canvas>
-									</div>
-									<div class="mt-4 text-center small">
-										<span class="mr-2"> <i
-											class="fas fa-circle text-primary"></i> 출근
-										</span> <span class="mr-2"> <i
-											class="fas fa-circle text-success"></i> 지각
-										</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
-											휴가
-										</span>
+									<div class="chart-area">
+										<canvas id="groupedDept-chart"></canvas>
 									</div>
 								</div>
 							</div>
@@ -227,74 +198,6 @@
 
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
-	<script type="text/javascript">
-		var randomScalingFactor = function() {
-			return Math.round(Math.random() * 2000000)
-		};
-		var barChartData;
-
-		$(function() {
-			var ctx = $("#employees-chart");
-			var stackedBar = new Chart(ctx, {
-				type : 'bar',
-				data : {
-					labels : [ "인사팀", "회계팀", "사업팀", "운영팀", "마케팅팀", "개발팀" ],
-					datasets : [
-							{
-								label : '기본급',
-								backgroundColor : "#4e73df",
-								borderColor : "#4e73df",
-								data : [ randomScalingFactor(), randomScalingFactor(),
-										randomScalingFactor(), randomScalingFactor(),
-										randomScalingFactor(), randomScalingFactor() ]
-							}
-							]
-				},
-				options : {
-					gridLines : {
-						color : "rgb(234, 236, 244)",
-						zeroLineColor : "rgb(234, 236, 244)",
-						drawBorder : false,
-						borderDash : [ 2 ],
-						zeroLineBorderDash : [ 2 ]
-					},
-					maintainAspectRatio : false,
-					layout : {
-						padding : {
-							left : 10,
-							right : 25,
-							top : 25,
-							bottom : 0
-						}
-					},
-					scales : {
-						xAxes : [ {
-							stacked : true,
-						} ],
-						yAxes : [ {
-							stacked : true
-						} ]
-					}
-				},
-				tooltips : {
-					titleMarginBottom : 10,
-					titleFontColor : '#6e707e',
-					titleFontSize : 14,
-					backgroundColor : "rgb(255,255,255)",
-					bodyFontColor : "#858796",
-					borderColor : '#dddfeb',
-					borderWidth : 1,
-					xPadding : 15,
-					yPadding : 15,
-					displayColors : false,
-					caretPadding : 10
-				},
-				legend : {
-					display : false
-				}
-			})
-		});
-	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </body>
 
@@ -305,6 +208,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/resources/js/Hr_management/organization-attChart.js"></script>
 
-
-
+<script src="/resources/js/Hr_management/organization-dashboard.js"></script>
 </html>

@@ -34,8 +34,6 @@ public class AttendanceService {
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
 		this.sqlsession = sqlsession;
-		System.out.println(this.sqlsession);
-		System.out.println("연결");
 	}
 
 	// 재형 : 출근
@@ -65,12 +63,10 @@ public class AttendanceService {
 			Att_Record att = new Att_Record();
 			att.setAttCode(attcode);
 			att.setEmpNo(id);
-			System.out.println(attcode);
 			attdao.startwork(att);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("찍음");
 		}
 	}
 
@@ -85,7 +81,6 @@ public class AttendanceService {
 			Att_Record att = new Att_Record();
 			att.setAttCode(attcode);
 			att.setEmpNo(id);
-			System.out.println(attcode);
 			attdao.endwork(att);
 
 		} catch (Exception e) {
@@ -119,7 +114,6 @@ public class AttendanceService {
 	public WorkHourPerWeek getHoursPerWeek(String empno) {
 		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
 		WorkHourPerWeek workHours = dao.getHoursPerWeek(empno);
-		System.out.println("AttendanceService : +getHoursPerWeek() >> " + workHours);
 		return workHours;
 	}
 
@@ -128,7 +122,6 @@ public class AttendanceService {
 	public List<Att_Record> getHoursEachDays(String empno) {
 		AttendanceDao dao = sqlsession.getMapper(AttendanceDao.class);
 		List<Att_Record> hoursEachList = dao.getHoursEachDays(empno);
-		System.out.println("AttendanceService : +getHoursEachDays() >> " + hoursEachList);
 		return hoursEachList;
 	}
 	

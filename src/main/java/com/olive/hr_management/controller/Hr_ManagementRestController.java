@@ -229,8 +229,21 @@ public class Hr_ManagementRestController {
 		map.put("starttime", starttime);
 		managementService.updateAttRecord(map);
 		return "/HR_management/EmployeeAttendance.do";
-
-
 	}
 
+	// 조직관리 > 연도별 총 사원 수 현황 선 그래프
+	@RequestMapping(value="getLineChartData.do", method=RequestMethod.POST)
+	public JSONObject getLineChartData() {
+		JSONObject jsonObject = managementService.getLineChartData();
+		
+		return jsonObject;
+	}
+	
+	// 조직관리 > 부서별 근속사원 수 현황 파이 그래프
+	@RequestMapping(value="getPieChartData.do", method=RequestMethod.POST)
+	public JSONObject getPieChartData() {
+		JSONObject jsonObject = managementService.getPieChartData();
+		
+		return jsonObject;
+	}
 }

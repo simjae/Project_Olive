@@ -191,7 +191,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		attcode=80
 		where empno = #{empno} and DATE(starttime) = DATE(#{starttime})
 	</update>
-
 	
-
+	<!-- 희승 : 연도별(최근 5년) 입사인원 select -->
+	<select id="getHiredDate" resultType="HashMap">
+		SELECT 	DATE_FORMAT(hiredate, '%Y') AS 'year',
+      			COUNT(*) 					AS 'hireCount' 
+        FROM emp
+        GROUP BY DATE_FORMAT(hiredate, '%y')
+        ORDER BY hiredate DESC
+        LIMIT 0,5
+	</select>
+	
+	<!-- 희승 : 연도별(최근 5년) 퇴사인원 select -->
+	<select id="getLeavedDate" resultType="HashMap">
+		SELECT	DATE_FORMAT(leavedate , '%Y') 	AS 'year',
+      			COUNT(*) 						AS 'leaveCount'
+        FROM emp
+		WHERE leavedate IS NOT NULL
+        GROUP BY DATE_FORMAT(leavedate , '%y')
+        ORDER BY leavedate DESC
+        LIMIT 0,5
+	</select>
+	
+	<!-- 희승 : 현재 총 사원 수 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT	COUNT(*)
+		FROM	emp
+		WHERE statuscode != 30
+	</select>
+	
+	<!-- 희승 : 부서별 근속인원 검색 -->
+	<select id="getGroupedDeptData" resultType="HashMap">
+		SELECT 	deptname AS 'deptName',
+		COUNT(*) AS 'empCount'
+		FROM empinfo
+		WHERE statusname != '비활성화'
+		GROUP BY DEPTNAME;
+	</select>
 </mapper>

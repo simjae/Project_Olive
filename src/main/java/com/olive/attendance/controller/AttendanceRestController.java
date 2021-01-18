@@ -59,18 +59,12 @@ public class AttendanceRestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		
-		System.out.println(username);
-		
 		try {
 			record = (HashMap<String, Object>) service.isPunchedIn(username);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("출근 처리 확인 : "+record);
-
-		System.out.println("출근 처리");
-		
 		// 출근하지 않았다면 record == null, 이미 출근했다면 record != null
 		return record;
 	}
