@@ -124,9 +124,10 @@ function insertDatabyAjax(data) {
 	console.log(data.criteria);
 	console.log(data.list);
 	console.log(data.pagination);
-
+	console.log(data.auth);
 	$('#attListTable').empty();
 	let inputListData = "";
+	
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
 			+ "<td name='empno'>" + data.list[i].empno + "</td>"
@@ -134,9 +135,14 @@ function insertDatabyAjax(data) {
 			+ "<td>" + data.list[i].deptname + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"
 			+ "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>"
-			+ "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>"
-			+ "</tr>"
-	}
+			for(let i=0; i<data.auth.length; i++){
+				if(data.auth[i].authority == "ROLE_MANAGER"){
+			inputListData += "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>";;
+				}
+			}
+		}
+
+			inputListData += "</tr>";
 	$('#attListTable').html(inputListData);
 
 

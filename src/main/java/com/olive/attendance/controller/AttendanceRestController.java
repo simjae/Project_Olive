@@ -147,6 +147,7 @@ public class AttendanceRestController {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
+		jsonObject.put("auth", auth.getAuthorities());
 
 		return jsonObject;
 	}
