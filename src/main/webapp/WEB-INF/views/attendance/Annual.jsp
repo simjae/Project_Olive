@@ -131,8 +131,6 @@ margin: 0 auto;
 													<select class="select" id="newSearchType">
 														<option selected>사번</option>
 														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
 													</select>
 													<input type="text" class=inputState id="newKeyword">
 													<input type="button" class="btn btn-info" id="searchBtn" value="검색">
