@@ -193,7 +193,7 @@ public class Hr_ManagementRestController {
 		return annualList;
 	}
 	
-	//휴가관리 수정하기 //redirect ??!?!?
+	//휴가관리 수정하기
 	@RequestMapping(value="updateAnnual.do", method=RequestMethod.POST)
 	public String updateAnnual(String empno, String annual) {
 		Map<String, Object> map =  new HashMap<String, Object>();
@@ -215,22 +215,8 @@ public class Hr_ManagementRestController {
 	
 	// 인사관리 - 조직관리 - 근태현황 - 부서별 근태 현황
 	@RequestMapping(value = "getAttGroupByDept.do", method = RequestMethod.POST)
-	public List<Object> getAttGroupByDept(String deptName) {
-		JSONObject jsonObject1 = managementService.getAttGroupByDept(deptName);
-		JSONObject jsonObject2 = managementService.getAttGroupByDept("사업팀");
-		JSONObject jsonObject3 = managementService.getAttGroupByDept("마케팅팀");
-		JSONObject jsonObject4 = managementService.getAttGroupByDept("개발팀");
-		JSONObject jsonObject5 = managementService.getAttGroupByDept("운영팀");
-		JSONObject jsonObject6 = managementService.getAttGroupByDept("회계팀");
-		
-		List<Object> jsonObject = new ArrayList<Object>();
-		jsonObject.add(jsonObject1);
-		jsonObject.add(jsonObject2);
-		jsonObject.add(jsonObject3);
-		jsonObject.add(jsonObject4);
-		jsonObject.add(jsonObject5);
-		jsonObject.add(jsonObject6);
-
+	public JSONObject getAttGroupByDept(String deptName) {
+		JSONObject jsonObject = managementService.getAttGroupByDept(deptName);		
 		return jsonObject;
 	}
 	// 조직관리 > 연도별 총 사원 수 현황 선 그래프

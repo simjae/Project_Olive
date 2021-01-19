@@ -143,7 +143,7 @@
 			}
 			for(let i=data.pagination.startPage; i<=data.pagination.endPage; i++){
 				if(i == data.criteria.page){
-					inputPaginationData += "<li class='page-item page-link'>"
+					inputPaginationData += "<li class='page-item page-link paging-background'>"
 											 + "<b>"
 											 + i
 											 +"</b></li>"				

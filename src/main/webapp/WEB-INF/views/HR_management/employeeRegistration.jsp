@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
+</style>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -19,6 +27,11 @@
 			<div id="content">
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+				<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">인사관리</h1>
+					</div>
 					<!-- 계정관리 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">

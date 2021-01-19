@@ -23,44 +23,44 @@ function chart(data) {
 	var chart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: data[0].labels,
+			labels: data.labels,
 			datasets: [{
 				label:"인사팀",
-				data: data[0].datas,
+				data: data.인사팀,
 				fill: false,
 				lineTension: 0,
 				hoverBorderColor: "rgb(242,166,54)",
 				borderColor:"rgba(242,166,54,.5)"
 			}, {
-				data: data[1].datas,
+				data: data.사업팀,
 				label : "사업팀",
 				fill: false,
 				lineTension: 0,
 				hoverBorderColor: "rgb(39,79,76)",
 				borderColor:"rgba(39,79,76,.5)"
 			}, {
-				data: data[2].datas,
+				data: data.마케팅팀,
 				label : "마케팅팀",
 				fill: false,
 				lineTension: 0,
 				hoverBorderColor: "rgb(40,161,130)",
 				borderColor:"rgba(40,161,130,.5)"
 			}, {
-				data: data[3].datas,
+				data: data.개발팀,
 				label:"개발팀",
 				fill: false,
 				lineTension: 0,
 				hoverBorderColor: "rgb(206,29,22)",
 				borderColor:"rgba(206,29,22,.5)"
 			}, {
-				data: data[4].datas,
+				data: data.운영팀,
 				label:"운영팀",
 				fill: false,
 				lineTension: 0,
 				hoverBorderColor: "rgb(63,114,175)",
 				borderColor :"rgba(63,114,175,.5)"
 			},{
-				data: data[5].datas,
+				data: data.회계팀,
 				label:"회계팀",
 				fill : false,
                 lineTension : 0,
