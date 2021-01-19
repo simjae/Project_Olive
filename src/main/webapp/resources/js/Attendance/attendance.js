@@ -8,18 +8,10 @@ function Unix_timestamp(t) {
 	var minute = "0" + date.getMinutes();
 	var second = "0" + date.getSeconds();
 
-
-
 	return year + "-" + month.substr(-2) + "-" + day.substr(-2) + " " + hour.substr(-2) + ":" + minute.substr(-2) + ":" + second.substr(-2);
 }
 
-
-
-
-
-
-
-
+// 비동기 페이징 데이터 뽑기
 $('#searchBtn').click(function() {
 	let searchType = "";
 	let keyword = $('#newKeyword').val();
@@ -177,6 +169,94 @@ function insertDatabyAjax(data) {
 }
 
 $('#collapseAtt').addClass('show');
-		$('#collapseAtt').prev().removeClass('collapsed');
-		$('#collapseAtt').prev().children().css("color","#fff");
+$('#collapseAtt').prev().removeClass('collapsed');
+$('#collapseAtt').prev().children().css("color","#fff");
 		
+
+// 근태현황 : 근무시간 및 연장근무시간 pie chart
+
+//Progress Bar 근태 툴팁 표시 및 파이차트
+$(document).ready(function(){
+	  $('[data-toggle="tooltip"]').tooltip();   
+	  
+	  let rh = Number($('.regularHour').text().trim()) * 60;
+	  let rm = Number($('.regularMinute').text().trim());
+	  let oh = Number($('.overHour').text().trim()) * 60;
+	  let om = Number($('.overMinute').text().trim());
+	  
+	  const STIPULATED_TIME_PER_MINUTE = 52 * 60 ;	// 규정 근로시간(52시간)을 분(X 60)으로 환산
+	  
+	  let regularWorkPcnt = Number((((rh + rm) / STIPULATED_TIME_PER_MINUTE) * 100).toFixed(1));	// 규정 근무시간 내 근무한 시간
+	  let overWorkPcnt = Number((((oh + om) / STIPULATED_TIME_PER_MINUTE) * 100).toFixed(1));	// 연장 근무 시간
+	  let totalWorkPcnt = Number((100 - (Number(regularWorkPcnt) + Number(overWorkPcnt))).toFixed(1));		// 총 규정 근무시간(52시간) 내 잔여 근무가능 시간
+	  
+	  Highcharts.chart('pie', {
+	  	  chart: {
+	  		  zoomType: 'y',
+	  		  plotBackgroundColor: null,
+	  		  plotBorderWidth: null,
+	  		  plotShadow: false,
+	  		  type: 'pie'
+	  	  },
+	  	  title: {
+	  		  text: '총<br>근무시간<br>(%)',
+	  	      align: 'center',
+	  	      verticalAlign: 'middle',
+	  	      y: 20
+	  	  },
+	  	  tooltip: {
+	  	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	  	  },
+	  	  plotOptions: {
+	  		  pie: {
+	  		         dataLabels: {
+	  		            enabled: true,
+	  		            distance: 10,
+	  		            style: {
+	  		               fontWeight: 'bold',
+	  		               color: 'white',
+	  		               textShadow: '0px 1px 1px black'
+	  		            }
+	  		         },
+	  		         startAngle: 0,
+	  		         endAngle: 0,
+	  		         center: ['50%', '50%']
+	  		      }
+	  	  },
+	  	  series: [{
+	  	      type: 'pie',
+	  	      name: '근무시간',
+	  	      innerSize: '60%',
+	  	      data: [{
+	  		    	  name : '정규 근무',
+	  		    	  y: regularWorkPcnt,
+	  		    	  sliced: true,
+	  		    	  selected: false,
+	  		    	  color: '#64dd17'
+	  	      	},
+	  	      	{
+	  		    	  name : '연장 근무',
+	  		    	  y: overWorkPcnt,
+	  		    	  sliced: false,
+	  		    	  selected: false,
+	  		    	  color: '#8500CD'
+	  	      	},
+	  	      	{
+	  		    	  name : '잔여근무',
+	  		    	  y: totalWorkPcnt,
+	  		    	  sliced: false,
+	  		    	  selected: false,
+	  		    	  color: '#f5f5f5'
+	  	      	}
+	  	      ]
+	  	  }],
+	  	  exporting: false,
+	  	  credits: {
+	  		  enabled: false
+	  	  }
+	  	  
+	  });
+
+});
+
+
