@@ -44,8 +44,8 @@ h1{
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
-  border-bottop: 16px solid #3498db; 
+  border-top: 16px solid #62B942;
+  border-bottop: 16px solid #62B942; 
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
@@ -74,6 +74,20 @@ h1{
   background: rgba(3,3,3,0.25);
   box-shadow: 1px 1px 50px #000;
 }
+
+.valid-form-control:focus {
+  background-color: #fff;
+  border-color: #0bbf14;
+  outline: none;
+  box-shadow: 0 0 0 0.3rem rgba(11, 191, 20, 0.5);
+}
+
+.invalid-form-control:focus {
+  background-color: #fff;
+  border-color: #eb4034;
+  outline: none;
+  box-shadow: 0 0 0 0.3rem rgba(235, 64, 52, 0.5);
+}
 </style>
 
 
@@ -94,8 +108,8 @@ h1{
 										<sec:authentication var="principal" property="principal" />
 										<h1 class="h4 mb-5" >이메일 인증</h1>
 										<p class="mb-4" style="color:white;">
-											사번 : ${principal.username} 님. 환영합니다!
-											<br>본인의 이메일 인증을 통해 OLIVE를 사용해보세요.
+											${principal.username} 님 환영합니다!
+											<br>이메일 인증을 통해 OLIVE를 사용해보세요
 										</p>
 									</div>
 									<form method="POST" class="user" id="emailForm">
