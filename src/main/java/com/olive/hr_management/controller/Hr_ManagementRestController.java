@@ -171,16 +171,17 @@ public class Hr_ManagementRestController {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
-
 		return jsonObject;
 	}
-
+	
+	//급여관리 - 부서별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForClass.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForClass();
 		return result;
 	}
 	
+	//급여관리 - 직급별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForDept.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();
