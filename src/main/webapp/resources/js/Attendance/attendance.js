@@ -25,7 +25,6 @@ function Unix_timestampTime(t) {
 $('#searchBtn').click(function() {
 	let searchType2 = "";
 	let keyword2 = $('#newKeyword').val();
-	console.log("검색어 : " + keyword2);
 	if ($('#newSearchType option:selected').val() == "사번") {
 		searchType2 = "empno"
 	} else if ($('#newSearchType option:selected').val() == "이름") {
@@ -44,7 +43,6 @@ $('#searchBtn').click(function() {
 			keyword2: keyword2
 		},
 		success: (data) => {
-			console.log("sdawd");
 			$('#oldSearchType2').val(searchType2);
 			$('#oldKeyword2').val(keyword2);
 			insertDatabyAjax(data);
@@ -152,7 +150,6 @@ function insertDatabyAjax(data) {
 	console.log(data.list);
 	console.log(data.pagination);
 	console.log(data.auth);
-	//console.log(new Date(t).format("yyyy년 MM월 dd일 a/p hh시 mm분 ss초"));
 	$('#attListTable').empty();
 	let inputListData = "";
 	

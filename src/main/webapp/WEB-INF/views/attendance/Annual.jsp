@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib	prefix="fmt" 	uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,24 +131,31 @@
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+									<h5 class="ml-0 mr-0 font-weight-bold text-info">휴가테이블</h5>
+									<form class="form-group mb-0">
+										<div class="input-group">
+												<select class="form-control text-center form-select-lg"	id="newSearchType">
+												<option selected>사번</option>
+												<option>이름</option>
+												</select> 
+													<input type="text"class="form-control text-center form-select-lg"id="newKeyword">
+														<div class="input-group-append">
+															<button type="button" class="btn btn-primary ml-0" id="searchBtn">
+																<i class="fas fa-search fa-sm "></i>
+															</button>
+														</div>
+										</div>
+									</form>
 								</div>
+
 								<!-- Card Body -->
 								<div class="card-body">
 									<div class="card-for-flex mb-1">
 										<div
 											class="card-body-tridiv search-tab row justify-content-end mr-5">
 											<div class="mb-3">
-												<!-- 비동기로 DB다녀오는 친구들 -->
-												<form class="form-group">
-													<select class="select" id="newSearchType">
-														<option selected>사번</option>
-														<option>이름</option>
-													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
-														value="검색">
-													<!-- //비동기로 DB다녀오는 친구들 -->
-												</form>
+												<!-- //비동기로 DB다녀오는 친구들 -->
+
 											</div>
 										</div>
 										<div class="card-body-tridiv"></div>
@@ -173,9 +180,12 @@
 														<td name="empno"><c:out value="${annual_diff.empno}" /></td>
 														<td><c:out value="${annual_diff.ename}" /></td>
 														<td><c:out value="${annual_diff.count}" /></td>
-														<td><fmt:formatDate value ="${annual_diff.startdate}" pattern = "yyyy-MM-dd HH:mm:ss" /></td>
-														<td><fmt:formatDate	value="${annual_diff.enddate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-														<td><label class="userCheck"><input class='filter' type="radio" name="user"></label></td>
+														<td><fmt:formatDate value="${annual_diff.startdate}"
+																pattern="yyyy-MM-dd HH:mm:ss" /></td>
+														<td><fmt:formatDate value="${annual_diff.enddate}"
+																pattern="yyyy-MM-dd HH:mm:ss" /></td>
+														<td><label class="userCheck"><input
+																class='filter' type="radio" name="user"></label></td>
 													</tr>
 												</c:forEach>
 											</tbody>
