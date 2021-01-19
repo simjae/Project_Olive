@@ -17,7 +17,7 @@ public class MonitoringAspect {
 	
 
 	//within(com.olive.*.*.*) 나중에 넣어야함 인터페이스로 criteria 빼고 나서 
-	@Around("")
+	@Around("within(com.olive.*.*.*)")
 	public Object doDAOMonitoring(ProceedingJoinPoint joinpoint) throws Throwable {
 		StopWatch clock = new StopWatch("Profiling ...");
 
