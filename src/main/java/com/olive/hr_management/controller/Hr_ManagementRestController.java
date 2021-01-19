@@ -149,6 +149,7 @@ public class Hr_ManagementRestController {
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
 	public JSONObject getEmpAttListBykeyword(Criteria cri) {
 		cri.setCriteria("emp_att", "starttime", "desc");
+		cri.setPerPageNum(5);
 		int totalCount = pagingService.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = pagingService.getList(cri);
@@ -170,16 +171,17 @@ public class Hr_ManagementRestController {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
-
 		return jsonObject;
 	}
-
+	
+	//급여관리 - 부서별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForClass.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForClass();
 		return result;
 	}
 	
+	//급여관리 - 직급별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForDept.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();

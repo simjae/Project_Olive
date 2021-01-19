@@ -1,3 +1,4 @@
+
 <%-- 
     파일명: EmployeeAttendance.jsp
     설명: 직원 휴가 및 근태 관리 CRUD (인사팀 전용)
@@ -25,7 +26,6 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-
 	/* Modal styles */
 	.modal .modal-dialog {
 		max-width: 70%;
@@ -72,9 +72,7 @@
 		display:none;
 	
 	}
-
 	
-
 </style>
 </head>
 <body id="page-top">
@@ -129,7 +127,7 @@
 													aria-describedby="basic-addon2" id="searchBar">
 												<div class="input-group-append">
 													<button class="btn btn-primary" type="button"
-														id="searchBtn">
+														id="searchBtn5">
 														<i class="fas fa-search fa-sm"></i>
 													</button>
 												</div>
@@ -429,8 +427,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<!-- Validation -->
-		<script src="/resources/js/Hr_management/validationBeforeInsert.js"></script>
 		<!-- SearchAndPaging -->
 		<script src="/resources/js/Hr_management/EmployeeAttendancejs.js"></script>
 		<!-- SweetAlert -->

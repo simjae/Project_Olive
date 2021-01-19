@@ -257,8 +257,13 @@ function insertDatabyAjax1(data) {
 		inputListData += "<tr>";
 		inputListData += "<td>" + data.list[i].empno + "</td>";
 		inputListData += "<td>" + data.list[i].ename + "</td>";
-		inputListData += "<td>" + starttime + "</td>";
-		inputListData += "<td>" + endtime + "</td>";
+		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>";
+		if(data.list[i].endtime == null){
+			inputListData += "<td>" + "                        " + "</td>";	
+		}else{
+			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) 	+ "</td>";
+		}
+
 		inputListData += "<td>" + data.list[i].attname + "</td>";
 		if (data.list[i].attname != '정상') {
 			inputListData += "<td><button class='attBtn btn btn-primary'>정상처리</button></td>"
