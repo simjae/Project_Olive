@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 			type: "POST"
 			, url: "/attendance/isPunchedIn.do"
 			, success: function(data) {
-				if(data === null || data === ""){	// 미출근 시 출근처리
+				if(typeof data == "undefined" || data === null || data === ""){	// 미출근 시 출근처리
 					startWork();
 				}else{ 								// 이미 출근 처리됨을 알림
 					swal("이미 처리됨", propperTime(data.start) + " 부로 이미 처리되었습니다.", "info");
@@ -47,10 +47,16 @@ jQuery(document).ready(function($) {
 			type: "POST"
 			, url: "/attendance/isPunchedIn.do"
 			, success: function(data) {
-				if(data.start === null || data.start === ""){
+				console.log("퇴근 확인 콘솔");
+				console.log(data);
+				console.log(data.start);
+				console.log("퇴근데이터 undifined 확인");
+				console.log(typeof data.end);
+				console.log(typeof data.end == "undefined");
+				if(typeof data.start == "undefined" || data.start === null || data.start === ""){
 					swal("처리 불가", "출근 처리가 되지 않았습니다. 부서 내 관리자에게 문의바랍니다.", "warning");
 				}else {
-					if(data.end === null || data.end === ""){
+					if(typeof data.end == "undefined" || data.end === null || data.end === ""){
 						swal({
 							title: "퇴근하시겠습니까?",
 							icon: "warning",
