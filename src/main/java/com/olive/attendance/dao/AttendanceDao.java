@@ -32,7 +32,7 @@ public interface AttendanceDao {
 	// 근태관리 테이블/캘린더 radio select
 	public List<Att_Record> gettableUserList(String empno);
 	
-	// 휴가관리  테이블/캘린더 select
+	// 휴가관리  card select
 	public Document annualCard(String empno);
 	
 	// 휴가관리  테이블/캘린더 select

@@ -168,6 +168,7 @@
 <script type="text/javascript">
 let count =0;
 function connect(){
+
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
 	websocket.onopen =(evt) =>{
 		
