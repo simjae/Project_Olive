@@ -11,6 +11,8 @@ jQuery(document).ready(function($) {
 	$('#submitBtn').click(() => {
 		if (checkEmail($('#email').val())) {
 			sendEmail();
+			$('#checkEmail').attr('disabled', true);
+			$('#submitBtn').attr('disabled', true);
 		}
 	});
 
@@ -51,6 +53,7 @@ jQuery(document).ready(function($) {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용가능한 이메일입니다.");
 					$('#checkEmail').css("color", "green");
+					$('#submitBtn').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 				} else if (data != null) {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이미 사용중인 이메일입니다.");
@@ -171,6 +174,8 @@ jQuery(document).ready(function($) {
 	// 비밀번호 재설정 시 인증번호 보내기 클릭 이벤트
 	$('#submitBtnPwd').click(() => {
 		sendPwdEmail();
+		$('#pwdemail').attr('disabled', true);
+		$('#submitBtnPwd').attr('disabled', true);
 	});
 
 	// 비밀번호 재설정 시 인증된 이메일 DB 비교 AJAX
@@ -194,6 +199,7 @@ jQuery(document).ready(function($) {
 					$('#checkEmail').empty();
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.ename + "님 메일함을 확인해주세요.");
 					$('#checkEmail').css("color", "green");
+					$('#submitBtnPwd').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 
 				}
 			},
@@ -212,11 +218,11 @@ jQuery(document).ready(function($) {
 		$.ajax({
 			url: "registEmail.do",
 			type: "POST",
-			data: { email: $('#email').val() },
+			data: { email: $('#pwdemail').val() },
 			success: () => {
 				$('.loader').css('visibility', 'hidden');
 				$('.loader').css('oppacity', '0');
-				swal("인증번호 발송 완료", $('#email').val() + " 이메일로 인증번호가 발송되었습니다.", "success");
+				swal("인증번호 발송 완료", $('#pwdemail').val() + " 이메일로 인증번호가 발송되었습니다.", "success");
 				$('#code').attr('readonly', false);
 
 				$('#pwdfinalCheck').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);

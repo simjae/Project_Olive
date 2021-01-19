@@ -53,9 +53,7 @@ public class HRAjaxController {
 	//사원 사번 조회 //일단 모달창 전용으로 
 	@RequestMapping(value="searchByEmpno.do", method = RequestMethod.POST)
 	public Map<String, Object> searchEmpByEmpno(String empno){
-		System.out.println(empno);
 		Map<String, Object> emp = empService.searchEmpByEmpno(empno);
-		System.out.println("얘 뽑은거임"+emp);
 		return emp;    
 	}     
 	

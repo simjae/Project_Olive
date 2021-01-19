@@ -25,14 +25,18 @@
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-
-h1{
+h1 {
 	text-decoration: underline;
 	font-weight: bold;
 	text-decoration-color: #ffe561;
 	text-decoration-thickness: 5px;
 }
+
 #saveBtn {
+	display: none;
+}
+
+#alert {
 	display: none;
 }
 
@@ -47,8 +51,6 @@ table {
 	margin-top: 30px;
 	margin-bottom: 20px;
 	width: 80%;
-
-
 }
 
 table td {
@@ -70,8 +72,8 @@ table tr td:last-child {
 	width: 100%;
 	border-bottom: 1px solid #ddd;
 	color: #384a5e;
-	font-family: IBMPlexSansKR-SemiBold; 
-	font-style: normal; 
+	font-family: IBMPlexSansKR-SemiBold;
+	font-style: normal;
 	font-weight: normal;
 }
 
@@ -85,8 +87,8 @@ table tr td:last-child {
 }
 
 /* profile file */
-#profile_img_upload{
-    width: 0.1px;
+#profile_img_upload {
+	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
 	overflow: hidden;
@@ -94,23 +96,21 @@ table tr td:last-child {
 	z-index: -1;
 }
 
-#profile_img_upload + label {
-    border: 1px solid #d9e1e8;
-    background-color: #fff;
-    color: #2b90d9;
-    border-radius: 2rem;
-    padding: 8px 17px 8px 17px;
-    font-weight: 500;
-    font-size: 15px;
-    box-shadow: 1px 2px 3px 0px #f2f2f2;
-    outline: none;
+#profile_img_upload+label {
+	border: 1px solid #d9e1e8;
+	background-color: #fff;
+	color: #2b90d9;
+	border-radius: 2rem;
+	padding: 8px 17px 8px 17px;
+	font-weight: 500;
+	font-size: 15px;
+	box-shadow: 1px 2px 3px 0px #f2f2f2;
+	outline: none;
 }
 
-#profile_img_upload:focus + label,
-#profile_img_upload + label:hover {
-    cursor: pointer;
+#profile_img_upload:focus+label, #profile_img_upload+label:hover {
+	cursor: pointer;
 }
-
 </style>
 </head>
 
@@ -234,8 +234,10 @@ table tr td:last-child {
 												method="POST" enctype="multipart/form-data">
 												<div class="form-group row">
 													<div class="col-md-10">
-														<input type="file" id="profile_img_upload" name="file" class="file" accept="image/*"> 
-														<label for="profile_img_upload"><i class="far fa-file-image"></i>&nbsp;Profile Image</label>
+														<input type="file" id="profile_img_upload" name="file"
+															class="file" accept="image/*"> <label
+															for="profile_img_upload"><i
+															class="far fa-file-image"></i>&nbsp;Profile Image</label>
 													</div>
 												</div>
 												<input name="empNo" id="empNo" type="text"
@@ -247,7 +249,8 @@ table tr td:last-child {
 													<div class="col-md-10">
 														<p>비밀번호</p>
 														<input name="pwd" id="pwd" type="text"
-															class="form-control" placeholder="새 비밀번호" value="">
+															class="form-control" placeholder="새 비밀번호">
+														<div id="alert" class="alert alert-danger">비밀번호는 필수입력값입니다.</div>
 													</div>
 
 												</div>
@@ -273,7 +276,10 @@ table tr td:last-child {
 												<div class="form-group row mt-4">
 													<div class="col-md-10">
 														<p class="mb-0">주소</p>
-														<button type="button" class="btn" onclick="sample2_execDaumPostcode()"><i class="fa fa-map-marker-alt"></i></button>
+														<button type="button" class="btn"
+															onclick="sample2_execDaumPostcode()">
+															<i class="fa fa-map-marker-alt"></i>
+														</button>
 														<input name="address" id="address" type="text"
 															class="form-control" placeholder="주소"
 															value="${emp.ADDRESS}">
@@ -353,7 +359,6 @@ table tr td:last-child {
 						keyword: keyword
 					},
 					success: (data) => {
-						console.log(data);
 						insertDatabyAjax(data);
 					},error : function(error){
 						console.log(error);
@@ -364,9 +369,11 @@ table tr td:last-child {
 		}); 
 
 		$('#saveBtn').click(function(){
-
-			$('#editform').submit();
-			console.log("눌리긴 하니");
+			if($('#pwd').val() == ""){
+				$('#alert').show();
+			}else{
+				$('#editform').submit();
+			}
 			
 		}); 
 	}); 
@@ -428,13 +435,6 @@ table tr td:last-child {
         element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
         element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     }
-
-
-
-
-
-
-
 	</script>
 </body>
 
