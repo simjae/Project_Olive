@@ -301,5 +301,13 @@ public class ApprovalService extends PagingService {
 		dao.deleteDoc(docno);
 	}
 	
+	public Doc_form getFormContent(String formName) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getFormContent(formName);
+	}
 	
+	public void deleteForm(String formName) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		dao.deleteForm(formName);
+	}
 }

@@ -24,6 +24,7 @@ import com.olive.approval.service.ApprovalService;
 import com.olive.approval.utils.ApprovalCriteria;
 import com.olive.dto.Approver;
 import com.olive.dto.Dept;
+import com.olive.dto.Doc_form;
 import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.utils.Pagination;
@@ -250,6 +251,15 @@ public class ApprovalRestController {
 
 		approvalService.deleteDoc(docno);
 		return "/approval/PersonalDoc.do";
+	}
+	
+	@RequestMapping(value="getFormContent.do")
+	private Doc_form getFormContent(String formName) {
+		return approvalService.getFormContent(formName);
+	}
+	@RequestMapping(value="deleteForm.do")
+	private void deleteForm(String formName) {
+		approvalService.deleteForm(formName);
 	}
 
 }
