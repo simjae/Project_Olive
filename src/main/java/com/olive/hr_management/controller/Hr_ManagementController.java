@@ -76,7 +76,6 @@ public class Hr_ManagementController {
 	// 인사관리 > 계정 관리 > 엑셀 다운로드
 	@RequestMapping(value = "SalaryExcelForm.do")
 	public String salaryExcelForm(Model model, Criteria cri) {
-		System.out.println("들어옴");
 		return "salaryExcelFormat";
 	}
 
@@ -107,7 +106,6 @@ public class Hr_ManagementController {
 		Pagination pagination = new Pagination(cri, totalCount);
 		cri.setPerPageNum(5);
 		List<Map<String, Object>> result = pagingService.getList(cri);
-		System.out.println("[result] : " + result);
 
 		model.addAttribute("list", result);
 		model.addAttribute("pagination", pagination);
@@ -157,7 +155,6 @@ public class Hr_ManagementController {
 		model.addAttribute("pagination2", pagination2);
 		model.addAttribute("criteria1", cri1);
 		model.addAttribute("criteria2", cri2);
-		System.out.println("휴가/근태관리");
 		return "HR_management/EmployeeAttendance";
 	}
 	

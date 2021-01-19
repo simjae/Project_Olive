@@ -5023,10 +5023,10 @@ a.badge-dark:focus, a.badge-dark.focus {
 
 .alert {
   position: relative;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
+  padding: 0.75rem 0.75rem;
+/*   margin-bottom: 1rem;
   border: 1px solid transparent;
-  border-radius: 0.35rem;
+  border-radius: 0.35rem;  */
 }
 
 .alert-heading {
@@ -5121,9 +5121,9 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .alert-danger {
-  color: #78261f;
-  background-color: #fadbd8;
-  border-color: #f8ccc8;
+  color: red;
+  /* background-color: #fadbd8;
+  border-color: #f8ccc8; */
 }
 
 .alert-danger hr {
@@ -6408,7 +6408,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #4e73df !important;
+  background-color: #93be4c !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,

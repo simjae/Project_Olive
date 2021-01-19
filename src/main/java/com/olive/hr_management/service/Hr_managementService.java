@@ -37,7 +37,6 @@ public class Hr_managementService {
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
 		this.sqlsession = sqlsession;
-		System.out.println(this.sqlsession);
 	}
 
 	// 인사관리 : 사원 신규 등록
@@ -64,9 +63,9 @@ public class Hr_managementService {
 	// 인사관리 : 사원 신규 등록 시 Ajax 본부 목록 호출
 	public List<Head> getHeadQuarters() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		System.out.println("head service");
+
 		List<Head> HQList = dao.getHeadQuarters();
-		System.out.println(HQList);
+
 		return HQList;
 	}
 
@@ -95,8 +94,7 @@ public class Hr_managementService {
 	public List<Map<String, Object>> getAnnualList(String empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
-		System.out.println(annualList);
-		System.out.println(annualList);
+
 		return annualList;
 	}
 
@@ -104,14 +102,14 @@ public class Hr_managementService {
 	public void updateAttRecord(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAttRecord(map);
-		System.out.println("Emp 근태 수정 완료");
+
 	}
 
 	// 사원 연차 수정
 	public void updateAnnual(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAnnual(map);
-		System.out.println("Emp annual update 완료");
+
 	}
 
 	public SalaryInfo getSalaryDetail(String date, int empno) {
@@ -185,7 +183,7 @@ public class Hr_managementService {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<HashMap<String, Object>> list = dao.getAttbyEmpno(empno);
 		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
-		System.out.println(list.get(0));
+
 		for (HashMap<String, Object> item : list) {
 			if (item.containsValue("출근")) {
 				result.add(item);
@@ -194,9 +192,9 @@ public class Hr_managementService {
 			} else if (item.containsValue("결근")) {
 				result.add(item);
 			}
-			System.out.println(item);
+
 		}
-		System.out.println(result);
+
 		return result;
 	}
 
@@ -215,21 +213,21 @@ public class Hr_managementService {
 		result.put("headCount", headCount);
 		result.put("hired", hired);
 		result.put("retired", retired);
-		System.out.println(result);
+
 		return result;
 	}
 
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForClass();
-		System.out.println(result);
+
 		return result;
 	}
 
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForDept();
-		System.out.println(result);
+
 		return result;
 	}
 
@@ -237,7 +235,7 @@ public class Hr_managementService {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		//1. 총부서 불러오기. List<String>
 		List<HashMap<String, Object>> result = dao.getAttGroupByDept(deptName);
-		System.out.println(result);
+
 		List<String> labels = new ArrayList<>();
 		List<Integer> datas = new ArrayList<>();
 		for (HashMap<String, Object> item : result) {
