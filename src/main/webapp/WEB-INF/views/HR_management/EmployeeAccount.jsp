@@ -31,6 +31,10 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
+.paging-background {
+  background-color: #eaecf4 !important;
+}
+
 p.each-label {
 	margin-top: 0.5rem;
 	margin-bottom: 0;
@@ -49,6 +53,13 @@ p.each-label span {
 
 p.each-label>span {
 	font-weight: bold;
+}
+
+h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
 }
 </style>
 </head>
@@ -77,21 +88,26 @@ p.each-label>span {
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+									<h5 class="ml-0 mr-0 font-weight-bold text-info">계정 관리</h5>
 									<form class="form-group mb-0">
 										<div class="input-group">
-											<input type="button" class="btn btn-primary" id="excelBtn"
-												value="다운로드"> &nbsp;&nbsp;&nbsp;&nbsp; 
-												<select class="select" id="newSearchType">
-													<option selected>사번</option>
-													<option>이름</option>
-													<option>본부</option>
-													<option>부서</option>
-												</select>
-												<input type="text" class="inputState form-control" id="newKeyword">
-												<input type="button" class="btn btn-primary" id="searchBtn" value="검색">
+											<input type="button" class="btn btn-primary form-control" id="excelBtn"
+												value="다운로드">
+											<select class="form-control text-center form-select-lg" id="newSearchType">
+												<option selected>사번</option>
+												<option>이름</option>
+												<option>본부</option>
+												<option>부서</option>
+											</select> 
+											<input type="text" class="form-control text-center form-select-lg"
+												id="newKeyword">
+											<div class="input-group-append">
+												<button type="button" class="btn btn-primary ml-0"
+													id="searchBtn">
+													<i class="fas fa-search fa-sm "></i>
+												</button>
+											</div>
 										</div>
-										<!-- //비동기로 DB다녀오는 친구들 -->
 									</form>
 								</div>
 								<!-- Card Body -->
@@ -163,7 +179,7 @@ p.each-label>span {
 													end="${page.endPage}">
 													<c:choose>
 														<c:when test="${paging eq criteria.page}">
-															<li class="page-item page-link"><b>${paging}</b></li>
+															<li class="page-link page-item paging-background" >${paging}</li>
 														</c:when>
 														<c:otherwise>
 															<li class="page-item"><a class="page-link page-btn"

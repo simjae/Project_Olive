@@ -201,18 +201,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		empno = #{empno} and starttime = #{starttime}
 	</update>
 
-	<select id="getAttGroupByDept" resultType="HashMap"
-		parameterType="String">
-		SELECT deptname as "dept",
-		attname as "status",
-		count(attname) as "count"
-		FROM emp_att
-		WHERE (attname="지각" or
-		attname="결근" or
-		attname="출장" or attname="휴가") and deptname =
-		#{deptName}
-		GROUP BY
-		attname, deptname
+	<select id="getAttGroupByDept" resultType="HashMap">
+		SELECT * FROM attRecordbyDept
 	</select>
 
 	<!-- 희승 : 연도별(최근 5년) 입사인원 select -->
