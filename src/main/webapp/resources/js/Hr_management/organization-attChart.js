@@ -26,7 +26,7 @@ $('#searchBar').autocomplete({
 })
 
 // 근태현황 도넛차트
-$("#searchBtn").click(function() {
+$("#searchBtn5").click(function() {
 	
 	// 입맛에 맞게
 	$.ajax({
@@ -38,12 +38,10 @@ $("#searchBtn").click(function() {
 		success: function(data) {
 			var datasetsForchart = new Array;
 			var labelsForchart = new Array;
-			console.log(data);
 			$.map(data.attrecord, function(item) {
 				labelsForchart.push(item.attname)
 				datasetsForchart.push(parseInt(item.num))
 			chart5(datasetsForchart, labelsForchart);
-			console.log(data.empinfo);
 			var empData = data.empinfo.ENAME+" "+data.empinfo.CLASSNAME +"/" +data.empinfo.DEPTNAME;
 			$('#emp').html(empData);
 			})
@@ -52,8 +50,6 @@ $("#searchBtn").click(function() {
 })
 var ctx2 = $("#attChart");
 function chart5(datasetsForchart, labelsForchart) {
-	console.log(datasetsForchart)
-	console.log(labelsForchart)
 	var chart2 = new Chart(ctx2, {
 		type: 'doughnut',
 		data: {

@@ -163,7 +163,9 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value="AddForm.do", method=RequestMethod.GET)
-	public String AddFormPage() {
+	public String AddFormPage(Model model) {
+		List<Doc_form> formList = approvalService.formList();
+		model.addAttribute("formList",formList);
 		
 		return "approval/AddForm";
 	}
@@ -175,6 +177,7 @@ public class ApprovalController {
 		approvalService.addForm(doctype);
 		return "redirect:/approval/ApprovalHome.do";
 	}
+	
 	
 	
 }

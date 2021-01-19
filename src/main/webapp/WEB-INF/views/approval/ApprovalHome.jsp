@@ -25,7 +25,12 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
-
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 /* 채연 */
 .styled-table {
 	border-collapse: collapse;
@@ -123,10 +128,7 @@ h6.text-primary>i.fas {
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">전자결재</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-							<i class="fas fa-download fa-sm text-white-50"></i>&nbsp;which Button
-						</a>
+						<h1 class="h3 text-gray-800">전자결재</h1>
 					</div>
 					<!-- 결재 정리된 UI -->
 					<div class="row">
@@ -134,7 +136,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-6 col-lg-6">
 							<div class="card  shadow mb-4">
 								<div class="card-header">
-									<div class="font-weight-bold h5 text-uppercase mb-1">내가 최근 올린 결재</div>
+									<div class="font-weight-bold h5 text-uppercase mb-1">개인문서함</div>
 								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -174,7 +176,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-6 col-lg-6">
 							<div class="card shadow mb-4">
 								<div class="card-header">
-									<div class="font-weight-bold h5 text-uppercase mb-1">내가 받은 결재</div>
+									<div class="font-weight-bold h5 text-uppercase mb-1">결재진행함</div>
 								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -212,7 +214,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-12 col-lg-12">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold">내가 올린 결재</h6>
+									<h5 class="m-0 font-weight-bold">내가 최근 올린 결재</h5>
 									<!-- 바로가기 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
@@ -272,7 +274,7 @@ h6.text-primary>i.fas {
 							<div class="card  shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold">내가 최근 받은 결재</h6>
+									<h5 class="m-0 font-weight-bold">내가 최근 받은 결재</h5>
 									<!-- 옵션 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">

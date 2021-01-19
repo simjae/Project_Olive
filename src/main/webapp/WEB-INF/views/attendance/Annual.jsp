@@ -25,6 +25,15 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
+<style>
+#calendar{
+max-width: 1300px;
+margin: 0 auto;
+}
+.item{
+	flex: 1 1 auto;
+}
+</style>
 <body id="page-top">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -122,8 +131,6 @@
 													<select class="select" id="newSearchType">
 														<option selected>사번</option>
 														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
 													</select>
 													<input type="text" class=inputState id="newKeyword">
 													<input type="button" class="btn btn-info" id="searchBtn" value="검색">
@@ -218,10 +225,8 @@
 									</div>
 									<!-- Card Body -->
 									<div class="card-body">
-										<div class="mb-3">
-											<div class="p-5">
+										<div class="center-block item">
 												<div id='calendar'></div>
-											</div>
 										</div>
 									</div>
 								</div>

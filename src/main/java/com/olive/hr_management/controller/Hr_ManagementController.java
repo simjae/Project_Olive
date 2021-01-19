@@ -158,4 +158,11 @@ public class Hr_ManagementController {
 		return "HR_management/EmployeeAttendance";
 	}
 	
+	//인사관리 > 계정관리 > 수정하기페이지
+	@RequestMapping(value = "empEdit.do", method = RequestMethod.GET)
+	public String empEdit(String empno,Model model) {
+		Map<String, Object> result = managementService.getEmpInfo(empno);
+		model.addAttribute("empinfo", result);
+		return "HR_management/empEdit";
+	}
 }

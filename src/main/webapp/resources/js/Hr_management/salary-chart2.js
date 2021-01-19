@@ -38,7 +38,7 @@ function getSalChartDataForDept(labelsForchart1, datasetsForchart1) {
 			labels: labelsForchart1,
 			datasets: [
 				{
-					label: "급여",
+					label: "평균 급여",
 					backgroundColor: [
 						"rgba(242,166,54,.5)",
 						"rgba(39,79,76,.5)",
@@ -108,9 +108,15 @@ function getSalChartDataForDept(labelsForchart1, datasetsForchart1) {
 				caretPadding: 10,
 				callbacks: {
 					label: function(tooltipItem, data) {
-						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+"원";
+						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "원";
 					}
 				}
+			}, scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true   // minimum value will be 0.
+					}
+				}]
 			}
 		}
 	})
@@ -124,7 +130,7 @@ function getSalChartDataForClass(labelsForchart2, datasetsForchart2) {
 			labels: labelsForchart2,
 			datasets: [
 				{
-					label: "급여",
+					label: "평균 급여",
 					backgroundColor: [
 						"rgba(242,166,54,.5)",
 						"rgba(39,79,76,.5)",
@@ -155,11 +161,19 @@ function getSalChartDataForClass(labelsForchart2, datasetsForchart2) {
 						"rgb(40,161,130)",
 						"rgb(206,29,22)"
 					],
+					borderWidth: 1,
 					data: datasetsForchart2
 				}
 			]
 		},
 		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true   // minimum value will be 0.
+					}
+				}]
+			},
 			gridLines: {
 				color: "rgb(234, 236, 244)",
 				zeroLineColor: "rgb(234, 236, 244)",
@@ -193,7 +207,7 @@ function getSalChartDataForClass(labelsForchart2, datasetsForchart2) {
 				caretPadding: 10,
 				callbacks: {
 					label: function(tooltipItem, data) {
-						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')+"원";
+						return tooltipItem.yLabel.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "원";
 					}
 				}
 			}

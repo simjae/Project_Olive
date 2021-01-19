@@ -15,8 +15,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class AccessorLogAspect {
 
-//	final static Log log = LogFactory.getLog(AccessorLogAspect.class);
-//
+	final static Log log = LogFactory.getLog(AccessorLogAspect.class);
+
 //	@Before("execution(* com.olive.authentication.handler.*(..))")
 //	public void loginLog(JoinPoint joinpoint) throws Throwable {
 //		
