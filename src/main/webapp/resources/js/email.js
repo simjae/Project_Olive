@@ -51,13 +51,15 @@ jQuery(document).ready(function($) {
 				$('#email').empty();
 				if (data == "") {
 					$('#checkEmail').empty();
+					$('#email').removeClass('invalid-form-control').addClass('valid-form-control');
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용가능한 이메일입니다.");
-					$('#checkEmail').css("color", "green");
+					$('#checkEmail').css("color", "white");
 					$('#submitBtn').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 				} else if (data != null) {
 					$('#checkEmail').empty();
+					$('#email').removeClass('valid-form-control').addClass('invalid-form-control');
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이미 사용중인 이메일입니다.");
-					$('#checkEmail').css("color", "red");
+					$('#checkEmail').css("color", "white");
 					$('#submitBtn').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
 				}
 			},
@@ -165,7 +167,6 @@ jQuery(document).ready(function($) {
 
 
 	/////////비밀번호////////////////////
-
 	$('#pwdemail').keyup(() => {
 		checkDB($('#pwdemail').val());
 	});
@@ -191,14 +192,16 @@ jQuery(document).ready(function($) {
 				console.log(data.ename);
 				if (data == "") {
 					$('#checkEmail').empty();
+					$('#pwdemail').removeClass('valid-form-control').addClass('invalid-form-control');
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인증되지 않은 이메일입니다.");
-					$('#checkEmail').css("color", "red");
+					$('#checkEmail').css("color", "white");
 					$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
 					
 				} else if (data != null) {
 					$('#checkEmail').empty();
+					$('#pwdemail').removeClass('invalid-form-control').addClass('valid-form-control');
 					$('#checkEmail').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.ename + "님 메일함을 확인해주세요.");
-					$('#checkEmail').css("color", "green");
+					$('#checkEmail').css("color", "white");
 					$('#submitBtnPwd').removeClass('btn-secondary').addClass('btn-primary').attr('disabled', false);
 
 				}
@@ -285,11 +288,11 @@ jQuery(document).ready(function($) {
 		if($('#setpwd').val()!=$('#setpwdcon').val()){
 			$('#checkPwd').text('');
 			$('#checkPwd').html("비밀번호가 일치하지 않습니다.");
-			$('#checkPwd').css("color", "red");
+			$('#checkPwd').css("color", "#eb4034");
 		}else{
 			$('#checkPwd').text('');
 			$('#checkPwd').html("비밀번호가 일치합니다.");
-			$('#checkPwd').css("color", "green");
+			$('#checkPwd').css("color", "white");
 		}
 	})
 	// 비밀번호 재설정

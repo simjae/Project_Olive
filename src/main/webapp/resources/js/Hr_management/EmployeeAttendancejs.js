@@ -3,7 +3,7 @@
     설명: 인사관리 - 직원 근태 휴가 관리 
     작성일: 2021-01-012
     작성자: 박채연 
-*/   
+*/
 
 // 타임스탬프 값을 년월일로 변환
 function Unix_timestamp(t) {
@@ -22,6 +22,7 @@ function Unix_timestamp(t) {
 $(document).on("click", ".editBtn", function() {
 
 	$('.comBtn').show();
+	$('.comBtn').addClass("btn btn-primary");
 	$('.editBtn').hide();
 	$('.checkBtn').hide();
 	console.log("Hi");
@@ -94,7 +95,7 @@ $(document).on("click", '.attBtn', function() {
 
 
 //휴가관리 이력 모달
-$(".checkBtn").click(function() {
+$(document).on("click", ".checkBtn", function() {
 	var checkBtn = $(this);
 	var tr = checkBtn.parent().parent();
 	var td = tr.children();
@@ -109,33 +110,33 @@ $(".checkBtn").click(function() {
 			success: (data) => {
 				var html = "";
 				console.log(data);
-				
+
 				if ((Array.isArray(data)) && data.length === 0) {
-					console.log("null");
+					$('#annModalTable').empty();
 					html += "<h3>연차사용 내역이 존재하지 않습니다.</h3>"
+					$('#annModalTable').append(html)
 				}
 				for (let i = 0; i < data.length; i++) {
 					let writedate = moment(data[i].writedate).format("YYYY-MM-DD");
 					console.log(writedate);
 					let enddate = moment(data[i].enddate).format("YYYY-MM-DD");
 					let startdate = moment(data[i].startdate).format("YYYY-MM-DD");
-					let typename = data[i].typename.substring(0,2);
-				
+					let typename = data[i].typename.substring(0, 2);
+
 					html += "<tr>"
 						+ "<td>" + data[i].empno + "</td>"
 						+ "<td>" + data[i].ename + "</td>"
 						+ "<td>" + typename + "</td>"
 						+ "<td>" + writedate + "</td>"
 						+ "<td>" + startdate + "</td>"
-						+ "<td>" + enddate+ "</td>"
+						+ "<td>" + enddate + "</td>"
 						+ "<td>" + data[i].timediff + "</td>"
 						+ "</tr>"
 
+					$('#annBody').append(html)
 
 				}
-				$('#annBody').html(html);
 
-				$('annBody').append(html)
 				$('#EmpModal').modal('show');
 			},
 			error: function(error) {
@@ -251,17 +252,17 @@ function insertDatabyAjax1(data) {
 	$('#attListTable').empty();
 	let inputListData = "";
 	for (let i = 0; i < data.list.length; i++) {
-		
+
 		let starttime = moment(data.list[i].starttime).format("YYYY-MM-DD hh mm ss");
 		let endtime = moment(data.list[i].endtime).format("YYYY-MM-DD hh mm ss");
 		inputListData += "<tr>";
 		inputListData += "<td>" + data.list[i].empno + "</td>";
 		inputListData += "<td>" + data.list[i].ename + "</td>";
 		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>";
-		if(data.list[i].endtime == null){
-			inputListData += "<td>" + "                        " + "</td>";	
-		}else{
-			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) 	+ "</td>";
+		if (data.list[i].endtime == null) {
+			inputListData += "<td>" + "                        " + "</td>";
+		} else {
+			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>";
 		}
 
 		inputListData += "<td>" + data.list[i].attname + "</td>";
