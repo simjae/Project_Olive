@@ -22,25 +22,11 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<link href='/resources/css/login.css' rel='stylesheet' />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/resources/js/login.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
 </head>
-
-
-<script type="text/javascript">
-	$("#login-button").click(function() {
-		$('#login-button').fadeOut("slow", function() {
-			$("#container").fadeIn();
-			TweenMax.from("#container", .4, {
-				scale : 0,
-				ease : Sine.easeInOut
-			});
-			TweenMax.to("#container", .4, {
-				scale : 1,
-				ease : Sine.easeInOut
-			});
-		});
-	});
-</script>
 
 <body>
 
@@ -81,11 +67,27 @@
 		</form>
 		
 	</div>
+	<c:if test="${requestScope.ERROR_MSG != null}">
+	<script>
+	jb('#login-button').fadeOut("fast", function() {
+			jb("#container").fadeIn();
+			TweenMax.from("#container", .4, {
+				scale : 0,
+				ease : Sine.easeInOut
+			});
+			TweenMax.to("#container", .4, {
+				scale : 1,
+				ease : Sine.easeInOut
+			});
+		});
+	</script>
+	</c:if>
+	
 </body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link href='/resources/css/login.css' rel='stylesheet' />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
-	<script src="/resources/js/login.js"></script>
+	
+	
+	
+	
 	<!-- SweetAlert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- Email validation JavaScript -->

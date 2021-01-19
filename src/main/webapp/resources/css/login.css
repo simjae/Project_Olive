@@ -62,9 +62,15 @@ img{
   width: 30%;
   height: 50%;
   border-radius: 5px;
-  background: rgba(3,3,3,0.25);
+  background: rgba(3,3,3,0.35);
   box-shadow: 1px 1px 50px #000;
   display: none;
+}
+#container p {
+	text-align:center;
+	color:red;
+	font-weight:bold;
+	
 }
 
 .close-btn{
