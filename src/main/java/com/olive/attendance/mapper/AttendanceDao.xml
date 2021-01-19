@@ -21,29 +21,28 @@
 		select a.attname as title,
 		ar.starttime as start,
 		ar.endtime as end,
-		color
+		color 
 		FROM
 		Att_Record ar join ATTENDANCE a ON ar.ATTCODE =a.ATTCODE
 		where empno = #{param1}
-		group by docno
+		
 	</select>
 
 	<!-- 재형 : 휴가관리 캘린더 -->
 	<select id="getanaltableList"
 		resultType="com.olive.dto.Document">
 
-		select r.empno as empno,
+		select d.empno as empno,
 		d.title as title,
 		a.startdate as start,
 		a.enddate as end,
-		t.color as color,r.attcode
+		dt.color as color,
+        d.typecode
 		FROM document d
 		join doc_add a ON d.docno = a.document_docno
-		join att_record r on d.empno = r.empno
-		join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-		where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30 and
-		r.empno = #{empno}
-		group by d.docno
+        join doc_type dt on d.typecode = dt.typecode
+		where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30 and d.empno = #{empno}
+		
 
 	</select>
 
@@ -51,18 +50,17 @@
 	<select id="getanaltableUserList"
 		resultType="com.olive.dto.Document">
 
-		select r.empno as empno,
+		select d.empno as empno,
 		d.title as title,
 		a.startdate as start,
 		a.enddate as end,
-		t.color as color,r.attcode
+		dt.color as color,
+        d.typecode
 		FROM document d
 		join doc_add a ON d.docno = a.document_docno
-		join att_record r on d.empno = r.empno
-		join ATTENDANCE t on r.ATTCODE = t.ATTCODE
-		where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30 and
-		r.empno = #{param1}
-		group by d.docno
+        join doc_type dt on d.typecode = dt.typecode
+		where (d.typecode = 30 or d.typecode = 20) and d.STATUSCODE = 30 and d.empno = #{param1}
+		
 	</select>
 	<!-- 재형 : 휴가관리 카드 -->
 	<select id="annualCard" resultType="com.olive.dto.Document">

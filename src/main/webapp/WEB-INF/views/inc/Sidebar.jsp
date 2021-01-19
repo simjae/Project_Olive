@@ -22,9 +22,9 @@
 		</div>
 	</a>
 	<!-- Divider -->
-	<hr class="sidebar-divider">
 	<sec:authorize access="isAuthenticated()">
 	<sec:authorize access="hasRole('ROLE_GENERAL')">
+	<hr class="sidebar-divider">
 		<!-- Heading -->
 		<div class="sidebar-heading">Attendance</div>
 		<!-- Nav Item - Pages Collapse Menu -->
@@ -77,7 +77,7 @@
 				</div>
 			</div></li>
 	</sec:authorize>		
-	</sec:authorize>
+	
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 	<!-- Heading -->
@@ -96,6 +96,7 @@
 		</div></li>
 	<!-- Divider -->
 	<hr class="sidebar-divider">
+	</sec:authorize>
 	<!-- Sidebar Toggler (Sidebar) -->
 	<div class="text-center d-none d-md-inline">
 		<button class="rounded-circle border-0" id="sidebarToggle"></button>

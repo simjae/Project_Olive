@@ -70,12 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 <!-- 내 정보 수정 -->
 	 <update id="updateMyInfo">
 	 	update emp
-	 	set email = #{email}, phone = #{phone}, address = #{address}
+	 	set email = #{email}, phone = #{phone}, address = #{address}, pwd = #{pwd}
 	 	<if test="pic!=null and pic != ''">
 	 	,pic = #{pic}
-	 	</if> 
-	 	<if test="pwd!=null and pwd != ''">
-	 	,pwd = #{pwd}
 	 	</if> 
 	 	where empno = #{empNo}
 	 </update>

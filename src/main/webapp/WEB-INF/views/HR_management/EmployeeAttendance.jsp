@@ -454,6 +454,7 @@ h1 {
 	<script src="/resources/js/Hr_management/organization-attChart.js"></script>
 	<script src="/resources/js/Hr_management/attendance-chart.js"></script>
 </body>
+<<<<<<< HEAD
 <script type="text/javascript">
 	$(function() {
 		$('#collapseHRM').addClass('show');
@@ -461,5 +462,14 @@ h1 {
 		$('#collapseHRM').prev().children().css("color", "#fff");
 
 	})
+=======
+<script type="text/javascript">   
+$(function(){
+	$('#collapseHRM').addClass('show');
+	$('#collapseHRM').prev().removeClass('collapsed');
+	$('#collapseHRM').prev().children().css("color","#fff");
+		
+})
+>>>>>>> 2a044774082cf2b3ec2b42d5cb8613db0db770b1
 </script>
 </html>

@@ -27,9 +27,16 @@
 	rel="stylesheet">
 <!-- Custom styles for this template-->
 
-<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="/resources/css/sb-admin-2.css" rel="stylesheet">
 
 <style>
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
 .loader {
 	border: 16px solid #f3f3f3;
 	border-radius: 50%;
@@ -63,32 +70,33 @@
 
 </head>
 <body class="bg-gradient-primary">
-	<div class="container">
+	<div class="container h-100">
 		<!-- Outer Row -->
-		<div class="row justify-content-center">
-			<div class="col-xl-10 col-lg-12 col-md-9">
-				<div class="card o-hidden border-0 shadow-lg my-5">
+		<div class="row justify-content-center h-100">
+			<div class="col-xl-6 col-lg-6 col-md-6 align-self-center">
+				<div class="card o-hidden border-0 shadow-lg">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-							<div class="col-lg-6" id="checkPage">
+							
+							<div class="col-lg-10 mx-auto"  id="checkPage">
 								<!-- 비밀번호 재설정 카드 시작 -->
 								<div class="p-5" id="emailCheckPage">
 									<div class="text-center">
 
 										<h1 class="h4 text-gray-900 mb-2">비밀번호 재설정</h1>
 										<p class="mb-4">
-											가입시 인증받은 이메일을 입력하시면 <br> 해당 이메일로 인증번호를 보내드립니다. <br>
-											인증 후 비밀번호를 재설정해주세요.
+											가입시 인증받은 이메일을 입력해주세요. 
+											<br> 
+											해당 이메일로 인증번호를 보내드립니다. 
 										</p>
 									</div>
 									<form method="POST" class="user" id="PwdForm">
 										<div class="form-group">
 											<input type="email" class="form-control form-control-user"
 												id="pwdemail" name="email" aria-describedby="emailHelp"
-												placeholder="Enter 이메일 주소..." required> <span
-												id="checkEmail"></span>
+												placeholder="Enter 이메일 주소..." required> 
+												<span id="checkEmail"></span>
 										</div>
 										<button type="button" id="submitBtnPwd"
 											class="btn btn-primary btn-user btn-block"
@@ -138,8 +146,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	<div class="loader"></div>
 	<!-- Bootstrap core JavaScript-->
