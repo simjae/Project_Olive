@@ -31,6 +31,10 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
+.paging-background {
+  background-color: #eaecf4 !important;
+}
+
 p.each-label {
 	margin-top: 0.5rem;
 	margin-bottom: 0;
@@ -50,6 +54,13 @@ p.each-label span {
 p.each-label>span {
 	font-weight: bold;
 }
+
+h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 </style>
 </head>
 <body id="page-top">
@@ -68,20 +79,36 @@ p.each-label>span {
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">사용자 관리</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-							<i class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?
-						</a>
+						<h1 class="h3 mb-0 text-gray-800">인사관리</h1>
 					</div>
 					<!-- 계정관리 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
-							<div class="card border-left-info shadow mb-4">
+							<div class="card shadow mb-4">
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+									<h5 class="ml-0 mr-0 font-weight-bold text-info">계정 관리</h5>
+									<form class="form-group mb-0">
+										<div class="input-group">
+											<input type="button" class="btn btn-primary form-control" id="excelBtn"
+												value="다운로드">
+											<select class="form-control text-center form-select-lg" id="newSearchType">
+												<option selected>사번</option>
+												<option>이름</option>
+												<option>본부</option>
+												<option>부서</option>
+											</select> 
+											<input type="text" class="form-control text-center form-select-lg"
+												id="newKeyword">
+											<div class="input-group-append">
+												<button type="button" class="btn btn-primary ml-0"
+													id="searchBtn">
+													<i class="fas fa-search fa-sm "></i>
+												</button>
+											</div>
+										</div>
+									</form>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -90,19 +117,7 @@ p.each-label>span {
 											class="card-body-tridiv search-tab row justify-content-end mr-5">
 											<div class="mb-3">
 												<!-- 비동기로 DB다녀오는 친구들 -->
-												<form class="form-group">
-													<input type="button" class="btn btn-info" id="excelBtn"
-														value="다운로드"> &nbsp;&nbsp;&nbsp;&nbsp; <select
-														class="select" id="newSearchType">
-														<option selected>사번</option>
-														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
-													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
-														value="검색">
-													<!-- //비동기로 DB다녀오는 친구들 -->
-												</form>
+
 											</div>
 										</div>
 										<div class="card-body-tridiv"></div>
@@ -164,7 +179,7 @@ p.each-label>span {
 													end="${page.endPage}">
 													<c:choose>
 														<c:when test="${paging eq criteria.page}">
-															<li class="page-item page-link"><b>${paging}</b></li>
+															<li class="page-link page-item paging-background" >${paging}</li>
 														</c:when>
 														<c:otherwise>
 															<li class="page-item"><a class="page-link page-btn"
@@ -190,10 +205,10 @@ p.each-label>span {
 										<a href="#employNewEmpModal" class="btn btn-info"
 											data-toggle="modal">사원 신규 등록</a>
 									</div> -->
-									<div class="row mr-5 float-right">
+									<div class="row mr-0 float-right">
 										<a
 											href="${pageContext.request.contextPath}/HR_management/registration.do"
-											class="btn btn-info">사원 신규 등록</a>
+											class="btn btn-primary">사원 신규 등록</a>
 									</div>
 								</div>
 								<!-- //내가 올린 결재 card-body -->
@@ -225,7 +240,7 @@ p.each-label>span {
 		$(document).on("click", ".empEditBtn", function() {
 			var empno = $(".empEditBtn").val();
 			console.log(empno);
-			window.location.href="/HR_management/empEdit.do?empno="+empno
+			window.location.href = "/HR_management/empEdit.do?empno=" + empno
 		});
 	</script>
 </body>

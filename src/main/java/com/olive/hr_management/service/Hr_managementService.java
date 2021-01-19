@@ -95,8 +95,6 @@ public class Hr_managementService {
 	public List<Map<String, Object>> getAnnualList(String empno) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> annualList = dao.getAnnualList(empno);
-		System.out.println(annualList);
-		System.out.println(annualList);
 		return annualList;
 	}
 
@@ -104,14 +102,12 @@ public class Hr_managementService {
 	public void updateAttRecord(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAttRecord(map);
-		System.out.println("Emp 근태 수정 완료");
 	}
 
 	// 사원 연차 수정
 	public void updateAnnual(Map<String, Object> map) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.updateAnnual(map);
-		System.out.println("Emp annual update 완료");
 	}
 
 	public SalaryInfo getSalaryDetail(String date, int empno) {
@@ -222,111 +218,107 @@ public class Hr_managementService {
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForClass();
+		List<Class> classResult = dao.getClassList();
+		List<Map<String, Object>> sortResult = new ArrayList<>();
+		for (Class sort : classResult) {
+			for (Map<String, Object> data : result) {
+				if (sort.getClassName().equals(data.get("class"))) {
+					sortResult.add(data);
+					break;
+				}
+			}
+		}
 		System.out.println(result);
-		return result;
+		return sortResult;
 	}
 
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForDept();
-		System.out.println(result);
+
 		return result;
 	}
 
 	public JSONObject getAttGroupByDept(String deptName) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		//1. 총부서 불러오기. List<String>
-		List<HashMap<String, Object>> result = dao.getAttGroupByDept(deptName);
-		System.out.println(result);
-		List<String> labels = new ArrayList<>();
-		List<Integer> datas = new ArrayList<>();
-		for (HashMap<String, Object> item : result) {
-			labels.add((String) item.get("status"));
-			datas.add(Integer.parseInt(item.get("count")+""));
-		}
-		if (!labels.contains("지각")) {
-			labels.add("지각");
-			datas.add(0);
-		}
-		if (!labels.contains("결근")) {
-			labels.add("결근");
-			datas.add(0);
-		}
-		if (!labels.contains("출장")) {
-			labels.add("출장");
-			datas.add(0);
-		}
-		if (!labels.contains("휴가")) {
-			labels.add("휴가");
-			datas.add(0);
-		}
 		JSONObject jsonObject = new JSONObject();
+		List<HashMap<String, Object>> datas = dao.getAttGroupByDept();
+		List<String> labels = dao.getAttList();
 		jsonObject.put("labels", labels);
-		jsonObject.put("datas", datas);
+		
+		for(HashMap<String, Object> data : datas) {
+			List<Integer> chartData = new ArrayList<>();
+			for(int i=0; i<labels.size(); i++) {
+				chartData.add(Integer.parseInt(data.get(labels.get(i))+""));
+			}
+			jsonObject.put(data.get("dept"), chartData);
+		}
+		System.out.println(jsonObject);
 		return jsonObject;
 	}
+
 	// 연도별 총 사원 수 현황 선 그래프
 	public JSONObject getLineChartData() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 
 		JSONObject jsonObject = new JSONObject();
-		
+
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR); // 현재년도
 
-		long empCount = dao.getTotalCount(); 							// 현 시점 회사 인원 ( DB: select count(*) from emp where statuscode != 30 )
-		List<HashMap<String, Object>> hireResult = dao.getHiredDate(); 	// 쿼리2 (년도별 입사자 수)
-		List<HashMap<String, Object>> leaveResult = dao.getLeavedDate(); // 쿼리3 (년도별 퇴사자 수)
+		long empCount = dao.getTotalCount(); // 쿼리1 : 현 시점 회사 인원
+		List<HashMap<String, Object>> hireResult = dao.getHiredDate(); // 쿼리2 : 년도별 입사자 수
+		List<HashMap<String, Object>> leaveResult = dao.getLeavedDate(); // 쿼리3 : 년도별 퇴사자 수
 
 		List<Object> result = new ArrayList<>();
 		List<Object> label = new ArrayList<>();
-		
+
 		for (int i = 0; i < 5; year--, i++) {
 			result.add(empCount);
 			for (HashMap<String, Object> data : hireResult) {
 				if (data.get("year").equals(year + "")) {
-					empCount -= ( (long) data.get("hireCount"));
+					empCount -= ((long) data.get("hireCount"));
 				}
 			}
 			for (HashMap<String, Object> data : leaveResult) {
 				if (data.get("year") == null) {
-					// null 배제
-				}
-				else if (data.get("year").equals(year + "")) {
-					empCount += ( (long) data.get("leaveCount"));
+
+				} else if (data.get("year").equals(year + "")) {
+					empCount += ((long) data.get("leaveCount"));
 				}
 			}
-			if(year == cal.get(Calendar.YEAR)) {
-				label.add("올 해");
-			}else {
-				label.add(year);
+			if (year == cal.get(Calendar.YEAR)) {
+				label.add("현재");
+			} else {
+				label.add(year + "년");
 			}
 		}
-
-		jsonObject.put("EmpCountByYear", result);	// 연도별 증,감된 총 사원수
-		jsonObject.put("labelList", label);			// 연도 라벨
-		jsonObject.put("hireResult", hireResult);	// 연도별 입사자 수
-		jsonObject.put("leaveResult", leaveResult);	// 연도별 퇴사자 수
+		List<Object> sortResult = new ArrayList<>();
+		List<Object> sortLabel = new ArrayList<>();
+		for (int i = result.size() - 1; i >= 0; i--) {
+			sortResult.add(result.get(i));
+			sortLabel.add(label.get(i));
+		}
+		jsonObject.put("EmpCountByYear", sortResult); // 연도별 증,감된 총 사원수
+		jsonObject.put("labelList", sortLabel); // 연도 라벨
 		return jsonObject;
 	}
 
 	// 부서별 사원 수 파이 차트 데이터
 	public JSONObject getPieChartData() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
-		
+
 		JSONObject jsonObject = new JSONObject();
-		List<HashMap<String,Object>> groupedDeptList = dao.getGroupedDeptData(); 
-		
+		List<HashMap<String, Object>> groupedDeptList = dao.getGroupedDeptData();
+
 		List<Object> deptList = new ArrayList<>();
 		List<Object> countList = new ArrayList<>();
 		for (HashMap<String, Object> data : groupedDeptList) {
 			deptList.add(data.get("deptName"));
 			countList.add(data.get("empCount"));
 		}
-		
 		jsonObject.put("deptList", deptList);
 		jsonObject.put("countList", countList);
-		
 		return jsonObject;
 	}
 }

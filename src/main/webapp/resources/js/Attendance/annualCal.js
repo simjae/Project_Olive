@@ -48,9 +48,16 @@ var eventFeed = function(info, successCallback,failureCallback) {
 				empno:empno
 			},
 			success: function(data) {
-				successCallback(data);
-				console.log(data);
-			},
+				var fixedDate = data.map(function(array) {
+            if (array.start !== array.end) {
+               array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+            }
+            array.end = moment(array.end).format('YYYY-MM-DD' + " " + 'HH:mm')
+            return array;
+         	})
+       		  successCallback(fixedDate);
+       		  },
+			
 			error: function(xhr) {
 				console.log(xhr.status)
 			}
@@ -61,9 +68,16 @@ var eventFeed = function(info, successCallback,failureCallback) {
 			url: "/Annual/calendarList.do",
 			dataType: "json",
 			success: function(data) {
-				successCallback(data);
-				console.log(data);
-			},
+					var fixedDate = data.map(function(array) {
+            if (array.start !== array.end) {
+               array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+            }
+            array.end = moment(array.end).format('YYYY-MM-DD' + " " + 'HH:mm')
+            return array;
+         	})
+       		  successCallback(fixedDate);
+       		  },
+			
 			error: function(xhr) {
 				console.log(xhr.status)
 			}

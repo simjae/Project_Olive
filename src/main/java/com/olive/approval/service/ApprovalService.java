@@ -99,7 +99,7 @@ public class ApprovalService extends PagingService {
 				doc_ready.add(doc);
 			} else if (doc.getCurr_Approval() > 0 && doc.getTotal_Approval() > doc.getCurr_Approval()) {
 				doc_ing.add(doc);
-			} else if (doc.getCurr_Approval() == doc.getTotal_Approval()) {
+			} else if (doc.getCurr_Approval() == doc.getTotal_Approval() && doc.getStatusCode()==30) {
 				doc_cmp.add(doc);
 			} else {
 				doc_rej.add(doc);
@@ -301,5 +301,13 @@ public class ApprovalService extends PagingService {
 		dao.deleteDoc(docno);
 	}
 	
+	public Doc_form getFormContent(String formName) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		return dao.getFormContent(formName);
+	}
 	
+	public void deleteForm(String formName) {
+		ApprovalDao dao = sqlsession.getMapper(ApprovalDao.class);
+		dao.deleteForm(formName);
+	}
 }

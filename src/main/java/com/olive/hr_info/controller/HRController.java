@@ -66,21 +66,13 @@ public class HRController {
 	public String showEmpList(Model model, Criteria cri) {
 		//empinfo 뷰 사용
 		cri.setCriteria("empinfo", "empno", "asc");
-		System.out.println("cri 값 초기화 후"+cri);
-		
-		int totalCount = pagingService.getListCount(cri); //이거 게시물개수 뽑으려고 쓰는거야 왜 cri쓰는지는 아직 의문
-		System.out.println(totalCount);
+		int totalCount = pagingService.getListCount(cri); 
 	    Pagination pagination = new Pagination(cri, totalCount);
 	      
 	    cri.setPerPageNum(3);
-	    
-	    ///////////////
+	 
 	    List<Map<String, Object>> result = pagingService.getList(cri);
 
-	    System.out.println(result);
-	    System.out.println(pagination);
-	    System.out.println(cri);
-	    
 	    model.addAttribute("emplist", result);
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("criteria", cri);
@@ -101,7 +93,6 @@ public class HRController {
 	public String editMyinfo(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		System.out.println(username);
 		Map<String, Object> emp = empService.searchEmpByEmpno(username);
 		model.addAttribute("emp", emp);
 		return "HRinfo/EditMyinfo";
@@ -111,8 +102,6 @@ public class HRController {
 	//마이페이지 수정하기
 	@RequestMapping(value="updateMyInfo.do", method=RequestMethod.POST)
 	public String updateMyInfo(Emp emp, HttpServletRequest request) {
-		System.out.println("수정할고야");
-		System.out.println(emp);
 		emp.setPwd(this.bCryptPasswordEncoder.encode(emp.getPwd()));
 		
 		empService.updateMyInfo(emp, request);

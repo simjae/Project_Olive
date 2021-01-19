@@ -17,6 +17,12 @@
 <title>SB Admin 2 - Write</title>
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 .modal-flexbox {
 	display: flex;
 	flex-direction: row;
@@ -40,9 +46,14 @@
 	border-radius: 10px;
 }
 
-#typeName {
+#typename {
 	height: 50px;
 	font-size: 30px;
+	
+}
+
+.selector {
+	border-radius: 20px;
 }
 </style>
 </head>
@@ -60,10 +71,24 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h3 class="text-gray-800">전자결</h3>
-					<div class="card border-left-warning shadow py-0 bg-white my-4">
-						<div class="card-header py-3 pb-0 d-flex flex-row align-items-center justify-content-between">
-							<h3>양식 추가하기</h3>
+					<h1 class="text-gray-800 h3">전자결재</h1>
+					<div class="card shadow py-0 bg-white my-4">
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h5>양식 관리</h5>
+							<div class="card-for-flex col-md-4">
+								<div class="card-body-tridiv search-tab row justify-content-end mr-2">
+								<div class="col-md-4 px-0" id="delete"></div>
+									<div class="col-md-8">
+										<select class="selector w-100 px-auto " id="doc_form" style="text-align-last: center">
+											<option selected value="">선택해 주세요</option>
+										<c:forEach var="list" items="${requestScope.formList }">
+											<option value="${list.formName }">${list.formName }</option>
+										</c:forEach>
+										</select>
+									</div>
+								</div>
+								<div class="card-body-tridiv"></div>
+							</div>
 						</div>
 						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-3">
 							<div class="mb-3">
@@ -74,15 +99,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="row justify-content-center mx-5" id="addform">
+						<div class="justify-content-center mx-5" id="addform">
 							<div class="mb-3">
 								<form action="" method="post" enctype="multipart/form-data" id="form">
 									<div class="mt-0 mb-2 mx-auto py-0">
-										<div class="card-body py-2 px-0">
+										<div class="card-body py-2 px-0 w-100">
 											<div class="text-center text-primary">문서 이름</div>
-											<div class="mx-auto w-100">
-												<input class="inputbox col-xl-12 text-center" type="text" id="typename" name="typename">
-											</div>
+												<input class="inputbox mx-auto text-center col-md-12" type="text" id="typename" name="typename">
 										</div>
 									</div>
 									<div class="container col-md-11" id="check"></div>
@@ -95,6 +118,7 @@
 							</div>
 						</div>
 					</div>
+									
 				</div>
 				<!-- /.container-fluid -->
 			</div>
@@ -170,9 +194,57 @@ $(function() {
 		
 			});
 		})
+
+	$('#doc_form').on("change",function(){
+		let formname = $('#doc_form option:selected').val();
+		console.log(formname);
+		$('#delete').empty();
+		if(formname != null &&  formname != ''){
+			$.ajax({
+				url:'getFormContent.do',
+				data:{formName:formname},
+				success:function(data){
+					console.log(data);
+					$('#typename').val(data.formName);
+					$('#typename').attr("readonly",true);
+					$('#summernote').summernote("code",data.content);
+					$('#summernote').summernote("disable");
+					let button = '<button class="btn btn-danger btn-icon-split w-100" value="'+formname+'" onclick=deleteForm(this)>삭제하기</button>';
+					$('#delete').append(button);
+					$('#submit').css("display","none");
+
+					
+					
+					}
+
+
+				});
+			}else{
+				$('#typename').val('');
+				$('#typename').attr("readonly",false);
+				$('#summernote').summernote("code",'');
+				$('#summernote').summernote("enable");
+				$('#submit').css("display","block");
+				}
 		
+		});
+
 
 		
 	});
+
+function deleteForm(me){
+	let formname = $(me).val();
+	$.ajax({
+		url:'deleteForm.do',
+		data:{formName: formname},
+		success:function(data){
+			location.href="/approval/AddForm.do";
+			}
+
+		});
+
+	
+}
 </script>
 </html>

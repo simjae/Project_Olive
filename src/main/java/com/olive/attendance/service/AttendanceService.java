@@ -53,11 +53,9 @@ public class AttendanceService {
 			Date tardyDateFormat = dateFormat.parse(tardyDatestr);
 			Date curDateFormat = dateFormat.parse(curDatestr);
 			if (curDateFormat.getTime() < tardyDateFormat.getTime()) {
-				System.out.println("출근");
 				attcode = 10;
 
 			} else {
-				System.out.println("지각");
 				attcode = 20;
 			}
 			Att_Record att = new Att_Record();
@@ -92,7 +90,6 @@ public class AttendanceService {
 	public List<Att_Record> tableList() {
 		AttendanceDao tabledao = sqlsession.getMapper(AttendanceDao.class);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("테이블 ");
 		return tabledao.gettableList(auth.getName());
 	}
 
@@ -101,7 +98,6 @@ public class AttendanceService {
 	public List<Att_Record> calendarList() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		AttendanceDao caldao = sqlsession.getMapper(AttendanceDao.class);
-		System.out.println(caldao);
 		return caldao.gettableList(auth.getName());
 	}
 	// 재형 : 근태 캘린더 radio select

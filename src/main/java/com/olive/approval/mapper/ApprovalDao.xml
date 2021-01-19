@@ -269,5 +269,13 @@
 		delete from document where docno = #{docno}
 	</delete>
 	
+	<select id="getFormContent" resultType="com.olive.dto.Doc_form">
+		select formName, content from doc_form where formName=#{formName}
+	</select>
+	
+	<delete	id="deleteForm">
+		delete from doc_form where formName = #{formName}
+	</delete>
+	
 	
 </mapper>

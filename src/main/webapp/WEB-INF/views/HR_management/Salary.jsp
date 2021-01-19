@@ -21,7 +21,17 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <link href="/resources/css/chaeyeon.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
+.paging-background {
+  background-color: #eaecf4 !important;
+}
+</style>
 </head>
 
 
@@ -45,7 +55,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">급여관리</h1>
+					<h1 class="h3 mb-4 text-gray-800 NanumGothicB">인사관리</h1>
 					<div class="row">
 						<!-- Area Chart -->
 						<div class="col-xl-6 col-lg-6">
@@ -176,7 +186,7 @@
 													end="${page.endPage}">
 													<c:choose>
 														<c:when test="${paging eq criteria.page}">
-															<li class="page-item page-link"><b>${paging}</b></li>
+															<li class="page-item page-link paging-background"><b>${paging}</b></li>
 														</c:when>
 														<c:otherwise>
 															<li class="page-item"><a class="page-link page-btn"

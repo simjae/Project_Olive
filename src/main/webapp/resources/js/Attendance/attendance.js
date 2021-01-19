@@ -1,38 +1,51 @@
 // 타임스탬프 값을 년월일로 변환
-function Unix_timestamp(t) {
+function Unix_timestampDate(t) {
 	var date = new Date(t);
 	var year = date.getFullYear();
 	var month = "0" + (date.getMonth() + 1);
 	var day = "0" + date.getDate();
+
+
+	return year + "-" + month.substr(-2) + "-" + day.substr(-2);
+}
+
+
+function Unix_timestampTime(t) {
+	var date = new Date(t);
 	var hour = "0" + date.getHours();
 	var minute = "0" + date.getMinutes();
 	var second = "0" + date.getSeconds();
 
-	return year + "-" + month.substr(-2) + "-" + day.substr(-2) + " " + hour.substr(-2) + ":" + minute.substr(-2) + ":" + second.substr(-2);
+
+	return  hour.substr(-2) + ":" + minute.substr(-2) + ":" + second;
 }
 
-// 비동기 페이징 데이터 뽑기
+
+
+
 $('#searchBtn').click(function() {
-	let searchType = "";
-	let keyword = $('#newKeyword').val();
+	let searchType2 = "";
+	let keyword2 = $('#newKeyword').val();
 	if ($('#newSearchType option:selected').val() == "사번") {
-		searchType = "EMPNO"
-	} else if ($('#newSearchType option:selected').val() == "본부") {
-		searchType = "HEADNAME"
-	} else if ($('#newSearchType option:selected').val() == "부서") {
-		searchType = "DEPTNAME"
+		searchType2 = "empno"
 	} else if ($('#newSearchType option:selected').val() == "이름") {
-		searchType = "ENAME"
+		searchType2 = "ename"
+	} else if ($('#newSearchType option:selected').val() == "본부") {
+		searchType2 = "headname"
+	} else if ($('#newSearchType option:selected').val() == "부서") {
+		searchType2 = "deftname"
 	}
 	$.ajax({
 		url: "/attendance/attPage.do",
 		type: "POST",
 		dataType: "JSON",
 		data: {
-			searchType: searchType,
-			keyword: keyword
+			searchType2: searchType2,
+			keyword2: keyword2
 		},
 		success: (data) => {
+			$('#oldSearchType2').val(searchType2);
+			$('#oldKeyword2').val(keyword2);
 			insertDatabyAjax(data);
 		}
 	});
@@ -41,8 +54,15 @@ $('#searchBtn').click(function() {
 
 
 $(document).on("click", ".page-btn", function() {
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
+	let searchType2;
+	let keyword2;
+	if( $('#oldSearchType2').val() === null || $('#oldSearchType2').val().trim() === "" ){
+		searchType2 = $('#oldSearchType').val();
+		keyword2 = $('#oldKeyword').val();
+	}else {
+		searchType2 = $('#oldSearchType2').val();
+		keyword2 = $('#oldKeyword2').val();
+	}
 	let perPageNum = $('#oldPerPageNum').val();
 	let page = $(this)[0].text;
 	$.ajax({
@@ -50,8 +70,8 @@ $(document).on("click", ".page-btn", function() {
 		type: "POST",
 		dataType: "JSON",
 		data: {
-			searchType: searchType,
-			keyword: keyword,
+			searchType2: searchType2,
+			keyword2: keyword2,
 			perPageNum: perPageNum,
 			page: page
 		},
@@ -64,8 +84,15 @@ $(document).on("click", ".page-btn", function() {
 });
 
 $(document).on("click", ".page-btn-prev", function() {
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
+	let searchType2;
+	let keyword2;
+	if( $('#oldSearchType2').val() === null || $('#oldSearchType2').val().trim() === "" ){
+		searchType2 = $('#oldSearchType').val();
+		keyword2 = $('#oldKeyword').val();
+	}else {
+		searchType2 = $('#oldSearchType2').val();
+		keyword2 = $('#oldKeyword2').val();
+	}
 	let perPageNum = $('#oldPerPageNum').val();
 	let page = ($('#oldPage').val()-1);	
 	console.log(page);
@@ -74,8 +101,8 @@ $(document).on("click", ".page-btn-prev", function() {
 		type: "POST",
 		dataType: "JSON",
 		data: {
-			searchType: searchType,
-			keyword: keyword,
+			searchType2: searchType2,
+			keyword2: keyword2,
 			perPageNum: perPageNum,
 			page: page
 		},
@@ -87,8 +114,15 @@ $(document).on("click", ".page-btn-prev", function() {
 });
 
 $(document).on("click", ".page-btn-next", function() {
-	let searchType = $('#oldSearchType').val();
-	let keyword = $('#oldKeyword').val();
+	let searchType2;
+	let keyword2;
+	if( $('#oldSearchType2').val() === null || $('#oldSearchType2').val().trim() === "" ){
+		searchType2 = $('#oldSearchType').val();
+		keyword2 = $('#oldKeyword').val();
+	}else {
+		searchType2 = $('#oldSearchType2').val();
+		keyword2 = $('#oldKeyword2').val();
+	}
 	let perPageNum = $('#oldPerPageNum').val();
 	let page = (parseInt($("#oldPage").val())+1);
 	console.log(page);
@@ -97,8 +131,8 @@ $(document).on("click", ".page-btn-next", function() {
 		type: "POST",
 		dataType: "JSON",
 		data: {
-			searchType: searchType,
-			keyword: keyword,
+			searchType2: searchType2,
+			keyword2: keyword2,
 			perPageNum: perPageNum,
 			page: page
 		},
@@ -116,19 +150,37 @@ function insertDatabyAjax(data) {
 	console.log(data.criteria);
 	console.log(data.list);
 	console.log(data.pagination);
-
+	console.log(data.auth);
 	$('#attListTable').empty();
 	let inputListData = "";
+	
 	for (let i = 0; i < data.list.length; i++) {
 		inputListData += "<tr>"
+			+"<td>" + Unix_timestampDate(Number(data.list[i].starttime))+"</td>"
 			+ "<td name='empno'>" + data.list[i].empno + "</td>"
 			+ "<td>" + data.list[i].ename + "</td>"
-			+ "<td>" + data.list[i].deptname + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>"
-			+ "<td>" + Unix_timestamp(Number(data.list[i].endtime)) + "</td>"
-			+ "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>"
-			+ "</tr>"
-	}
+			+ "<td>" + data.list[i].deptname + "</td>";
+		
+		if(data.list[i].starttime == null){
+			inputListData += "<td>" + "</td>";	
+		}else{ 
+			inputListData += "<td>" + Unix_timestampTime(Number(data.list[i].starttime)) 	+ "</td>";
+		}
+		if(data.list[i].endtime == null){
+			inputListData += "<td>" + "</td>";	
+		}else{
+			inputListData += "<td>" + Unix_timestampTime(Number(data.list[i].endtime)) 	+ "</td>";
+		}
+			
+		
+			for(let i=0; i<data.auth.length; i++){
+				if(data.auth[i].authority == "ROLE_MANAGER"){
+			inputListData += "<td><label class="+'userCheck'+"><input class="+'filter'+" type="+'radio'+" name = "+'user'+" ></label></td>";;
+				}
+			}
+		}
+
+			inputListData += "</tr>";
 	$('#attListTable').html(inputListData);
 
 

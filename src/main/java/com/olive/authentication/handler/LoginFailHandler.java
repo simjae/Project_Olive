@@ -87,10 +87,14 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
 		// 에러정보를 forward
 		request.setAttribute(errorMsgName, errormsg);
-
+		
+	
 		// 로그인 페이지로 다시 포워딩하면 기존 시큐리티와 다르게 "세션을 이용하지 않고, 오류 메세지를 forward하여 출력가능"
 		request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
 	}
+	
+	
+	
 
 	@Autowired
 	public void setService(AuthenticationService service) {

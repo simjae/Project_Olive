@@ -197,52 +197,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 		endtime = DATE_ADD(#{starttime}, INTERVAL +10 HOUR),
 		attcode=80
-		where empno = #{empno} and starttime = #{starttime}
+		where
+		empno = #{empno} and starttime = #{starttime}
 	</update>
 
-	<select id="getAttGroupByDept" resultType="HashMap" parameterType="String">
-		SELECT deptname as "dept", 
-			   attname as "status",
-			   count(attname) as "count"
-		FROM emp_att
-		WHERE (attname="지각" or attname="결근" or attname="출장" or attname="휴가")	and deptname = #{deptName}
-		GROUP BY attname, deptname
+	<select id="getAttGroupByDept" resultType="HashMap">
+		SELECT * FROM attRecordbyDept
 	</select>
 
 	<!-- 희승 : 연도별(최근 5년) 입사인원 select -->
 	<select id="getHiredDate" resultType="HashMap">
-		SELECT 	DATE_FORMAT(hiredate, '%Y') AS 'year',
-      			COUNT(*) 					AS 'hireCount' 
-        FROM emp
-        GROUP BY DATE_FORMAT(hiredate, '%y')
-        ORDER BY hiredate DESC
-        LIMIT 0,5
+		SELECT
+		DATE_FORMAT(hiredate, '%Y') AS 'year',
+		COUNT(*) AS 'hireCount'
+		FROM emp
+		GROUP BY DATE_FORMAT(hiredate, '%y')
+		ORDER BY hiredate DESC
+		LIMIT 0,5
 	</select>
-	
+
 	<!-- 희승 : 연도별(최근 5년) 퇴사인원 select -->
 	<select id="getLeavedDate" resultType="HashMap">
-		SELECT	DATE_FORMAT(leavedate , '%Y') 	AS 'year',
-      			COUNT(*) 						AS 'leaveCount'
-        FROM emp
+		SELECT
+		DATE_FORMAT(leavedate , '%Y') AS 'year',
+		COUNT(*) AS 'leaveCount'
+		FROM
+		emp
 		WHERE leavedate IS NOT NULL
-        GROUP BY DATE_FORMAT(leavedate , '%y')
-        ORDER BY leavedate DESC
-        LIMIT 0,5
+		GROUP BY DATE_FORMAT(leavedate , '%y')
+		ORDER BY leavedate DESC
+		LIMIT 0,5
 	</select>
-	
+
 	<!-- 희승 : 현재 총 사원 수 -->
 	<select id="getTotalCount" resultType="int">
-		SELECT	COUNT(*)
-		FROM	emp
+		SELECT COUNT(*)
+		FROM emp
 		WHERE statuscode != 30
 	</select>
-	
+
 	<!-- 희승 : 부서별 근속인원 검색 -->
 	<select id="getGroupedDeptData" resultType="HashMap">
-		SELECT 	deptname AS 'deptName',
+		SELECT deptname AS
+		'deptName',
 		COUNT(*) AS 'empCount'
 		FROM empinfo
-		WHERE statusname != '비활성화'
+		WHERE statusname !=
+		'비활성화'
 		GROUP BY DEPTNAME;
+	</select>
+
+	<select id="getClassList" resultType="com.olive.dto.Class">
+		SELECT classcode, classname
+		FROM class
+		ORDER BY classcode asc
+	</select>
+
+	<select id="getAttList" resultType="String">
+		SELECT attname
+			FROM attendance
+			WHERE attcode in (20,30,40,50,60)
+			ORDER BY attcode
 	</select>
 </mapper>

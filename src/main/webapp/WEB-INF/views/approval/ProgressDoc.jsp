@@ -20,6 +20,12 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 </style>
 </head>
 <body id="page-top">
@@ -36,8 +42,8 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 text-gray-800">결재진행함</h1>
-					<div class="card border-left-warning shadow py-0 bg-white my-4">
+					<h1 class="h3 text-gray-800">전자결재</h1><span class="my-0 h5">결재진행함</span>
+					<div class="card shadow py-0 bg-white my-4">
 						<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center justify-content-between">
 							<ul class="nav nav-tabs" id="myTab" role="tablist" >
 								<li class="nav-item"><button class="nav-link active doc" value="50" id="total" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">전체 문서</button></li>

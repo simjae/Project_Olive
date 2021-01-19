@@ -25,6 +25,12 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style>
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 .nav-link .active {
 	background: #f6c23e;
 }
@@ -44,8 +50,8 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 text-gray-800">개인문서함</h1>
-					<div class="card border-left-warning shadow py-0 bg-white my-4">
+					<h1 class="h3 text-gray-800">전자결재</h1><span class="my-0 h5">개인문서함</span>
+					<div class="card shadow py-0 bg-white my-4">
 						<c:set var="document" value="${requestScope.document }" />
 						<c:set var="arrangedDoc" value="${requestScope.arrangedDoc }" />
 						<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center justify-content-between">
@@ -56,6 +62,7 @@
 								<li class="nav-item"><button class="nav-link doc" value="40" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
 								<li class="nav-item"><button class="nav-link doc" value="30" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 							</ul>
+							
 						</div>
 						
 						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-4" id="myTabContent"></div>

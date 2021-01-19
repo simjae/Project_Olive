@@ -17,17 +17,16 @@ import com.olive.dto.DeptTest;
 import com.olive.dto.Emp;
 import com.olive.hr_info.dao.Hr_infoDao;
 
-
+    
 
 @Service
 public class Hr_infoService {
 
 	   private SqlSession sqlsession;
 
-	   @Autowired
+	   @Autowired 
 	   public void setSqlsession(SqlSession sqlsession) {
 	      this.sqlsession = sqlsession;
-	      System.out.println(this.sqlsession);
 	   }
 	   
 	   //Emp 전체 검색
@@ -35,8 +34,6 @@ public class Hr_infoService {
 		   List<Emp> list = null;
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		   list = dao.showEmpList();
-		   //System.out.println("뿌려바");
-		   System.out.println(list);
 		   return list;
 		   
 	   }
@@ -45,8 +42,6 @@ public class Hr_infoService {
 	   public List<Emp> searchEmp(Map<String, Object> map) {
 		    Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		    List<Emp> emplist = dao.searchEmp(map);
-		    //System.out.println("여기가 리스트");
-		    //System.out.println(emplist);
 			return emplist;
 		}
 	   
@@ -55,14 +50,10 @@ public class Hr_infoService {
 	   public Map<String, Object> searchEmpByEmpno(String empno){
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		   Map<String, Object> emp = dao.searchEmpByEmpno(empno);
-		   System.out.println("Mypage 수정중 ...");
-		   System.out.println(emp);
-		   System.out.println(emp.get("HIREDATE"));
-		   System.out.println(((Date) emp.get("HIREDATE")).getTime());
+
 		   Date hire = new Date(((Date) emp.get("HIREDATE")).getTime());
 		   SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 		   String date = dateFormat.format(hire);
-		   System.out.println(date);
 		     
 		   emp.put("HIREDATE", date);
 
@@ -73,8 +64,7 @@ public class Hr_infoService {
 	   public List<DeptTest> showOrg(){
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		   List<DeptTest> headlist = dao.showOrg();
-		   
-		   //System.out.println(headlist);
+
 		   return headlist;
 	   }
 	   
@@ -82,7 +72,7 @@ public class Hr_infoService {
 	   public List<DeptTest> showOrgbyDept(String param){
 		   Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 		   List<DeptTest> emplist = dao.showOrgbyDept(param);
-		   System.out.println(emplist);
+
 		   return emplist;
 	   }
 	   
@@ -93,7 +83,7 @@ public class Hr_infoService {
 		   CommonsMultipartFile multifile =emp.getFile();
 		   String filename = multifile.getOriginalFilename();
 			String path = request.getServletContext().getRealPath("/resources/upload");
-			System.out.println(path);
+
 			String fpath = path + "/" + filename;
 			if (!filename.equals("")) {
 				// 실 파일 업로드
@@ -105,18 +95,15 @@ public class Hr_infoService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();			}
 			}
-			
-			emp.setPic(filename);
-			dao.updateMyInfo(emp);
-		   System.out.println("Update 완료");
-		   
-	   }
-	   
+			     
+			emp.setPic(filename);   
+			dao.updateMyInfo(emp);	   
+	   }  
+	      
 		//이메일 검증
 		public Emp checkEmail_Pwd(String email) {
 			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 			Emp emp = dao.checkEmail_Pwd(email);
-			System.out.println(emp);
 			return emp;
 		}
 		
@@ -124,7 +111,6 @@ public class Hr_infoService {
 		public void updatePwd(Map<String, Object> map) {
 			Hr_infoDao dao = sqlsession.getMapper(Hr_infoDao.class);
 			dao.updatePwd(map);
-			System.out.println("비밀번호 재설정 완료");
 		}
 
 	   

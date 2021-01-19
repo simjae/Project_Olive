@@ -23,14 +23,29 @@
 	rel="stylesheet">
 <!-- Custom styles for this template-->
 
-<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="/resources/css/sb-admin-2.css" rel="stylesheet">
 
 <style>
+
+html, body {
+	background: url('/resources/img/Login.png');
+    background-size: cover; 
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+
+}
+h1{
+  font-size: 40px;
+  color: #ddd;
+  text-shadow: 3px 3px 10px #000;
+}
+
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
-  border-bottop: 16px solid #3498db; 
+  border-top: 16px solid #62B942;
+  border-bottop: 16px solid #62B942; 
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
@@ -53,28 +68,48 @@
 .swal-overlay {
   background-color: rgba(43, 165, 137, 0.45);
 }
+
+#emailPage{
+  border-radius: 5px;
+  background: rgba(3,3,3,0.25);
+  box-shadow: 1px 1px 50px #000;
+}
+
+.valid-form-control:focus {
+  background-color: #fff;
+  border-color: #0bbf14;
+  outline: none;
+  box-shadow: 0 0 0 0.3rem rgba(11, 191, 20, 0.5);
+}
+
+.invalid-form-control:focus {
+  background-color: #fff;
+  border-color: #eb4034;
+  outline: none;
+  box-shadow: 0 0 0 0.3rem rgba(235, 64, 52, 0.5);
+}
 </style>
 
 
 </head>
-<body class="bg-gradient-primary">
-	<div class="container">
+<body>
+	<div class="container h-100">
 		<!-- Outer Row -->
-		<div class="row justify-content-center">
-			<div class="col-xl-10 col-lg-12 col-md-9">
-				<div class="card o-hidden border-0 shadow-lg my-5">
+		<div class="row justify-content-center h-100">
+			<div class="col-xl-6 col-lg-6 col-md-6 align-self-center">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-							<div class="col-lg-6">
+							
+							<div class="col-lg-10 mx-auto" id="emailPage">
 								<div class="p-5">
+
 									<div class="text-center">
 										<sec:authentication var="principal" property="principal" />
-										<h1 class="h4 text-gray-900 mb-2">이메일 인증</h1>
-										<p class="mb-4">
-											사번 : ${principal.username} 님. 환영합니다!<br> 본인의 이메일 계정을 통해 인증 시 <br>해당 계정에 로그인할 수 있습니다.<br>이메일을
-											인증해주세요.
+										<h1 class="h4 mb-5" >이메일 인증</h1>
+										<p class="mb-4" style="color:white;">
+											${principal.username} 님 환영합니다!
+											<br>이메일 인증을 통해 OLIVE를 사용해보세요
 										</p>
 									</div>
 									<form method="POST" class="user" id="emailForm">
@@ -104,7 +139,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="loader"></div>
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>

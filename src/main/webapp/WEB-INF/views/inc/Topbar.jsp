@@ -167,8 +167,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 let count =0;
+
 function connect(){
-	websocket = new WebSocket('ws://192.168.0.111:8090/alarm.do');
+
+	websocket = new WebSocket('ws://localhost:8090/alarm.do');
 	websocket.onopen =(evt) =>{
 		
 	};
@@ -176,8 +178,8 @@ function connect(){
 	}; 
 	
 	websocket.onmessage=(evt)=>{
-		
 			writeMsg(evt)	
+		getCount();
 	}
 	
 }
@@ -209,7 +211,7 @@ function writeMsg(evt){
 	console.log(jb('#alcount').val());
 	jb('#counter').empty();
 	jb('#counter').append(parseInt(count)+1);
-	
+	jb('#counter').show();	
 
 }
 
@@ -220,6 +222,8 @@ function disconnect(){
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
+	
+	
 	var empno = ${LoginUser}+"";
 	console.log(empno);
 	jb.ajax({
@@ -236,7 +240,7 @@ jb(document).ready(function() {
 	});
 	connect();
 
-	
+	function getCount(){
 	jb.ajax({
 		url:"/alarm/alarmCount.do",
 		type:"POST",
@@ -246,10 +250,14 @@ jb(document).ready(function() {
 			jb('#counter').empty();
 			jb('#counter').append(data);
 			jb('#alcount').val(data);
-			}	
 
+			if(data==0){
+				jb('#counter').hide();
+			}
+			}
 		});
-
+		}
+	getCount();
 
 	jb('#alertsDropdown').on("click",function(){
 		jb('#alarmlist').empty();
@@ -322,6 +330,9 @@ jb(document).ready(function() {
 
 			}) 
 		}
+		console.log(jb('#counter').text());
+
+		
 		
 })
 	

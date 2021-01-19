@@ -14,7 +14,7 @@ public class LoggerAspect {
 	final static Log log = LogFactory.getLog(LoggerAspect.class);
 	
 	//within(com.olive.*.*.*) 나중에 넣어야함 인터페이스로 criteria 빼고 나서 
-	@Around("")
+	@Around("within(com.olive.hr_info.*.*)")
 	public Object logOperations(ProceedingJoinPoint joinpoint) throws Throwable {
 
 		String targetClassName = joinpoint.getTarget().getClass().getName();

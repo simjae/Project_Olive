@@ -421,7 +421,6 @@ table.table .avatar {
 		var tr = $(this);
 		var td = tr.children();
 		var empno = td.eq(1).text();
-		console.log(empno);
 		$('.modal-content .modal-body').empty();
 		$.ajax(
 				{
@@ -429,8 +428,6 @@ table.table .avatar {
 					url	 : "/HRinfo/searchByEmpno.do",
 					data : {empno:empno},
 					success: (data) => {
-						console.log(data);
-						console.log(data.EMPNO);
 	                    var html="";
 	                    html += "<table id='hr_info'><tbody>";
 	                    html += "<tr><td>사번</td><td>"+data.EMPNO+"</td></tr>"+
@@ -455,9 +452,6 @@ table.table .avatar {
 
     $('#search_button').click(function() {
 
-		console.log($('#search_input').val());
-		console.log($('#inputState').val());
-
 		var searchType = "";
 		var keyword = $('#search_input').val();
 		if ($('#inputState').val() == 'empno') {
@@ -470,12 +464,6 @@ table.table .avatar {
 			searchType = "ENAME"
 		}
 
-
-
-		console.log(searchType);
-		console.log(keyword);
-
-		
 		$.ajax({
 			url: "/HRinfo/Emp.do",
 			type: "POST",
@@ -485,7 +473,6 @@ table.table .avatar {
 				keyword: keyword
 			},
 			success: (data) => {
-				console.log(data);
 				insertDatabyAjax(data);
 			},error : function(error){
 				console.log(error);
@@ -499,7 +486,6 @@ table.table .avatar {
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
 		let page = $(this)[0].text;
-		console.log(page);
 		$.ajax({
 			url: "/HRinfo/Emp.do",
 			type: "POST",
@@ -511,7 +497,6 @@ table.table .avatar {
 				page : page
 			},
 			success: (data) => {
-				console.log(data);
 				insertDatabyAjax(data);
 			},error : function(error){
 				console.log(error);
@@ -524,7 +509,6 @@ table.table .avatar {
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
 		let page = ($('#oldPage').val()-1);
-		console.log(page);
 		$.ajax({
 			url: "/HRinfo/Emp.do",
 			type: "POST",
@@ -546,7 +530,6 @@ table.table .avatar {
 		let keyword = $('#oldKeyword').val();
 		let perPageNum = $('#oldPerPageNum').val();
 		let page = (parseInt($("#oldPage").val())+1);
-		console.log(page);
 		$.ajax({
 			url: "/HRinfo/Emp.do",
 			type: "POST",
@@ -569,9 +552,6 @@ table.table .avatar {
 	
 	
 	function insertDatabyAjax(data){
-			console.log(data.criteria);
-			console.log(data.emplist);
-			console.log(data.pagination);
 
 			$('#emptable > tbody').empty();
 			$.each(data.emplist, function(index, emp){

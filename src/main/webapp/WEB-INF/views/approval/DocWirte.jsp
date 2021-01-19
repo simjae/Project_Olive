@@ -14,6 +14,13 @@
 <title>SB Admin 2 - Write</title>
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
+h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
+
 .modal-flexbox {
 	display: flex;
 	flex-direction: row;
@@ -36,6 +43,42 @@
 .round {
 	border-radius: 10px;
 }
+
+.selector {
+	border-radius: 20px;
+}
+
+.inputbox {
+	border: 0px;
+	outline: none;
+}
+
+.datepicker {
+	border-radius: 20px;
+	outline: none;
+}
+
+.modal-body ul {
+	list-style-type: none;
+}
+
+.modal-body ul img {
+	padding-bottom: 7px;
+	padding-right: 7px;
+}
+
+.team {
+	list-style-image: none;
+}
+
+.temp {
+	background: hsla(0, 100%, 100%, 0);
+	border: none;
+}
+
+.allemp {
+	overflow: auto;
+}
 </style>
 </head>
 <body id="page-top">
@@ -53,71 +96,63 @@
 				<div class="container-fluid">
 					<c:set var="emp" value="${requestScope.emp }" />
 					<!-- Page Heading -->
-					<div class="row">
-						<div class="col-xl-2 h3 my-auto text-gray-800">전자결재</div>
-						<div class="col-md-10">
-							<div class="d-flex flex-row-reverse mr-0">
-								<div class="p-2">
-									<button id="cancle" class="btn btn-danger btn-icon-split my-auto mr-0">
-										<span class="icon text-white-50"> <i class="fas fa-trash"></i>
-										</span> <span class="text">취소 하기</span>
-									</button>
-								</div>
-								<div class="p-2">
-									<button id="submit" class="btn btn-success btn-icon-split">
-										<span class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">기안 하기</span>
-									</button>
-								</div>
-								<div class="p-2">
-									<button id="preview" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#previewModal">
-										<span class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">미리 보기</span>
-									</button>
-								</div>
-								<div class="p-2">
-									<p class="mt-2" id="nono"></p>
-								</div>
+					<div class="row d-flex flex-row justify-content-between">
+					<h1 class="h3 ml-3 text-gray-800">전자결재</h1>
+						<div class=" justify-content-between">
+							<div class="row">
+								<p class="mt-1 mb-0" id="nono"></p>
+								<button id="cancle" class="btn btn-danger btn-icon-split my-auto mx-2">
+									<span class="icon text-white-50"> <i class="fas fa-trash"></i>
+									</span> <span class="text">취소 하기</span>
+								</button>
+							
+								<button id="submit" class="btn btn-success btn-icon-split mx-2">
+									<span class="icon text-white-50"> <i class="fas fa-check"></i>
+									</span> <span class="text">기안 하기</span>
+								</button>
+								<button id="preview" class="btn btn-primary btn-icon-split mx-2" data-toggle="modal" data-target="#previewModal">
+									<span class="icon text-white-50"> <i class="fas fa-check"></i>
+									</span> <span class="text">미리 보기</span>
+								</button>
 							</div>
 						</div>
 					</div>
 					<form action="" method="post" enctype="multipart/form-data" id="form">
 						<div class="card shadow py-0 bg-white my-4">
-									<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center">
-										<div class=" mt-0 mb-2 py-0 col-xl-2">
-											<div class=" py-2 px-0">
-												<div class="text-center text-primary">문서 번호</div>
-												<div class="mx-auto w-100">
-													<input type="text" class="selector text-center w-100" id="docno" name="docno" readonly>
-												</div>
-											</div>
+							<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center">
+								<div class=" mt-0 mb-2 py-0 col-xl-2">
+									<div class=" py-2 px-0">
+										<div class="text-center text-primary">문서 번호</div>
+										<div class="mx-auto w-100">
+											<input type="text" class="selector text-center w-100" id="docno" name="docno" readonly>
 										</div>
-										<div class=" mt-0 mb-2  py-0 col-xl-2">
-											<div class=" py-2 px-0">
-												<div class="text-center text-primary">문서종류</div>
-												<div class="mx-auto w-100">
-													<select class="px-auto mx-auto w-100 selector" id="selector" name="typeCode" style="text-align-last: center">
-														<c:forEach var="list" items="${requestScope.docType}">
-															<option value="${list.typeCode}">${list.typename}</option>
-														</c:forEach>
-													</select>
-												</div>
-											</div>
-										</div>
-										<c:set var="formlist" value="${requestScope.formList }" />
-										<div class=" mt-0 mb-2 py-0 col-xl-2" style="display: block" id="doc">
-											<div class="py-2 px-0">
-												<div class="text-center text-primary">일반 문서 종류</div>
-												<select class="px-auto mx-auto w-100 selector" id="doc_form" style="text-align-last: center">
-													<option>선택하세요</option>
-													<c:forEach var="form" items="${formlist }">
-														<option value="${form.formName}">${form.formName}</option>
-													</c:forEach>
-												</select>
-											</div>
-										</div>
-										
 									</div>
+								</div>
+								<div class=" mt-0 mb-2  py-0 col-xl-2">
+									<div class=" py-2 px-0">
+										<div class="text-center text-primary">문서종류</div>
+										<div class="mx-auto w-100">
+											<select class="px-auto mx-auto w-100 selector" id="selector" name="typeCode" style="text-align-last: center">
+												<c:forEach var="list" items="${requestScope.docType}">
+													<option value="${list.typeCode}">${list.typename}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+								</div>
+								<c:set var="formlist" value="${requestScope.formList }" />
+								<div class=" mt-0 mb-2 py-0 col-xl-2" style="display: block" id="doc">
+									<div class="py-2 px-0">
+										<div class="text-center text-primary">일반 문서 종류</div>
+										<select class="px-auto mx-auto w-100 selector" id="doc_form" style="text-align-last: center">
+											<option>선택하세요</option>
+											<c:forEach var="form" items="${formlist }">
+												<option value="${form.formName}">${form.formName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+							</div>
 							<div class="container-fluid">
 								<div class="container-fluid">
 									<div class="row">
@@ -161,8 +196,6 @@
 												</sec:authorize>
 											</div>
 										</div>
-										
-										
 										<div class="card my-auto py-0 mx-auto col-xl-2">
 											<div class="card-body py-2 px-0">
 												<div class="text-center text-primary">작성일자</div>
@@ -175,76 +208,74 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="card mb-2 py-0   mr-auto mx-auto col-xl-11">
-									<div class="card-body py-auto">
-										<div class="row">
-											<div class="table-responsive py-auto">
-												<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-													<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">
-														<tbody class="text-center">
-															<tr style="height: 25px;">
-																<td scope="col" rowspan="4" colspan="1" style="width: 20%; padding-top: 60px;">승인</td>
-																<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 1</td>
-																<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 2</td>
-																<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 3</td>
-																<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 4</td>
-															</tr>
-															<tr style="height: 35px;">
-																<td rowspan="2">
-																	<input class="inputbox text-center apps" id="app1" type="text" readonly>
-																	<input class="inputbox text-center" id="app1_id" name="approvers" type="text" hidden>
-																</td>
-																<td rowspan="2">
-																	<input class="inputbox text-center apps" id="app2" type="text" readonly>
-																	<input class="inputbox text-center" id="app2_id" name="approvers" type="text" hidden>
-																</td>
-																<td rowspan="2">
-																	<input class="inputbox text-center apps" id="app3" type="text" readonly>
-																	<input class="inputbox text-center" id="app3_id" name="approvers" type="text" hidden>
-																</td>
-																<td rowspan="2">
-																	<input class="inputbox text-center apps" id="app4" type="text" readonly>
-																	<input class="inputbox text-center" id="app4_id" name="approvers" type="text" hidden>
-																</td>
-															</tr>
-															<tr style="height: 35px;"></tr>
-															<tr>
-																<td rowspan="1"></td>
-																<td rowspan="1"></td>
-																<td rowspan="1"></td>
-																<td rowspan="1"></td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<br> <span>참조자</span>
-												<div id="referrer" class=" border-bottom border-secondary"></div>
+							<div class="col-md-11 mx-auto">
+								<div class="card-body justify-content-center mt-3">
+									<div class="row">
+										<div class="table-responsive py-auto">
+											<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+												<table class="table table-bordered dataTable my-0" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info">
+													<tbody class="text-center">
+														<tr style="height: 25px;">
+															<td scope="col" rowspan="4" colspan="1" style="width: 20%; padding-top: 60px;">승인</td>
+															<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 1</td>
+															<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 2</td>
+															<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 3</td>
+															<td scope="col" rowspan="1" colspan="1" style="width: 20%;">결재자 4</td>
+														</tr>
+														<tr style="height: 35px;">
+															<td rowspan="2">
+																<input class="inputbox text-center apps" id="app1" type="text" readonly>
+																<input class="inputbox text-center" id="app1_id" name="approvers" type="text" hidden>
+															</td>
+															<td rowspan="2">
+																<input class="inputbox text-center apps" id="app2" type="text" readonly>
+																<input class="inputbox text-center" id="app2_id" name="approvers" type="text" hidden>
+															</td>
+															<td rowspan="2">
+																<input class="inputbox text-center apps" id="app3" type="text" readonly>
+																<input class="inputbox text-center" id="app3_id" name="approvers" type="text" hidden>
+															</td>
+															<td rowspan="2">
+																<input class="inputbox text-center apps" id="app4" type="text" readonly>
+																<input class="inputbox text-center" id="app4_id" name="approvers" type="text" hidden>
+															</td>
+														</tr>
+														<tr style="height: 35px;"></tr>
+														<tr>
+															<td rowspan="1"></td>
+															<td rowspan="1"></td>
+															<td rowspan="1"></td>
+															<td rowspan="1"></td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
+											<br> <span>참조자</span>
+											<div id="referrer" class=" border-bottom border-secondary"></div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row" id="duration"></div>
-							<div class="row">
-								<div class="card my-2 py-2   mr-auto mx-auto col-xl-11">
+							<div class="col-md-11 mx-auto" id="duration"></div>
+							<div class="card my-2 py-2   mr-auto mx-auto col-md-11">
+								<div class="justify-content-center mx-2">
 									<div style="width: 100%;">
 										<span class="text-lg" style="width: 20%;">제목 :</span>
 										<input class="mx-4 inputbox" type="text" name="title" id="title" style="width: 80%;" />
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="card my-2 py-2   mr-auto mx-auto col-xl-11" id="drop">
+							<div class="card my-2 py-2 mr-auto mx-auto col-md-11 col-md-10" id="drop">
+								<div class="justify-content-center mx-2">
 									<div class="col-md-12 mx-auto mt-3" id="file_add">
 										<p class="mt-4" style="text-align: center;">Drag file Or Click to add files</p>
 									</div>
 									<div id="thumbnails" class="col-md-12 row mr-0 ml-0 mb-3"></div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="card my-2 py-2 mr-auto mx-auto col-xl-11">
-									<textarea class="col-md-10" id="summernote" name="content"></textarea>
+							<div class="my-2 mx-auto col-md-12">
+								<div class="justify-content-cente0 mx-2">
+									<textarea id="summernote" name="content"></textarea>
 								</div>
 							</div>
 							<input type="file" id="file" name="file" value="" multiple hidden>
@@ -290,7 +321,7 @@
 				</div>
 				<div class="modal-body" id="approver-modal-body">
 					<div class="horizontalTree mb-2 col-mb-12 d-flex" style="height: 500px;">
-						<div class="col-md-5 mx-auto border border-secondary h-100 round">
+						<div class="col-md-5 mx-auto border border-secondary h-100 round allemp">
 							<ul style="padding-left: 10px;">
 								<div class="mt-4" id="jstree_div"></div>
 							</ul>
@@ -332,40 +363,7 @@
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="../inc/BottomLink.jsp"></jsp:include>
 </body>
-<style type="text/css">
-.selector {
-	border-radius: 20px;
-}
-
-.inputbox {
-	border: 0px;
-	outline: none;
-}
-
-.datepicker {
-	border-radius: 20px;
-	outline: none;
-}
-
-.modal-body ul {
-	list-style-type: none;
-}
-
-.modal-body ul img {
-	padding-bottom: 7px;
-	padding-right: 7px;
-}
-
-.team {
-	list-style-image: none;
-}
-
-.temp {
-	background: hsla(0, 100%, 100%, 0);
-	border: none;
-}
-</style>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -548,8 +546,8 @@ getMaxDocno(10);
 				},
 			 "data":data
 				
-		 	},	
-			"plugins" : [ "dnd","contextmenu" ]
+		 	}	
+			
 			}
 		)
 		});  
@@ -562,26 +560,28 @@ getMaxDocno(10);
 			let clickedapp = $('div#jstree_div a.jstree-clicked').clone();
 			let buttonapp = '<button class="temp" onclick="deletefromapp(this)"><img class="false" src="/resources/img/false.png"></button>';
 			let approver = clickedapp.append(buttonapp);
+			if(!isNaN(parseInt(clickedapp[0].id.split('_')[0])) ){
+
+				if(!approverList.includes(clickedapp.text())){
+				approverList.push(clickedapp.text());
+				approverList.push(clickedapp);
+				console.log(clickedapp[0].id.split('_')[0]);
+				};
+				$('#approverList').empty();
+				for(let i=1; i<approverList.length; i+=2){
+					$('#approverList').append(approverList[i]);
+				}
 			
-			if(!approverList.includes(clickedapp.text())){
-			approverList.push(clickedapp.text());
-			approverList.push(clickedapp);
-			console.log(clickedapp[0].id.split('_')[0]);
-			};
-			$('#approverList').empty();
-			for(let i=1; i<approverList.length; i+=2){
-				$('#approverList').append(approverList[i]);
 			}
-		
 		});
 		
 		
 		$('#add_referrer').on("click",()=>{
-			console.log('sjidjid');
 			let clicked = $('div#jstree_div a.jstree-clicked').clone();
 			let button = '<button class="temp" onclick="deletefromrim(this)"><img class="false" src="/resources/img/false.png"></button>';
 			let referrer = clicked.append(button);
-			
+
+			if(!isNaN(parseInt(clicked[0].id.split('_')[0])) ){
 			if(!referrerList.includes(clicked.text())){
 				console.log("clicked:"+clicked);
 			referrerList.push(clicked.text());
@@ -591,6 +591,7 @@ getMaxDocno(10);
 			for(let i=1; i<referrerList.length; i+=2){
 				console.log(referrerList[i]);
 				$('#referrerList').append(referrerList[i]);
+			}
 			}
 		});
 			

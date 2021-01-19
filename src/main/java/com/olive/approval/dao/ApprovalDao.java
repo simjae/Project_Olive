@@ -30,18 +30,19 @@ public interface ApprovalDao extends PagingDao{
 	public List<Reference> getRefference(String empno); //전자결재 메인페이지 참조
 	public List<Document> getArrangedDocList(String statusCode,String empno); //전자결재 내가 올린 결재 (테이블)
 	public List<Approver> getArrangedAppList(String statusCode,String empno); //전자결재 내가 받은 결재 (테이블)
-	public Document viewDocument(String docno);
-	public List<Approver> viewApprovers(String docno);
+	public Document viewDocument(String docno); //하나의 문서 보기
+	public List<Approver> viewApprovers(String docno); //내가  문서 승인자들 들고오기
 	public void approve(Approver app);//승인
-	public List<Map<String, Object>> getList(Criteria cri);
-	public int getAppListCount(Criteria cri);
-	public List<Map<String, Object>> getAppList(Criteria cri);
-	public String getMaxDocno(String typeCode);
-	public int checkTypeName(String typename);
-	public void addForm(Doc_Type doctype);
-	public String selectSpecialForm(String typename);
-	public String selectForm(String formname);
-	public List<Doc_form> formList();
-	public void deleteDoc(String docno);
-	
+	public List<Map<String, Object>> getList(Criteria cri); //페이징용 문서 들고오기
+	public int getAppListCount(Criteria cri); //페이징용 몇갠지 들고오기
+	public List<Map<String, Object>> getAppList(Criteria cri); //페이징용 내가 승인자인 문서 들고오기 
+	public String getMaxDocno(String typeCode); //문서 번호 생성용 
+	public int checkTypeName(String typename); // 문서 양식 있는지 확인하기 
+	public void addForm(Doc_Type doctype); //문서 양식 추가하기
+	public String selectSpecialForm(String typename); // 기본적으로 등록되어 있는 문서 양식 보기
+	public String selectForm(String formname); //(추가된)문서 양식 선택
+	public List<Doc_form> formList(); //(추가된) 문서 양식 리스트
+	public void deleteDoc(String docno); //(추가된) 문서 양식 삭제 
+	public Doc_form getFormContent(String formName); //(추가된) 문서 양식 내용물 들고오기 
+	public void deleteForm(String formName); //(추가된) 문서 양식 삭제
 }

@@ -84,9 +84,7 @@ public class Hr_ManagementRestController {
 	// 인사관리 > 계정 관리 > 사원 신규 등록 시 AJAx 본부 테이블 가져오기
 	@RequestMapping(value = "getHead.do", method = RequestMethod.POST)
 	public List<Head> getHeadQuarters() {
-		System.out.println("Head 컨트롤러");
 		List<Head> HQList = managementService.getHeadQuarters();
-		System.out.println(HQList);
 		return HQList;
 	}
 
@@ -171,16 +169,17 @@ public class Hr_ManagementRestController {
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);
 		jsonObject.put("criteria", cri);
-
 		return jsonObject;
 	}
-
+	
+	//급여관리 - 부서별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForClass.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForClass();
 		return result;
 	}
 	
+	//급여관리 - 직급별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForDept.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();
@@ -190,18 +189,13 @@ public class Hr_ManagementRestController {
 	//휴가관리 연차이력 조회 >> 휴가관리 모달
 	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getAnnualList(String empno){
-		System.out.println(empno);
 		List<Map<String, Object>> annualList = managementService.getAnnualList(empno);
-		System.out.println("얘 뽑은거임"+annualList);
 		return annualList;
 	}
 	
-	//휴가관리 수정하기 //redirect ??!?!?
+	//휴가관리 수정하기
 	@RequestMapping(value="updateAnnual.do", method=RequestMethod.POST)
 	public String updateAnnual(String empno, String annual) {
-		System.out.println("editAnnual");
-		System.out.println(empno);
-		System.out.println(annual);
 		Map<String, Object> map =  new HashMap<String, Object>();
 		map.put("empno", empno);
 		map.put("annual", annual);
@@ -212,9 +206,6 @@ public class Hr_ManagementRestController {
 	//근태관리 수정하기 >> 퇴근처리
 	@RequestMapping(value="updateAttRecord.do", method=RequestMethod.POST)
 	public String updateAttRecord(String empno, String starttime) {
-		System.out.println("empno");
-		System.out.println(empno);
-		System.out.println(starttime);
 		Map<String, Object> map =  new HashMap<String, Object>();
 		map.put("empno", empno);
 		map.put("starttime", starttime);
@@ -224,22 +215,8 @@ public class Hr_ManagementRestController {
 	
 	// 인사관리 - 조직관리 - 근태현황 - 부서별 근태 현황
 	@RequestMapping(value = "getAttGroupByDept.do", method = RequestMethod.POST)
-	public List<Object> getAttGroupByDept(String deptName) {
-		JSONObject jsonObject1 = managementService.getAttGroupByDept(deptName);
-		JSONObject jsonObject2 = managementService.getAttGroupByDept("사업팀");
-		JSONObject jsonObject3 = managementService.getAttGroupByDept("마케팅팀");
-		JSONObject jsonObject4 = managementService.getAttGroupByDept("개발팀");
-		JSONObject jsonObject5 = managementService.getAttGroupByDept("운영팀");
-		JSONObject jsonObject6 = managementService.getAttGroupByDept("회계팀");
-		
-		List<Object> jsonObject = new ArrayList<Object>();
-		jsonObject.add(jsonObject1);
-		jsonObject.add(jsonObject2);
-		jsonObject.add(jsonObject3);
-		jsonObject.add(jsonObject4);
-		jsonObject.add(jsonObject5);
-		jsonObject.add(jsonObject6);
-		System.out.println(jsonObject);
+	public JSONObject getAttGroupByDept(String deptName) {
+		JSONObject jsonObject = managementService.getAttGroupByDept(deptName);		
 		return jsonObject;
 	}
 	// 조직관리 > 연도별 총 사원 수 현황 선 그래프
