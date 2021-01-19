@@ -81,4 +81,9 @@ public interface Hr_managementDao {
 	public List<Class> getClassList();
 
 	public List<String> getAttList();
+
+	public void resetAccount(Map<String, String> parameter);
+	
+	public void retireAccount(String empno);
+	
 }

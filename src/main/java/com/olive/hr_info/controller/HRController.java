@@ -108,7 +108,4 @@ public class HRController {
 		return "redirect:/HRinfo/EditMyinfo.do";
 			
 	}
-	
-	
-	
 }
