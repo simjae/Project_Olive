@@ -99,7 +99,7 @@ public class ApprovalService extends PagingService {
 				doc_ready.add(doc);
 			} else if (doc.getCurr_Approval() > 0 && doc.getTotal_Approval() > doc.getCurr_Approval()) {
 				doc_ing.add(doc);
-			} else if (doc.getCurr_Approval() == doc.getTotal_Approval()) {
+			} else if (doc.getCurr_Approval() == doc.getTotal_Approval() && doc.getStatusCode()==30) {
 				doc_cmp.add(doc);
 			} else {
 				doc_rej.add(doc);

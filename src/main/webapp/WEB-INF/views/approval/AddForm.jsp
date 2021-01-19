@@ -17,6 +17,12 @@
 <title>SB Admin 2 - Write</title>
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
 <style type="text/css">
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 .modal-flexbox {
 	display: flex;
 	flex-direction: row;
@@ -65,10 +71,10 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h3 class="text-gray-800">전자결재</h3>
+					<h1 class="text-gray-800 h3">전자결재</h1>
 					<div class="card shadow py-0 bg-white my-4">
 						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-							<h3>양식 관리</h3>
+							<h5>양식 관리</h5>
 							<div class="card-for-flex col-md-4">
 								<div class="card-body-tridiv search-tab row justify-content-end mr-2">
 								<div class="col-md-4 px-0" id="delete"></div>
@@ -203,9 +209,11 @@ $(function() {
 					$('#typename').attr("readonly",true);
 					$('#summernote').summernote("code",data.content);
 					$('#summernote').summernote("disable");
-					let button = '<button class="btn btn-danger btn-icon-split w-100" value='+data.formName+' onclick=deleteForm(this)>삭제하기</button>';
+					let button = '<button class="btn btn-danger btn-icon-split w-100" value="'+formname+'" onclick=deleteForm(this)>삭제하기</button>';
 					$('#delete').append(button);
 					$('#submit').css("display","none");
+
+					
 					
 					}
 
@@ -231,7 +239,7 @@ function deleteForm(me){
 		url:'deleteForm.do',
 		data:{formName: formname},
 		success:function(data){
-			
+			location.href="/approval/AddForm.do";
 			}
 
 		});

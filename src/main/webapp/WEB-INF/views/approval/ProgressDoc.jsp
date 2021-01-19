@@ -42,7 +42,7 @@ h1{
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 text-gray-800">전자결재</h1>
+					<h1 class="h3 text-gray-800">전자결재</h1><span class="my-0 h5">결재진행함</span>
 					<div class="card shadow py-0 bg-white my-4">
 						<div class="card-header pt-3 pb-0 d-flex flex-row align-items-center justify-content-between">
 							<ul class="nav nav-tabs" id="myTab" role="tablist" >
@@ -53,7 +53,6 @@ h1{
 								<li class="nav-item"><button class="nav-link doc" value="40" id="app_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
 								<li class="nav-item"><button class="nav-link" value="60" id="app_ref" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">참조 문서</button></li>
 							</ul>
-							<h3 class=" text-gray-800">결재진행함</h3>
 						</div>
 						
 						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-4" id="myTabContent"></div>
