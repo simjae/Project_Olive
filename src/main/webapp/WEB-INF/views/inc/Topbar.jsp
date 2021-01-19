@@ -35,8 +35,10 @@
 		<i class="fa fa-bars"></i>
 	</button>
 	<!-- Topbar Navbar -->
-	
 	<ul class="navbar-nav ml-auto">
+	<li class="nav-item my-auto">
+	<div class="clock mx-4" id="clock"></div>
+	</li>
 		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" id="attBtn" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-fingerprint" style="size: 9x; color:red;" ></i>
 			</a>
@@ -51,23 +53,7 @@
 				
 			</div></li>
 			
-		<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-		<li class="nav-item dropdown no-arrow d-sm-none"><a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-search fa-fw"></i>
-			</a> <!-- Dropdown - Messages -->
-			<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-				<form class="form-inline mr-auto w-100 navbar-search">
-					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">
-								<i class="fas fa-search fa-sm"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</li>
+		
 		<!-- 알람 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-bell fa-fw"></i>
@@ -91,12 +77,7 @@
 				<a class="dropdown-item" href="/HRinfo/EditMyinfo.do">
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 				</a>
-				<a class="dropdown-item" href="#">
-					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-				</a>
-				<a class="dropdown-item" href="#">
-					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-				</a>
+				
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
@@ -166,7 +147,26 @@
 <!-- SweetAlert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
+setInterval(()=>{
+	date();
+},1000);
+
 let count =0;
+function date(){
+	let date = new Date();
+	let year = date.getFullYear();
+	let month = date.getMonth()+1;
+	let day = date.getDate();
+	let week = new Array('일','월','화','수','목','금','토');
+	let minutes = date.getMinutes() <10 ? "0"+date.getMinutes() : date.getMinutes();
+	let hours = (date.getHours() >=12) ? date.getHours()-12 : date.getHours();
+	let AMPM = (date.getHours() >=12) ? "PM " : "AM "
+	let seconds = date.getSeconds() <10 ? "0"+date.getSeconds() : date.getSeconds();
+	jb('#clock').text(year+"년 "+month+"월 "+day+"일 "+"("+week[date.getDay()]+") "+AMPM+hours+" : "+minutes+" : "+seconds); 
+	
+}
+
+
 
 function connect(){
 
@@ -222,7 +222,6 @@ function disconnect(){
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
-	
 	
 	var empno = ${LoginUser}+"";
 	console.log(empno);

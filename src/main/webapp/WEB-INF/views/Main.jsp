@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="icon" href="/resources/img/logo_favicon.png" type="image/x-icon">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <!-- 날씨 css -->

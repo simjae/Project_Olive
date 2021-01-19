@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <script type="text/javascript">
 	location.href = "/goToLogin.do";
 </script>
