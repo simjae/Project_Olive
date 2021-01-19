@@ -30,11 +30,13 @@
 <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
 
 <style>
-
 html, body {
+	background: url('/resources/img/Login.png');
+    background-size: cover; 
+    overflow: hidden;
     margin: 0;
     height: 100%;
-    overflow: hidden;
+
 }
 
 .loader {
@@ -65,16 +67,29 @@ html, body {
 #setPwdPage {
 	display: none;
 }
+
+
+h1{
+  font-size: 40px;
+  color: #ddd;
+  text-shadow: 3px 3px 10px #000;
+}
+
+
+#checkPage{
+  border-radius: 5px;
+  background: rgba(3,3,3,0.25);
+  box-shadow: 1px 1px 50px #000;
+}
 </style>
 
 
 </head>
-<body class="bg-gradient-primary">
+<body>
 	<div class="container h-100">
 		<!-- Outer Row -->
 		<div class="row justify-content-center h-100">
 			<div class="col-xl-6 col-lg-6 col-md-6 align-self-center">
-				<div class="card o-hidden border-0 shadow-lg">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
@@ -84,8 +99,8 @@ html, body {
 								<div class="p-5" id="emailCheckPage">
 									<div class="text-center">
 
-										<h1 class="h4 text-gray-900 mb-2">비밀번호 재설정</h1>
-										<p class="mb-4">
+										<h1 class="h4 mb-5">비밀번호 재설정</h1>
+										<p class="mb-4" style="color:white;">
 											가입시 인증받은 이메일을 입력해주세요. 
 											<br> 
 											해당 이메일로 인증번호를 보내드립니다. 
@@ -116,8 +131,8 @@ html, body {
 								<!-- hidden -->
 								<div class="p-5" id="setPwdPage">
 									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-2">비밀번호 변경하기</h1>
-										<p class="mb-4">
+										<h1 class="h4 mb-5">비밀번호 변경하기</h1>
+										<p class="mb-4" style="color:white;">
 											비밀번호를 잊으셨나요? <br> 새로운 비밀번호를 입력해주세요 <br>
 										</p>
 									</div>
@@ -146,7 +161,6 @@ html, body {
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="loader"></div>
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>

@@ -28,9 +28,17 @@
 <style>
 
 html, body {
+	background: url('/resources/img/Login.png');
+    background-size: cover; 
+    overflow: hidden;
     margin: 0;
     height: 100%;
-    overflow: hidden;
+
+}
+h1{
+  font-size: 40px;
+  color: #ddd;
+  text-shadow: 3px 3px 10px #000;
 }
 
 .loader {
@@ -60,27 +68,32 @@ html, body {
 .swal-overlay {
   background-color: rgba(43, 165, 137, 0.45);
 }
+
+#emailPage{
+  border-radius: 5px;
+  background: rgba(3,3,3,0.25);
+  box-shadow: 1px 1px 50px #000;
+}
 </style>
 
 
 </head>
-<body class="bg-gradient-primary">
+<body>
 	<div class="container h-100">
 		<!-- Outer Row -->
 		<div class="row justify-content-center h-100">
 			<div class="col-xl-6 col-lg-6 col-md-6 align-self-center">
-				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
 							
-							<div class="col-lg-10 mx-auto">
+							<div class="col-lg-10 mx-auto" id="emailPage">
 								<div class="p-5">
 
 									<div class="text-center">
 										<sec:authentication var="principal" property="principal" />
-										<h1 class="h4 text-gray-900 mb-2">이메일 인증</h1>
-										<p class="mb-4">
+										<h1 class="h4 mb-5" >이메일 인증</h1>
+										<p class="mb-4" style="color:white;">
 											사번 : ${principal.username} 님. 환영합니다!
 											<br>본인의 이메일 인증을 통해 OLIVE를 사용해보세요.
 										</p>
@@ -112,7 +125,6 @@ html, body {
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="loader"></div>
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>
