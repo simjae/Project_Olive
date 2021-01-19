@@ -24,13 +24,11 @@ $('#searchBtn').click(function() {
 	let searchType = "";
 	let keyword = $('#newKeyword').val();
 	if ($('#newSearchType option:selected').val() == "사번") {
-		searchType = "EMPNO"
-	} else if ($('#newSearchType option:selected').val() == "본부") {
-		searchType = "HEADNAME"
+		searchType = "empno"
 	} else if ($('#newSearchType option:selected').val() == "부서") {
-		searchType = "DEPTNAME"
+		searchType = "deptname"
 	} else if ($('#newSearchType option:selected').val() == "이름") {
-		searchType = "ENAME"
+		searchType = "ename"
 	}
 	$.ajax({
 		url: "/Annual/analPage.do",

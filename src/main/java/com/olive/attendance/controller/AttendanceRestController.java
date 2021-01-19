@@ -133,16 +133,22 @@ public class AttendanceRestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 
+		System.out.println(cri);
 		cri.setCriteria("rectable", "starttime", "desc");
 		cri.setFirstCondition("deptName", service.getDeptName(username));
 		if (!userHasRole(auth, "ROLE_MANAGER")) {
 			cri.setSecondCondition("empno", username);
 		}
-
+		
+		System.out.println("***********매니저 검색시작 : " + cri);
 		int totalCount = service.getListCount(cri);
 		Pagination pagination = new Pagination(cri, totalCount);
 		List<Map<String, Object>> result = service.getList(cri);
 
+		
+		System.out.println("***********Pagenation : " + pagination);
+		System.out.println("***********result : " + result);
+		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", result);
 		jsonObject.put("pagination", pagination);

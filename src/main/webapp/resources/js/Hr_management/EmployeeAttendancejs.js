@@ -259,7 +259,7 @@ function insertDatabyAjax1(data) {
 		inputListData += "<td>" + data.list[i].ename + "</td>";
 		inputListData += "<td>" + Unix_timestamp(Number(data.list[i].starttime)) + "</td>";
 		if(data.list[i].endtime == null){
-			inputListData += "<td>" + "                        " + "</td>";	
+			inputListData += "<td>" + "</td>";	
 		}else{
 			inputListData += "<td>" + Unix_timestamp(Number(data.list[i].endtime)) 	+ "</td>";
 		}

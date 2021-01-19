@@ -205,28 +205,20 @@ margin: 0 auto;
 										<div class="card-body-tridiv d-flex search-tab row justify-content-end mr-5">
 											<div class="mb-3">
 												<!-- 비동기로 DB다녀오는 친구들 -->
-												<form class="form-group d-flex justify-content-end">
-													<s:authorize access="!hasRole('ROLE_MANAGER')">
+												<s:authorize access="hasRole('ROLE_MANAGER')">
+													<form class="form-group d-flex justify-content-end">
 														<select class="form-control width-100 mr-2" id="newSearchType">
 															<option selected>사번</option>
 															<option>이름</option>
 															<option>본부</option>
 															<option>부서</option>
 														</select>
-													</s:authorize>
-													<s:authorize access="hasRole('ROLE_MANAGER')">
-														<select class="form-control width-100 mr-2" id="newSearchType">
-															<option selected>사번</option>
-															<option>이름</option>
-															<option>본부</option>
-															<option>부서</option>
-														</select>
-													</s:authorize>
 													<input type="text" class="form-control width-250 mr-2 inputState" id="newKeyword"
 														placeholder="검색할 키워드를 입력..">
 													<input type="button" class="btn btn-info" id="searchBtn" value="검색">
 													<!-- //비동기로 DB다녀오는 친구들 -->
-												</form>
+													</form>
+												</s:authorize>
 											</div>
 										</div>
 										<div class="card-body-tridiv"></div>
@@ -235,6 +227,7 @@ margin: 0 auto;
 										<table id="salary_table" class="table text-center">
 											<thead>
 												<tr>
+													<th>날짜</th>
 													<th>사번</th>
 													<th>이름</th>
 													<th>부서</th>
@@ -248,11 +241,12 @@ margin: 0 auto;
 											<tbody id="attListTable">
 												<c:forEach var="rectable" items="${list}">
 													<tr class="namecal">
+													<td><fmt:formatDate value="${rectable.starttime}" pattern="yyyy-MM-dd" /></td>
 														<td name="empno"><c:out value="${rectable.empno}" /></td>
 														<td><c:out value="${rectable.ename}" /></td>
 														<td><c:out value="${rectable.deptname}" /></td>
-														<td><c:out value="${rectable.starttime}" /></td>
-														<td><c:out value="${rectable.endtime}" /></td>
+														<td><fmt:formatDate value="${rectable.starttime}" pattern="HH:mm:ss" /></td>
+														<td><fmt:formatDate value="${rectable.endtime}" pattern="HH:mm:ss" /></td>
 														<s:authorize access="hasRole('ROLE_MANAGER')">
 														<td><label class="userCheck"><input class='filter' type="radio" name="user"></label></td>
 														</s:authorize>
@@ -265,6 +259,8 @@ margin: 0 auto;
 										<input type="text" value="${criteria.keyword}" id="oldKeyword" hidden>
 										<input type="text" value="${criteria.page}" id="oldPage" hidden>
 										<input type="text" value="${criteria.perPageNum}" id="oldPerPageNum" hidden>
+										<input type="hidden" id="oldSearchType2">
+										<input type="hidden" id="oldKeyword2">
 										<c:set var="page" value="${pagination}"></c:set>
 										<nav aria-label="Page navigation example">
 											<ul class="pagination" id="pagination">

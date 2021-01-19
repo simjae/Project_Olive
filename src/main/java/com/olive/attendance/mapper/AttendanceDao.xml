@@ -177,7 +177,7 @@
 			${table}
 		WHERE ${searchType} = #{keyword}
 		]]>
-		<if test='keyword2 neq 1'>
+		<if test='keyword2 != "1"'>
 			AND ${searchType2} = #{keyword2}
 		</if>
 	</select>
@@ -192,7 +192,7 @@
 			${table}
 		WHERE ${searchType} = #{keyword}
 		]]>
-		<if test='keyword2 neq 1'>
+		<if test='keyword2 neq "1"'>
 			AND ${searchType2} = #{keyword2}
 		</if>
 		<![CDATA[
