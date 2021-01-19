@@ -220,9 +220,9 @@ public class Hr_managementService {
 		List<Map<String, Object>> result = dao.getSalChartDataForClass();
 		List<Class> classResult = dao.getClassList();
 		List<Map<String, Object>> sortResult = new ArrayList<>();
-		for(Class sort : classResult) {
-			for(Map<String, Object> data : result) {
-				if(sort.getClassName().equals(data.get("class"))) {
+		for (Class sort : classResult) {
+			for (Map<String, Object> data : result) {
+				if (sort.getClassName().equals(data.get("class"))) {
 					sortResult.add(data);
 					break;
 				}
@@ -232,28 +232,28 @@ public class Hr_managementService {
 		return sortResult;
 	}
 
-	
-	
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		List<Map<String, Object>> result = dao.getSalChartDataForDept();
-		
+
 		return result;
 	}
 
 	public JSONObject getAttGroupByDept(String deptName) {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		JSONObject jsonObject = new JSONObject();
-		List<HashMap<String, Object>> result = dao.getAttGroupByDept();
+		List<HashMap<String, Object>> datas = dao.getAttGroupByDept();
 		List<String> labels = dao.getAttList();
 		jsonObject.put("labels", labels);
-		for(String label : labels) {
-			for(HashMap<String, Object> data : result) {
-				if(data.get("dept") == label) {
-					
-				}
+		
+		for(HashMap<String, Object> data : datas) {
+			List<Integer> chartData = new ArrayList<>();
+			for(int i=0; i<labels.size(); i++) {
+				chartData.add(Integer.parseInt(data.get(labels.get(i))+""));
 			}
+			jsonObject.put(data.get("dept"), chartData);
 		}
+		System.out.println(jsonObject);
 		return jsonObject;
 	}
 
@@ -290,12 +290,12 @@ public class Hr_managementService {
 			if (year == cal.get(Calendar.YEAR)) {
 				label.add("현재");
 			} else {
-				label.add(year+"년");
+				label.add(year + "년");
 			}
 		}
 		List<Object> sortResult = new ArrayList<>();
 		List<Object> sortLabel = new ArrayList<>();
-		for(int i=result.size()-1; i>=0; i--) {
+		for (int i = result.size() - 1; i >= 0; i--) {
 			sortResult.add(result.get(i));
 			sortLabel.add(label.get(i));
 		}
