@@ -55,6 +55,9 @@ $('#collapseHRM').addClass('show');
 				}]
 			},
 			options: {
+				legend: {
+				display: false
+				},
 				gridLines: {
 					color: "rgb(234, 236, 244)",
 					zeroLineColor: "rgb(234, 236, 244)",

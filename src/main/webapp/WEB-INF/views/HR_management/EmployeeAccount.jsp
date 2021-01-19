@@ -68,20 +68,31 @@ p.each-label>span {
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">사용자 관리</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-							<i class="fas fa-download fa-sm text-white-50"></i>&nbsp;어떤 버튼?
-						</a>
+						<h1 class="h3 mb-0 text-gray-800">인사관리</h1>
 					</div>
 					<!-- 계정관리 컨텐츠 시작 -->
 					<div class="row">
 						<div class="col-xl-12 col-lg-12">
-							<div class="card border-left-info shadow mb-4">
+							<div class="card shadow mb-4">
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-info">계정 관리</h6>
+									<form class="form-group mb-0">
+										<div class="input-group">
+											<input type="button" class="btn btn-primary" id="excelBtn"
+												value="다운로드"> &nbsp;&nbsp;&nbsp;&nbsp; 
+												<select class="select" id="newSearchType">
+													<option selected>사번</option>
+													<option>이름</option>
+													<option>본부</option>
+													<option>부서</option>
+												</select>
+												<input type="text" class="inputState form-control" id="newKeyword">
+												<input type="button" class="btn btn-primary" id="searchBtn" value="검색">
+										</div>
+										<!-- //비동기로 DB다녀오는 친구들 -->
+									</form>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -90,19 +101,7 @@ p.each-label>span {
 											class="card-body-tridiv search-tab row justify-content-end mr-5">
 											<div class="mb-3">
 												<!-- 비동기로 DB다녀오는 친구들 -->
-												<form class="form-group">
-													<input type="button" class="btn btn-info" id="excelBtn"
-														value="다운로드"> &nbsp;&nbsp;&nbsp;&nbsp; <select
-														class="select" id="newSearchType">
-														<option selected>사번</option>
-														<option>이름</option>
-														<option>본부</option>
-														<option>부서</option>
-													</select> <input type="text" class=inputState id="newKeyword">
-													<input type="button" class="btn btn-info" id="searchBtn"
-														value="검색">
-													<!-- //비동기로 DB다녀오는 친구들 -->
-												</form>
+
 											</div>
 										</div>
 										<div class="card-body-tridiv"></div>
@@ -190,10 +189,10 @@ p.each-label>span {
 										<a href="#employNewEmpModal" class="btn btn-info"
 											data-toggle="modal">사원 신규 등록</a>
 									</div> -->
-									<div class="row mr-5 float-right">
+									<div class="row mr-0 float-right">
 										<a
 											href="${pageContext.request.contextPath}/HR_management/registration.do"
-											class="btn btn-info">사원 신규 등록</a>
+											class="btn btn-primary">사원 신규 등록</a>
 									</div>
 								</div>
 								<!-- //내가 올린 결재 card-body -->
@@ -225,7 +224,7 @@ p.each-label>span {
 		$(document).on("click", ".empEditBtn", function() {
 			var empno = $(".empEditBtn").val();
 			console.log(empno);
-			window.location.href="/HR_management/empEdit.do?empno="+empno
+			window.location.href = "/HR_management/empEdit.do?empno=" + empno
 		});
 	</script>
 </body>
