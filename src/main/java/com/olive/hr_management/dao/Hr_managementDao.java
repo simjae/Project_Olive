@@ -85,5 +85,7 @@ public interface Hr_managementDao {
 	public void resetAccount(Map<String, String> parameter);
 	
 	public void retireAccount(String empno);
+
+	public void updateAccount(Emp emp);
 	
 }

@@ -112,9 +112,8 @@ $(document).on("click", ".checkBtn", function() {
 				console.log(data);
 
 				if ((Array.isArray(data)) && data.length === 0) {
-					$('#annModalTable').empty();
-					html += "<h3>연차사용 내역이 존재하지 않습니다.</h3>"
-					$('#annModalTable').append(html)
+					html += "<tr><td colspan=7><h3>연차사용 내역이 존재하지 않습니다.</h3>"
+					$('#annBody').append(html)
 				}
 				for (let i = 0; i < data.length; i++) {
 					let writedate = moment(data[i].writedate).format("YYYY-MM-DD");

@@ -116,6 +116,7 @@ public class HomeController {
 		return "Main";
 	}
 
+	// 메인 대쉬보드 : 뉴스 가져오기
 	@RequestMapping(value = "/getNewsData.do", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject getNewsData() throws UnsupportedEncodingException {
@@ -125,6 +126,7 @@ public class HomeController {
 		return result;
 	}
 
+	// 알람페이지로 이동하기
 	@RequestMapping(value = "/Alrams.do", method = RequestMethod.GET)
 	public String Alram() {
 		return "etc/Alrams";
@@ -182,6 +184,7 @@ public class HomeController {
 		return entity;
 	}
 
+	// 이메일 인증 시 로그아웃
 	@RequestMapping(value = "/goToWork.do")
 	@ResponseBody
 	public String goToWork(Principal principal, String email) {
@@ -189,7 +192,7 @@ public class HomeController {
 		authService.setGeneralRole(principal.getName());
 		authService.setActivate(principal.getName());
 
-		return "goToMain.do";
+		return "logout";
 	}
 
 	// 비밀번호 찾기 페이지
@@ -225,12 +228,5 @@ public class HomeController {
 		infoService.updatePwd(map);
 	}
 
-	// public ResponseEntity<Boolean>
-
-	// 아직 미구현이지만, Access Denied 시 페이지 매핑
-	/*
-	 * @RequestMapping(value = "/accessDenied.do") public String accessDenied() {
-	 * return "403시 넣어줄 주소"; }
-	 */
 
 }

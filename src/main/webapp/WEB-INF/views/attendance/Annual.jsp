@@ -27,12 +27,7 @@
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 </head>
 <style>
-h1{
-	text-decoration: underline;
-	font-weight: bold;
-	text-decoration-color: #ffe561;
-	text-decoration-thickness: 5px;
-}
+
 #calendar {
 	max-width: 1300px;
 	margin: 0 auto;
@@ -233,7 +228,7 @@ h1{
 						<div class="card shadow mb-4">
 							<!-- Card Header -->
 							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 class="m-0 font-weight-bold text-info">캘린더</h6>
+								<h5 class="m-0 font-weight-bold text-info">캘린더</h5>
 							</div>
 							<!-- Card Body -->
 							<div class="card-body">

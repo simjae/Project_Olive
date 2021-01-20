@@ -1,7 +1,6 @@
 package com.olive.hr_management.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.olive.dto.Dept;
+import com.olive.dto.Emp;
 import com.olive.dto.Head;
 import com.olive.dto.Position;
 import com.olive.hr_management.service.Hr_managementService;
@@ -239,10 +239,17 @@ public class Hr_ManagementRestController {
 		managementService.resetAccount(empno);
 		return empno;
 	}
-	// 인사관리 > 계정관리 > 수정하기페이지 > 계정 초기화
+	// 인사관리 > 계정관리 > 수정하기페이지 > 퇴사처리
 	@RequestMapping(value = "retireAccount.do", method = RequestMethod.POST)
 	public String retireAccount(String empno) {
 		managementService.retireAccount(empno);
 		return empno;
+	}
+	
+	// 인사관리 > 계정관리 > 수정하기페이지 > 수정 완료
+	@RequestMapping(value = "updateEmp.do", method = RequestMethod.POST)
+	public void updateEmp(Emp emp) {
+		System.out.println(emp);
+		managementService.updateAccount(emp);
 	}
 }

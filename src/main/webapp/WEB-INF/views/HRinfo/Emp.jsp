@@ -226,10 +226,10 @@ table.table .avatar {
 									<select
 										class="form-control text-center form-select-lg"
 										id="inputState">
-										<option selected>사번</option>
-										<option>이름</option>
-										<option>본부</option>
-										<option>부서</option>
+										<option selected value="empno">사번</option>
+										<option  value="ename">이름</option>
+										<option value="head">본부</option>
+										<option value="dept">부서</option>
 									</select> <input type="text"
 										class="form-control text-center form-select-lg"
 										id="search_input">
@@ -242,8 +242,8 @@ table.table .avatar {
 								</div>
 							</form>
 						</div>
-						<div class="table-responsive text-center">
-							<div class="table-wrapper">
+						<div class="table-responsive  text-center">
+							<div class="table-wrapper row justify-content-center mx-5">
 								<table id="emptable" class="table table-striped table-hover">
 									<thead>
 										<tr>
@@ -269,12 +269,48 @@ table.table .avatar {
 												<td>${list.POSITIONNAME}</td>
 												<td></td>
 											</tr>
-										</c:forEach>
+										</c:forEach>			
 									</tbody>
 								</table>
-								<div class="clearfix">
-
-									<!-- Edit Modal HTML -->
+								<c:set var="page" value="${pagination}"></c:set>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination" id="pagination">
+											<c:if test="${page.prev}">
+												<!-- prev가 true라면 prev 버튼 보여주기 -->
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+														<span class="sr-only">Previous</span>
+												</a></li>
+											</c:if>
+											<c:forEach var="paging" begin="${page.startPage}"
+												end="${page.endPage}">
+												<c:choose>
+													<c:when test="${paging eq criteria.page}">
+														<li class="page-item page-link"><b>${paging}</b></li>
+													</c:when>
+													<c:otherwise>
+														<li class="page-item"><a class="page-link page-btn"
+															href="#">${paging}</a></li>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+											<c:if test="${page.next}">
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+														<span class="sr-only">Next</span>
+												</a></li>
+											</c:if>
+										</ul>
+									</nav>
+									<c:set var="criteria" value="${criteria}" />
+									<input type="text" value="${criteria.searchType}"
+										id="oldSearchType" hidden> <input type="text"
+										value="${criteria.keyword}" id="oldKeyword" hidden> <input
+										type="text" value="${criteria.page}" id="oldPage" hidden>
+									<input type="text" value="${criteria.perPageNum}"
+										id="oldPerPageNum" hidden>
+								</div>
+								<!-- Edit Modal HTML -->
 									<div id="EmpModal" class="modal fade">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -345,48 +381,6 @@ table.table .avatar {
 										</div>
 									</div>
 
-
-									<c:set var="page" value="${pagination}"></c:set>
-									<nav aria-label="Page navigation example">
-										<ul class="pagination" id="pagination">
-											<c:if test="${page.prev}">
-												<!-- prev가 true라면 prev 버튼 보여주기 -->
-												<li class="page-item"><a class="page-link" href="#"
-													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-														<span class="sr-only">Previous</span>
-												</a></li>
-											</c:if>
-											<c:forEach var="paging" begin="${page.startPage}"
-												end="${page.endPage}">
-												<c:choose>
-													<c:when test="${paging eq criteria.page}">
-														<li class="page-item page-link"><b>${paging}</b></li>
-													</c:when>
-													<c:otherwise>
-														<li class="page-item"><a class="page-link page-btn"
-															href="#">${paging}</a></li>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-											<c:if test="${page.next}">
-												<li class="page-item"><a class="page-link" href="#"
-													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-														<span class="sr-only">Next</span>
-												</a></li>
-											</c:if>
-										</ul>
-									</nav>
-									<c:set var="criteria" value="${criteria}" />
-									<input type="text" value="${criteria.searchType}"
-										id="oldSearchType" hidden> <input type="text"
-										value="${criteria.keyword}" id="oldKeyword" hidden> <input
-										type="text" value="${criteria.page}" id="oldPage" hidden>
-									<input type="text" value="${criteria.perPageNum}"
-										id="oldPerPageNum" hidden>
-
-
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

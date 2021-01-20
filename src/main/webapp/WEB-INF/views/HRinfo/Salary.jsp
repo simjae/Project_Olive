@@ -60,7 +60,7 @@ h1{
 					<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">급여정보</h6>
+									<h5 class="m-0 font-weight-bold text-info">급여정보</h5>
 								</div>
 					<!-- Table -->
 					<div class="row justify-content-center mx-5 mt-5">
