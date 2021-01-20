@@ -43,14 +43,12 @@ public class ApprovalController {
 	@RequestMapping(value = "ApprovalHome.do", method = RequestMethod.GET)
 	public String approvalHome(Model model,Principal principal) {
 		String empno = principal.getName();
-		System.out.println(empno);
 		//전체 내가올린 문서 
 		List<Document> document = approvalService.getDocument(empno);
 		List<Document> documentrec = approvalService.getDocument(empno,0,3);
 		//전체 내가 결재 해야할 문서
 		List<Approver> approver = approvalService.getApprover(empno);
 		List<Approver> approverrec = approvalService.getApprover(empno,0,3);
-		System.out.println( approvalService.arrangeDoc(document));
 		
 		model.addAttribute("arrangedDoc", approvalService.arrangeDoc(document));
 		model.addAttribute("arrangedAppDoc", approvalService.arrangedAppDoc(approver));
@@ -66,14 +64,12 @@ public class ApprovalController {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("time", sf.format(nowTime));
 		String empno = request.getUserPrincipal().getName();
-		System.out.println(empno);
 		Emp emp = approvalService.selectEmp(empno);
 		List<Doc_Type> docType = approvalService.selectDocType();
 		List<Doc_form> form = approvalService.formList();
 		
 		model.addAttribute("formList",form);
 		model.addAttribute("docType", docType);
-		System.out.println(docType);
 		model.addAttribute("emp", emp);
 		
 		
@@ -92,8 +88,6 @@ public class ApprovalController {
 			approvalService.writeDoc(doc,request);
 			
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println("다 안드감");
 			// TODO: handle exception
 		}
 		return "redirect:/approval/ApprovalHome.do";

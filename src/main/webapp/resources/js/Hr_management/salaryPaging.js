@@ -96,7 +96,7 @@
 								+"<td>"+comma(exemption)+"</td>"
 								+"<td>"+comma(afterTaxIncome)+"</td>"
 								+"<td>"
-								+"<button class='table-button salaryDetail'	value="
+								+"<button class='btn btn-primary salaryDetail'	value="
 								+cellDate1
 								+","
 								+ data.list[i].EMPNO + ">보기</button>" 

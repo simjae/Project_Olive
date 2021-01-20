@@ -65,7 +65,7 @@
 								<!-- 총 근무시간 헤더  -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">이번주 총 근무시간</h6>
+									<h6 class="m-0 font-weight-bold text-info">이번주 총 근무시간</h6>
 								</div>
 								<!-- 총 근무시간 카드 -->
 								<c:set var="total" value="${workHours}" />
@@ -230,7 +230,7 @@
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<s:authorize access="!hasRole('ROLE_MANAGER')">
-										<h6 class="m-0 font-weight-bold text-primary">근태 테이블</h6>
+										<h6 class="m-0 font-weight-bold text-info">근태 테이블</h6>
 									</s:authorize>
 									<s:authorize access="hasRole('ROLE_MANAGER')">
 										<h6 class="ml-0 mr-0 font-weight-bold text-info">
