@@ -38,11 +38,9 @@ h1{
   justify-content: center;
   align-items: center;
 }
-
 .file > input[type='file'] {
   display: none
 }
-
 .file > label {
   font-size: 1rem;
   font-weight: 300;
@@ -59,32 +57,36 @@ h1{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin:0;
 }
-
 .file > label:hover {
-  border-color: hsl(0, 0%, 21%);
+  border-color: rgb(73, 85, 113);
 }
-
 .file > label:active {
-  background-color: hsl(0, 0%, 96%);
+  background-color: rgb(73, 85, 113);
 }
-
 .file > label > i {
   padding-right: 5px;
 }
-
-.file--success > label {
-  color: hsl(141, 71%, 48%);
-  border-color: hsl(141, 71%, 48%);
+.file--uploading > label {
+  color: rgb(73, 85, 113);
+  border-color: rgb(73, 85, 113);
 }
 
-.file--success > label:hover {
-  border-color: hsl(141, 71%, 48%);
-  background-color: hsl(141, 71%, 96%);
+.file--uploading > label > i {
+  animation: pulse 5s infinite;
 }
 
-.file--success > label:active {
-  background-color: hsl(141, 71%, 91%);
+.file--uploading > label:hover {
+  border-color: rgb(73, 85, 113);
+  background-color: rgba(73, 85, 113, 0.3);
+}
+
+.file--uploading > label:active {
+  background-color:  rgba(73, 85, 113, 0.3);
+}
+.btn{
+  margin:3px;
 }
 
 </style>
@@ -119,7 +121,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">부서별 평균 급여</h6>
+									<h5 class="m-0 font-weight-bold text-info">부서별 평균 급여</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -135,7 +137,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">직급별 평균 급여</h6>
+									<h5 class="m-0 font-weight-bold text-info">직급별 평균 급여</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -155,19 +157,26 @@ h1{
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<div class="input-group">
+										<!-- <form id="uploadForm" method="post"
+											enctype="multipart/form-data">
+									      <input type='file' name="excelFile" id="excelFile"/>
+									      <input type="button" onclick="uploadProcess()" value="submit">
+										</form> -->
 										<form id="uploadForm" method="post"
 											enctype="multipart/form-data">
-										<div class='file file--upload'>
-									      <label for='excelFile'>
-									        <i class="fas fa-cloud-upload-alt"></i>Upload
-									      </label>
+										<div class='file file--uploading '>
+											<label for='excelFile'>
+										      <i class="far fa-folder"></i>File
+										    </label>
 									      <input type='file' name="excelFile" id="excelFile"/>
-									      <button class="btn btn-info" type="button" onclick="uploadProcess()">submit</button>
+									      <!--  -->
+									      <!-- <input type="button" class="btn btn-info" onclick="uploadProcess()" value="upload"> -->
 									    </div> 
-											<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 										</form>
+										
 									</div>
-									<div class="">
+									<div class="d-flex justify-content-between">
+										<input type="button" class="btn btn-info" onclick="uploadProcess()" value="파일 업로드">
 										<a href="/HR_management/SalaryExcelForm.do"> 
 											<input type="button" class="form-control btn btn-info" value="양식 다운">
 										</a>

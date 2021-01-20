@@ -137,7 +137,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-6 col-lg-6">
 							<div class="card  shadow mb-4">
 								<div class="card-header">
-									<div class="font-weight-bold h5 text-uppercase mb-1">개인문서함</div>
+									<div class="font-weight-bold h5 text-uppercase text-info mb-1">개인문서함</div>
 								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -177,7 +177,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-6 col-lg-6">
 							<div class="card shadow mb-4">
 								<div class="card-header">
-									<div class="font-weight-bold h5 text-uppercase mb-1">결재진행함</div>
+									<div class="font-weight-bold h5 text-uppercase text-info mb-1">결재진행함</div>
 								</div>
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -215,7 +215,7 @@ h6.text-primary>i.fas {
 						<div class="col-xl-12 col-lg-12">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h5 class="m-0 font-weight-bold">내가 최근 올린 결재</h5>
+									<h5 class="m-0 font-weight-bold text-info">내가 최근 올린 결재</h5>
 									<!-- 바로가기 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
@@ -275,7 +275,7 @@ h6.text-primary>i.fas {
 							<div class="card  shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h5 class="m-0 font-weight-bold">내가 최근 받은 결재</h5>
+									<h5 class="m-0 font-weight-bold text-info">내가 최근 받은 결재</h5>
 									<!-- 옵션 버튼 : -->
 									<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">
