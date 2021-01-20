@@ -43,15 +43,8 @@ h1{
 	max-width: 1300px;
 	margin: 0 auto;
 }
-
 .item {
 	flex: 1 1 auto;
-}
-h1 {
-	text-decoration: underline;
-	font-weight: bold;
-	text-decoration-color: #ffe561;
-	text-decoration-thickness: 5px;
 }
 </style>
 </head>
@@ -72,10 +65,6 @@ h1 {
 					<c:set var="emp" value="${emp}" />
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">근태관리</h1>
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 text-gray-800">근태관리</h1>
-						</div>
 					<div class="row">
 						<div class="col-lg-12">
 							<!-- Dropdown Card Example -->
