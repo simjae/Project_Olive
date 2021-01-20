@@ -433,13 +433,12 @@ h1 {
 			<!-- /.container-fluid -->
 		</div>
 		<!-- End of Main Content -->
+		<!-- Footer 모듈화 -->
+	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	</div>
 	<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->
-	<!-- Footer 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
-	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
 	<!-- datepicker 용 jquery ui script -->
@@ -461,14 +460,6 @@ h1 {
 		$('#collapseHRM').prev().children().css("color", "#fff");
 
 	})
-=======
-<script type="text/javascript">   
-$(function(){
-	$('#collapseHRM').addClass('show');
-	$('#collapseHRM').prev().removeClass('collapsed');
-	$('#collapseHRM').prev().children().css("color","#fff");
-		
-})
->>>>>>> 2a044774082cf2b3ec2b42d5cb8613db0db770b1
+
 </script>
 </html>

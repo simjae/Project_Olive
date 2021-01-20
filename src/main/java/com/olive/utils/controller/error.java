@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/error")
 public class error {
-	@GetMapping
-	public String defaultError() {
-		return "error/default";
-	}
-
-	@GetMapping("/no-resource")
-	public String noResource() {
-		return "error/noResource";
-	}
+//	@GetMapping
+//	public String defaultError() {
+//		return "error/default";
+//	}
+//
+//	@GetMapping("/no-resource")
+//	public String noResource() {
+//		return "error/noResource";
+//	}
 
 	@RequestMapping(value = "404.do")
 	public String Error404() {

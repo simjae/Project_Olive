@@ -265,17 +265,17 @@ h1{
 						</div>
 					</div>
 				</div>
-			</div>
 			<!-- /.container-fluid -->
-		</div>
+			</div>
 		<!-- End of Main Content -->
-	</div>
+			<!-- Footer 모듈화 -->
+	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+		
+		</div>
 	<!-- End of Content Wrapper -->
-
 	</div>
 	<!-- End of Page Wrapper -->
-	<!-- Footer 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>
