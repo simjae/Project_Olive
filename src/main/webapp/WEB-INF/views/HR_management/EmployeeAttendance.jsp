@@ -103,12 +103,12 @@ h1 {
 					</div>
 					<div class="row">
 						<!-- Area Chart -->
-						<div class="col-xl-8 col-lg-7">
+						<div class="col-xl-7 col-lg-7">
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">부서별 근태 현황</h6>
+									<h5 class="m-0 font-weight-bold text-info">부서별 근태 현황</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -120,12 +120,12 @@ h1 {
 						</div>
 
 						<!-- Pie Chart -->
-						<div class="col-xl-4 col-lg-5">
+						<div class="col-xl-5 col-lg-5">
 							<div class="card shadow mb-4">
 								<!-- Card Header -->
 								<div
 									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">근태 현황</h6>
+									<h5 class="m-0 font-weight-bold text-info">근태 현황</h5>
 									<div class="dropdown no-arrow">
 										<form
 											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
@@ -170,7 +170,7 @@ h1 {
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="ml-0 mr-0 font-weight-bold text-info">근태 관리</h6>
+									<h5 class="ml-0 mr-0 font-weight-bold text-info">근태 관리</h5>
 									<form class="form-group mb-0">
 										<div class="input-group">
 											<select
@@ -286,7 +286,7 @@ h1 {
 							<!-- Card Header -->
 							<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="ml-0 mr-0 font-weight-bold text-info">연차 관리</h6>
+									<h5 class="ml-0 mr-0 font-weight-bold text-info">연차 관리</h5>
 									<form class="form-group mb-0">
 										<div class="input-group">
 											<select
@@ -408,7 +408,7 @@ h1 {
 								<h4 class="modal-title">연차 사용 이력</h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-							<div class="modal-body">
+							<div class="annModalTable">
 								<table id="annModalTable" class="table text-center">
 									<thead>
 										<tr>

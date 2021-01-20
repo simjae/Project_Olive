@@ -21,7 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="/resources/img/logo_favicon.png" type="image/x-icon">
+<link rel="icon" href="/resources/img/icon.png" type="image/x-icon">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <!-- 날씨 css -->
@@ -72,7 +72,7 @@
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">오늘의 날씨</h6>
+									<h5 class="m-0 font-weight-bold text-info">오늘의 날씨</h5>
 								</div>
 								<!-- 날씨 컨텐츠 :  -->
 								<div class="card-body weather-here div-min-height">
@@ -85,7 +85,7 @@
 							<div class="card shadow mb-4 height-fix">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">데일리 뉴스</h6>
+									<h5 class="m-0 font-weight-bold text-info">데일리 뉴스</h5>
 								</div>
 								<!-- 데일리 뉴스 컨텐츠 -->
 								<div class="card-body">
@@ -109,7 +109,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 class="m-0 font-weight-bold text-primary">개인 문서함</h6>
+								<h5 class="m-0 font-weight-bold text-info">개인 문서함</h5>
 								<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -169,7 +169,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 class="m-0 font-weight-bold text-primary">결재 문서함</h6>
+								<h5 class="m-0 font-weight-bold text-info">결재 문서함</h5>
 								<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -230,7 +230,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 class="m-0 font-weight-bold text-primary">근태현황</h6>
+								<h5 class="m-0 font-weight-bold text-info">근태현황</h5>
 								<div class="">
 										<a class="" href="${pageContext.request.contextPath}/attendance/attendance.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -290,7 +290,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<h6 class="m-0 font-weight-bold text-primary">연차 현황</h6>
+								<h5 class="m-0 font-weight-bold text-info">연차 현황</h5>
 								<div class="">
 										<a class="" href="${pageContext.request.contextPath}/attendance/annual.do" role="button">
 											<img src="/resources/img/external-link.png">

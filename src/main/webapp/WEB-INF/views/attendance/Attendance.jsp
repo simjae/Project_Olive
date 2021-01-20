@@ -37,6 +37,12 @@
 .item {
 	flex: 1 1 auto;
 }
+h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 </style>
 </head>
 <body id="page-top">
@@ -56,6 +62,7 @@
 				<div class="container-fluid">
 					<c:set var="emp" value="${emp}" />
 					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800">근태관리</h1>
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4"></div>
 					<div class="row">
@@ -65,7 +72,7 @@
 								<!-- 총 근무시간 헤더  -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">이번주 총 근무시간</h6>
+									<h5 class="m-0 font-weight-bold text-info">이번주 총 근무시간</h5>
 								</div>
 								<!-- 총 근무시간 카드 -->
 								<c:set var="total" value="${workHours}" />
@@ -230,7 +237,7 @@
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<s:authorize access="!hasRole('ROLE_MANAGER')">
-										<h6 class="m-0 font-weight-bold text-info">근태 테이블</h6>
+										<h5 class="m-0 font-weight-bold text-info">근태 테이블</h5>
 									</s:authorize>
 									<s:authorize access="hasRole('ROLE_MANAGER')">
 										<h6 class="ml-0 mr-0 font-weight-bold text-info">
@@ -354,7 +361,7 @@
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">휴가 캘린더</h6>
+									<h5 class="m-0 font-weight-bold text-info">휴가 캘린더</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body justify-content-center">

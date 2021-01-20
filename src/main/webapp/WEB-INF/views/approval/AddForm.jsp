@@ -74,7 +74,7 @@ h1{
 					<h1 class="text-gray-800 h3">전자결재</h1>
 					<div class="card shadow py-0 bg-white my-4">
 						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-							<h5>양식 관리</h5>
+							<h5 class="text-info">양식 관리</h5>
 							<div class="card-for-flex col-md-4">
 								<div class="card-body-tridiv search-tab row justify-content-end mr-2">
 								<div class="col-md-4 px-0" id="delete"></div>

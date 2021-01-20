@@ -164,7 +164,7 @@ h1 {
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">연도별 사원 수</h6>
+									<h5 class="m-0 font-weight-bold text-info">연도별 사원 수</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -181,7 +181,7 @@ h1 {
 								<!-- Card Header -->
 
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">부서별 사원 분포</h6>
+									<h5 class="m-0 font-weight-bold text-info">부서별 사원 분포</h5>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">

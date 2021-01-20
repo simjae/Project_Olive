@@ -39,7 +39,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h5 class="m-0 font-weight-bold text-primary">
+									<h5 class="m-0 font-weight-bold text-info">
 										계정 등록 &nbsp;&nbsp;
 									</h5>
 								</div>

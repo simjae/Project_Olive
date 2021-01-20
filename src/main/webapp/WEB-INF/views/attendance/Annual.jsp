@@ -38,6 +38,12 @@
 .item {
 	flex: 1 1 auto;
 }
+h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -55,6 +61,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800">근태관리</h1>
 					<c:set var="emp" value="${emp}" />
 					<c:set var="annualCard" value="${annualCard}" />
 					<!-- Page Heading -->
@@ -236,7 +243,7 @@
 									<!-- Card Header -->
 									<div
 										class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-										<h6 class="m-0 font-weight-bold text-info">캘린더</h6>
+										<h5 class="m-0 font-weight-bold text-info">캘린더</h5>
 									</div>
 									<!-- Card Body -->
 									<div class="card-body">
