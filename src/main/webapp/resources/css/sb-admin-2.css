@@ -4847,13 +4847,12 @@ input[type="button"].btn-block {
 .badge {
   display: inline-block;
   padding: 0.25em 0.4em;
-  font-size: 75%;
   font-weight: 700;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: 0.35rem;
+  border-radius: 1rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -10227,11 +10226,11 @@ a:focus {
 }
 
 .topbar .dropdown-list .dropdown-header {
-  background-color: #4e73df;
-  border: 1px solid #4e73df;
+  background-color: rgb(255,229,96);
+  border: 1px solid rgb(255,229,96);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  color: #fff;
+  color: black;
 }
 
 .topbar .dropdown-list .dropdown-item {

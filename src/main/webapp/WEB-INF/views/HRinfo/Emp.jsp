@@ -23,39 +23,42 @@
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
 <style>
-h1{
+h1 {
 	text-decoration: underline;
 	font-weight: bold;
 	text-decoration-color: #ffe561;
 	text-decoration-thickness: 5px;
 }
 
-
 /* 모달 테이블 */
 #hr_info {
 	padding: 30px 30px;
-	margin:auto;
+	margin: auto;
 	width: 80%;
-	
 }
+
 #hr_info td {
 	padding: 12px 15px;
 	vertical-align: middle;
 }
+
 #hr_info tr {
 	text-align: left;
 	font-size: 18px;
 }
+
 #hr_info tr td:first-child {
 	width: 30%;
 	color: #96a2af;
 }
+
 #hr_info tr td:last-child {
 	width: 100%;
 	border-bottom: 1px solid #ddd;
 	color: #384a5e;
 	font-weight: bold;
 }
+
 .table-wrapper {
 	min-width: 1000px;
 	background: #fff;
@@ -214,30 +217,26 @@ table.table .avatar {
 					<!-- Page Heading -->
 					<h1 class="h3 text-gray-800">인사정보</h1>
 					<div class="card shadow bg-white my-5">
-					<!-- Card Header -->
-								<div
-									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-info">급여정보</h6>
-								</div>
-						<div class="row justify-content-end mx-5 mt-5">
-							<div class="form-group col-md-2">
-								<select id="inputState" class="form-control">
-									<option value="">검색조건</option>
-									<option value="empno">사번</option>
-									<option value="ename">이름</option>
-									<option value="head">본부</option>
-									<option value="dept">부서</option>
-								</select>
-							</div>
-							<form class="col-md-3 d-none d-sm-inline-block ">
+						<!-- Card Header -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h5 class="ml-0 mr-0 font-weight-bold text-info">직원 목록</h5>
+							<form class="form-group mb-0">
 								<div class="input-group">
-									<input id="search_input" type="text"
-										class="form-control border-0 small" placeholder="검색어를 입력해주세요"
-										aria-label="Search" aria-describedby="basic-addon2">
+									<select
+										class="form-control text-center form-select-lg"
+										id="inputState">
+										<option selected>사번</option>
+										<option>이름</option>
+										<option>본부</option>
+										<option>부서</option>
+									</select> <input type="text"
+										class="form-control text-center form-select-lg"
+										id="search_input">
 									<div class="input-group-append">
-										<button id="search_button" class="btn btn-primary"
-											type="button">
-											<i class="fas fa-search fa-sm"></i>
+										<button type="button" class="btn btn-primary ml-0"
+											id="search_button">
+											<i class="fas fa-search fa-sm "></i>
 										</button>
 									</div>
 								</div>
@@ -260,8 +259,8 @@ table.table .avatar {
 										<c:forEach var="list" items="${emplist}">
 											<tr>
 
-												<td>
-													<img src="/resources/upload/${list.PIC}" width="40" class="rounded-circle"
+												<td><img src="/resources/upload/${list.PIC}" width="40"
+													class="rounded-circle"
 													onerror="this.src='/resources/img/undraw_profile_1.svg'">
 												</td>
 												<td>${list.EMPNO}</td>

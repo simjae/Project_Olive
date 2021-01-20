@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="icon" href="/resources/img/logo_favicon.png" type="image/x-icon">
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <!-- 날씨 css -->
@@ -29,7 +30,14 @@
 	.appbadge{
 		position:absolute;
 		right:3px;
+		font-size:13px;
 	}
+	h1 {
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 	
 </style>
 </head>
@@ -65,19 +73,6 @@
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">오늘의 날씨</h6>
-									<!-- 옵션 버튼 : -->
-									<!-- <div class="dropdown no-arrow">
-										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-											<div class="dropdown-header">Dropdown Header:</div>
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#">Something else here</a>
-										</div>
-									</div> -->
 								</div>
 								<!-- 날씨 컨텐츠 :  -->
 								<div class="card-body weather-here div-min-height">
@@ -114,7 +109,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-uppercase mb-1">개인 문서함</div>
+								<h6 class="m-0 font-weight-bold text-primary">개인 문서함</h6>
 								<div class="">
 										<a class="" href="/approval/PersonalDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -128,7 +123,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/document.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">기안 문서</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">기안 문서</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -138,7 +133,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/onApp.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 진행중</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결재 진행중</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -148,7 +143,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/document.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">반려 문서</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">반려 문서</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -158,7 +153,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/doneApp.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 완료</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결재 완료</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -174,7 +169,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card  shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-uppercase mb-1">결재 문서함</div>
+								<h6 class="m-0 font-weight-bold text-primary">결재 문서함</h6>
 								<div class="">
 										<a class="" href="/approval/ProgressDoc.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -188,7 +183,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/document.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 대기</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결재 대기</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -198,7 +193,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/onApp.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 진행중</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결재 진행중</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -208,7 +203,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/document.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">반려 문서</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">반려 문서</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -218,7 +213,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/doneApp.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결재 완료</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결재 완료</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -235,7 +230,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-uppercase mb-1">근태현황</div>
+								<h6 class="m-0 font-weight-bold text-primary">근태현황</h6>
 								<div class="">
 										<a class="" href="${pageContext.request.contextPath}/attendance/attendance.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -249,7 +244,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/attendance.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">정상</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">정상</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 												
@@ -259,7 +254,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/late.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">지각</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">지각</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -269,7 +264,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/leave-early.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">조퇴</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">조퇴</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -279,7 +274,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/absent.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">결근</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">결근</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -295,7 +290,7 @@
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card shadow h-100">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-								<div class="h5 font-weight-bold text-uppercase mb-1">연차 현황</div>
+								<h6 class="m-0 font-weight-bold text-primary">연차 현황</h6>
 								<div class="">
 										<a class="" href="${pageContext.request.contextPath}/attendance/annual.do" role="button">
 											<img src="/resources/img/external-link.png">
@@ -309,7 +304,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/attendance.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">총 연차</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">총 연차</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 												
@@ -319,7 +314,7 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/late.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">사용연차</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">사용연차</div>
 												</div>
 												<div class="badge badge-danger appbadge">
 									
@@ -329,8 +324,8 @@
 											<div class="row no-gutters align-items-center my-2">
 												<img src="/resources/img/leave-early.png">
 												<div class="col-auto">
-													<div class="h5 mb-0 mx-3 font-weight-bold text-gray-800">남은연차</div>
-												</div>
+													<div class="h5 mb-0 mx-3 text-gray-800">남은연차</div>
+												</div> 
 												<div class="badge badge-danger appbadge">
 									
 												${emp.annual-emp.usedAnnual}

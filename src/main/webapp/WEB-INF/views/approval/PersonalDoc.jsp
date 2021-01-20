@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="../inc/HeadLink.jsp"></jsp:include>
@@ -50,7 +51,7 @@ h1{
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 text-gray-800">전자결재</h1>
+					<h1 class="h3 text-gray-800">전자결재</h1><span class="my-0 h5">개인문서함</span>
 					<div class="card shadow py-0 bg-white my-4">
 						<c:set var="document" value="${requestScope.document }" />
 						<c:set var="arrangedDoc" value="${requestScope.arrangedDoc }" />
@@ -62,7 +63,7 @@ h1{
 								<li class="nav-item"><button class="nav-link doc" value="40" id="doc_cmp" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">반려 문서</button></li>
 								<li class="nav-item"><button class="nav-link doc" value="30" id="doc_rej" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">결재 완료</button></li>
 							</ul>
-							<h3 class="h3 text-gray-800">개인문서함</h3>
+							
 						</div>
 						
 						<div class="card-body-tridiv justify-content-end search-tab row mr-5 mt-4" id="myTabContent"></div>

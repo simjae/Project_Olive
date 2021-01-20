@@ -119,7 +119,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">부서별 평균 급여</h6>
+									<h6 class="m-0 font-weight-bold text-info">부서별 평균 급여</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -135,7 +135,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">직급별 평균 급여</h6>
+									<h6 class="m-0 font-weight-bold text-info">직급별 평균 급여</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -162,7 +162,7 @@ h1{
 									        <i class="fas fa-cloud-upload-alt"></i>Upload
 									      </label>
 									      <input type='file' name="excelFile" id="excelFile"/>
-									      <button type="button" onclick="uploadProcess()">submit</button>
+									      <button class="btn btn-info" type="button" onclick="uploadProcess()">submit</button>
 									    </div> 
 											<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 										</form>

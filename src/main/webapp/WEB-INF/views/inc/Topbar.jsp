@@ -35,8 +35,10 @@
 		<i class="fa fa-bars"></i>
 	</button>
 	<!-- Topbar Navbar -->
-	
 	<ul class="navbar-nav ml-auto">
+	<li class="nav-item my-auto">
+	<div class="clock mx-4" id="clock"></div>
+	</li>
 		<li class="nav-item dropdown no-arrow "><a class="nav-link dropdown-toggle" id="attBtn" href="#" id="work" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-fingerprint" style="size: 9x; color:red;" ></i>
 			</a>
@@ -51,23 +53,7 @@
 				
 			</div></li>
 			
-		<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-		<li class="nav-item dropdown no-arrow d-sm-none"><a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-search fa-fw"></i>
-			</a> <!-- Dropdown - Messages -->
-			<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-				<form class="form-inline mr-auto w-100 navbar-search">
-					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">
-								<i class="fas fa-search fa-sm"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</li>
+		
 		<!-- 알람 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-bell fa-fw"></i>
@@ -160,7 +146,27 @@
 <!-- SweetAlert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
+setInterval(()=>{
+	date();
+},1000);
+
 let count =0;
+function date(){
+	let date = new Date();
+	let year = date.getFullYear();
+	let month = date.getMonth()+1;
+	let day = date.getDate();
+	let week = new Array('일','월','화','수','목','금','토');
+	let minutes = date.getMinutes() <10 ? "0"+date.getMinutes() : date.getMinutes();
+	let hours = (date.getHours() >=12) ? date.getHours()-12 : date.getHours();
+	let AMPM = (date.getHours() >=12) ? "PM " : "AM "
+	let seconds = date.getSeconds() <10 ? "0"+date.getSeconds() : date.getSeconds();
+	jb('#clock').text(year+"년 "+month+"월 "+day+"일 "+"("+week[date.getDay()]+") "+AMPM+hours+" : "+minutes+" : "+seconds); 
+	
+}
+
+
+
 function connect(){
 
 	websocket = new WebSocket('ws://localhost:8090/alarm.do');
@@ -171,8 +177,8 @@ function connect(){
 	}; 
 	
 	websocket.onmessage=(evt)=>{
-		
 			writeMsg(evt)	
+		getCount();
 	}
 	
 }
@@ -204,7 +210,7 @@ function writeMsg(evt){
 	console.log(jb('#alcount').val());
 	jb('#counter').empty();
 	jb('#counter').append(parseInt(count)+1);
-	
+	jb('#counter').show();	
 
 }
 
@@ -215,6 +221,7 @@ function disconnect(){
 $.noConflict();
 var jb= jQuery;
 jb(document).ready(function() {
+	
 	var empno = ${LoginUser}+"";
 	console.log(empno);
 	jb.ajax({
@@ -231,7 +238,7 @@ jb(document).ready(function() {
 	});
 	connect();
 
-	
+	function getCount(){
 	jb.ajax({
 		url:"/alarm/alarmCount.do",
 		type:"POST",
@@ -241,10 +248,14 @@ jb(document).ready(function() {
 			jb('#counter').empty();
 			jb('#counter').append(data);
 			jb('#alcount').val(data);
-			}	
 
+			if(data==0){
+				jb('#counter').hide();
+			}
+			}
 		});
-
+		}
+	getCount();
 
 	jb('#alertsDropdown').on("click",function(){
 		jb('#alarmlist').empty();
@@ -317,6 +328,9 @@ jb(document).ready(function() {
 
 			}) 
 		}
+		console.log(jb('#counter').text());
+
+		
 		
 })
 	

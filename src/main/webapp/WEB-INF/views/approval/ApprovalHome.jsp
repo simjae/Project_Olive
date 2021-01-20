@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <title>Project_HR</title>
 <!-- 스타일시트, CDN 모듈화 -->
 <jsp:include page="/WEB-INF/views/inc/HeadLink.jsp"></jsp:include>
@@ -375,7 +376,7 @@ $(function(){
 			labels : [ "기안", "결재중", "결재완료","반려" ],
 			datasets : [ {
 				data : [${arrangedList.doc_ready.size()}, ${arrangedList.doc_ing.size()}, ${arrangedList.doc_cmp.size()}, ${arrangedList.doc_rej.size()}],
-				backgroundColor : [ '#4e73df', '#1cc88a', '#36b9cc','#ff0033' ],
+				backgroundColor : [ 'rgb(78,115,223,.5)', 'rgb(28,100,138,.5)', 'rgb(54,185,204,.5)','rgb(234,86,72,.5)' ],
 				hoverBackgroundColor : [ '#2e59d9', '#17a673', '#2c9faf','#ff0033' ],
 				hoverBorderColor : "rgba(234, 236, 244, 1)",
 			} ],
@@ -407,8 +408,8 @@ $(function(){
 			labels : [ "결재대기", "결재 진행중", "결재완료","반려" ],
 			datasets : [ {
 				data : [${arrangedAppList.doc_ready.size()}, ${arrangedAppList.doc_ing.size()}, ${arrangedAppList.doc_cmp.size()}, ${arrangedAppList.doc_rej.size()}],
-				backgroundColor : [ '#A8F552', '#FFFF96', '#FFB4FF','#FF5A5A' ],
-				hoverBackgroundColor : [ '#94EB3E', '#FFE146', '#FF9BE6','#FF0000' ],
+				backgroundColor : [ 'rgba(242,166,54,.5)', 'rgba(39,79,76,.5)', 'rgba(40,161,130,.5)','rgba(206,29,22,.5)' ],
+				hoverBackgroundColor : [ 'rgb(242,166,54)', 'rgb(39,79,76)', 'rgb(40,161,130)','rgb(206,29,22)' ],
 				hoverBorderColor : "rgba(234, 236, 244, 1)",
 			} ],
 		},

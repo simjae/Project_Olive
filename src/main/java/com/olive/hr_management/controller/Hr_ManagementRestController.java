@@ -1,6 +1,5 @@
 package com.olive.hr_management.controller;
 
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +31,6 @@ public class Hr_ManagementRestController {
 
 	@Autowired
 	private Hr_managementService managementService;
-
 
 	// 인사관리 - 계정관리 - 게시판 페이징
 	@RequestMapping(value = "getList.do", method = RequestMethod.POST)
@@ -141,7 +139,7 @@ public class Hr_ManagementRestController {
 		boolean result = managementService.excelUpload(destFile);
 		destFile.delete();
 		return result;
-	}  
+	}
 
 	// 근태관리
 	@RequestMapping(value = "getAttList.do", method = RequestMethod.POST)
@@ -171,67 +169,80 @@ public class Hr_ManagementRestController {
 		jsonObject.put("criteria", cri);
 		return jsonObject;
 	}
-	
-	//급여관리 - 부서별 평균 급여 Chart
+
+	// 급여관리 - 부서별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForClass.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForClass() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForClass();
 		return result;
 	}
-	
-	//급여관리 - 직급별 평균 급여 Chart
+
+	// 급여관리 - 직급별 평균 급여 Chart
 	@RequestMapping(value = "getSalChartDataForDept.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> getSalChartDataForDept() {
 		List<Map<String, Object>> result = managementService.getSalChartDataForDept();
 		return result;
 	}
 
-	//휴가관리 연차이력 조회 >> 휴가관리 모달
-	@RequestMapping(value="getAnnualList.do", method = RequestMethod.POST)
-	public List<Map<String, Object>> getAnnualList(String empno){
+	// 휴가관리 연차이력 조회 >> 휴가관리 모달
+	@RequestMapping(value = "getAnnualList.do", method = RequestMethod.POST)
+	public List<Map<String, Object>> getAnnualList(String empno) {
 		List<Map<String, Object>> annualList = managementService.getAnnualList(empno);
 		return annualList;
 	}
-	
-	//휴가관리 수정하기
-	@RequestMapping(value="updateAnnual.do", method=RequestMethod.POST)
+
+	// 휴가관리 수정하기
+	@RequestMapping(value = "updateAnnual.do", method = RequestMethod.POST)
 	public String updateAnnual(String empno, String annual) {
-		Map<String, Object> map =  new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("empno", empno);
 		map.put("annual", annual);
 		managementService.updateAnnual(map);
 		return "/HR_management/EmployeeAttendance.do";
 	}
-	
-	//근태관리 수정하기 >> 퇴근처리
-	@RequestMapping(value="updateAttRecord.do", method=RequestMethod.POST)
+
+	// 근태관리 수정하기 >> 퇴근처리
+	@RequestMapping(value = "updateAttRecord.do", method = RequestMethod.POST)
 	public String updateAttRecord(String empno, String starttime) {
-		Map<String, Object> map =  new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("empno", empno);
 		map.put("starttime", starttime);
 		managementService.updateAttRecord(map);
 		return "/HR_management/EmployeeAttendance.do";
 	}
-	
+
 	// 인사관리 - 조직관리 - 근태현황 - 부서별 근태 현황
 	@RequestMapping(value = "getAttGroupByDept.do", method = RequestMethod.POST)
 	public JSONObject getAttGroupByDept(String deptName) {
-		JSONObject jsonObject = managementService.getAttGroupByDept(deptName);		
+		JSONObject jsonObject = managementService.getAttGroupByDept(deptName);
 		return jsonObject;
 	}
+
 	// 조직관리 > 연도별 총 사원 수 현황 선 그래프
-	@RequestMapping(value="getLineChartData.do", method=RequestMethod.POST)
+	@RequestMapping(value = "getLineChartData.do", method = RequestMethod.POST)
 	public JSONObject getLineChartData() {
 		JSONObject jsonObject = managementService.getLineChartData();
-		
+
 		return jsonObject;
 	}
-	
+
 	// 조직관리 > 부서별 근속사원 수 현황 파이 그래프
-	@RequestMapping(value="getPieChartData.do", method=RequestMethod.POST)
+	@RequestMapping(value = "getPieChartData.do", method = RequestMethod.POST)
 	public JSONObject getPieChartData() {
 		JSONObject jsonObject = managementService.getPieChartData();
-		
 		return jsonObject;
+	}
+
+	// 인사관리 > 계정관리 > 수정하기페이지 > 계정 초기화
+	@RequestMapping(value = "resetAccount.do", method = RequestMethod.POST)
+	public String resetAccount(String empno) {
+		managementService.resetAccount(empno);
+		return empno;
+	}
+	// 인사관리 > 계정관리 > 수정하기페이지 > 계정 초기화
+	@RequestMapping(value = "retireAccount.do", method = RequestMethod.POST)
+	public String retireAccount(String empno) {
+		managementService.retireAccount(empno);
+		return empno;
 	}
 }
