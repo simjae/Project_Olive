@@ -297,16 +297,18 @@ jQuery(document).ready(function($) {
 	})
 	// 비밀번호 재설정
 	$('#setpwdcheck').click(function() {
-		console.log($('#email').val());
+		console.log()
+		console.log($('#pwdemail').val());
 		console.log($('#setpwd').val());
 		$.ajax({
 			url: "updatePwd.do",
 			type: "POST",
 			data: {
-				email: $('#email').val(),
+				email: $('#pwdemail').val(),
 				pwd: $('#setpwd').val()
 			},
 			success: (data) => {
+				console.log(data);
 				swal({
 					title: "인증 완료",
 					text: "비밀번호 설정이 완료되었습니다!",

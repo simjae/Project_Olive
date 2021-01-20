@@ -31,6 +31,62 @@ h1{
 .paging-background {
   background-color: #eaecf4 !important;
 }
+
+.file {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file > input[type='file'] {
+  display: none
+}
+
+.file > label {
+  font-size: 1rem;
+  font-weight: 300;
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-style: solid;
+  border-radius: 4px;
+  border-width: 1px;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 29%);
+  padding : 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file > label:hover {
+  border-color: hsl(0, 0%, 21%);
+}
+
+.file > label:active {
+  background-color: hsl(0, 0%, 96%);
+}
+
+.file > label > i {
+  padding-right: 5px;
+}
+
+.file--success > label {
+  color: hsl(141, 71%, 48%);
+  border-color: hsl(141, 71%, 48%);
+}
+
+.file--success > label:hover {
+  border-color: hsl(141, 71%, 48%);
+  background-color: hsl(141, 71%, 96%);
+}
+
+.file--success > label:active {
+  background-color: hsl(141, 71%, 91%);
+}
+
 </style>
 </head>
 
@@ -101,14 +157,14 @@ h1{
 									<div class="input-group">
 										<form id="uploadForm" method="post"
 											enctype="multipart/form-data">
-											<!-- 								<div class='file file--upload'>
-								      <label for='input-file'>
-								        <i class="fas fa-cloud-upload-alt"></i>Upload
-								      </label>
-								      <input id='input-file' type='file' />
-								    </div> -->
-											<input type="file" class="" name="excelFile" id="excelFile">
-											<button type="button" onclick="uploadProcess()">submit</button>
+										<div class='file file--upload'>
+									      <label for='excelFile'>
+									        <i class="fas fa-cloud-upload-alt"></i>Upload
+									      </label>
+									      <input type='file' name="excelFile" id="excelFile"/>
+									      <button type="button" onclick="uploadProcess()">submit</button>
+									    </div> 
+											<!-- <input type="file" class="" name="excelFile" id="excelFile"> -->
 										</form>
 									</div>
 									<div class="">
@@ -152,7 +208,7 @@ h1{
 																value="${list.basic_pay+list.overtime_pay+list.position_pay+list.bonus+list.maintenance_of_vehicle+list.educational_supports+list.mess_allowance
 										- (list.income_tax + list.local_income_tax + list.health_insurance + list.care_insurance + list.employment_insurance + list.national_pension)}"
 																type="number" /></td>
-														<td><button class="table-button salaryDetail"
+														<td><button class="btn btn-primary salaryDetail"
 																value="${fn:substring(list.SAL_DATE,0,10)},${list.EMPNO}">보기
 
 															</button> <input type="text" class="date"
