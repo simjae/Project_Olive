@@ -156,7 +156,7 @@ h1{
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<div class="input-group">
+									<div class="input-group" align="right">
 										<!-- <form id="uploadForm" method="post"
 											enctype="multipart/form-data">
 									      <input type='file' name="excelFile" id="excelFile"/>
@@ -164,7 +164,7 @@ h1{
 										</form> -->
 										<form id="uploadForm" method="post"
 											enctype="multipart/form-data">
-										<div class='file file--uploading '>
+										<div class='file file--uploading ' >
 											<label for='excelFile'>
 										      <i class="far fa-folder"></i>File
 										    </label>
@@ -176,7 +176,7 @@ h1{
 										
 									</div>
 									<div class="d-flex justify-content-between">
-										<input type="button" class="btn btn-info" onclick="uploadProcess()" value="파일 업로드">
+										<input type="button" class="btn btn-info" onclick="uploadProcess()" value="제출">
 										<a href="/HR_management/SalaryExcelForm.do"> 
 											<input type="button" class="form-control btn btn-info" value="양식 다운">
 										</a>
