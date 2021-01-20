@@ -105,10 +105,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertNewEmp" parameterType="com.olive.dto.Emp">
 		INSERT INTO emp (empNo,
 		ename, pwd, hireDate, deptCode, positionCode, classCode, statusCode,
-		enabled, birth,annual)
+		enabled, birth,annual,logincount)
 		VALUES (#{empNo}, #{ename}, #{pwd}, #{hireDate},
 		#{deptCode}, #{positionCode}, #{classCode}, #{statusCode}, #{enabled},
-		#{birth},round(20*(1-(month(now())-1)/12)))
+		#{birth},round(20*(1-(month(now())-1)/12)),0)
 	</insert>
 
 	<select id="selectAllList" resultType="com.olive.dto.Emp">
@@ -266,14 +266,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		STATUSCODE = 10,
 		ENABLED = 1,
 		LOGINCOUNT = 0,
+		EMAil = null,
 		PWD = #{pwd}
 		WHERE EMPNO = #{empno}
 	</update>
-	
+
 	<update id="retireAccount" parameterType="HashMap">
 		UPDATE EMP SET
 		STATUSCODE = 30,
-		LEAVEDATE = now()
+		LEAVEDATE = now(),
+		ENABLED = 0
 		WHERE EMPNO = #{empno}
+	</update>
+
+	<update id="updateAccount" parameterType="com.olive.dto.Emp">
+		UPDATE EMP SET
+		ename = #{ename},
+		birth = #{birth},
+		hireDate = #{hireDate},
+		leaveDate = #{leaveDate},
+		deptCode = #{deptCode},
+		positioncode = #{positionCode},
+		classcode = #{classCode}
+		WHERE EMPNO = #{empNo}
 	</update>
 </mapper>

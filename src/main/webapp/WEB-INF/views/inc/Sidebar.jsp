@@ -50,7 +50,6 @@
 			<div id="collapseHRM" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/Organization.do">조직 관리</a>
-					<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/EmployeeAccount.do">계정 관리</a>
 					<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/Salary.do">급여 관리</a>
 					<a class="collapse-item" href="${pageContext.request.contextPath}/HR_management/EmployeeAttendance.do">근태/휴가 관리</a>
 				</div>

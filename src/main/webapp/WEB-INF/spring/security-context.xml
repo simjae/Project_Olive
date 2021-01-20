@@ -34,25 +34,23 @@
 		<!-- authentication-failure-url="/goToLogin.do?error" -->
 
 		<security:logout logout-success-url="/goToLogin.do" />
-		<!-- <security:intercept-url pattern="/EmpManagement.do" access="hasAnyRole('ROLE_USER, 
-			ROLE_ADMIN')" /> <security:intercept-url pattern="/EmpDelete.do" access="hasRole('ROLE_ADMIN')" 
-			/> <security:intercept-url pattern="/EmpEdit.do" access="hasRole('ROLE_ADMIN')" 
-			/> -->
-		<!-- <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" 
-			/> -->
-		<!-- <security:intercept-url pattern="/Chat.do" access="hasRole('ROLE_USER')"/> 
-			<security:access-denied-handler error-page="/forbidden.do"/> -->
+		<security:intercept-url
+			pattern="/HR_management/**"
+			access="hasRole('ROLE_HR')" />
+		
+		<security:intercept-url pattern="/approval/AddForm.do" access="hasRole('ROLE_HR')" 
+			/>
+		<security:access-denied-handler error-page="/error/403.do"/>
 		<!-- 중복 로그인 방지 -->
 		<security:session-management
+			invalid-session-url="/goToLogin.do"
 			session-fixation-protection="migrateSession">
-			<security:concurrency-control max-sessions="1"
-				expired-url="/duplicateLogin.do"/>
+			<security:concurrency-control
+				max-sessions="1" expired-url="/goToLogin" />
 		</security:session-management>
-		<!-- 
-			max-session : 최대 허용 가능 중복 세션 수 
-			expired-url : 중복 로그인 일어났을 때 이동 할 페이지
-			error-if-maximum-exceeded =true  첫번째 로그인한 세션을 유지하고 두번째 중복 로그인 한 세션을 막으려고 다음과 같이 설정
-		-->
+		<!-- invalid-session-url : 세션이 끊겼을때 이동 할 페이지 입니다. max-session : 최대 허용 가능 
+			중복 세션 수 expired-url : 중복 로그인 일어났을 때 이동 할 페이지 error-if-maximum-exceeded =true 
+			첫번째 로그인한 세션을 유지하고 두번째 중복 로그인 한 세션을 막으려고 다음과 같이 설정 -->
 	</security:http>
 
 	<security:authentication-manager>

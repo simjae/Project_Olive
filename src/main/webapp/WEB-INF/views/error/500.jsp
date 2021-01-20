@@ -40,10 +40,10 @@
 
                     <!-- 404 Error Text -->
                     <div class="text-center" style =margin-top:10%>
-                        <div class="error mx-auto" data-text="404" >500</div>
+                        <div class="error mx-auto" data-text="500" >500</div>
                         <p class="lead text-gray-800 mb-5">Page Not Found</p>
                         <h3 class="text-gray-500 mb-0">혼자있고 싶어요,,나가주세요</h3>
-                        <a href="index.jsp">&larr; Back to Login</a>
+                        <a href="/index.jsp">&larr; Back to Login</a>
                     </div>
 
                 </div>

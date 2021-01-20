@@ -302,7 +302,7 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div class="row no-gutters align-items-center my-2">
-												<img src="/resources/img/attendance.png">
+												<img src="/resources/img/total_calendar.png">
 												<div class="col-auto">
 													<div class="h5 mb-0 mx-3 text-gray-800">총 연차</div>
 												</div>
@@ -312,7 +312,7 @@
 												</div>
 											</div>
 											<div class="row no-gutters align-items-center my-2">
-												<img src="/resources/img/late.png">
+												<img src="/resources/img/checked_calendar.png">
 												<div class="col-auto">
 													<div class="h5 mb-0 mx-3 text-gray-800">사용연차</div>
 												</div>
@@ -322,7 +322,7 @@
 												</div>
 											</div>
 											<div class="row no-gutters align-items-center my-2">
-												<img src="/resources/img/leave-early.png">
+												<img src="/resources/img/left_calendar.png">
 												<div class="col-auto">
 													<div class="h5 mb-0 mx-3 text-gray-800">남은연차</div>
 												</div> 
@@ -338,16 +338,13 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div> 
-		</div>
 		<!-- /.container-fluid -->
-	</div>
+				</div>
 	<!-- End of Main Content -->
-	<!-- Footer 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+			</div> 
 	<!-- End of Footer 모듈화 -->
-	</div>
+	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
+		</div>
 	<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->

@@ -124,6 +124,7 @@ h6.text-primary>i.fas {
 		<div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
 			<div id="content">
+			<!-- Topbar -->
 				<jsp:include page="/WEB-INF/views/inc/Topbar.jsp"></jsp:include>
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
@@ -347,7 +348,6 @@ h6.text-primary>i.fas {
 			<!-- End of Main Content -->
 			<!-- Footer 모듈화 -->
 			<jsp:include page="../inc/Footer.jsp"></jsp:include>
-			<!-- End of Footer 모듈화 -->
 		</div>
 		<!-- End of Content Wrapper -->
 	</div>

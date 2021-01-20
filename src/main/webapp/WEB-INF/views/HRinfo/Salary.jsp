@@ -156,7 +156,8 @@ h1{
 
 			</div>
 			<!-- End of Main Content -->
-
+	<!-- Footer 모듈화 -->
+	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 
 		</div>
 		<!-- End of Content Wrapper -->
@@ -165,8 +166,6 @@ h1{
 	<!-- Logout Modal-->
 	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp" />
 	<!-- End of Page Wrapper -->
-	<!-- Footer 모듈화 -->
-	<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 	<!-- End of Footer 모듈화 -->
 	<!-- 모든 스크립트 모듈화 -->
 	<jsp:include page="/WEB-INF/views/inc/BottomLink.jsp"></jsp:include>

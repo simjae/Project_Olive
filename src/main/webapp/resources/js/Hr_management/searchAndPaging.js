@@ -104,7 +104,11 @@
 		})
 	});
 	
-	
+	$(document).on("click", ".empEditBtn", function() {
+			var empno = $(this).val();
+			console.log(empno);
+			window.location.href = "/HR_management/empEdit.do?empno=" + empno
+		});
 	
 	
 	function insertDatabyAjax(data){
@@ -124,8 +128,9 @@
 								+"<td>"+data.list[i].POSITIONNAME+"</td>"
 								+"<td>"+data.list[i].CLASSNAME+"</td>"
 								+"<td>"
-								+"<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-check fa-sm text-white'></i></a>"
-								+"<a href=# class='btn-sm btn-info shadow-sm'><i class='fas fa-edit fa-sm text-white'></i></a>"
+								+"<button class='btn-sm btn-info shadow-sm empEditBtn' value="
+								+data.list[i].EMPNO
+								+">	<i class='fas fa-check fa-sm text-white'></i></button>"
 								+"</td>"
 								+"</tr>"			
 			}

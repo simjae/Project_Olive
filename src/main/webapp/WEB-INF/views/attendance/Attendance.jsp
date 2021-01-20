@@ -13,6 +13,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+body {
+}
+</style>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link href='/resources/fullcalendar-5.5.0/lib/main.css' rel='stylesheet' />
@@ -29,6 +33,12 @@
 <!-- CodePen 차용 vertical progress bar -->
 <link href="/resources/css/customForAttendance.css" rel="stylesheet" />
 <style type="text/css">
+h1{
+	text-decoration: underline;
+	font-weight: bold;
+	text-decoration-color: #ffe561;
+	text-decoration-thickness: 5px;
+}
 #calendar {
 	max-width: 1300px;
 	margin: 0 auto;
@@ -50,7 +60,6 @@ h1 {
 	<div id="wrapper">
 		<!-- Sidebar 모듈화 -->
 		<jsp:include page="/WEB-INF/views/inc/Sidebar.jsp"></jsp:include>
-		<!-- End Of Sidebar 모듈화 -->
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
@@ -64,7 +73,9 @@ h1 {
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">근태관리</h1>
 					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4"></div>
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 text-gray-800">근태관리</h1>
+						</div>
 					<div class="row">
 						<div class="col-lg-12">
 							<!-- Dropdown Card Example -->
@@ -265,6 +276,7 @@ h1 {
 													</button>
 													<!-- 	<input type="button" class="btn btn-info" id="searchBtn" value="검색"> -->
 												</div>
+												</div>
 										</form>
 								</div>
 								</s:authorize>
@@ -375,12 +387,11 @@ h1 {
 						</div>
 					</div>
 					<!-- Footer 모듈화 -->
-					<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 					<!-- End of Footer 모듈화 -->
 				</div>
 			</div>
+					<jsp:include page="/WEB-INF/views/inc/Footer.jsp"></jsp:include>
 		</div>
-	</div>
 	</div>
 	<!-- End of Page Wrapper -->
 	<!-- Scroll to Top Button-->

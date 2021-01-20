@@ -121,8 +121,7 @@ bl-none {
 															<input type="text"
 																class="form-control datepicker bg-white"
 																placeholder="생년월일을 입력해주세요" name="birth" id="birth"
-																value="${empinfo.BIRTH}"> <input type="hidden"
-																name="pwd" id="pwd">
+																value="${empinfo.BIRTH}">
 														</div>
 													</div>
 													<div class="row p-3">
@@ -188,7 +187,7 @@ bl-none {
 															</div>
 															<input type="text"
 																class="form-control datepicker bg-white" id="hireDate"
-																name="hireDate" value="${empinfo.HIREDATE}">
+																name="hireDate" value="${empinfo.HIREDATE}" readonly>
 														</div>
 													</div>
 													<div class="row p-3">
@@ -199,7 +198,7 @@ bl-none {
 															</div>
 															<input type="text"
 																class="form-control datepicker bg-white" id="leaveDate"
-																name="leaveDate" value="${empinfo.LEAVEDATE}">
+																name="leaveDate" value="${empinfo.LEAVEDATE}" readonly>
 														</div>
 													</div>
 
@@ -213,7 +212,8 @@ bl-none {
 															<input type="text" class="form-control input-radius"
 																id="tempHead" name="headCode"
 																value="${empinfo.HEADNAME}" readonly>
-														</div>
+															<input type="text" id="headCode" value="${empinfo.HEADCODE}" hidden>
+ 														</div>
 														<div class="input-group col-md-6">
 															<div class="input-group-prepend">
 																<span class="input-group-text each-label input_change"
@@ -234,8 +234,9 @@ bl-none {
 																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 서</span>
 															</div>
 															<input type="text" class="form-control input-radius"
-																id="tempDept" name="deptCode"
+																id="tempDept" name="dept"
 																value="${empinfo.DEPTNAME}" readonly>
+																<input type="text" id="deptCode" value="${empinfo.DEPTCODE}" hidden>
 														</div>
 														<div class="input-group col-md-6">
 															<div class="input-group-prepend">
@@ -259,6 +260,7 @@ bl-none {
 															<input type="text" class="form-control input-radius"
 																id="classTemp" name="" value="${empinfo.CLASSNAME}"
 																readonly>
+																<input type="text" id="classCode" value="${empinfo.CLASSCODE}" hidden>
 														</div>
 														<div class="input-group col-md-6">
 															<div class="input-group-prepend">
@@ -280,6 +282,7 @@ bl-none {
 															<input type="text" class="form-control input-radius"
 																id="tempPosition" name=""
 																value="${empinfo.POSITIONNAME}" readonly>
+																<input type="text" id="positionCode" value="${empinfo.POSITIONCODE}" hidden>
 														</div>
 														<div class="input-group col-md-6">
 															<div class="input-group-prepend">
@@ -310,11 +313,13 @@ bl-none {
 																	class="btn btn-m btn-info">
 																	<span class="text-white-50"></span> <span class="text">초&nbsp;&nbsp;기&nbsp;&nbsp;화</span>
 																</button>
+																<c:if test="${empty empinfo.LEAVEDATE}">
 																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																<button type="button" id="retireBtn"
 																	class="btn btn-m btn-info">
 																	<span class="text-white-50"></span> <span class="text">퇴사처리</span>
 																</button>
+																</c:if>
 															</div>
 														</div>
 													</div>

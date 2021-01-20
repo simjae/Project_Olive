@@ -21,8 +21,8 @@ $(document).ready(function($) {
 			url: "/HR_managementRest/resetAccount.do",
 			type: "POST",
 			data: { empno: empno },
-			success: function(data){
-				location.href = "/HR_management/empEdit.do?empno="+data;
+			success: function(data) {
+				location.href = "/HR_management/empEdit.do?empno=" + data;
 			},
 			error: (xhr) => {
 				console.log(xhr.status + " : showHeadQuarters() ERROR");
@@ -37,7 +37,7 @@ $(document).ready(function($) {
 			type: "POST",
 			data: { empno: empno },
 			success: (data) => {
-				location.href = "/HR_management/empEdit.do?empno="+data;
+				location.href = "/HR_management/empEdit.do?empno=" + data;
 			},
 			error: (xhr) => {
 				console.log(xhr.status + " : showHeadQuarters() ERROR");
@@ -45,9 +45,80 @@ $(document).ready(function($) {
 		});
 	})
 
-
 })
 
+$("#head").change(function() {
+	$("#headCode").val($("#head").val());
+	$("#tempHead").val($('#head option:selected').text());
+	$("#deptCode").val($("#dept").val().empty);
+	$("#tempDept").val("");
+})
+
+$("#dept").change(function() {
+	$("#deptCode").val($("#dept").val());
+	$("#tempDept").val($('#dept option:selected').text());
+})
+
+$("#class").change(function() {
+	$("#classCode").val($("#class").val());
+	$("#tempClass").val($('#class option:selected').text());
+})
+$("#position").change(function() {
+	$("#positionCode").val($("#position").val());
+	$("#tempPosition").val($('#position option:selected').text());
+})
+
+
+
+
+function check() {
+	if ($('#empNo').val().trim() == "") {
+		swal("이름을 입력해주세요.", "warning");
+
+	} else if ($('#headCode').val() == "null") {
+		swal("본부를 선택하세요.", "", "warning");
+
+	} else if ($('#deptCode').val() == "null") {
+		swal("부서를 선택하세요.", "", "warning");
+
+	} else if ($('#positionCode').val() == "null") {
+		swal("직책을 선택하세요.", "", "warning");
+
+	} else if ($('#classCode').val() == "null") {
+		swal("직위를 선택하세요.", "", "warning");
+
+	} else {
+		editBtn()
+	}
+	
+} // Validation End
+
+
+
+function editBtn() {
+	$.ajax({
+		url: "/HR_managementRest/updateEmp.do",
+		type: "POST",
+		data: {
+			empNo: $("#empNo").val(),
+			ename: $("#ename").val(),
+			birth: $("#birth").val(),
+			hireDate: $("#hireDate").val(),
+			leaveDate: $("#leaveDate").val(),
+			headcode: $("#headCode").val(),
+			deptCode: $("#deptCode").val(),
+			positionCode: $("#positionCode").val(),
+			classCode: $("#classCode").val()
+		},
+		success: (data) => {
+			swal("수정 완료","","warning");
+			location.href = "/HR_management/EmployeeAccount.do";
+		},
+		error: (xhr) => {
+			console.log(xhr.status + " : editBtn() ERROR");
+		}
+	});
+}
 
 // 본부 select > option 뿌려주기
 function createHeadList() {
@@ -126,3 +197,4 @@ function getPositionList() {
 		}
 	});
 }
+$("#submitBtn").click(check)
