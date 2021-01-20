@@ -340,4 +340,9 @@ public class Hr_managementService {
 		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
 		dao.retireAccount(empno);
 	}
+
+	public void updateAccount(Emp emp) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.updateAccount(emp);
+	}
 }

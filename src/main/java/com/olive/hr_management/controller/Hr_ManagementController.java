@@ -84,9 +84,19 @@ public class Hr_ManagementController {
 
 	// 인사관리 > 조직관리 페이지
 	@RequestMapping("Organization.do")
-	public String organization(Model model) {
-		Map<String, String> result= managementService.getOrganizationInfo();
-		model.addAttribute("dashboard", result);
+	public String organization(Model model, Criteria cri) {
+		Map<String, String> result1= managementService.getOrganizationInfo();
+		cri.setCriteria("empinfo", "empno", "desc");
+
+		int totalCount = pagingService.getListCount(cri);
+		Pagination pagination = new Pagination(cri, totalCount);
+		cri.setPerPageNum(5);
+		List<Map<String, Object>> result2 = pagingService.getList(cri);
+		
+		model.addAttribute("dashboard", result1);
+		model.addAttribute("list", result2);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", cri);
 		return "HR_management/Organization";
 	}
 
