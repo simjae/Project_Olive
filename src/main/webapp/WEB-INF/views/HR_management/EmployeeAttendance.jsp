@@ -108,7 +108,7 @@ h1 {
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">부서별 근태 현황</h6>
+									<h6 class="m-0 font-weight-bold text-info">부서별 근태 현황</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -125,7 +125,7 @@ h1 {
 								<!-- Card Header -->
 								<div
 									class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">근태 현황</h6>
+									<h6 class="m-0 font-weight-bold text-info">근태 현황</h6>
 									<div class="dropdown no-arrow">
 										<form
 											class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-50 navbar-search">
@@ -170,7 +170,7 @@ h1 {
 								<!-- Card Header -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="ml-0 mr-0 font-weight-bold text-primary">근태 관리</h6>
+									<h6 class="ml-0 mr-0 font-weight-bold text-info">근태 관리</h6>
 									<form class="form-group mb-0">
 										<div class="input-group">
 											<select
@@ -286,7 +286,7 @@ h1 {
 							<!-- Card Header -->
 							<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="ml-0 mr-0 font-weight-bold text-primary">연차 관리</h6>
+									<h6 class="ml-0 mr-0 font-weight-bold text-info">연차 관리</h6>
 									<form class="form-group mb-0">
 										<div class="input-group">
 											<select
