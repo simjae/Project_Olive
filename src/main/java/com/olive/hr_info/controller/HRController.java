@@ -69,7 +69,7 @@ public class HRController {
 		int totalCount = pagingService.getListCount(cri); 
 	    Pagination pagination = new Pagination(cri, totalCount);
 	      
-	    cri.setPerPageNum(3);
+	    cri.setPerPageNum(5);
 	 
 	    List<Map<String, Object>> result = pagingService.getList(cri);
 
@@ -108,7 +108,4 @@ public class HRController {
 		return "redirect:/HRinfo/EditMyinfo.do";
 			
 	}
-	
-	
-	
 }

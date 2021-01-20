@@ -102,6 +102,11 @@ public class AttendanceController {
 		model.addAttribute("workHours", workHours);
 		model.addAttribute("hoursEachList", hoursEachList);
 
+		System.out.println("**********************");
+		System.out.println(hoursEachList);
+		System.out.println("**********************");
+		System.out.println(workHours);
+		System.out.println("**********************");
 		return "attendance/Attendance";
 	}
 

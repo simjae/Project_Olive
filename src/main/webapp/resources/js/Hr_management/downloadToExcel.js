@@ -9,12 +9,4 @@ $('#excelBtn').on('click', function() {
 	let searchType = $('#oldSearchType').val();
 	let keyword = $('#oldKeyword').val();
 	location.href="/HR_management/EmpTableToExcel.do?searchType="+searchType+"&"+"keyword="+keyword;
-/*	console.log(searchType);
-	console.log(keyword);
-	url: "/HR_management/EmpTableToExcel.do",
-		type: "post"
-	data: {
-		searchType: searchType,
-			keyword: keyword
-	}*/
 });

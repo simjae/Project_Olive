@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			count(*) 
 		FROM 
 			${table}
-		WHERE ${searchType} = #{keyword}
+		WHERE ${searchType} LIKE CONCAT(#{keyword},'%')
 		]]>
 	</select>
 
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             *
         FROM 
 			${table}
-		WHERE ${searchType} = #{keyword}
+		WHERE ${searchType} LIKE CONCAT(#{keyword},'%')
         ORDER BY ${column} ${sort}
 		LIMIT ${rowStart}, ${perPageNum}
    		 ]]>

@@ -16,6 +16,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.olive.dto.Class;
@@ -39,6 +40,9 @@ public class Hr_managementService {
 		this.sqlsession = sqlsession;
 		System.out.println(this.sqlsession);
 	}
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 인사관리 : 사원 신규 등록
 	public void insertNewEmp(Emp emp) {
@@ -320,5 +324,20 @@ public class Hr_managementService {
 		jsonObject.put("deptList", deptList);
 		jsonObject.put("countList", countList);
 		return jsonObject;
+	}
+
+	public void resetAccount(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		String pwd = this.bCryptPasswordEncoder.encode(empno);
+		Map<String, String> parameter = new HashMap<String, String>();
+		parameter.put("empno", empno);
+		parameter.put("pwd", pwd);
+		System.out.println(parameter);
+		dao.resetAccount(parameter);
+	}
+
+	public void retireAccount(String empno) {
+		Hr_managementDao dao = sqlsession.getMapper(Hr_managementDao.class);
+		dao.retireAccount(empno);
 	}
 }

@@ -65,7 +65,7 @@
 								<!-- 총 근무시간 헤더  -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">이번주 총 근무시간</h6>
+									<h6 class="m-0 font-weight-bold text-info">이번주 총 근무시간</h6>
 								</div>
 								<!-- 총 근무시간 카드 -->
 								<c:set var="total" value="${workHours}" />
@@ -75,30 +75,32 @@
 										<strong>${total.startOfWeek} ~ ${total.endOfWeek}</strong>
 									</h5>
 									<div class="d-flex justify-content-around">
-										<div
-											class="col-lg-12 d-flex justify-content-around align-items-center">
+
+										<div class="col-lg-8 d-flex justify-content-around align-items-center">
 											<!-- Vertical Progress Bar -->
-											<c:forEach var="e" items="${each}" begin="0" end="6" step="1"
-												varStatus="seq">
-												<c:if test="${e.start eq null || e.start ne null }">
-													<c:set var="superRate"
-														value="${ (e.dayTotalHours + ((e.dayTotalMinutes*5/3)*(1/100)))*(100/8) }" />
-													<div
-														class="progress-cus vertical progress-striped-cus active">
-														<c:if test="${e.attCode eq 20}">
+											<c:forEach var="i" begin="0" end="6" step="1" varStatus="seq">
+												
+												<c:if test="${ each[i].start eq null || each[i].start ne null }">
+												
+													<c:set var="superRate" value="${ (each[i].dayTotalHours + ((each[i].dayTotalMinutes*5/3)*(1/100)))*(100/8) }" />
+													
+													<div class="progress-cus vertical progress-striped-cus active">
+														<c:if test="${each[i].attCode eq 20}">
+
 															<!-- 지각 -->
 															<c:set var="barKind" value="progress-bar-warning-cus" />
 														</c:if>
-														<c:if test="${e.attCode eq 30 ||e.attCode eq 40 }">
+														<c:if test="${each[i].attCode eq 30 ||each[i].attCode eq 40 }">
 															<!-- 조퇴,결근 -->
 															<c:set var="barKind" value="progress-bar-danger-cus" />
 														</c:if>
-														<c:if test="${e.attCode eq 50}">
+														<c:if test="${each[i].attCode eq 50}">
 															<!-- 휴가 -->
 															<c:set var="barKind" value="progress-bar-secondary-cus" />
 														</c:if>
-														<c:if
-															test="${e.attCode eq 10 || e.attCode eq 60 || e.attCode eq 70 || e.attCode eq 80}">
+
+														<c:if test="${each[i].attCode eq 10 || each[i].attCode eq 60 || each[i].attCode eq 70 || each[i].attCode eq 80}">
+
 															<c:set var="barKind" value="progress-bar-success-cus" />
 														</c:if>
 														<div role="progressbar-cus" style="height: ${superRate}%;"
@@ -107,30 +109,42 @@
 															data-toggle="tooltip" data-placement="right"
 															data-original-title='
 															<div class="p-1"> 
-																<p class="inner-title mb-1"><fmt:formatDate value="${e.date}" pattern="MM.dd"/> ${e.weekDays}요일</p>
-																<p class="inner-title">출근시간 : <b><fmt:formatDate value="${e.start}" pattern="HH:mm"/></b></p>
-																<p class="inner-title">퇴근시간 : <b><fmt:formatDate value="${e.end}" pattern="HH:mm"/></b></p>
-																<p class="inner-title">처리상태 : ${e.attCode}</p>
+																<p class="inner-title mb-1"><fmt:formatDate value="${each[i].date}" pattern="MM.dd"/> ${each[i].weekDays}요일</p>
+																<p class="inner-title">출근시간 : <b><fmt:formatDate value="${each[i].start}" pattern="HH:mm"/></b></p>
+																<p class="inner-title">퇴근시간 : <b><fmt:formatDate value="${each[i].end}" pattern="HH:mm"/></b></p>
+																<p class="inner-title">처리상태 : ${each[i].attCode}</p>
 															</div> '>
 															<!-- Vertical Bar Hover : activate Tooltips -->
-															<c:if test="${e.overHours ne 0 || e.overMinutes ne 0}">
-																<div role="progressbar-cus"
-																	style="height:<c:out value="${superRate-100}"/>%;"
+
+															<c:if test="${each[i].overHours ne 0 || each[i].overMinutes ne 0}">
+																<div role="progressbar-cus" style="height:<c:out value="${superRate-100}"/>%;"
+
 																	class="progress-bar-cus progress-bar-striped-cus progress-bar-extention-cus progress-bar-cus-sub">
 																</div>
 															</c:if>
 														</div>
 														<div class="pro-p">
-															<p>
-																<fmt:formatDate value="${e.date}" pattern="MM.dd" />
-																(${e.weekDays})
-															</p>
-															<span>${e.dayTotalHours}시간 ${e.dayTotalMinutes}분</span>
+															
+															<c:if test="${each[i].date eq null }">
+																<p>--.--(-)</p>
+																<span>(출근 시 처리)</span>
+															</c:if>
+															<c:if test="${each[i].date ne null }">
+																<p>
+																	<fmt:formatDate value="${each[i].date}" pattern="MM.dd" />
+																	(${each[i].weekDays})
+																</p>
+																<span>${each[i].dayTotalHours}시간 ${each[i].dayTotalMinutes}분</span>
+															</c:if>
 														</div>
 													</div>
 												</c:if>
 											</c:forEach>
 										</div>
+										<div class="col-lg-4 d-flex justify-content-around align-items-center">
+											<div id="pie" style="width:600px; height:250px; margin: 0 auto; position:relative;"></div>
+										</div>
+										
 									</div>
 									<div class="mt-1 pt-1 text-center">
 										<hr>
@@ -170,16 +184,36 @@
 												value="${totalH + (totalM/60)}" integerOnly="true" />
 											<c:set var="totalMinute" value="${totalM%60}" />
 											<div class="d1">
-												<span class="title1">근무시간</span> <span class="st1">${totalHour-overHour}</span>
-												시간 <span class="st1">${totalMinute-overMinute}</span> 분
+
+												<span class="title1">근무시간</span>
+												
+												<c:if test="${totalMinute - overMinute >= 0}">
+													<span class="st1 regularHour">${totalHour-overHour}</span>시간
+												</c:if>
+												<c:if test="${totalMinute - overMinute < 0}">
+													<span class="st1 regularHour">${(totalHour - 1) - overHour}</span>시간
+												</c:if>
+												<c:if test="${totalMinute - overMinute >= 0}">
+													<span class="st1 regularMinute">${totalMinute-overMinute}</span>분
+												</c:if>
+												<c:if test="${totalMinute - overMinute < 0}">
+													<span class="st1 regularMinute">${(totalMinute+60)-overMinute}</span>분
+												</c:if>
 											</div>
 											<div class="d2">
-												<span class="title2">연장근무</span> <span class="st2">${overHour}</span>
-												시간 <span class="st2">${overMinute}</span> 분
+												<span class="title2">연장근무</span>
+												<span class="st2 overHour">${overHour}</span>
+												시간
+												<span class="st2 overMinute">${overMinute}</span>
+												분
 											</div>
 											<div class="d3">
-												<span class="title3">총 근무시간</span> <span class="st3">${totalHour}</span>
-												시간 <span class="st3">${totalMinute}</span> 분
+												<span class="title3">총 근무시간</span>
+												<span class="st3 totalHour">${totalHour}</span>
+												시간
+												<span class="st3 totalMinute">${totalMinute}</span>
+												분
+
 											</div>
 										</div>
 									</div>
@@ -196,7 +230,7 @@
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<s:authorize access="!hasRole('ROLE_MANAGER')">
-										<h6 class="m-0 font-weight-bold text-primary">근태 테이블</h6>
+										<h6 class="m-0 font-weight-bold text-info">근태 테이블</h6>
 									</s:authorize>
 									<s:authorize access="hasRole('ROLE_MANAGER')">
 										<h6 class="ml-0 mr-0 font-weight-bold text-info">
@@ -348,6 +382,11 @@
 	</a>
 	<!-- Logout Modal-->
 	<jsp:include page="/WEB-INF/views/inc/LogOutModal.jsp"></jsp:include>
+	<!-- 그래프용 하이차트 -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<!-- SearchAndPaging -->
 	<script src="/resources/js/Attendance/attendance.js"></script>
 	<!-- 캘린더 모듈화  -->

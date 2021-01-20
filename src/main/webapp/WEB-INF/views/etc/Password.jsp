@@ -125,7 +125,7 @@ h1{
 									<form method="POST" class="user" id="PwdForm">
 										<div class="form-group">
 											<input type="email" class="form-control form-control-user"
-												id="pwdemail" name="email" aria-describedby="emailHelp"
+												id="pwdemail" name="pwdemail" aria-describedby="emailHelp"
 												placeholder="Enter 이메일 주소..." required> 
 												<span id="checkEmail"></span>
 										</div>
