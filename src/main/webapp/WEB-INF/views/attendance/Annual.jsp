@@ -36,6 +36,12 @@
 .item {
 	flex: 1 1 auto;
 }
+h1 {
+	text-decoration: underline;
+    font-weight: bold;
+    text-decoration-color: #ffe561;
+    text-decoration-thickness: 5px;
+}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->
