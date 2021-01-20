@@ -256,11 +256,6 @@ jQuery(document).ready(function($) {
 							icon: "success",
 						});
 
-						// 시각적으로 완료되었음을 표시
-						//$('#pwdfinalCheck').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', true);
-						//$('#submitBtnPwd').removeClass('btn-primary').addClass('btn-secondary').attr('disabled', false);
-						//$('#email').attr('readonly', true);
-						//$('#code').attr('readonly', true);
 
 						// 비밀번호 재설정 페이지
 						$('#emailCheckPage').hide();
@@ -300,7 +295,13 @@ jQuery(document).ready(function($) {
 		console.log()
 		console.log($('#pwdemail').val());
 		console.log($('#setpwd').val());
-		$.ajax({
+		pwd1 = $('#setpwd').val();
+		pwd2 = $('#setpwdcon').val();
+		//null 값 막기	
+		if(pwd1.trim() === '' || pwd2.trim() === ''){
+			swal("", "비밀번호를 입력해주세요", "warning");
+		}else{
+			$.ajax({
 			url: "updatePwd.do",
 			type: "POST",
 			data: {
@@ -324,6 +325,8 @@ jQuery(document).ready(function($) {
 			}
 		});
 
+		}
+		
 	});
 
 

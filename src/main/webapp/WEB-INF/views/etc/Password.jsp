@@ -149,7 +149,7 @@ h1{
 									<div class="text-center">
 										<h1 class="h4 mb-5">비밀번호 변경하기</h1>
 										<p class="mb-4" style="color:white;">
-											비밀번호를 잊으셨나요? <br> 새로운 비밀번호를 입력해주세요 <br>
+											" 비밀번호를 잊으셨나요? <br> 새로운 비밀번호를 입력해주세요 "<br>
 										</p>
 									</div>
 									<form class="user">
