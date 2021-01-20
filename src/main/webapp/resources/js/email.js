@@ -123,7 +123,7 @@ jQuery(document).ready(function($) {
 
 						swal({
 							title: "인증 완료",
-							text: $('#email').val() + " 이메일로 인증이 완료되었습니다!",
+							text: $('#email').val() + " 이메일로 인증이 완료되었습니다! 다시 로그인해주세요!",
 							icon: "success",
 						});
 
@@ -134,7 +134,7 @@ jQuery(document).ready(function($) {
 						$('#code').attr('readonly', true);
 
 						// 완료되어 페이지 이동 버튼 생성
-						let homeBtn = "<button type='button' id='goToWork' class='btn btn-success btn-user btn-block'>Let's go to Work!</button>";
+						let homeBtn = "<button type='button' id='goToWork' class='btn btn-success btn-user btn-block'>다시 로그인하기</button>";
 						$('#goToMain').append(homeBtn);
 
 					} else {
