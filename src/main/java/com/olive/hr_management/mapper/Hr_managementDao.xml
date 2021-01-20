@@ -202,7 +202,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<select id="getAttGroupByDept" resultType="HashMap">
-		SELECT * FROM attRecordbyDept
+		SELECT * FROM
+		attRecordbyDept
 	</select>
 
 	<!-- 희승 : 연도별(최근 5년) 입사인원 select -->
@@ -255,8 +256,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getAttList" resultType="String">
 		SELECT attname
-			FROM attendance
-			WHERE attcode in (20,30,40,50,60)
-			ORDER BY attcode
+		FROM attendance
+		WHERE attcode in (20,30,40,50,60)
+		ORDER BY attcode
 	</select>
+
+	<update id="resetAccount" parameterType="HashMap">
+		UPDATE EMP SET
+		STATUSCODE = 10,
+		ENABLED = 1,
+		LOGINCOUNT = 0,
+		PWD = #{pwd}
+		WHERE EMPNO = #{empno}
+	</update>
+	
+	<update id="retireAccount" parameterType="HashMap">
+		UPDATE EMP SET
+		STATUSCODE = 30,
+		LEAVEDATE = now()
+		WHERE EMPNO = #{empno}
+	</update>
 </mapper>

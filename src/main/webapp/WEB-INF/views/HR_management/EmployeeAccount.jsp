@@ -144,8 +144,7 @@ h1 {
 														<td><c:out value="${emp.DEPTNAME}" /></td>
 														<td><c:out value="${emp.POSITIONNAME}" /></td>
 														<td><c:out value="${emp.CLASSNAME}" /></td>
-														<td><button
-																class="btn-sm btn-info shadow-sm empEditBtn"
+														<td><button	class="btn-sm btn-info shadow-sm empEditBtn"
 																value="${emp.EMPNO}">
 																<i class="fas fa-check fa-sm text-white"></i>
 															</button></td>
@@ -238,7 +237,7 @@ h1 {
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$(document).on("click", ".empEditBtn", function() {
-			var empno = $(".empEditBtn").val();
+			var empno = $(this).val();
 			console.log(empno);
 			window.location.href = "/HR_management/empEdit.do?empno=" + empno
 		});

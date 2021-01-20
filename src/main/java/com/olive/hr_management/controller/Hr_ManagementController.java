@@ -7,15 +7,8 @@
 */
 package com.olive.hr_management.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -73,7 +66,7 @@ public class Hr_ManagementController {
 		return "HRinfo/salaryDetail";
 	}
 
-	// 인사관리 > 계정 관리 > 엑셀 다운로드
+	// 인사관리 > 급여 관리 > 엑셀 양식 다운로드
 	@RequestMapping(value = "SalaryExcelForm.do")
 	public String salaryExcelForm(Model model, Criteria cri) {
 		return "salaryExcelFormat";
@@ -165,4 +158,5 @@ public class Hr_ManagementController {
 		model.addAttribute("empinfo", result);
 		return "HR_management/empEdit";
 	}
+	
 }
