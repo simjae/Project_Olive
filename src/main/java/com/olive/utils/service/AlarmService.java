@@ -16,7 +16,10 @@ public class AlarmService {
 	
 	public void insertAlarm(Alarm al) {
 		AlarmDao alarmDao = sqlsession.getMapper(AlarmDao.class);
-		alarmDao.insertAlarm(al);
+		if(al.getEmpno()!=0) {
+			alarmDao.insertAlarm(al);
+			
+		}
 	}
 	
 	public List<Alarm> getAlarmList(String empno,int index){

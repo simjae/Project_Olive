@@ -58,6 +58,7 @@ public class AlarmHandler extends TextWebSocketHandler {
 		alarm.setColor(color);
 		docno = (docno==null) ? "" : "("+docno+")";
 
+		String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
 		
 		try {
 	//승인 또는 반려 됐다고 기안자에게 보내는 거	
@@ -66,9 +67,9 @@ public class AlarmHandler extends TextWebSocketHandler {
 				String approver = (String)json.get("approver");
 				String docWriter = (String)json.get("docWriter");
 				String approveOrNot = (color.equals("danger")) ? "반려하셨습니다.": "승인하셨습니다.";
-				String done = ((String)json.get("nextApprover")==null) ? "최종 "  : "";
 				String content = approver+"님 께서 '"+title+"'"+docno+" 문서를 "+done+approveOrNot;
 				
+				System.out.println("작성자는 :::::"+ docWriter);
 				
 				alarm.setEmpno(Integer.parseInt(docWriter));
 				alarm.setContent(content);
@@ -80,7 +81,10 @@ public class AlarmHandler extends TextWebSocketHandler {
 						System.out.println("보내는 사람은 ???? (기안자_) "+docWriter);
 						sess.sendMessage(new TextMessage(sendjson));
 					}
-				
+				if(done.equals("최종")) {
+					break;
+				}
+			
 			}
 	//기안 했으니 승인 해달라 , 승인하면 다음 결재자에게 보내는거
 			}else if (cmd.equals("next")) {
@@ -91,7 +95,12 @@ public class AlarmHandler extends TextWebSocketHandler {
 				String docWriter = (String)json.get("docWriter");
 				String content = docWriter+"님의 '"+title+"'"+docno+" 문서 결재를 부탁 드립니다.";	
 				
+				
 				alarm.setEmpno(Integer.parseInt(nextApprover));
+				if(alarm.getEmpno() ==0) {
+					return;
+				}
+				
 				alarm.setContent (content);
 				String sendjson =objMapper.writeValueAsString(alarm);
 				
@@ -106,12 +115,12 @@ public class AlarmHandler extends TextWebSocketHandler {
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-		}finally {
-			System.out.println("------------------------------------------------------넣는다----------------");
-			alarmService.insertAlarm(alarm);
-			System.out.println("알람 디비 저장해야해!!!"+alarm);
-			System.out.println("------------------------------------------------------넣었다----------------");
 		}
+		System.out.println("------------------------------------------------------넣는다----------------");
+		alarmService.insertAlarm(alarm);
+		System.out.println("알람 디비 저장해야해!!!"+alarm);
+		System.out.println("------------------------------------------------------넣었다----------------");
+		
 	}
 
 	@Override
