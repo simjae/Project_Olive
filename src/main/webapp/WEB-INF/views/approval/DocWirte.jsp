@@ -1000,7 +1000,10 @@ getMaxDocno(10);
 			
 		}));
 
-
+	    $('#cancle').on("click",function(){
+	    	location.href='/approval/ApprovalHome.do';
+	    })
+	    	
 
 
 
@@ -1008,7 +1011,6 @@ getMaxDocno(10);
 
 
 
-	
 	
 	
 	 

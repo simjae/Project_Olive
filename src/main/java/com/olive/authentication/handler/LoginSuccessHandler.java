@@ -7,7 +7,6 @@
 package com.olive.authentication.handler;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,11 +23,12 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.olive.authentication.service.AuthenticationService;
 
@@ -43,6 +45,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private AuthenticationService service;
+	
+	final static Log log = LogFactory.getLog(LoginSuccessHandler.class);
 
 	// 로그인 성공 시 실행되는 onAuthenticationSuccess() 함수
 	@Override
